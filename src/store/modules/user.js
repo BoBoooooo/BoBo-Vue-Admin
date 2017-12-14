@@ -1,6 +1,18 @@
-import { loginByUsername, logout, getUserInfo } from '@/api/login'
-import { getToken, setToken, removeToken } from '@/utils/auth'
-
+import {
+  loginByUsername,
+  logout,
+  getUserInfo
+} from '@/api/login'
+import {
+  getToken,
+  setToken,
+  removeToken
+} from '@/utils/auth'
+import {
+  Message
+} from 'element-ui'
+import Vue from 'Vue'
+Vue.use(Message);
 const user = {
   state: {
     user: '',
@@ -45,14 +57,24 @@ const user = {
 
   actions: {
     // 用户名登录
-    LoginByUsername({ commit }, userInfo) {
-      const username = userInfo.username.trim()
+    LoginByUsername({commit}, userInfo) {
+      const username = userInfo.UserName.trim()
       return new Promise((resolve, reject) => {
-        loginByUsername(username, userInfo.password).then(response => {
-          const data = response.data
-          setToken(response.data.token)
-          commit('SET_TOKEN', data.token)
-          resolve()
+        loginByUsername(username, userInfo.Password).then(response => {
+
+          const data = response.data;
+          if (data.Success == true) {
+
+            console.log(response.data.Token);
+            // setToken(response.data.Token)
+            commit('SET_TOKEN', data.Token)
+
+            resolve()
+          } 
+          else {
+            reject(error);
+            
+          }
         }).catch(error => {
           reject(error)
         })
@@ -60,7 +82,10 @@ const user = {
     },
 
     // 获取用户信息
-    GetUserInfo({ commit, state }) {
+    GetUserInfo({
+      commit,
+      state
+    }) {
       return new Promise((resolve, reject) => {
         getUserInfo(state.token).then(response => {
           const data = response.data
@@ -90,7 +115,10 @@ const user = {
     // },
 
     // 登出
-    LogOut({ commit, state }) {
+    LogOut({
+      commit,
+      state
+    }) {
       return new Promise((resolve, reject) => {
         logout(state.token).then(() => {
           commit('SET_TOKEN', '')
@@ -104,7 +132,9 @@ const user = {
     },
 
     // 前端 登出
-    FedLogOut({ commit }) {
+    FedLogOut({
+      commit
+    }) {
       return new Promise(resolve => {
         commit('SET_TOKEN', '')
         removeToken()
@@ -113,7 +143,9 @@ const user = {
     },
 
     // 动态修改权限
-    ChangeRole({ commit }, role) {
+    ChangeRole({
+      commit
+    }, role) {
       return new Promise(resolve => {
         commit('SET_TOKEN', role)
         setToken(role)

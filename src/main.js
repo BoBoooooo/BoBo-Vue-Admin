@@ -10,10 +10,8 @@ import './errorLog'// error log
 import './permission' // 权限
 import './mock'  // 该项目所有请求使用mockjs模拟
 import axios from "axios"
-import './mock_table'
 
 Vue.use(ElementUI)
-Vue.prototype.$ajax = axios;
 // register global utility filters.
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
