@@ -1,6 +1,5 @@
 <template>
 <div class="container">
-  <el-button @click="test" style="margin-bottom:10px">测试</el-button>
   <el-table
     :data="tableData"
     stripe
@@ -160,7 +159,7 @@ export default {
     }
   },
   mounted() {
-    this.getList();
+    this.test();
   },
   created() {
     this.dialogFormVisible = false;
