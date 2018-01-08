@@ -1,80 +1,41 @@
-import {
-  loginByUsername,
-  logout,
-  getUserInfo
-} from '@/api/login'
-import {
-  getToken,
-  setToken,
-  removeToken
-} from '@/utils/auth'
-import {
-  Message
-} from 'element-ui'
-import Vue from 'Vue'
-Vue.use(Message);
+import { login, logout, getInfo } from '@/api/login'
+import { getToken, setToken, removeToken } from '@/utils/auth'
+
 const user = {
   state: {
-    user: '',
-    status: '',
-    code: '',
     token: getToken(),
     name: '',
-    avatar: '',
-    introduction: '',
-    roles: [],
-    setting: {
-      articlePlatform: []
-    }
+    // avatar: '',
+    roles: []
   },
 
   mutations: {
-    SET_CODE: (state, code) => {
-      state.code = code
-    },
     SET_TOKEN: (state, token) => {
       state.token = token
-    },
-    SET_INTRODUCTION: (state, introduction) => {
-      state.introduction = introduction
-    },
-    SET_SETTING: (state, setting) => {
-      state.setting = setting
-    },
-    SET_STATUS: (state, status) => {
-      state.status = status
     },
     SET_NAME: (state, name) => {
       state.name = name
     },
-    SET_AVATAR: (state, avatar) => {
-      state.avatar = avatar
-    },
+    // SET_AVATAR: (state, avatar) => {
+    //   state.avatar = avatar
+    // },
     SET_ROLES: (state, roles) => {
       state.roles = roles
     }
   },
 
   actions: {
-    // 用户名登录
-    LoginByUsername({commit}, userInfo) {
-      const username = userInfo.UserName.trim()
+    // 登录
+    Login({ commit }, userInfo) {
+      const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
-        loginByUsername(username, userInfo.Password).then(response => {
-
-          const data = response.data;
-          if (data.Success == true) {
-
-            console.log(response.data.Token);
-            setToken(response.data.Token)
-            commit('SET_TOKEN', data.Token)
-
-            resolve()
-          } 
-          else {
-            reject(error);
-            
-          }
+        login(username, userInfo.password).then(response => {
+          const data = response.data
+          setToken(data.Token)
+          console.log(data.Token);
+          
+          commit('SET_TOKEN', data.Token)
+          resolve()
         }).catch(error => {
           reject(error)
         })
@@ -82,17 +43,15 @@ const user = {
     },
 
     // 获取用户信息
-    GetUserInfo({
-      commit,
-      state
-    }) {
+    GetInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
-        getUserInfo(state.token).then(response => {
+        getInfo(state.token).then(response => {
+        
           const data = response.data
-          commit('SET_ROLES', data.role)
-          commit('SET_NAME', data.name)
-          commit('SET_AVATAR', data.avatar)
-          commit('SET_INTRODUCTION', data.introduction)
+          console.log(data);
+          commit('SET_ROLES', data.Roles)
+          commit('SET_NAME', data.RealName)
+          // commit('SET_AVATAR', data.avatar)
           resolve(response)
         }).catch(error => {
           reject(error)
@@ -100,12 +59,8 @@ const user = {
       })
     },
 
-
     // 登出
-    LogOut({
-      commit,
-      state
-    }) {
+    LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
         logout(state.token).then(() => {
           commit('SET_TOKEN', '')
@@ -119,31 +74,11 @@ const user = {
     },
 
     // 前端 登出
-    FedLogOut({
-      commit
-    }) {
+    FedLogOut({ commit }) {
       return new Promise(resolve => {
         commit('SET_TOKEN', '')
         removeToken()
         resolve()
-      })
-    },
-
-    // 动态修改权限
-    ChangeRole({
-      commit
-    }, role) {
-      return new Promise(resolve => {
-        commit('SET_TOKEN', role)
-        setToken(role)
-        getUserInfo(role).then(response => {
-          const data = response.data
-          commit('SET_ROLES', data.role)
-          commit('SET_NAME', data.name)
-          commit('SET_AVATAR', data.avatar)
-          commit('SET_INTRODUCTION', data.introduction)
-          resolve()
-        })
       })
     }
   }

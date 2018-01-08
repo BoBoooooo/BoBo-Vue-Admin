@@ -1,30 +1,29 @@
 import fetch from '@/utils/fetch'
 
-export function loginByUsername(username, password) {
-  const data = {
-    UserName:username,
-    Password:password
-  }
-  console.log(data);
+export function login(username, password) {
   return fetch({
     url: '/login/post',
     method: 'post',
-    data
+    data: {
+      Username:username,
+      Password:password
+    }
+  })
+}
+
+export function getInfo(token) {
+  return fetch({
+    url: '/user/userinfo',
+    method: 'post',
+    data: {
+      auth:token
+    }
   })
 }
 
 export function logout() {
   return fetch({
-    url: '/login/logout',
+    url: '/user/logout',
     method: 'post'
   })
 }
-
-export function getUserInfo(token) {
-  return fetch({
-    url: '/user/info',
-    method: 'get',
-    params: { token }
-  })
-}
-
