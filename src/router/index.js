@@ -27,8 +27,8 @@ export const constantRouterMap = [
     children: [{ path: 'dashboard', component: _import('dashboard/index') }]
   },
   
-
   { path: '*', redirect: '/404', hidden: true }
+  
 ]
 
 export default new Router({

@@ -3,10 +3,10 @@
     <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
     <levelbar></levelbar>
     <el-dropdown class="avatar-container" trigger="click">
-      <!-- <div class="avatar-wrapper">
-        <img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'">
+      <div class="avatar-wrapper">
+        {{name}}
         <i class="el-icon-caret-bottom"></i>
-      </div> -->
+      </div>
       <el-dropdown-menu class="user-dropdown" slot="dropdown">
         <router-link class='inlineBlock' to="/">
           <el-dropdown-item>
@@ -32,7 +32,7 @@ export default {
   computed: {
     ...mapGetters([
       'sidebar',
-      'avatar'
+      'name'
     ])
   },
   methods: {
@@ -77,7 +77,6 @@ export default {
             right: 35px;
             .avatar-wrapper {
                 cursor: pointer;
-                margin-top: 5px;
                 position: relative;
                 .user-avatar {
                     width: 40px;
@@ -87,7 +86,7 @@ export default {
                 .el-icon-caret-bottom {
                     position: absolute;
                     right: -20px;
-                    top: 25px;
+                    top: 20px;
                     font-size: 12px;
                 }
             }
