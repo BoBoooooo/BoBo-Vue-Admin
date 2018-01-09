@@ -1,6 +1,6 @@
 
 <template>
-  <div class="app-container" id="users">
+  <div class="app-container" id="role">
 
     <el-button @click="New()" type="primary" size="small">新增</el-button>
     <br><br>
@@ -11,29 +11,14 @@
           {{scope.$index+1}}
         </template>
       </el-table-column>
-      <el-table-column label="昵称">
-        <template scope="scope">
-          {{scope.row.RealName}}
-        </template>
-      </el-table-column>
-      <el-table-column label="用户名"  align="center">
-        <template scope="scope">
-          <span>{{scope.row.UserName}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="密码" align="center">
-        <template scope="scope">
-          {{scope.row.Password}}
-        </template>
-      </el-table-column>
-           <el-table-column label="角色"  align="center">
+      <el-table-column label="角色名">
         <template scope="scope">
           {{scope.row.RoleName}}
         </template>
       </el-table-column>
-            <el-table-column label="部门"  align="center">
+            <el-table-column label="排序码">
         <template scope="scope">
-          {{scope.row.DeptName}}
+          {{scope.row.Rank}}
         </template>
       </el-table-column>
    
@@ -50,19 +35,13 @@
 <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="50%">
       <el-form class="small-space" :model="temp" label-position="left" label-width="70px">
       
-
-        <el-form-item label="昵称">
-          <el-input class="filter-item" v-model="temp.RealName" placeholder="请输入昵称">
+        <el-form-item label="角色名">
+          <el-input class="filter-item" v-model="temp.RoleName" placeholder="请输入角色名">
            
           </el-input>
         </el-form-item>
-        <el-form-item label="用户名">
-          <el-input class="filter-item" v-model="temp.UserName" placeholder="请输入用户名">
-           
-          </el-input>
-        </el-form-item>
-         <el-form-item label="密码">
-          <el-input class="filter-item" type="password" v-model="temp.Password" placeholder="请输入密码">
+        <el-form-item label="排序码">
+          <el-input class="filter-item" v-model="temp.Rank" placeholder="请输入排序码">
            
           </el-input>
         </el-form-item>
@@ -79,13 +58,7 @@
 </template>
 
 <script>
-import {
-  GetUsers,
-  DeleteUser,
-  GetUsersDetail,
-  SaveNewUsers,
-  UpdateUsers
-} from "@/api/system/users";
+import { GetRoles, DeleteRole,GetRoleDetail,SaveNewRole,UpdateRole } from "@/api/system/role";
 
 export default {
   data() {
@@ -99,11 +72,10 @@ export default {
       list: null,
       listLoading: true,
       temp: {
-        ID: "",
-        UserName: "",
-        Password: "",
-        RealName: "",
-        IsDeleted: false
+        ID:"",
+        RoleName: "",
+        Rank: "",
+        IsDeleted:false,
       }
     };
   },
@@ -114,61 +86,71 @@ export default {
   methods: {
     fetchData() {
       this.listLoading = true;
-      GetUsers().then(response => {
+      GetRoles().then(response => {
         this.list = response.data;
         this.listLoading = false;
       });
     },
     New() {
       this.dialogFormVisible = true;
-      this.temp == null;
-      this.dialogStatus = "create";
+      this.temp==null;
+      this.dialogStatus="create";
+
     },
     Delete(ID) {
       this.$confirm("确认删除?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
-      }).then(() => {
-        DeleteUser(ID).then(response => {
-          this.$message({
-            type: "success",
-            message: "删除成功!"
+      })
+        .then(() => {
+          DeleteRole(ID).then(response => {
+            this.$message({
+              type: "success",
+              message: "删除成功!"
+            });
           });
-        });
-      });
+        })
+       
     },
     Edit(ID) {
-      this.dialogStatus = "update";
+            this.dialogStatus="update";
 
-      GetUsersDetail(ID).then(response => {
-        this.dialogStatus = "update";
-        this.temp = response.data;
-        this.dialogFormVisible = true;
-      });
+   GetRoleDetail(ID).then(response => {
+            this.dialogStatus = "update";
+            this.temp=response.data;
+            this.dialogFormVisible =true;
+          
+          });
+
     },
 
+    
     create() {
-      SaveNewUsers(this.temp).then(response => {
-        this.$message({
-          message: "保存成功",
-          type: "success"
+   SaveNewRole(this.temp).then(response => {
+         this.$message({
+          message: '保存成功',
+          type: 'success'
         });
-        this.dialogFormVisible = false;
-        this.fetchData();
-      });
-    },
-    update(ID) {
-      this.temp.ID = ID;
-      UpdateUsers(this.temp).then(response => {
-        this.$message({
-          message: "保存成功",
-          type: "success"
-        });
-        this.dialogFormVisible = false;
+            this.dialogFormVisible =false;
+            this.fetchData();
+          
+          });
 
-        this.fetchData();
-      });
+    },
+     update(ID) {
+       this.temp.ID = ID;
+   UpdateRole(this.temp).then(response => {
+       this.$message({
+          message: '保存成功',
+          type: 'success'
+        });
+            this.dialogFormVisible =false;
+
+                      this.fetchData();
+
+          });
+
     }
   }
 };

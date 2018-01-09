@@ -25,6 +25,15 @@ export default {
     sidebar() {
       return this.$store.state.app.sidebar
     }
+  },
+  created(){
+   this.$notify({
+          title: '欢迎回来',
+          type:'success',
+          duration:2000,
+          customClass:'.notify',
+          message: this.$store.getters.name
+        });
   }
 }
 </script>
@@ -77,5 +86,7 @@ export default {
             transition: all .28s ease-out;
             margin-left: 200px;
         }
+      
     }
+
 </style>

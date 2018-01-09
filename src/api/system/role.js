@@ -1,38 +1,38 @@
 import fetch from '@/utils/fetch'
-export function GetUsers(){
+export function GetRoles(){
     return fetch({
-        url: '/admin/pulluserlist',
+        url: '/admin/pullrolelist',
         method: 'post'
       })
 }
 
-export function DeleteUser(ID){
+export function DeleteRole(ID){
     return fetch({
-        url: '/admin/DelUser',
+        url: '/admin/Delrole',
         method: 'post',
         params:{ID}
       })
 }
 
-export function GetUsersDetail(ID){
+export function GetRoleDetail(ID){
     return fetch({
-        url: '/admin/PullUsersDetail',
+        url: '/admin/PullroleDetail',
         method: 'post',
         params:{ID}
       })
 }
 
-export function SaveNewUsers(data){
+export function SaveNewRole(data){
     return fetch({
-        url: '/admin/SaveNewUsers',
+        url: '/admin/SaveNewrole',
         method: 'post',
         data
       })
 }
 
-export function UpdateUsers(data){
+export function UpdateRole(data){
     return fetch({
-        url: '/admin/UpdateUsers',
+        url: '/admin/Updaterole',
         method: 'post',
         data
       })

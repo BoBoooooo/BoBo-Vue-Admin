@@ -1,38 +1,38 @@
 import fetch from '@/utils/fetch'
-export function GetUsers(){
+export function GetDepts(){
     return fetch({
-        url: '/admin/pulluserlist',
+        url: '/admin/pulldeptlist',
         method: 'post'
       })
 }
 
-export function DeleteUser(ID){
+export function DeleteDept(ID){
     return fetch({
-        url: '/admin/DelUser',
+        url: '/admin/Deldept',
         method: 'post',
         params:{ID}
       })
 }
 
-export function GetUsersDetail(ID){
+export function GetDeptDetail(ID){
     return fetch({
-        url: '/admin/PullUsersDetail',
+        url: '/admin/PulldeptDetail',
         method: 'post',
         params:{ID}
       })
 }
 
-export function SaveNewUsers(data){
+export function SaveNewDept(data){
     return fetch({
-        url: '/admin/SaveNewUsers',
+        url: '/admin/SaveNewdept',
         method: 'post',
         data
       })
 }
 
-export function UpdateUsers(data){
+export function UpdateDept(data){
     return fetch({
-        url: '/admin/UpdateUsers',
+        url: '/admin/Updatedept',
         method: 'post',
         data
       })

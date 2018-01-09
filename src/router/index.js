@@ -25,10 +25,7 @@ export const constantRouterMap = [
     name: 'Dashboard',
     hidden: true,
     children: [{ path: 'dashboard', component: _import('dashboard/index') }]
-  },
-  
-  { path: '*', redirect: '/404', hidden: true }
-  
+  }  
 ]
 
 export default new Router({
@@ -38,14 +35,21 @@ export default new Router({
 })
 
 export const asyncRouterMap = [
+ 
   {
     path: '/system',
     component: Layout,
     redirect: 'noredirect',
     name: '系统设置',
     icon: 'zujian',
+    meta: { role: ['system']},
     children: [
-      { path: 'index', name: '用户设置', icon: 'zonghe', component: _import('system/users') }
+      { path: 'users', name: '用户设置', icon: 'icons', component: _import('system/users'),meta: { role: ['system'] }},
+      
+      { path: 'role', name: '角色设置', icon: 'icons', component: _import('system/role'),meta: { role: ['system'] }},
+      { path: 'dept', name: '部门设置', icon: 'icons', component: _import('system/dept'),meta: { role: ['system'] }},
+
+      
     ]
   },
 
@@ -55,7 +59,7 @@ export const asyncRouterMap = [
     redirect: '/table/index',
     icon: 'tubiao',
     noDropdown: true,
-    children: [{ path: 'index', name: 'Table', component: _import('table/index'), meta: { role: ['admin'] }}]
+    children: [{ path: 'index', name: 'Table', component: _import('table/index'), meta: { role: ['user'] }}]
   },
 
   { path: '*', redirect: '/404', hidden: true }

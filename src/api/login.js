@@ -13,7 +13,7 @@ export function login(username, password) {
 
 export function getInfo(token) {
   return fetch({
-    url: '/user/userinfo',
+    url: '/admin/userinfo',
     method: 'post',
     data: {
       auth:token
@@ -23,7 +23,7 @@ export function getInfo(token) {
 
 export function logout() {
   return fetch({
-    url: '/user/logout',
+    url: '/admin/logout',
     method: 'post'
   })
 }
