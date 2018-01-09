@@ -63,7 +63,7 @@ export default {
             }
         }
         .sidebar-wrapper {
-            width: 200px;
+            width: 180px;
             position: fixed;
             top: 0;
             bottom: 0;
@@ -80,11 +80,12 @@ export default {
             left: 0;
             right: -17px;
             overflow-y: scroll;
+            overflow-x: hidden;
         }
         .main-container {
             min-height: 100%;
             transition: all .28s ease-out;
-            margin-left: 200px;
+            margin-left: 180px;
         }
       
     }

@@ -37,3 +37,10 @@ export function UpdateDept(data){
         data
       })
 }
+
+export function GetDeptTree(){
+    return fetch({
+        url: '/admin/PullDeptTree',
+        method: 'post',
+      })
+}

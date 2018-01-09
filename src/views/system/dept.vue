@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { GetDepts, DeleteDept,GetDeptDetail,SaveNewDept,UpdateDept } from "@/api/system/dept";
+import { GetDepts, DeleteDept,GetDeptDetail,SaveNewDept,UpdateDept,GetDeptTree } from "@/api/system/dept";
 
 export default {
   data() {
@@ -76,12 +76,15 @@ export default {
         DeptName: "",
         Rank: "",
         IsDeleted:false,
-      }
+      },
+      tree:null
     };
   },
 
   created() {
     this.fetchData();
+
+  
   },
   methods: {
     fetchData() {
