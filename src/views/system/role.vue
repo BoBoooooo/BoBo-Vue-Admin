@@ -93,7 +93,8 @@ export default {
     },
     New() {
       this.dialogFormVisible = true;
-      this.temp==null;
+      this.temp.RoleName="";
+      this.temp.Rank="";
       this.dialogStatus="create";
 
     },
@@ -109,7 +110,9 @@ export default {
               type: "success",
               message: "删除成功!"
             });
-          });
+                      this.fetchData();
+
+          })
         })
        
     },
@@ -129,7 +132,7 @@ export default {
     create() {
    SaveNewRole(this.temp).then(response => {
          this.$message({
-          message: '保存成功',
+          message: response.data.Message,
           type: 'success'
         });
             this.dialogFormVisible =false;
@@ -138,11 +141,10 @@ export default {
           });
 
     },
-     update(ID) {
-       this.temp.ID = ID;
+     update() {
    UpdateRole(this.temp).then(response => {
        this.$message({
-          message: '保存成功',
+          message: response.data.Message,
           type: 'success'
         });
             this.dialogFormVisible =false;

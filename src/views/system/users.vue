@@ -73,15 +73,8 @@
         </el-form-item>
 
         <el-form-item label="部门">
-         <el-tree
-  :data="depttree"
-  show-checkbox
-  default-expand-all
-  node-key="id"
-  ref="tree"
-  highlight-current
-  :props="defaultProps">
-</el-tree>
+          <el-tree :data="depttree" show-checkbox default-expand-all node-key="id" ref="tree" highlight-current :props="defaultProps">
+          </el-tree>
 
 
         </el-form-item>
@@ -130,18 +123,18 @@
         dialogStatus: "",
         list: null,
         listLoading: true,
-                  RoleID:"",
+        RoleID: "",
 
         temp: {
           ID: "",
           UserName: "",
           Password: "",
           RealName: "",
-          DeptID:"",
-          RoleID:"",
+          DeptID: "",
+          RoleID: "",
           IsDeleted: false
         },
-        options:[],
+        options: [],
         defaultProps: {
           children: "children",
           label: "text"
@@ -162,7 +155,7 @@
 
     },
     methods: {
-      
+
       fetchData() {
         this.listLoading = true;
         GetUsers().then(response => {
@@ -171,7 +164,7 @@
         });
       },
       New() {
-        this.RoleID="";
+        this.RoleID = "";
         this.temp = {
           ID: "",
           UserName: "",
@@ -179,7 +172,7 @@
           RealName: "",
           IsDeleted: false
         };
-// console.log(this.$refs.tree)//  this.$refs.tree[0].setCheckedKeys([])
+        // console.log(this.$refs.tree)//  this.$refs.tree[0].setCheckedKeys([])
         this.dialogFormVisible = true;
 
         this.dialogStatus = "create";
@@ -194,7 +187,9 @@
             this.$message({
               type: "success",
               message: "删除成功!"
-            });
+            })
+
+             this.fetchData();
           });
         });
       },
@@ -207,26 +202,27 @@
           this.$refs.tree.setCheckedKeys([this.temp.DeptID]);
           this.RoleID = this.temp.RoleID;
           this.dialogFormVisible = true;
+           this.fetchData();
         });
       },
 
       create() {
-         this.temp.DeptID  =  this.$refs.tree.getCheckedKeys().join(',');
+        this.temp.DeptID = this.$refs.tree.getCheckedKeys().join(',');
         this.temp.RoleID = this.RoleID;
         SaveNewUsers(this.temp).then(response => {
-          this.$message({
-            message: "保存成功",
+        
+          this.dialogFormVisible = false;
+            this.$message({
+          message: response.data.Message,
             type: "success"
           });
-          this.dialogFormVisible = false;
           this.fetchData();
         });
       },
-      update(ID) {
-        this.temp.ID = ID;
+      update() {
         UpdateUsers(this.temp).then(response => {
           this.$message({
-            message: "保存成功",
+          message: response.data.Message,
             type: "success"
           });
           this.dialogFormVisible = false;

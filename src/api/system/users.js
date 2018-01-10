@@ -38,3 +38,11 @@ export function UpdateUsers(data){
       })
 }
 
+
+export function ChangePassword(data){
+    return fetch({
+        url: '/admin/ChangePassword',
+        method: 'post',
+        data
+      })
+}
