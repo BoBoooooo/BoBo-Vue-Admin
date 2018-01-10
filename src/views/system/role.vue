@@ -7,23 +7,23 @@
 
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
       <el-table-column align="center" label='ID' width="95">
-        <template scope="scope">
+        <template slot-scope="scope">
           {{scope.$index+1}}
         </template>
       </el-table-column>
       <el-table-column label="角色名">
-        <template scope="scope">
+        <template slot-scope="scope">
           {{scope.row.RoleName}}
         </template>
       </el-table-column>
             <el-table-column label="排序码">
-        <template scope="scope">
+        <template slot-scope="scope">
           {{scope.row.Rank}}
         </template>
       </el-table-column>
    
       <el-table-column label="操作"  align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
                   <el-button @click="Edit(scope.row.ID)" type="success" size="small">编辑</el-button>
 
            <el-button @click="Delete(scope.row.ID)" type="danger" size="small">删除</el-button>

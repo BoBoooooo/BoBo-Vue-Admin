@@ -1,9 +1,9 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-title">Anshare Vue Admin</div>
+    <img style="width:15%" src='../../assets/anshare.png'>
+    <div class="dashboard-title">    Anshare Vue Admin</div>
     <div class='dashboard-text'>用户:{{name}}</div>
     <div class='dashboard-text'>角色:<span v-for='role in roles' :key='role'>{{role}}</span></div>
-
   </div>
 </template>
 

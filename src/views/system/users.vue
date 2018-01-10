@@ -7,45 +7,45 @@
 
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
       <el-table-column align="center" label='ID' width="95">
-        <template scope="scope">
+        <template slot-scope="scope">
           {{scope.$index+1}}
         </template>
       </el-table-column>
       <el-table-column label="昵称">
-        <template scope="scope">
+        <template slot-scope="scope">
           {{scope.row.RealName}}
         </template>
       </el-table-column>
       <el-table-column label="用户名" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <span>{{scope.row.UserName}}</span>
         </template>
       </el-table-column>
       <el-table-column label="密码" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           {{scope.row.Password}}
         </template>
       </el-table-column>
       <el-table-column label="角色" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           {{scope.row.RoleName}}
         </template>
       </el-table-column>
       <el-table-column label="部门" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           {{scope.row.DeptName}}
         </template>
       </el-table-column>
 
       <el-table-column label="操作" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <el-button @click="Edit(scope.row.ID)" type="success" size="small">编辑</el-button>
 
           <el-button @click="Delete(scope.row.ID)" type="danger" size="small">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-
+ 
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="50%">
       <el-form class="small-space" :model="temp" label-position="left" label-width="70px">
@@ -73,7 +73,7 @@
         </el-form-item>
 
         <el-form-item label="部门">
-          <el-tree :data="depttree" show-checkbox default-expand-all node-key="id" ref="tree" highlight-current :props="defaultProps">
+          <el-tree :data="depttree" auto-expand-parent show-checkbox default-expand-all node-key="id" ref="tree" highlight-current :props="defaultProps">
           </el-tree>
 
 
@@ -146,6 +146,7 @@
       this.fetchData();
       GetDeptTree().then(response => {
         this.depttree = JSON.parse(response.data);
+
       });
       GetRoles().then(response => {
         this.options = response.data;
@@ -172,7 +173,7 @@
           RealName: "",
           IsDeleted: false
         };
-        // console.log(this.$refs.tree)//  this.$refs.tree[0].setCheckedKeys([])
+        this.$refs.tree.setCheckedKeys([])
         this.dialogFormVisible = true;
 
         this.dialogStatus = "create";
@@ -184,10 +185,7 @@
           type: "warning"
         }).then(() => {
           DeleteUser(ID).then(response => {
-            this.$message({
-              type: "success",
-              message: "删除成功!"
-            })
+           
 
              this.fetchData();
           });
@@ -212,19 +210,15 @@
         SaveNewUsers(this.temp).then(response => {
         
           this.dialogFormVisible = false;
-            this.$message({
-          message: response.data.Message,
-            type: "success"
-          });
+         
           this.fetchData();
         });
       },
       update() {
+                this.temp.RoleID = this.RoleID;
+
         UpdateUsers(this.temp).then(response => {
-          this.$message({
-          message: response.data.Message,
-            type: "success"
-          });
+        
           this.dialogFormVisible = false;
 
           this.fetchData();

@@ -97,6 +97,7 @@
       line-height: 58px;
       height: 50px;
       float: left;
+      outline:none;
       padding: 0 10px;
     }
     .errLog-container {

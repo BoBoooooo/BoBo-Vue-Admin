@@ -33,12 +33,15 @@ export default {
     display: inline-block;
     cursor: pointer;
     width: 20px;
+    outline: none;
     height: 20px;
     transform: rotate(0deg);
     transition: .38s;
     transform-origin: 50% 50%;
 }
-
+.hamburger :focus{
+  outline: none;
+}
 .hamburger.is-active {
     transform: rotate(90deg);
 }

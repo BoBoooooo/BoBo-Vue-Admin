@@ -9,22 +9,22 @@
           </el-input>       
     <el-table :data="tableData" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
       <el-table-column align="center" label='ID' width="95">
-        <template scope="scope">
+        <template slot-scope="scope">
           {{scope.$index}}
         </template>
       </el-table-column>
       <el-table-column label="Title" align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           {{scope.row.Title}}
         </template>
       </el-table-column>
       <el-table-column label="Author"  align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <span>{{scope.row.Author}}</span>
         </template>
       </el-table-column>
        <el-table-column label="email"  align="center">
-        <template scope="scope">
+        <template slot-scope="scope">
           <span>{{scope.row.email}}</span>
         </template>
       </el-table-column>

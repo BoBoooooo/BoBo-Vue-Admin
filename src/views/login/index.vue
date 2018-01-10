@@ -1,8 +1,10 @@
 <template>
   <div class="login-container">
-    <el-form autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left" label-width="0px"
+    <el-form autoComplete="on" :model="loginForm"  ref="loginForm" label-position="left" label-width="0px"
       class="card-box login-form">
-      <h3 class="title">Anshare</h3>
+      <h3 class="title"> <img style="width:7%" src='/favicon.ico'> Anshare</h3>
+         
+
       <el-form-item prop="username">
         <span class="svg-container svg-container_login">
           <icon-svg icon-class="yonghuming" />
