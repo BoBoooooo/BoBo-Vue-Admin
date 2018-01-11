@@ -8,7 +8,7 @@ import store from './store'
 import '@/icons' // icon
 import '@/permission' // 权限import axios from 'axios';
 import axios from 'axios'
-
+import $ from 'jquery'
 Vue.use(ElementUI, { locale })
 
 Vue.config.productionTip = false
