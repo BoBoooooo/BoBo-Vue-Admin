@@ -45,7 +45,7 @@
         </template>
       </el-table-column>
     </el-table>
- 
+
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="50%">
       <el-form class="small-space" :model="temp" label-position="left" label-width="70px">
@@ -73,7 +73,8 @@
         </el-form-item>
 
         <el-form-item label="部门">
-          <el-tree :data="depttree" auto-expand-parent show-checkbox default-expand-all node-key="id" ref="tree" highlight-current :props="defaultProps">
+          <el-tree :data="depttree" auto-expand-parent show-checkbox default-expand-all node-key="id" ref="tree" highlight-current
+            :props="defaultProps">
           </el-tree>
 
 
@@ -173,8 +174,9 @@
           RealName: "",
           IsDeleted: false
         };
-        this.$refs.tree.setCheckedKeys([])
         this.dialogFormVisible = true;
+
+        this.$refs.tree.setCheckedKeys([])
 
         this.dialogStatus = "create";
       },
@@ -185,22 +187,23 @@
           type: "warning"
         }).then(() => {
           DeleteUser(ID).then(response => {
-           
 
-             this.fetchData();
+
+            this.fetchData();
           });
         });
       },
       Edit(ID) {
         this.dialogStatus = "update";
+        this.dialogFormVisible = true;
 
         GetUsersDetail(ID).then(response => {
+
           this.dialogStatus = "update";
           this.temp = response.data;
           this.$refs.tree.setCheckedKeys([this.temp.DeptID]);
           this.RoleID = this.temp.RoleID;
-          this.dialogFormVisible = true;
-           this.fetchData();
+          this.fetchData();
         });
       },
 
@@ -208,17 +211,17 @@
         this.temp.DeptID = this.$refs.tree.getCheckedKeys().join(',');
         this.temp.RoleID = this.RoleID;
         SaveNewUsers(this.temp).then(response => {
-        
+
           this.dialogFormVisible = false;
-         
+
           this.fetchData();
         });
       },
       update() {
-                this.temp.RoleID = this.RoleID;
+        this.temp.RoleID = this.RoleID;
 
         UpdateUsers(this.temp).then(response => {
-        
+
           this.dialogFormVisible = false;
 
           this.fetchData();
