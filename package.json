@@ -11,9 +11,10 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
-    "jquery" : "^3.2.1",
     "axios": "0.16.2",
     "element-ui": "^2.0.11",
+    "http-proxy-middleware": "^0.17.3",
+    "jquery": "^3.2.1",
     "js-cookie": "2.1.4",
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",

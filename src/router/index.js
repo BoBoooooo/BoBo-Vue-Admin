@@ -62,5 +62,15 @@ export const asyncRouterMap = [
     children: [{ path: 'index', name: 'Table', component: _import('table/index'), meta: { role: ['user'] }}]
   },
 
+  {
+    path: '/DouBan',
+    component: Layout,
+    redirect: 'noredirect',
+    name:"豆瓣查询",
+    icon: 'tubiao',
+    children: [{ path: 'movie', name: '热门电影', component: _import('DouBan/movie'), meta: { role: ['system'] }},
+    { path: 'music', name: '音乐排行', component: _import('DouBan/music'), meta: { role: ['system'] }},
+    { path: 'book', name: '热门图书', component: _import('DouBan/book'), meta: { role: ['system'] }}]
+  },
   { path: '*', redirect: '/404', hidden: true }
 ]

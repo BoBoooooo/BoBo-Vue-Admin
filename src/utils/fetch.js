@@ -18,6 +18,7 @@ service.interceptors.request.use(config => {
   if (store.getters.token) {
     config.headers['auth'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
   }
+  console.log("拦截req")
   return config
 }, error => {
   // Do something with request error

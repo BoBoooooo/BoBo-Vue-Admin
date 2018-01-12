@@ -72,7 +72,9 @@ module.exports = {
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       }
-    ],
+    ]
+  
+  },
     plugins: [
       new webpack.optimize.CommonsChunkPlugin('common.js'),
       new webpack.ProvidePlugin({
@@ -80,5 +82,4 @@ module.exports = {
       $: "jquery"
       })  
     ]
-  }
 }
