@@ -81,10 +81,13 @@
         </el-form-item>
 
         <el-form-item label="角色">
-          <el-select v-model="RoleID" placeholder="请选择">
+          <!-- <el-select v-model="RoleID" placeholder="请选择">
             <el-option v-for="item in options" :key="item.ID" :label="item.RoleName" :value="item.ID">
             </el-option>
-          </el-select>
+          </el-select> -->
+          <multiselect :value="RoleID" :options="options" :searchable="false" :close-on-select="true" :allow-empty="false" label="RoleName"
+            placeholder="请选择角色" track-by="RoleName">
+          </multiselect>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -111,10 +114,12 @@
   import {
     GetRoles
   } from "@/api/system/role";
+  import Multiselect from 'vue-multiselect'
 
   export default {
     data() {
       return {
+        RoleID:"",
         depttree: [],
         textMap: {
           update: "编辑",
@@ -139,8 +144,13 @@
         defaultProps: {
           children: "children",
           label: "text"
-        }
+        },
+        selected: null
+
       };
+    },
+    components: {
+      Multiselect
     },
 
     created() {
@@ -199,11 +209,9 @@
 
         GetUsersDetail(ID).then(response => {
 
-          this.dialogStatus = "update";
           this.temp = response.data;
           this.$refs.tree.setCheckedKeys([this.temp.DeptID]);
           this.RoleID = this.temp.RoleID;
-          this.fetchData();
         });
       },
 

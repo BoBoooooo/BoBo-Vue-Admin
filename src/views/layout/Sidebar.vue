@@ -11,8 +11,13 @@ export default {
   components: { SidebarItem },
   computed: {
     ...mapGetters([
-      'permission_routers'
+      'permission_routers',
+      'AllRouters'
     ])
+  },
+  created(){
+   console.log(this.AllRouters) 
+
   }
 }
 </script>

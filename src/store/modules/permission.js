@@ -34,12 +34,17 @@ function filterAsyncRouter(asyncRouterMap, roles) {
 const permission = {
   state: {
     routers: constantRouterMap,
-    addRouters: []
+    addRouters: [],
+    AllRouters:[]
   },
   mutations: {
     SET_ROUTERS: (state, routers) => {
       state.addRouters = routers
       state.routers = constantRouterMap.concat(routers)
+    },
+
+    SET_ALLROUTERS: (state) => {
+      state.AllRouters = constantRouterMap.concat(asyncRouterMap)
     }
   },
   actions: {
@@ -53,6 +58,9 @@ const permission = {
           accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
         }
         commit('SET_ROUTERS', accessedRouters)
+
+        commit('SET_ALLROUTERS')
+
         resolve()
       })
     }

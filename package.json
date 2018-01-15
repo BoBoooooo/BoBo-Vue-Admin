@@ -19,6 +19,7 @@
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",
     "vue": "2.5.2",
+    "vue-multiselect": "^2.0.8",
     "vue-router": "2.7.0",
     "vuex": "2.3.1"
   },

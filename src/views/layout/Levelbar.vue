@@ -46,4 +46,11 @@ export default {
     cursor: text;
   }
 }
+.app-levelbar.el-breadcrumb :focus{
+  outline:none;
+}
+
+
+
+
 </style>

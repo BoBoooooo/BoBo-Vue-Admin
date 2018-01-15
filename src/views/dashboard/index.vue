@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
     <el-row>
-      <el-col :span="8">
+      <el-col :span="6">
         <el-card :body-style="{ padding: '15px 0px',height:'250px'}">
             <i class="el-icon-edit" style="font-size:30px"></i>
 
@@ -16,12 +16,13 @@
 
         </el-card>
       </el-col>
-      <el-col :span="8" :offset="2">
+      <el-col :span="6" :offset="2">
         <el-card :body-style="{ padding: '15px 0px',height:'250px'}">
                       <i class="el-icon-location" style="font-size:30px"></i>
 
           <div class="dashboard-text" style="padding-top:0px">{{weather.city}}天气</div>
-          <div class="dashboard-text">空气质量:{{weather.data.quality}},气温:{{weather.data.wendu}}℃,湿度:{{weather.data.shidu}}</div>
+          <div class="dashboard-text">空气质量:{{weather.data.quality}}。</div>
+          <div class="dashboard-text">气温:{{weather.data.wendu}}℃，湿度:{{weather.data.shidu}}。</div>
 
         </el-card>
       </el-col>
