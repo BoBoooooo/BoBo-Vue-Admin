@@ -3,22 +3,22 @@
     <el-row>
       <el-col :span="6">
         <el-card :body-style="{ padding: '15px 0px',height:'250px'}">
-            <i class="el-icon-edit" style="font-size:30px"></i>
+          <i class="el-icon-edit" style="font-size:30px"></i>
 
-            <div class="dashboard-text"> Anshare Vue Admin</div>
-            <div class="bottom clearfix">
-              <div class='dashboard-text'>{{name}},
-                <span v-for='role in roles' :key='role'>{{role}}</span>
-              </div>
+          <div class="dashboard-text">人事考勤管理系统 v1.0</div>
+          <div class="bottom clearfix">
+            <!-- <div class='dashboard-text'>{{name}} -->
+              <!-- <span v-for='role in roles' :key='role'>{{role}}</span> -->
+            <!-- </div> -->
 
-              <time class="time dashboard-text">{{ currentDate }}</time>
-            </div>
+            <time class="time dashboard-text">{{ currentDate }}</time>
+          </div>
 
         </el-card>
       </el-col>
       <el-col :span="6" :offset="2">
         <el-card :body-style="{ padding: '15px 0px',height:'250px'}">
-                      <i class="el-icon-location" style="font-size:30px"></i>
+          <i class="el-icon-location" style="font-size:30px"></i>
 
           <div class="dashboard-text" style="padding-top:0px">{{weather.city}}天气</div>
           <div class="dashboard-text">空气质量:{{weather.data.quality}}。</div>
@@ -27,7 +27,7 @@
         </el-card>
       </el-col>
     </el-row>
-            <img src="../../assets/401.gif" style="position:fixed;bottom:10px;right:10px">
+    <img src="../../assets/401.gif" style="position:fixed;bottom:10px;right:10px">
 
   </div>
 </template>
@@ -44,7 +44,7 @@
     data() {
       return {
         currentDate: parseTime(new Date()),
-        weather:null
+        weather: null
       }
     },
     name: 'dashboard',
@@ -61,9 +61,9 @@
         }, 1000)
 
       },
-      GetWeather(){
-        axios.get('/weather?city=南京').then(response=>{
-            this.weather = response.data
+      GetWeather() {
+        axios.get('/weather?city=南京').then(response => {
+          this.weather = response.data
         })
       }
     },

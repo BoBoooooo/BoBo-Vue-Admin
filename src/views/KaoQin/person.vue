@@ -6,34 +6,34 @@
     <br>
 
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
-      <el-table-column align="center" label='ID' width="95">
+      <el-table-column align="center" label='工号' width="95">
         <template slot-scope="scope">
-          {{scope.$index+1}}
+          {{scope.row.No}}
         </template>
       </el-table-column>
-      <el-table-column label="昵称">
+      <el-table-column label="姓名" align="center">
         <template slot-scope="scope">
-          {{scope.row.RealName}}
+          {{scope.row.Name}}
         </template>
       </el-table-column>
-      <el-table-column label="用户名" align="center">
+      <el-table-column label="性别" align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.UserName}}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="密码" align="center">
-        <template slot-scope="scope">
-          {{scope.row.Password}}
-        </template>
-      </el-table-column>
-      <el-table-column label="角色" align="center">
-        <template slot-scope="scope">
-          {{scope.row.RoleName}}
+          <span>{{scope.row.Gender}}</span>
         </template>
       </el-table-column>
       <el-table-column label="部门" align="center">
         <template slot-scope="scope">
           {{scope.row.DeptName}}
+        </template>
+      </el-table-column>
+      <el-table-column label="职位" align="center">
+        <template slot-scope="scope">
+          {{scope.row.Workduty}}
+        </template>
+      </el-table-column>
+      <el-table-column label="联系电话" align="center">
+        <template slot-scope="scope">
+          {{scope.row.Phone}}
         </template>
       </el-table-column>
 
@@ -50,27 +50,23 @@
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="50%">
       <el-form class="small-space" :model="temp" label-position="left" label-width="70px">
 
-
-        <el-form-item label="昵称">
-          <el-input class="filter-item" v-model="temp.RealName" placeholder="请输入昵称">
-
-          </el-input>
-        </el-form-item>
-        <el-form-item label="用户名">
-          <el-input class="filter-item" v-model="temp.UserName" placeholder="请输入用户名">
+  <el-form-item label="工号">
+          <el-input class="filter-item" v-model="temp.No" placeholder="请输入工号">
 
           </el-input>
         </el-form-item>
-        <el-form-item label="密码">
-          <el-input class="filter-item" type="password" v-model="temp.Password" placeholder="请输入密码">
+        <el-form-item label="姓名">
+          <el-input class="filter-item" v-model="temp.Name" placeholder="请输入姓名">
 
           </el-input>
         </el-form-item>
-        <el-form-item label="排序码">
-          <el-input class="filter-item" v-model="temp.Rank" placeholder="请输入排序码">
-
-          </el-input>
+        <el-form-item label="性别">
+             <multiselect   v-model="selected" :value="temp.Gender" :options="options" :searchable="false" :close-on-select="true" :allow-empty="false" 
+            placeholder="请选择性别"  :showLabels="false" style="z-index:3;height:30px">
+          </multiselect>
         </el-form-item>
+  
+      
 
         <el-form-item label="部门">
           <el-tree :data="depttree" auto-expand-parent show-checkbox default-expand-all node-key="id" ref="tree" highlight-current
@@ -80,14 +76,11 @@
 
         </el-form-item>
 
-        <el-form-item label="角色">
-          <!-- <el-select v-model="RoleID" placeholder="请选择">
-            <el-option v-for="item in options" :key="item.ID" :label="item.RoleName" :value="item.ID">
-            </el-option>
-          </el-select> -->
-          <multiselect   v-model="selected" :value="temp.RoleID" :options="options" :searchable="false" :close-on-select="true" :allow-empty="false" label="RoleName"
-            placeholder="请选择角色" track-by="RoleName" :showLabels="false" >
-          </multiselect>
+        <el-form-item label="职位">
+        
+             <el-input class="filter-item" v-model="temp.Workduty" placeholder="请输入职位">
+
+          </el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -107,18 +100,18 @@
     GetUsersDetail,
     SaveNewUsers,
     UpdateUsers
-  } from "@/api/system/users";
+  } from "@/api/KaoQin/person";
   import {
     GetDeptTree
   } from "@/api/system/dept";
-  import {
-    GetRoles
-  } from "@/api/system/role";
+
   import Multiselect from 'vue-multiselect'
 
   export default {
     data() {
       return {
+           selected: null,
+        options: ['男', '女'],
         depttree: [],
         textMap: {
           update: "编辑",
@@ -131,20 +124,20 @@
         RoleID: "",
 
         temp: {
-          ID: "",
-          UserName: "",
-          Password: "",
-          RealName: "",
+            ID:"",
+          No: "",
+          Name: "",
+          Gender: "",
+          Workduty: "",
+          DeptName: "",
           DeptID: "",
-          RoleID: "",
+          phone:"",
           IsDeleted: false
         },
-        options: [],
         defaultProps: {
           children: "children",
           label: "text"
         },
-        selected: null
 
       };
     },
@@ -158,12 +151,6 @@
         this.depttree = JSON.parse(response.data);
 
       });
-      GetRoles().then(response => {
-        this.options = response.data;
-      });
-
-
-
     },
     methods: {
 
@@ -175,21 +162,21 @@
         });
       },
       New() {
-        this.selected = null ; 
         this.temp = {
-          ID: "",
-          UserName: "",
-          Password: "",
-          RealName: "",
+          No: "",
+          DeptID: "",
+          Workduty:"",
+          Gender: "",
+          Name: "",
+          Phone:"",
           IsDeleted: false
         };
+        this.selected = null ;
         this.dialogFormVisible = true;
 
+        this.$refs.tree.setCheckedKeys([])
 
         this.dialogStatus = "create";
-
-                this.$refs.tree.setCheckedKeys([])
-
       },
       Delete(ID) {
         this.$confirm("确认删除?", "提示", {
@@ -212,13 +199,13 @@
 
           this.temp = response.data;
           this.$refs.tree.setCheckedKeys([this.temp.DeptID]);
-          this.selected.ID = this.temp.RoleID;
+          this.selected = this.temp.Gender;
         });
       },
 
       create() {
         this.temp.DeptID = this.$refs.tree.getCheckedKeys().join(',');
-        this.temp.RoleID = this.selected.ID;
+        this.temp.Gender = this.selected;
         SaveNewUsers(this.temp).then(response => {
 
           this.dialogFormVisible = false;
@@ -227,7 +214,8 @@
         });
       },
       update() {
-        this.temp.RoleID = this.selected.ID;
+        this.temp.Gender = this.selected;
+        this.temp.DeptID = this.$refs.tree.getCheckedKeys().join(',');
 
         UpdateUsers(this.temp).then(response => {
 

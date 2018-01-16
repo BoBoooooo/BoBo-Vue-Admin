@@ -59,7 +59,7 @@ export const asyncRouterMap = [
     redirect: '/table/index',
     icon: 'tubiao',
     noDropdown: true,
-    children: [{ path: 'index', name: 'Table', component: _import('table/index'), meta: { role: ['user'] }}]
+    children: [{ path: 'index', name: 'Table', component: _import('table/index'), meta: { role: ['admin'] }}]
   },
 
   {
@@ -68,9 +68,26 @@ export const asyncRouterMap = [
     redirect: 'noredirect',
     name:"豆瓣查询",
     icon: 'tubiao',
-    children: [{ path: 'movie', name: '热门电影', component: _import('DouBan/movie'), meta: { role: ['system'] }},
-    { path: 'music', name: '音乐排行', component: _import('DouBan/music'), meta: { role: ['system'] }},
-    { path: 'book', name: '热门图书', component: _import('DouBan/book'), meta: { role: ['system'] }}]
+    children: [{ path: 'movie', name: '热门电影', component: _import('DouBan/movie'), meta: { role: ['user','system'] }},
+    { path: 'music', name: '音乐排行', component: _import('DouBan/music'), meta: { role: ['user','system'] }},
+    { path: 'book', name: '热门图书', component: _import('DouBan/book'), meta: { role: ['user','system'] }}]
+  },
+  {
+    path: '/KaoQin',
+    component: Layout,
+    redirect: 'noredirect',
+    name:"人员信息",
+    icon: 'zonghe',
+    children: [{ path: 'person', name: '人员信息录入', component: _import('KaoQin/person'), meta: { role: ['user','system'] }}]
+  },
+  {
+    path: '/KaoQin',
+    component: Layout,
+    redirect: 'noredirect',
+    name:"考勤管理",
+    icon: 'zonghe',
+    children: [{ path: 'import', name: '考勤信息录入', component: _import('KaoQin/import'), meta: { role: ['user','system'] }},
+    { path: 'count', name: '考勤信息汇总', component: _import('KaoQin/count'), meta: { role: ['user','system'] }}]
   },
   { path: '*', redirect: '/404', hidden: true }
 ]
