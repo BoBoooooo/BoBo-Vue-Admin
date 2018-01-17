@@ -1,8 +1,9 @@
 import fetch from '@/utils/fetch'
-export function GetRoles(){
+export function GetRoles(params){
     return fetch({
         url: '/admin/pullrolelist',
-        method: 'post'
+        method: 'post',
+        params
       })
 }
 

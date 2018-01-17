@@ -77,7 +77,7 @@ export const asyncRouterMap = [
     component: Layout,
     redirect: 'noredirect',
     name:"人员信息",
-    icon: 'zonghe',
+    icon: 'theme',
     children: [{ path: 'person', name: '人员信息录入', component: _import('KaoQin/person'), meta: { role: ['user','system'] }}]
   },
   {

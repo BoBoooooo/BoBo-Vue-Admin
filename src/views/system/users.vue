@@ -45,7 +45,10 @@
         </template>
       </el-table-column>
     </el-table>
-
+    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :currentpage="listQuery.pageNumber"
+      :page-sizes="[10, 20, 30]" :pagesize="listQuery.pageSize" 　 layout="total,sizes, prev, pager, next" :total="listQuery.totalCount"
+      style="margin-top:5px">
+    </el-pagination>
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="50%">
       <el-form class="small-space" :model="temp" label-position="left" label-width="70px">
@@ -85,8 +88,8 @@
             <el-option v-for="item in options" :key="item.ID" :label="item.RoleName" :value="item.ID">
             </el-option>
           </el-select> -->
-          <multiselect   v-model="selected" :value="temp.RoleID" :options="options" :searchable="false" :close-on-select="true" :allow-empty="false" label="RoleName"
-            placeholder="请选择角色" track-by="RoleName" :showLabels="false" >
+          <multiselect v-model="selected" :value="temp.RoleID" :options="options" :searchable="false" :close-on-select="true" :allow-empty="false"
+            label="RoleName" placeholder="请选择角色" track-by="RoleName" :showLabels="false">
           </multiselect>
         </el-form-item>
       </el-form>
@@ -112,7 +115,7 @@
     GetDeptTree
   } from "@/api/system/dept";
   import {
-    GetRoles
+    GetRolesOptions
   } from "@/api/system/role";
   import Multiselect from 'vue-multiselect'
 
@@ -144,7 +147,12 @@
           children: "children",
           label: "text"
         },
-        selected: null
+        selected: null,
+        listQuery: {
+          totalCount: "",
+          pageSize: "10",
+          pageNumber: "1",
+        }
 
       };
     },
@@ -153,29 +161,38 @@
     },
 
     created() {
-      this.fetchData();
+      this.fetchData(this.listQuery);
       GetDeptTree().then(response => {
         this.depttree = JSON.parse(response.data);
 
       });
-      GetRoles().then(response => {
+      GetRolesOptions().then(response => {
         this.options = response.data;
       });
-
-
-
     },
     methods: {
+      handleSizeChange(val) {
+        this.listQuery.pageSize = val;
+        this.fetchData(this.listQuery);
+      },
+      handleCurrentChange(val) {
 
-      fetchData() {
+        this.listQuery.pageNumber = val;
+        this.fetchData(this.listQuery);
+
+      },
+      fetchData(params) {
         this.listLoading = true;
-        GetUsers().then(response => {
-          this.list = response.data;
-          this.listLoading = false;
-        });
+        GetUsers(params).then(response => {
+                this.list = response.data.rows;
+        this.listQuery.totalCount = response.data.total;
+        this.listLoading = false;
+
+        })
+
       },
       New() {
-        this.selected = null ; 
+        this.selected = null;
         this.temp = {
           ID: "",
           UserName: "",
@@ -188,7 +205,7 @@
 
         this.dialogStatus = "create";
 
-                this.$refs.tree.setCheckedKeys([])
+        this.$refs.tree.setCheckedKeys([])
 
       },
       Delete(ID) {

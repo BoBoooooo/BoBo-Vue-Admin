@@ -7,12 +7,16 @@
 </template>
 
 <script>
+import BackToTop from '@/components/BackToTop' 
 export default {
   name: 'AppMain',
   computed: {
     key() {
       return this.$route.name !== undefined ? this.$route.name + +new Date() : this.$route + +new Date()
     }
+  },
+  components:{
+    BackToTop
   }
 }
 </script>

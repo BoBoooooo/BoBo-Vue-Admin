@@ -1,9 +1,10 @@
 import fetch from '@/utils/fetch'
 
-export function GetAttenListToday(){
+export function GetAttenListToday(params){
     return fetch({
         url: '/Attendance/PullPersonAttenListWithToday',
-        method: 'post'
+        method: 'post',
+        params
       })
 }
 

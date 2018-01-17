@@ -5,21 +5,24 @@
     </div>
     <div class="main-container">
       <navbar></navbar>
-      <app-main></app-main>
+      <app-main>
+      </app-main>
     </div>
+    <BackToTop></BackToTop>
   </div>
 </template>
 
 
 <script>
 import { Navbar, Sidebar, AppMain } from '@/views/layout'
-
+import BackToTop from '@/components/BackToTop'
 export default {
   name: 'layout',
   components: {
     Navbar,
     Sidebar,
-    AppMain
+    AppMain,
+    BackToTop
   },
   computed: {
     sidebar() {

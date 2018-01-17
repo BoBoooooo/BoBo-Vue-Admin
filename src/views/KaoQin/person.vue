@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container" id="users">
+  <div class="app-container" id="person">
 
     <el-button @click="New()" type="primary" size="small">新增</el-button>
     <br>
@@ -31,6 +31,11 @@
           {{scope.row.Workduty}}
         </template>
       </el-table-column>
+      <el-table-column label="入职时间" align="center">
+        <template slot-scope="scope">
+          {{scope.row.Workduty}}
+        </template>
+      </el-table-column>
       <el-table-column label="联系电话" align="center">
         <template slot-scope="scope">
           {{scope.row.Phone}}
@@ -45,12 +50,20 @@
         </template>
       </el-table-column>
     </el-table>
-
+    <el-pagination 
+    @size-change="handleSizeChange"
+     @current-change="handleCurrentChange" 
+     :currentpage="listQuery.pageNumber" 
+     :page-sizes="[10, 20, 30]"
+      :pagesize="listQuery.pageSize" 　
+      layout="total,sizes, prev, pager, next" 
+      :total="listQuery.totalCount" style="margin-top:5px">
+      </el-pagination>
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="50%">
       <el-form class="small-space" :model="temp" label-position="left" label-width="70px">
 
-  <el-form-item label="工号">
+        <el-form-item label="工号">
           <el-input class="filter-item" v-model="temp.No" placeholder="请输入工号">
 
           </el-input>
@@ -61,12 +74,12 @@
           </el-input>
         </el-form-item>
         <el-form-item label="性别">
-             <multiselect   v-model="selected" :value="temp.Gender" :options="options" :searchable="false" :close-on-select="true" :allow-empty="false" 
-            placeholder="请选择性别"  :showLabels="false" style="z-index:3;height:30px">
+          <multiselect v-model="selected" :value="temp.Gender" :options="options" :searchable="false" :close-on-select="true" :allow-empty="false"
+            placeholder="请选择性别" :showLabels="false" style="z-index:3;height:30px">
           </multiselect>
         </el-form-item>
-  
-      
+
+
 
         <el-form-item label="部门">
           <el-tree :data="depttree" auto-expand-parent show-checkbox default-expand-all node-key="id" ref="tree" highlight-current
@@ -77,8 +90,8 @@
         </el-form-item>
 
         <el-form-item label="职位">
-        
-             <el-input class="filter-item" v-model="temp.Workduty" placeholder="请输入职位">
+
+          <el-input class="filter-item" v-model="temp.Workduty" placeholder="请输入职位">
 
           </el-input>
         </el-form-item>
@@ -110,13 +123,19 @@
   export default {
     data() {
       return {
-           selected: null,
+        selected: null,
         options: ['男', '女'],
         depttree: [],
         textMap: {
           update: "编辑",
           create: "新增"
         },
+        listQuery: {
+          totalCount: "",
+          pageSize: "10",
+          pageNumber: "1",
+        },
+
         dialogFormVisible: false,
         dialogStatus: "",
         list: null,
@@ -124,14 +143,14 @@
         RoleID: "",
 
         temp: {
-            ID:"",
+          ID: "",
           No: "",
           Name: "",
           Gender: "",
           Workduty: "",
           DeptName: "",
           DeptID: "",
-          phone:"",
+          phone: "",
           IsDeleted: false
         },
         defaultProps: {
@@ -146,85 +165,96 @@
     },
 
     created() {
-      this.fetchData();
+      this.fetchData(this.listQuery);
       GetDeptTree().then(response => {
         this.depttree = JSON.parse(response.data);
 
       });
     },
     methods: {
-
-      fetchData() {
-        this.listLoading = true;
-        GetUsers().then(response => {
-          this.list = response.data;
-          this.listLoading = false;
-        });
+      handleSizeChange(val) {
+        this.listQuery.pageSize = val;
+        this.fetchData(this.listQuery);
       },
-      New() {
-        this.temp = {
-          No: "",
-          DeptID: "",
-          Workduty:"",
-          Gender: "",
-          Name: "",
-          Phone:"",
-          IsDeleted: false
-        };
-        this.selected = null ;
-        this.dialogFormVisible = true;
+      handleCurrentChange(val) {
 
-        this.$refs.tree.setCheckedKeys([])
+       this.listQuery.pageNumber =val;
+                this.fetchData(this.listQuery);
 
-        this.dialogStatus = "create";
       },
-      Delete(ID) {
-        this.$confirm("确认删除?", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        }).then(() => {
-          DeleteUser(ID).then(response => {
+    
+    fetchData(params) {
+      this.listLoading = true;
+      GetUsers(params).then(response => {
+        this.list = response.data.rows;
+        this.listQuery.totalCount = response.data.total;
+        this.listLoading = false;
+      });
+    },
+    New() {
+      this.temp = {
+        No: "",
+        DeptID: "",
+        Workduty: "",
+        Gender: "",
+        Name: "",
+        Phone: "",
+        IsDeleted: false
+      };
+      this.selected = null;
+      this.dialogFormVisible = true;
 
+      this.$refs.tree.setCheckedKeys([])
 
-            this.fetchData();
-          });
-        });
-      },
-      Edit(ID) {
-        this.dialogStatus = "update";
-        this.dialogFormVisible = true;
+      this.dialogStatus = "create";
+    },
+    Delete(ID) {
+      this.$confirm("确认删除?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+        DeleteUser(ID).then(response => {
 
-        GetUsersDetail(ID).then(response => {
-
-          this.temp = response.data;
-          this.$refs.tree.setCheckedKeys([this.temp.DeptID]);
-          this.selected = this.temp.Gender;
-        });
-      },
-
-      create() {
-        this.temp.DeptID = this.$refs.tree.getCheckedKeys().join(',');
-        this.temp.Gender = this.selected;
-        SaveNewUsers(this.temp).then(response => {
-
-          this.dialogFormVisible = false;
 
           this.fetchData();
         });
-      },
-      update() {
-        this.temp.Gender = this.selected;
-        this.temp.DeptID = this.$refs.tree.getCheckedKeys().join(',');
+      });
+    },
+    Edit(ID) {
+      this.dialogStatus = "update";
+      this.dialogFormVisible = true;
 
-        UpdateUsers(this.temp).then(response => {
+      GetUsersDetail(ID).then(response => {
 
-          this.dialogFormVisible = false;
+        this.temp = response.data;
+        this.$refs.tree.setCheckedKeys([this.temp.DeptID]);
+        this.selected = this.temp.Gender;
+      });
+    },
 
-          this.fetchData();
-        });
-      }
+    create() {
+      this.temp.DeptID = this.$refs.tree.getCheckedKeys().join(',');
+      this.temp.Gender = this.selected;
+      SaveNewUsers(this.temp).then(response => {
+
+        this.dialogFormVisible = false;
+
+        this.fetchData();
+      });
+    },
+    update() {
+      this.temp.Gender = this.selected;
+      this.temp.DeptID = this.$refs.tree.getCheckedKeys().join(',');
+
+      UpdateUsers(this.temp).then(response => {
+
+        this.dialogFormVisible = false;
+
+        this.fetchData();
+      });
     }
-  };
+  }
+  }
 
 </script>
