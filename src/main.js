@@ -9,8 +9,12 @@ import '@/icons' // icon
 import '@/permission' // 权限import axios from 'axios';
 import axios from 'axios'
 import $ from 'jquery'
-Vue.use(ElementUI)
+import * as filters from './filters' // global filters
 
+Vue.use(ElementUI)
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
+})
 Vue.config.productionTip = false
 
 new Vue({

@@ -7,6 +7,14 @@ export function GetRoles(params){
       })
 }
 
+export function GetRolesOptions(){
+    return fetch({
+        url: '/admin/pullrolelist',
+        method: 'post',
+        
+      })
+}
+
 export function DeleteRole(ID){
     return fetch({
         url: '/admin/Delrole',

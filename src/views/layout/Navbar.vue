@@ -1,7 +1,7 @@
 <template>
   <el-menu class="navbar" mode="horizontal">
     <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
-    <levelbar></levelbar>
+    <breadcrumb class="breadcrumb-container"></breadcrumb>
     <el-dropdown class="avatar-container" trigger="click">
       <div class="avatar-wrapper">
         {{name}}
@@ -29,12 +29,13 @@
   import {
     mapGetters
   } from 'vuex'
-  import Levelbar from './Levelbar'
   import Hamburger from '@/components/Hamburger'
+import Breadcrumb from '@/components/Breadcrumb'
 
   export default {
     components: {
-      Levelbar,
+          Breadcrumb,
+
       Hamburger
     },
     computed: {
@@ -101,6 +102,9 @@
       outline:none;
       padding: 0 10px;
     }
+      .breadcrumb-container{
+    float: left;
+  }
     .errLog-container {
       display: inline-block;
       position: absolute;
