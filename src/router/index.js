@@ -76,7 +76,7 @@ export const asyncRouterMap = [
     noDropdown:true,
     meta: { role: ['user','system'],title:"Table" ,icon:'zonghe',father:true},
     meta: { role: ['user','system'],title:"table" ,icon:'zonghe'},
-    children: [{ path: 'import', name: 'table1', component: _import('table/index'), meta: { role: ['user','system']  ,title:"表格"}}]
+    children: [{ path: 'import', name: 'table1', component: _import('table/index'), meta: { role: ['user','system']  ,title:"EasyMock"}}]
   },
   
   {

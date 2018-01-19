@@ -24,17 +24,11 @@ export function AttenDetailByPerson(ID){
       })
 }
 
-export function SaveNewAtten(data){
-    return fetch({
-        url: '/Attendance/SaveNewAtten',
-        method: 'post',
-        data
-      })
-}
+
 
 export function UpdateAtten(data){
     return fetch({
-        url: '/Attendance/UpdateAtten',
+        url: '/Attendance/SaveAtten',
         method: 'post',
         data
       })

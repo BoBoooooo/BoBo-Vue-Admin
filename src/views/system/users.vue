@@ -89,7 +89,7 @@
             </el-option>
           </el-select> -->
           <multiselect v-model="selected" :value="temp.RoleID" :options="options" :searchable="false" :close-on-select="true" :allow-empty="false"
-            label="RoleName" placeholder="请选择角色" track-by="RoleName" :showLabels="false">
+            label="RoleName" placeholder="请选择角色" track-by="ID" :showLabels="false">
           </multiselect>
         </el-form-item>
       </el-form>

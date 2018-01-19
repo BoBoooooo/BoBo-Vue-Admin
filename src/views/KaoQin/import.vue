@@ -1,9 +1,6 @@
 <template>
   <div class="app-container" id="import_Atten">
 
-    <el-button @click="New()" type="primary" size="small">新增</el-button>
-    <br>
-    <br>
 
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
       <el-table-column align="center" label='工号' width="95">
@@ -26,7 +23,7 @@
 
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
-          <el-button @click="Edit(scope.row.ID)" type="success" size="small">编辑</el-button>
+          <el-button @click="Edit(scope.row.ID,scope.row.Name)" type="success" size="small">录入</el-button>
 
           <el-button @click="Delete(scope.row.ID)" type="danger" size="small">删除</el-button>
         </template>
@@ -37,38 +34,34 @@
       style="margin-top:5px">
     </el-pagination>
 
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="50%">
+    <el-dialog :title="Title" :visible.sync="dialogFormVisible" width="50%">
       <el-form class="small-space" :model="temp" label-position="left" label-width="70px">
 
-        <el-form-item label="工号">
-          <el-input class="filter-item" v-model="temp.No" placeholder="请输入工号">
-
-          </el-input>
+        <el-form-item label="考勤时间">
+          <el-time-select v-model="temp.StartTime" :picker-options="{
+    start: '08:30',
+    step: '00:05',
+    end: '09:30'
+  }" placeholder="上班时间">
+          </el-time-select>
+          <el-time-select v-model="temp.EndTime" :picker-options="{
+    start: '16:30',
+    step: '00:05',
+    end: '17:30'
+  }" placeholder="下班时间">
+          </el-time-select>
         </el-form-item>
-        <el-form-item label="姓名">
-          <el-input class="filter-item" v-model="temp.Name" placeholder="请输入姓名">
-
-          </el-input>
-        </el-form-item>
-        <el-form-item label="性别">
-          <multiselect v-model="selected" :value="temp.Gender" :options="options" :searchable="false" :close-on-select="true" :allow-empty="false"
-            placeholder="请选择性别" :showLabels="false" style="z-index:3;height:30px">
+        <el-form-item label="是否请假">
+          <multiselect v-model="selected" :value="temp.Vacation" :options="options" :searchable="false" :close-on-select="true" :allow-empty="false"
+            placeholder="请选择" :showLabels="false" style="z-index:3;height:20px" label="text">
           </multiselect>
         </el-form-item>
 
 
 
-        <el-form-item label="部门">
-          <el-tree :data="depttree" auto-expand-parent show-checkbox default-expand-all node-key="id" ref="tree" highlight-current
-            :props="defaultProps">
-          </el-tree>
+        <el-form-item label="请假事由" v-if="this.selected.value">
 
-
-        </el-form-item>
-
-        <el-form-item label="职位">
-
-          <el-input class="filter-item" v-model="temp.Workduty" placeholder="请输入职位">
+          <el-input class="filter-item" type="textarea" v-model="temp.Vacation_Reason">
 
           </el-input>
         </el-form-item>
@@ -85,28 +78,38 @@
 
 <script>
   import {
-    GetUsers,
-    DeleteUser,
-    GetUsersDetail,
-    SaveNewUsers,
-    UpdateUsers
+    DeleteAtten,
+    AttenDetailByPerson,
+    UpdateAtten
+  } from "@/api/KaoQin/Attendance";
+  import {
+    GetUsers
   } from "@/api/KaoQin/person";
   import {
     GetDeptTree
   } from "@/api/system/dept";
-
+  import {
+    parseTime
+  } from '@/utils/index'
   import Multiselect from 'vue-multiselect'
 
   export default {
     data() {
       return {
-        selected: null,
-        options: ['男', '女'],
-        depttree: [],
-        textMap: {
-          update: "编辑",
-          create: "新增"
+        Title: "",
+        selected: {
+          'text': '否',
+          'value': 0
         },
+        options: [{
+            'text': '是',
+            'value': 1
+          },
+          {
+            'text': '否',
+            'value': 0
+          }
+        ],
         listQuery: {
           totalCount: "",
           pageSize: "10",
@@ -116,24 +119,16 @@
         dialogStatus: "",
         list: null,
         listLoading: true,
-        RoleID: "",
-
         temp: {
           ID: "",
-          No: "",
-          Name: "",
-          Gender: "",
-          Workduty: "",
-          DeptName: "",
-          DeptID: "",
-          phone: "",
+          PersonId: "",
+          Date: '',
+          StartTime: '',
+          EndTime: '',
+          Vacation: "",
+          Vacation_Reason: "",
           IsDeleted: false
-        },
-        defaultProps: {
-          children: "children",
-          label: "text"
-        },
-
+        }
       };
     },
     components: {
@@ -142,10 +137,7 @@
 
     created() {
       this.fetchData(this.listQuery);
-      GetDeptTree().then(response => {
-        this.depttree = JSON.parse(response.data);
 
-      });
     },
     methods: {
       handleSizeChange(val) {
@@ -158,33 +150,16 @@
         this.fetchData(this.listQuery);
 
       },
-
       fetchData(params) {
         this.listLoading = true;
         GetUsers(params).then(response => {
-               this.list = response.data.rows;
-        this.listQuery.totalCount = response.data.total;
-                  this.listLoading = false;
+          this.list = response.data.rows;
+          this.listQuery.totalCount = response.data.total;
+          this.listLoading = false;
 
         });
       },
-      New() {
-        this.temp = {
-          No: "",
-          DeptID: "",
-          Workduty: "",
-          Gender: "",
-          Name: "",
-          Phone: "",
-          IsDeleted: false
-        };
-        this.selected = null;
-        this.dialogFormVisible = true;
 
-        this.$refs.tree.setCheckedKeys([])
-
-        this.dialogStatus = "create";
-      },
       Delete(ID) {
         this.$confirm("确认删除?", "提示", {
           confirmButtonText: "确定",
@@ -194,41 +169,34 @@
           DeleteUser(ID).then(response => {
 
 
-            this.fetchData();
+        this.fetchData(this.listQuery);
           });
         });
       },
-      Edit(ID) {
+      Edit(ID, Name) {
         this.dialogStatus = "update";
         this.dialogFormVisible = true;
-
-        GetUsersDetail(ID).then(response => {
-
+        this.Title = Name;
+        this.temp.Date = parseTime(new Date());
+        AttenDetailByPerson(ID).then(response => {
           this.temp = response.data;
-          this.$refs.tree.setCheckedKeys([this.temp.DeptID]);
-          this.selected = this.temp.Gender;
+          if(this.temp.PersonId!=null){
+          this.selected.value = this.temp.Vacation;
+          }
+                          this.temp.PersonId = ID;
+
         });
+
       },
 
-      create() {
-        this.temp.DeptID = this.$refs.tree.getCheckedKeys().join(',');
-        this.temp.Gender = this.selected;
-        SaveNewUsers(this.temp).then(response => {
-
-          this.dialogFormVisible = false;
-
-          this.fetchData();
-        });
-      },
       update() {
-        this.temp.Gender = this.selected;
-        this.temp.DeptID = this.$refs.tree.getCheckedKeys().join(',');
-
-        UpdateUsers(this.temp).then(response => {
+        this.temp.Vacation = this.selected.value;
+        this.temp.Date = parseTime(new Date());
+        UpdateAtten(this.temp).then(response => {
 
           this.dialogFormVisible = false;
 
-          this.fetchData();
+        this.fetchData(this.listQuery);
         });
       }
     }

@@ -1,5 +1,6 @@
 <template>
   <div class="dashboard-container">
+    <!-- <Aplayer></Aplayer> -->
       <github-corner></github-corner>
     <el-row>
       <el-col :span="6">
@@ -70,6 +71,7 @@
 
 <script>
 import GithubCorner from '@/components/GithubCorner'
+import Aplayer from 'vue-aplayer'
 
   import {
     mapGetters
@@ -85,6 +87,7 @@ import GithubCorner from '@/components/GithubCorner'
         weather: null,
         loading: false,
         report: null,
+        music:null
 
       }
     },
@@ -96,7 +99,7 @@ import GithubCorner from '@/components/GithubCorner'
         'AllRouters'
       ])
     },
-    components:{GithubCorner},
+    components:{GithubCorner,Aplayer},
     methods: {
       getImage(url) {
         if (url !== undefined) {
@@ -120,12 +123,20 @@ import GithubCorner from '@/components/GithubCorner'
           this.report = response.data.recent
      
         })
+      },
+      GetMusic(){
+             axios.get('/music?id=3778678&limit=30').then(response => {
+          this.music = response.data
+          console.log(this.music)
+     
+        })
       }
     },
     created() {
       this.GetNowTime()
       this.GetWeather()
       this.GetReport()
+      // this.GetMusic()
 
     }
   }
