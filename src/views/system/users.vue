@@ -88,7 +88,7 @@
             <el-option v-for="item in options" :key="item.ID" :label="item.RoleName" :value="item.ID">
             </el-option>
           </el-select> -->
-          <multiselect v-model="selected" :value="temp.RoleID" :options="options" :searchable="false" :close-on-select="true" :allow-empty="false"
+          <multiselect v-model="selected" :value="selected" :options="options" :searchable="false" :close-on-select="true" :allow-empty="false"
             label="RoleName" placeholder="请选择角色" track-by="ID" :showLabels="false">
           </multiselect>
         </el-form-item>
@@ -226,11 +226,16 @@
         this.dialogFormVisible = true;
 
         GetUsersDetail(ID).then(response => {
-
-          this.temp = response.data;
-          this.$refs.tree.setCheckedKeys([this.temp.DeptID]);
-          this.selected.ID = this.temp.RoleID;
-        });
+          this.temp = response.data
+          this.$refs.tree.setCheckedKeys([this.temp.DeptID])
+          for(let i = 0 ; i <this.options.length; i++){
+              let obj = this.options[i];
+              if(obj.ID == this.temp.RoleID)
+              {
+                 this.selected = obj
+              }
+          }
+        })
       },
 
       create() {

@@ -52,17 +52,12 @@
           </el-time-select>
         </el-form-item>
         <el-form-item label="是否请假">
-          <multiselect v-model="selected" :value="temp.Vacation" :options="options" :searchable="false" :close-on-select="true" :allow-empty="false"
-            placeholder="请选择" :showLabels="false" style="z-index:3;height:20px" label="text">
+          <multiselect v-model="selected" :value="selected" track-by="value" label="text" :options="options" :searchable="false" :close-on-select="true"
+            :allow-empty="false" placeholder="请选择" :showLabels="false" style="z-index:3;height:20px">
           </multiselect>
         </el-form-item>
-
-
-
-        <el-form-item label="请假事由" v-if="this.selected.value">
-
+        <el-form-item label="请假事由" v-if="this.selected.value===1">
           <el-input class="filter-item" type="textarea" v-model="temp.Vacation_Reason">
-
           </el-input>
         </el-form-item>
       </el-form>
@@ -136,28 +131,25 @@
     },
 
     created() {
-      this.fetchData(this.listQuery);
-
+      this.fetchData(this.listQuery)
     },
     methods: {
       handleSizeChange(val) {
-        this.listQuery.pageSize = val;
-        this.fetchData(this.listQuery);
+        this.listQuery.pageSize = val
+        this.fetchData(this.listQuery)
       },
       handleCurrentChange(val) {
-
-        this.listQuery.pageNumber = val;
-        this.fetchData(this.listQuery);
+        this.listQuery.pageNumber = val
+        this.fetchData(this.listQuery)
 
       },
       fetchData(params) {
         this.listLoading = true;
         GetUsers(params).then(response => {
-          this.list = response.data.rows;
-          this.listQuery.totalCount = response.data.total;
-          this.listLoading = false;
-
-        });
+          this.list = response.data.rows
+          this.listQuery.totalCount = response.data.total
+          this.listLoading = false
+        })
       },
 
       Delete(ID) {
@@ -167,11 +159,9 @@
           type: "warning"
         }).then(() => {
           DeleteUser(ID).then(response => {
-
-
-        this.fetchData(this.listQuery);
-          });
-        });
+            this.fetchData(this.listQuery);
+          })
+        })
       },
       Edit(ID, Name) {
         this.dialogStatus = "update";
@@ -179,31 +169,31 @@
         this.Title = Name;
         this.temp.Date = parseTime(new Date());
         AttenDetailByPerson(ID).then(response => {
-          this.temp = response.data;
-          if(this.temp.PersonId!=null){
-          this.selected.value = this.temp.Vacation;
-          }
-                          this.temp.PersonId = ID;
+          this.temp = response.data
+           if(this.temp.Vacation === 1){
+            this.selected = this.options[0]
+           } 
 
-        });
+           else{
+                       this.selected = this.options[1]
 
+           }
+          this.temp.PersonId = ID
+        })
       },
 
       update() {
         this.temp.Vacation = this.selected.value;
         this.temp.Date = parseTime(new Date());
         UpdateAtten(this.temp).then(response => {
-
           this.dialogFormVisible = false;
-
-        this.fetchData(this.listQuery);
-        });
+          this.fetchData(this.listQuery);
+        })
       }
     }
-  };
+  }
 
 </script>
-
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 
