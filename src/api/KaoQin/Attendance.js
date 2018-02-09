@@ -35,3 +35,11 @@ export function UpdateAtten(data){
 }
 
 
+export function SearchPersonByMonth(data){
+    return fetch({
+        url: '/Attendance/SearchPersonByMonth',
+        method: 'post',
+        data
+      })
+}
+
