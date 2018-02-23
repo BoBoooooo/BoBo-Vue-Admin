@@ -47,49 +47,53 @@ export const asyncRouterMap = [
     component: Layout,
     redirect: '/DouBan/movie',
     name:"DouBan",
-    meta: { role: ['user','system'],title:"豆瓣查询" ,icon:'tubiao',father:true},
-    children: [{ path: 'movie', name: 'movie', component: _import('DouBan/movie'), meta: { role: ['user','system'],title:"热门电影" }},
-    { path: 'music', name: 'music', component: _import('DouBan/music'), meta: { role: ['user','system'] ,title:"音乐排行"}},
-    { path: 'book', name: 'book', component: _import('DouBan/book'), meta: { role: ['user','system'] ,title:"热门图书"}}]
+    title:"豆瓣查询" ,
+    icon:'tubiao',
+    children: [{ path: 'movie', name: 'movie', component: _import('DouBan/movie'),meta:{title:"热映电影"}},
+    { path: 'music', name: 'music', component: _import('DouBan/music'),meta:{title:"热门音乐"}},
+    { path: 'book', name: 'book', component: _import('DouBan/book'),meta:{title:"热门书籍"}}]
   },
   {
     path: '/KaoQin',
     component: Layout,
     redirect: '/KaoQin/person',
-    name:"人员信息",
-    meta: { role: ['user','system'],title:"人员信息" ,icon:'zonghe',father:true},
-    children: [{ path: 'person', name: 'person', component: _import('KaoQin/person'), meta: { role: ['user','system']  ,title:"人员信息录入"}}]
+    name:"person",
+    title:"人员信息",
+    icon:'zonghe',
+    children: [{ path: 'person', name: 'person', component: _import('KaoQin/person'),meta:{title:"人员信息录入"}}]
   },
   {
     path: '/KaoQin',
     component: Layout,
     redirect: '/KaoQin/import',
     name:"KaoQin",
-    meta: { role: ['user','system'],title:"考勤管理" ,icon:'zonghe',father:true},
-    children: [{ path: 'import', name: 'import', component: _import('KaoQin/import'), meta: { role: ['user','system']  ,title:"考勤信息录入"}},
-    { path: 'count', name: 'count', component: _import('KaoQin/count'), meta: { role: ['user','system']  ,title:"考勤信息汇总"}}]
+    title:"考勤管理" ,
+    icon:'zonghe',
+    children: [{ path: 'import', name: 'import', component: _import('KaoQin/import'), meta:{title:"考勤信息录入"}},
+    { path: 'count', name: 'count', component: _import('KaoQin/count'), meta:{title:"考勤信息汇总"}}]
   },
-  {
-    path: '/table',
-    component: Layout,
-    redirect: '/table/index',
-    noDropdown:true,
-    meta: { role: ['user','system'],title:"Table" ,icon:'zonghe',father:true},
-    meta: { role: ['user','system'],title:"table" ,icon:'zonghe'},
-    children: [{ path: 'import', name: 'table1', component: _import('table/index'), meta: { role: ['user','system']  ,title:"EasyMock"}}]
-  },
+  // {
+  //   path: '/table',
+  //   component: Layout,
+  //   redirect: '/table/index',
+  //   noDropdown:true,
+  //   title:"Table",
+  //   icon:'zonghe',
+  //   children: [{ path: 'import', name: 'table1', component: _import('table/index'), meta:{title:"EasyMock"}}]
+  // },
   
   {
     path: '/system',
     component: Layout,
     redirect: 'noredirect',
     name: 'system',
-    meta: { role: ['system'],title:"系统设置",icon:'zujian',father:true},
+    title:"系统设置",
+    icon:'zujian',
     children: [
-      { path: 'users', name: 'users', icon: 'icons', component: _import('system/users'),meta: { role: ['system'],title:"用户设置" }},
+      { path: 'users', name: 'users', icon: 'icons', component: _import('system/users'),meta:{title:"用户设置"}},
       
-      { path: 'role', name: 'role', icon: 'icons', component: _import('system/role'),meta: { role: ['system'] ,title:"角色设置"}},
-      { path: 'dept', name: 'dept', icon: 'icons', component: _import('system/dept'),meta: { role: ['system'],title:"部门设置" }},
+      { path: 'role', name: 'role', icon: 'icons', component: _import('system/role'),meta:{title:"角色设置"}},
+      { path: 'dept', name: 'dept', icon: 'icons', component: _import('system/dept'),meta:{title:"部门设置"}}
 
       
     ]

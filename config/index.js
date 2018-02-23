@@ -29,7 +29,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/weather': {
-        target: 'http://www.sojson.com/open/api/weather/json.shtml',
+        target: 'https://www.sojson.com/open/api/weather/json.shtml?city=南京',
         changeOrigin:true,
         pathRewrite: {
           '^/weather': ''

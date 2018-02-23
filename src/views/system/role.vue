@@ -48,8 +48,14 @@
 
           </el-input>
         </el-form-item>
+        <el-form-item label="菜单">
+             <el-tree :data="menu" auto-expand-parent show-checkbox default-expand-all node-key="id" ref="tree" highlight-current
+            :props="defaultProps">
+          </el-tree>
+        </el-form-item>
 
       </el-form>
+      
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
         <el-button v-if="dialogStatus=='create'" type="primary" @click="create">确 定</el-button>
@@ -68,6 +74,10 @@
     SaveNewRole,
     UpdateRole
   } from "@/api/system/role";
+  import {
+    mapGetters
+  } from 'vuex'
+  import { asyncRouterMap} from '@/router/index'
 
   export default {
     data() {
@@ -86,16 +96,34 @@
           Rank: "",
           IsDeleted: false,
         },
+        menu:null,
         listQuery: {
           totalCount: "",
           pageSize: "10",
           pageNumber: "1",
-        }
+        },
+          defaultProps: {
+          children: "children",
+          label: "name"
+        },
       };
     },
+ 
+
 
     created() {
-      this.fetchData(this.listQuery);
+      this.fetchData(this.listQuery)
+
+      let arr = asyncRouterMap
+
+      for(let i = 0 ; i <arr.length;i++){
+        if(arr[i].hidden){
+          arr.splice(i--,1)
+        }
+      }
+      this.menu = arr 
+
+
     },
     methods: {
       handleSizeChange(val) {
@@ -108,6 +136,7 @@
         this.fetchData(this.listQuery);
 
       },
+    
       fetchData(params) {
         this.listLoading = true;
         GetRoles(params).then(response => {

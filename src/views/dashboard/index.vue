@@ -18,21 +18,7 @@
 
         </el-card>
       </el-col>
-      <el-col v-if="!loading" :span="6" :offset="2">
-        <el-card :body-style="{ padding: '30px 0px',height:'300px',position:'relative'}">
-                      <h5 style="font-size:20px">{{weather.city}}天气</h5>
 
-          <icon-svg icon-class="sunny" style="font-size:180px;border-radius:180px;position:absolute;top:0px;left:0px"></icon-svg>
-            <br>
-            <h5 style="font-size:18px">空气质量:{{weather.data.quality}}.</h5>
-
-            <h5 style="font-size:18px">气温:{{weather.data.wendu}}℃，湿度:{{weather.data.shidu}}.</h5>
-
-         
-
-
-        </el-card>
-      </el-col>
 
    <el-col  :span="6" :offset="2">
         <el-card :body-style="{ padding: '15px 0px',height:'300px'}">
@@ -111,13 +97,7 @@ import Aplayer from 'vue-aplayer'
           this.currentDate = parseTime(new Date())
         }, 1000)
       },
-      GetWeather() {
-        this.loading = true
-        axios.get('/weather?city=南京').then(response => {
-          this.weather = response.data
-          this.loading = false
-        })
-      },
+     
       GetReport() {
         axios.get('/report/hot').then(response => {
           this.report = response.data.recent
@@ -134,7 +114,6 @@ import Aplayer from 'vue-aplayer'
     },
     created() {
       this.GetNowTime()
-      this.GetWeather()
       this.GetReport()
       // this.GetMusic()
 
