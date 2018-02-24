@@ -76,7 +76,7 @@
         </el-form-item>
 
         <el-form-item label="部门">
-          <el-tree :data="depttree" auto-expand-parent show-checkbox default-expand-all node-key="id" ref="tree" highlight-current
+          <el-tree :data="depttree" check-strictly auto-expand-parent show-checkbox default-expand-all node-key="id" ref="tree" highlight-current
             :props="defaultProps">
           </el-tree>
 
@@ -104,161 +104,147 @@
 </template>
 
 <script>
-  import {
-    GetUsers,
-    DeleteUser,
-    GetUsersDetail,
-    SaveNewUsers,
-    UpdateUsers
-  } from "@/api/system/users";
-  import {
-    GetDeptTree
-  } from "@/api/system/dept";
-  import {
-    GetRolesOptions
-  } from "@/api/system/role";
-  import Multiselect from 'vue-multiselect'
+import {
+  GetUsers,
+  DeleteUser,
+  GetUsersDetail,
+  SaveNewUsers,
+  UpdateUsers
+} from "@/api/system/users";
+import { GetDeptTree } from "@/api/system/dept";
+import { GetRolesOptions } from "@/api/system/role";
+import Multiselect from "vue-multiselect";
 
-  export default {
-    data() {
-      return {
-        depttree: [],
-        textMap: {
-          update: "编辑",
-          create: "新增"
-        },
-        dialogFormVisible: false,
-        dialogStatus: "",
-        list: null,
-        listLoading: true,
+export default {
+  data() {
+    return {
+      depttree: [],
+      textMap: {
+        update: "编辑",
+        create: "新增"
+      },
+      dialogFormVisible: false,
+      dialogStatus: "",
+      list: null,
+      listLoading: true,
+      RoleID: "",
+
+      temp: {
+        ID: "",
+        UserName: "",
+        Password: "",
+        RealName: "",
+        DeptID: "",
         RoleID: "",
+        IsDeleted: false
+      },
+      options: [],
+      defaultProps: {
+        children: "children",
+        label: "text"
+      },
+      selected: null,
+      listQuery: {
+        totalCount: "",
+        pageSize: "10",
+        pageNumber: "1"
+      }
+    };
+  },
+  components: {
+    Multiselect
+  },
 
-        temp: {
-          ID: "",
-          UserName: "",
-          Password: "",
-          RealName: "",
-          DeptID: "",
-          RoleID: "",
-          IsDeleted: false
-        },
-        options: [],
-        defaultProps: {
-          children: "children",
-          label: "text"
-        },
-        selected: null,
-        listQuery: {
-          totalCount: "",
-          pageSize: "10",
-          pageNumber: "1",
-        }
-
-      };
-    },
-    components: {
-      Multiselect
-    },
-
-    created() {
+  created() {
+    this.fetchData(this.listQuery);
+    GetDeptTree().then(response => {
+      this.depttree = JSON.parse(response.data);
+    });
+    GetRolesOptions().then(response => {
+      this.options = response.data;
+    });
+  },
+  methods: {
+    handleSizeChange(val) {
+      this.listQuery.pageSize = val;
       this.fetchData(this.listQuery);
-      GetDeptTree().then(response => {
-        this.depttree = JSON.parse(response.data);
-
-      });
-      GetRolesOptions().then(response => {
-        this.options = response.data;
-      });
     },
-    methods: {
-      handleSizeChange(val) {
-        this.listQuery.pageSize = val;
-        this.fetchData(this.listQuery);
-      },
-      handleCurrentChange(val) {
-
-        this.listQuery.pageNumber = val;
-        this.fetchData(this.listQuery);
-
-      },
-      fetchData(params) {
-        this.listLoading = true;
-        GetUsers(params).then(response => {
-                this.list = response.data.rows;
+    handleCurrentChange(val) {
+      this.listQuery.pageNumber = val;
+      this.fetchData(this.listQuery);
+    },
+    fetchData(params) {
+      this.listLoading = true;
+      GetUsers(params).then(response => {
+        this.list = response.data.rows;
         this.listQuery.totalCount = response.data.total;
         this.listLoading = false;
+      });
+    },
+    New() {
+      this.selected = null;
+      this.temp = {
+        ID: "",
+        UserName: "",
+        Password: "",
+        RealName: "",
+        IsDeleted: false
+      };
+      this.dialogFormVisible = true;
 
-        })
+      this.dialogStatus = "create";
 
-      },
-      New() {
-        this.selected = null;
-        this.temp = {
-          ID: "",
-          UserName: "",
-          Password: "",
-          RealName: "",
-          IsDeleted: false
-        };
-        this.dialogFormVisible = true;
-
-
-        this.dialogStatus = "create";
-
-        this.$refs.tree.setCheckedKeys([])
-
-      },
-      Delete(ID) {
-        this.$confirm("确认删除?", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        }).then(() => {
-          DeleteUser(ID).then(response => {
-
-
-            this.fetchData();
-          });
+      this.$refs.tree.setCheckedKeys([]);
+    },
+    Delete(ID) {
+      this.$confirm("确认删除?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+        DeleteUser(ID).then(response => {
+          this.fetchData(this.listQuery);
         });
-      },
-      Edit(ID) {
-        this.dialogStatus = "update";
-        this.dialogFormVisible = true;
+      });
+    },
+    Edit(ID) {
+      this.dialogStatus = "update";
+      this.dialogFormVisible = true;
 
-        GetUsersDetail(ID).then(response => {
-          this.temp = response.data
-          this.$refs.tree.setCheckedKeys([this.temp.DeptID])
-          for(let i = 0 ; i <this.options.length; i++){
-              let obj = this.options[i];
-              if(obj.ID == this.temp.RoleID)
-              {
-                 this.selected = obj
-              }
+      GetUsersDetail(ID).then(response => {
+        this.temp = response.data;
+        this.$refs.tree.setCheckedKeys([this.temp.DeptID]);
+        for (let i = 0; i < this.options.length; i++) {
+          let obj = this.options[i];
+          if (obj.ID == this.temp.RoleID) {
+            this.selected = obj;
           }
-        })
-      },
+        }
+      });
+    },
 
-      create() {
-        this.temp.DeptID = this.$refs.tree.getCheckedKeys().join(',');
-        this.temp.RoleID = this.selected.ID;
-        SaveNewUsers(this.temp).then(response => {
+    create() {
+      this.temp.DeptID = this.$refs.tree.getCheckedKeys().join(",");
+      this.temp.RoleID = this.selected.ID;
 
-          this.dialogFormVisible = false;
+  
+      SaveNewUsers(this.temp).then(response => {
+        this.dialogFormVisible = false;
 
-          this.fetchData();
-        });
-      },
-      update() {
-        this.temp.RoleID = this.selected.ID;
+        this.fetchData(this.listQuery);
+      });
+    },
+    update() {
+      this.temp.DeptID = this.$refs.tree.getCheckedKeys().join(",");
 
-        UpdateUsers(this.temp).then(response => {
+      this.temp.RoleID = this.selected.ID;
 
-          this.dialogFormVisible = false;
+      UpdateUsers(this.temp).then(response => {
+        this.dialogFormVisible = false;
+              this.fetchData(this.listQuery);
 
-          this.fetchData();
-        });
-      }
+      });
     }
-  };
-
+  }
+};
 </script>

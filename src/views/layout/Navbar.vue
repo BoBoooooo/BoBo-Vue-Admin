@@ -1,7 +1,9 @@
 <template>
+
   <el-menu class="navbar" mode="horizontal">
     <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
     <breadcrumb class="breadcrumb-container"></breadcrumb>
+
     <el-dropdown class="avatar-container" trigger="click">
       <div class="avatar-wrapper">
         {{name}}
@@ -44,7 +46,9 @@ import Breadcrumb from '@/components/Breadcrumb'
         'name'
       ])
     },
+  
     methods: {
+   
       toggleSideBar() {
         this.$store.dispatch('ToggleSideBar')
       },

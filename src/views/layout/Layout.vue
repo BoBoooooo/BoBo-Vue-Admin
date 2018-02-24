@@ -4,7 +4,7 @@
       <sidebar class="sidebar-container"></sidebar>
     </div>
     <div class="main-container">
-      <navbar></navbar>
+      <navbar @Send="get"></navbar>
       <TagsView></TagsView>
       <app-main></app-main>
     </div>
@@ -23,6 +23,7 @@
   import BackToTop from '@/components/BackToTop'
   export default {
     name: 'layout',
+  
     components: {
       Navbar,
       Sidebar,
@@ -43,6 +44,12 @@
         customClass: '.notify',
         message: this.$store.getters.name
       });
+    },
+    methods:{
+      get(msg){
+        alert(msg);
+
+      }
     }
   }
 

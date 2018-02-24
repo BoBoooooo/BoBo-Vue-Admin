@@ -49,8 +49,8 @@
           </el-input>
         </el-form-item>
         <el-form-item label="菜单">
-             <el-tree :data="menu" auto-expand-parent show-checkbox default-expand-all node-key="id" ref="tree" highlight-current
-            :props="defaultProps">
+             <el-tree :data="menu" auto-expand-parent show-checkbox default-expand-all node-key="name" ref="tree" highlight-current
+            :props="defaultProps" check-strictly>
           </el-tree>
         </el-form-item>
 
@@ -67,149 +67,135 @@
 </template>
 
 <script>
-  import {
-    GetRoles,
-    DeleteRole,
-    GetRoleDetail,
-    SaveNewRole,
-    UpdateRole
-  } from "@/api/system/role";
-  import {
-    mapGetters
-  } from 'vuex'
-  import { asyncRouterMap} from '@/router/index'
+import {
+  GetRoles,
+  DeleteRole,
+  GetRoleDetail,
+  SaveNewRole,
+  UpdateRole
+} from "@/api/system/role";
+import { mapGetters } from "vuex";
+import { asyncRouterMap } from "@/router/index";
 
-  export default {
-    data() {
-      return {
-        textMap: {
-          update: "编辑",
-          create: "新增"
-        },
-        dialogFormVisible: false,
-        dialogStatus: "",
-        list: null,
-        listLoading: true,
-        temp: {
-          ID: "",
-          RoleName: "",
-          Rank: "",
-          IsDeleted: false,
-        },
-        menu:null,
-        listQuery: {
-          totalCount: "",
-          pageSize: "10",
-          pageNumber: "1",
-        },
-          defaultProps: {
-          children: "children",
-          label: "name"
-        },
-      };
-    },
- 
-
-
-    created() {
-      this.fetchData(this.listQuery)
-
-      let arr = asyncRouterMap
-
-      for(let i = 0 ; i <arr.length;i++){
-        if(arr[i].hidden){
-          arr.splice(i--,1)
-        }
+export default {
+  data() {
+    return {
+      textMap: {
+        update: "编辑",
+        create: "新增"
+      },
+      dialogFormVisible: false,
+      dialogStatus: "",
+      list: null,
+      listLoading: true,
+      temp: {
+        ID: "",
+        RoleName: "",
+        Rank: "",
+        IsDeleted: false,
+        RoleAuthName: null
+      },
+      menu: null,
+      listQuery: {
+        totalCount: "",
+        pageSize: "10",
+        pageNumber: "1"
+      },
+      defaultProps: {
+        children: "children",
+        label: "name"
       }
-      this.menu = arr 
+    };
+  },
 
+  created() {
+    this.fetchData(this.listQuery);
 
-    },
-    methods: {
-      handleSizeChange(val) {
-        this.listQuery.pageSize = val;
-        this.fetchData(this.listQuery);
-      },
-      handleCurrentChange(val) {
+    let arr = asyncRouterMap;
 
-        this.listQuery.pageNumber = val;
-        this.fetchData(this.listQuery);
-
-      },
-    
-      fetchData(params) {
-        this.listLoading = true;
-        GetRoles(params).then(response => {
-                this.list = response.data.rows;
-        this.listQuery.totalCount = response.data.total;
-                          this.listLoading = false;
-
-        })
-      },
-      New() {
-        this.dialogFormVisible = true;
-        this.temp.RoleName = "";
-        this.temp.Rank = "";
-        this.dialogStatus = "create";
-
-      },
-      Delete(ID) {
-        this.$confirm("确认删除?", "提示", {
-            confirmButtonText: "确定",
-            cancelButtonText: "取消",
-            type: "warning"
-          })
-          .then(() => {
-            DeleteRole(ID).then(response => {
-              this.$message({
-                type: "success",
-                message: "删除成功!"
-              });
-              this.fetchData();
-
-            })
-          })
-
-      },
-      Edit(ID) {
-        this.dialogStatus = "update";
-
-        GetRoleDetail(ID).then(response => {
-          this.dialogStatus = "update";
-          this.temp = response.data;
-          this.dialogFormVisible = true;
-
-        });
-
-      },
-
-
-      create() {
-        SaveNewRole(this.temp).then(response => {
-          this.$message({
-            message: response.data.Message,
-            type: 'success'
-          });
-          this.dialogFormVisible = false;
-          this.fetchData();
-
-        });
-
-      },
-      update() {
-        UpdateRole(this.temp).then(response => {
-          this.$message({
-            message: response.data.Message,
-            type: 'success'
-          });
-          this.dialogFormVisible = false;
-
-          this.fetchData();
-
-        });
-
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].hidden) {
+        arr.splice(i--, 1);
       }
     }
-  };
+    this.menu = arr;
+  },
+  methods: {
+    handleSizeChange(val) {
+      this.listQuery.pageSize = val;
+      this.fetchData(this.listQuery);
+    },
+    handleCurrentChange(val) {
+      this.listQuery.pageNumber = val;
+      this.fetchData(this.listQuery);
+    },
 
+    fetchData(params) {
+      this.listLoading = true;
+      GetRoles(params).then(response => {
+        this.list = response.data.rows;
+        this.listQuery.totalCount = response.data.total;
+        this.listLoading = false;
+      });
+    },
+    New() {
+      this.dialogFormVisible = true;
+      this.temp.RoleName = "";
+      this.temp.Rank = "";
+      this.temp.RoleAuthName = "";
+
+      this.dialogStatus = "create";
+    },
+    Delete(ID) {
+      this.$confirm("确认删除?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+        DeleteRole(ID).then(response => {
+          this.$message({
+            type: "success",
+            message: "删除成功!"
+          });
+          this.fetchData(this.listQuery);
+        });
+      });
+    },
+    Edit(ID) {
+      this.dialogStatus = "update";
+
+      GetRoleDetail(ID).then(response => {
+        this.dialogStatus = "update";
+        this.temp = response.data;
+        this.dialogFormVisible = true;
+      });
+    },
+
+    create() {
+      this.temp.RoleAuthName = this.$refs.tree.getCheckedKeys().join(",");
+
+      SaveNewRole(this.temp).then(response => {
+        this.$message({
+          message: response.data.Message,
+          type: "success"
+        });
+        this.dialogFormVisible = false;
+        this.fetchData(this.listQuery);
+      });
+    },
+    update() {
+      this.temp.RoleAuthName = this.$refs.tree.getCheckedKeys().join(",");
+      console.log(this.temp.RoleAuthName);
+      UpdateRole(this.temp).then(response => {
+        this.$message({
+          message: response.data.Message,
+          type: "success"
+        });
+        this.dialogFormVisible = false;
+
+        this.fetchData(this.listQuery);
+      });
+    }
+  }
+};
 </script>
