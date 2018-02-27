@@ -89,7 +89,7 @@ export default {
       music: null,
       request: "",
       msg: "",
-      history:[]
+      history: []
     };
   },
   name: "dashboard",
@@ -109,19 +109,19 @@ export default {
       }, 1000);
     },
     chat() {
-        this.history.push(this.request);
+      this.history.push(this.request);
       axios
         .post("/Chat", {
           key: "050b4fa163454f13bf3372cb1715f5d4",
           info: this.request,
           userid: "a123456"
         })
-        .then(response=>{
-          console.log(response)
-          this.request="";
+        .then(response => {
+          console.log(response);
+          this.request = "";
           this.history.push(response.data.text);
         })
-        .catch(error=> {
+        .catch(error => {
           console.log(error);
         });
     },
@@ -140,7 +140,18 @@ export default {
   created() {
     this.GetNowTime();
     this.GetReport();
+    console.log("created!")
     // this.GetMusic()
+  },
+  beforeCreate(){
+    console.log("beforeCreate")
+  },
+  
+  mounted(){
+    console.log("mounted!")
+  },
+  beforeMount(){
+    console.log("beforemounted")
   }
 };
 </script>

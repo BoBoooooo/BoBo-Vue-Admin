@@ -54,13 +54,13 @@ export const asyncRouterMap = [
     { path: 'book', name: 'book', component: _import('DouBan/book'),meta:{title:"热门书籍"}}]
   },
   {
-    path: '/KaoQin',
+    path: '/People',
     component: Layout,
-    redirect: '/KaoQin/person',
+    redirect: '/People/person',
     name:"person",
     title:"人员信息",
     icon:'zonghe',
-    children: [{ path: 'person', name: 'person', component: _import('KaoQin/person'),meta:{title:"人员信息录入"}}]
+    children: [{ path: 'person', name: 'person1', component: _import('KaoQin/person'),meta:{title:"人员信息录入"}}]
   },
   {
     path: '/KaoQin',

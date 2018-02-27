@@ -4,7 +4,7 @@
       <sidebar class="sidebar-container"></sidebar>
     </div>
     <div class="main-container">
-      <navbar @Send="get"></navbar>
+      <navbar></navbar>
       <TagsView></TagsView>
       <app-main></app-main>
     </div>
@@ -45,12 +45,7 @@
         message: this.$store.getters.name
       });
     },
-    methods:{
-      get(msg){
-        alert(msg);
-
-      }
-    }
+   
   }
 
 </script>
