@@ -72,130 +72,119 @@
 </template>
 
 <script>
-  import {
-    DeleteAtten,
-    AttenDetailByPerson,
-    UpdateAtten
-  } from "@/api/KaoQin/Attendance";
-  import {
-    GetUsers
-  } from "@/api/KaoQin/person";
-  import {
-    GetDeptTree
-  } from "@/api/system/dept";
-  import {
-    parseTime
-  } from '@/utils/index'
-  import Multiselect from 'vue-multiselect'
+import {
+  DeleteAtten,
+  AttenDetailByPerson,
+  UpdateAtten
+} from "@/api/KaoQin/Attendance";
+import { GetUsers } from "@/api/KaoQin/person";
+import { GetDeptTree } from "@/api/system/dept";
+import { parseTime } from "@/utils/index";
+import Multiselect from "vue-multiselect";
 
-  export default {
-    data() {
-      return {
-        Title: "",
-        selected: {
-          'text': '否',
-          'value': 0
+export default {
+  data() {
+    return {
+      Title: "",
+      selected: {
+        text: "否",
+        value: 0
+      },
+      options: [
+        {
+          text: "是",
+          value: 1
         },
-        options: [{
-            'text': '是',
-            'value': 1
-          },
-          {
-            'text': '否',
-            'value': 0
-          }
-        ],
-        listQuery: {
-          totalCount: "",
-          pageSize: "10",
-          pageNumber: "1",
-        },
-        dialogFormVisible: false,
-        dialogStatus: "",
-        list: null,
-        listLoading: true,
-        temp: {
-          ID: "",
-          PersonId: "",
-          Date: '',
-          StartTime: '',
-          EndTime: '',
-          Vacation: "",
-          Vacation_Reason: "",
-          IsDeleted: false
+        {
+          text: "否",
+          value: 0
         }
-      };
-    },
-    components: {
-      Multiselect
-    },
-
-    created() {
-      this.fetchData(this.listQuery)
-    },
-    methods: {
-      handleSizeChange(val) {
-        this.listQuery.pageSize = val
-        this.fetchData(this.listQuery)
+      ],
+      listQuery: {
+        totalCount: "",
+        pageSize: "10",
+        pageNumber: "1"
       },
-      handleCurrentChange(val) {
-        this.listQuery.pageNumber = val
-        this.fetchData(this.listQuery)
-
-      },
-      fetchData(params) {
-        this.listLoading = true;
-        GetUsers(params).then(response => {
-          this.list = response.data.rows
-          this.listQuery.totalCount = response.data.total
-          this.listLoading = false
-        })
-      },
-
-      Delete(ID) {
-        this.$confirm("确认删除?", "提示", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        }).then(() => {
-          DeleteUser(ID).then(response => {
-            this.fetchData(this.listQuery);
-          })
-        })
-      },
-      Edit(ID, Name) {
-        this.dialogStatus = "update";
-        this.dialogFormVisible = true;
-        this.Title = Name;
-        this.temp.Date = parseTime(new Date());
-        AttenDetailByPerson(ID).then(response => {
-          this.temp = response.data
-           if(this.temp.Vacation === 1){
-            this.selected = this.options[0]
-           } 
-
-           else{
-                       this.selected = this.options[1]
-
-           }
-          this.temp.PersonId = ID
-        })
-      },
-
-      update() {
-        this.temp.Vacation = this.selected.value;
-        this.temp.Date = parseTime(new Date());
-        UpdateAtten(this.temp).then(response => {
-          this.dialogFormVisible = false;
-          this.fetchData(this.listQuery);
-        })
+      dialogFormVisible: false,
+      dialogStatus: "",
+      list: null,
+      listLoading: true,
+      temp: {
+        ID: "",
+        PersonId: "",
+        Date: "",
+        StartTime: "",
+        EndTime: "",
+        Vacation: "",
+        Vacation_Reason: "",
+        IsDeleted: false
       }
+    };
+  },
+  components: {
+    Multiselect
+  },
+
+  created() {
+    this.fetchData(this.listQuery);
+  },
+  methods: {
+    handleSizeChange(val) {
+      this.listQuery.pageSize = val;
+      this.fetchData(this.listQuery);
+    },
+    handleCurrentChange(val) {
+      this.listQuery.pageNumber = val;
+      this.fetchData(this.listQuery);
+    },
+    fetchData(params) {
+      this.listLoading = true;
+      GetUsers(params).then(response => {
+        this.list = response.data.rows;
+        this.listQuery.totalCount = response.data.total;
+        this.listLoading = false;
+      });
+    },
+
+    Delete(ID) {
+      this.$confirm("确认删除?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+        DeleteUser(ID).then(response => {
+          this.fetchData(this.listQuery);
+        });
+      });
+    },
+    Edit(ID, Name) {
+      this.dialogStatus = "update";
+      this.dialogFormVisible = true;
+      this.Title = Name;
+      this.temp.Date = parseTime(new Date());
+      AttenDetailByPerson(ID).then(response => {
+        this.temp = response.data;
+        if (this.temp.Vacation === 1) {
+          this.selected = this.options[0];
+        } else {
+          this.selected = this.options[1];
+        }
+        this.temp.PersonId = ID;
+      });
+    },
+
+    update() {
+      this.temp.Vacation = this.selected.value;
+      this.temp.Date = parseTime(new Date());
+      UpdateAtten(this.temp).then(response => {
+        this.dialogFormVisible = false;
+        this.fetchData(this.listQuery);
+      });
     }
   }
-
+};
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-
 
 </style>
