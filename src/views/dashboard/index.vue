@@ -36,11 +36,10 @@
       </el-col>
 
       <el-col  :span="6" :offset="2">
-        <el-card :body-style="{ padding: '15px 15px',height:'300px'}">
  
-       <el-card :body-style="{ padding: '15px 15px',height:'200px'}" style="overflow:auto">
+       <el-card :body-style="{ padding: '15px 15px',height:'250px'}" style="overflow:auto">
             <span v-for="(item,index) in history" :key="index" style="text-align:left;padding:5px;display:block;margin-top:2px">
-                       <icon-svg  icon-class="talk"  />{{item}}
+                    {{item}}
             </span>
        </el-card>
             <el-input
@@ -49,7 +48,6 @@
     style="padding-top:10px" @keyup.enter.native="chat">
     <i slot="suffix" class="el-input__icon el-icon-circle-check-outline"></i>
   </el-input>
-        </el-card>
       </el-col>
     </el-row>
 
