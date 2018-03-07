@@ -1,4 +1,4 @@
-# vueAdmin-template
+﻿# vueAdmin-template
 
 > A minimal vue admin template with Element UI & axios & iconfont & permission control & lint
 
@@ -9,7 +9,7 @@
 ## Build Setup
 
 ``` bash
-
+1
 # Clone project
 git clone https://github.com/PanJiaChen/vueAdmin-template.git
 
