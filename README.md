@@ -1,10 +1,7 @@
 ﻿# vueAdmin-template
 
-> A minimal vue admin template with Element UI & axios & iconfont & permission control & lint
-
-**Live demo:** http://panjiachen.github.io/vueAdmin-template
-
-[中文文档](https://github.com/PanJiaChen/vueAdmin-template/blob/master/README-zh.md)
+> vue-cli+axios+jwt+.net web api 一套前后端分离框架
+整合了知乎日报api ,豆瓣图书api,音乐api,热门电影api等
 
 ## Build Setup
 
@@ -26,14 +23,3 @@ npm run build
 npm run build --report
 ```
 
-## Demo
-![demo](https://github.com/PanJiaChen/PanJiaChen.github.io/blob/master/images/demo.gif)
-
-## Related Project
- [vue-element-admin](https://github.com/PanJiaChen/vue-element-admin)
-
- [electron-vue-admin](https://github.com/PanJiaChen/electron-vue-admin)
-
-
-## License
-[MIT](https://github.com/PanJiaChen/vueAdmin-template/blob/master/LICENSE) license.
