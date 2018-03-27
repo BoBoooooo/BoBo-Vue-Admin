@@ -6,12 +6,23 @@
           <i class="el-icon-date"></i> 月报</span>
         <el-tabs :tab-position="tabPosition" style="height: 700px;">
           <el-tab-pane label="个人月报">
-            <el-date-picker v-model="params.month" type="month" placeholder="选择月份" style="width:200px">
+            <el-date-picker @change="setMonth" v-model="params.month" type="month" placeholder="选择月份" style="width:200px"  value-format="yyyy-MM">
             </el-date-picker>
-            <el-input placeholder="请输入工号/姓名" v-model="criteria" style="display:inline-block;width:200px;padding-bottom:10px;">
+            <el-input placeholder="请输入工号/姓名" v-model="params.name" style="display:inline-block;width:200px;padding-bottom:10px;">
             </el-input>
-            <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
+            <el-button type="primary" icon="el-icon-search" @click="SearchPersonByMonth">搜索</el-button>
 
+            <el-card style="position:absolute;left:40%;top:100px;width:200px" v-show="vacation!=''">
+              <h4>
+                请假:{{vacation}}次
+              </h4>
+              <h4>
+                迟到/早退:{{early_later}}次
+              </h4>
+              <h4>
+                正常出勤:{{normal}}次
+              </h4>
+            </el-card>
             <div class="charts">
 
               <div id="myChart" style="width: 600px;height: 400px;"></div>
@@ -37,20 +48,7 @@
   </div>
 </template>
 <script>
-  // // 引入基本模板
-  // // 引入 ECharts 主模块
-  // var echarts = require('echarts/lib/echarts');
-  // // 引入柱状图
-  // require('echarts/lib/chart/heatmap');
-  // require('echarts/lib/chart/bar');
-  // require('echarts/lib/chart/pie');
-
-
-  // // 引入提示框和标题组件
-  // require('echarts/lib/component/tooltip');
-  // require('echarts/lib/component/title');
-
-  // require('echarts/lib/chart/scatter');
+ 
   import echarts from 'echarts'
 import {SearchPersonByMonth} from '@/api/KaoQin/Attendance'
 
@@ -63,7 +61,12 @@ import {SearchPersonByMonth} from '@/api/KaoQin/Attendance'
         params: {
           month: "",
           name: ""
-        }
+        },
+    
+          vacation:"",
+          early_later:"",
+          normal:""
+        
 
       }
     },
@@ -159,10 +162,17 @@ import {SearchPersonByMonth} from '@/api/KaoQin/Attendance'
 
 
       },
+       setMonth(val) {
+         console.log(val);
+            this.params.month=val;
+        },
+
       SearchPersonByMonth(){
         
         SearchPersonByMonth(this.params).then(response => {
-          console.log(response.data)
+                  this.vacation =response.data.vaction;
+                  this.normal = response.data.normal;
+                  this.early_later = response.data.ealry_later;
         })
       }
 
@@ -178,6 +188,7 @@ import {SearchPersonByMonth} from '@/api/KaoQin/Attendance'
         this.drawPersonMonth()
       })
     }
+    
   }
 
 </script>
