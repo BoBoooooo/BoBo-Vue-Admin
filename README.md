@@ -6,7 +6,6 @@
 ## Build Setup
 
 ``` bash
-1
 # Clone project
 git clone git@github.com:BoBoooooo/Anshare_Vue_Admin.git
 
