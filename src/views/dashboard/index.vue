@@ -24,7 +24,7 @@
         <el-card :body-style="{ padding: '15px 0px',height:'300px'}">
                 <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/100/h/100" style="border-radius:80px" >
 
-          <div class="dashboard-text" style="padding-top:0px">
+          <div class="dashboard-text">
             <span style="display:block;">Anshare Vue Admin</span>
                       <span style="display:block;">Author:BoBo</span>
                       <span style="display:block;">Follow me on GitHub</span>
@@ -159,7 +159,7 @@ export default {
   &-title {
     text-align: center;
     font-family: inherit;
-    font-size: 50px;
+    font-size: 40px;
   }
   &-container {
     text-align: center;
@@ -170,7 +170,7 @@ export default {
     text-align: center;
     margin: 30px;
 
-    font-size: 30px;
+    font-size: 20px;
     line-height: 30px;
     span {
       display: block;

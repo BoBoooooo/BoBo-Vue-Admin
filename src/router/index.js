@@ -59,7 +59,7 @@ export const asyncRouterMap = [
     redirect: '/People/person',
     name:"person",
     title:"人员信息",
-    icon:'zonghe',
+    icon:'wujiaoxing',
     children: [{ path: 'person', name: 'person1', component: _import('KaoQin/person'),meta:{title:"人员信息录入"}}]
   },
   {

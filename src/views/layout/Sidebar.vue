@@ -3,7 +3,7 @@
     <el-menu mode="vertical" :default-active="$route.path">
       <sidebar-item :routes='permission_routers'></sidebar-item>
     </el-menu>
-    <img src="../../assets/401.gif" style="position:fixed;bottom:10px;left:10px;z-index:1111;width:150px">
+    <img src="../../assets/401.gif" v-show="sidebar" style="position:fixed;bottom:10px;left:10px;z-index:1111;width:150px">
   </div>
 </template>
 
@@ -13,6 +13,7 @@
   } from 'vuex'
   import SidebarItem from './SidebarItem'
   export default {
+  
     components: {
       SidebarItem
     },
@@ -20,11 +21,13 @@
       ...mapGetters([
         'permission_routers',
         'AllRouters'
-      ])
+      ]),
+      sidebar(){
+        return this.$store.getters.sidebar.opened
+      }
     },
     created() {
       console.log(this.AllRouters)
-
     }
   }
 

@@ -10,9 +10,14 @@
             </el-date-picker>
             <el-input placeholder="请输入工号/姓名" v-model="params.name" style="display:inline-block;width:200px;padding-bottom:10px;">
             </el-input>
-            <el-button type="primary" icon="el-icon-search" @click="SearchPersonByMonth">搜索</el-button>
+                          <el-button type="primary" icon="el-icon-search" @click="SearchPersonByMonth">搜索</el-button>
 
-            <el-card style="position:absolute;left:40%;top:100px;width:200px" v-show="vacation!=''">
+         
+            <div class="charts">
+
+              <div id="myChart" style="width: 600px;height: 400px;position:relative"></div>
+
+ <el-card style="width:200px;position:absolute;left:620px;top:120px" v-show="vacation!==''">
               <h4>
                 请假:{{vacation}}次
               </h4>
@@ -23,10 +28,8 @@
                 正常出勤:{{normal}}次
               </h4>
             </el-card>
-            <div class="charts">
-
-              <div id="myChart" style="width: 600px;height: 400px;"></div>
             </div>
+              
           </el-tab-pane>
           <el-tab-pane label="部门月报"></el-tab-pane>
 
