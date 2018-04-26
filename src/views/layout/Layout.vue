@@ -6,7 +6,9 @@
     <div class="main-container">
       <navbar></navbar>
       <TagsView></TagsView>
-      <app-main></app-main>
+      <div class="content-container">
+        <app-main></app-main>
+      </div>
     </div>
     <BackToTop></BackToTop>
   </div>
@@ -90,14 +92,26 @@
       top: 0;
       bottom: 0;
       left: 0;
-      right: -17px;
+      right: -7px;
       overflow-y: scroll;
       overflow-x: hidden;
     }
     .main-container {
-      min-height: 100%;
+      position: absolute;
+      left: 180px;
+      top: 0;
+      bottom: 0;
+      right: 0;
       transition: all .28s ease-out;
-      margin-left: 180px;
+    }
+    .content-container{
+      position: absolute;
+      left: 0;
+      top: 84px;
+      bottom: 0;
+      right: 0;
+      overflow: auto;
+      transition: all .28s ease-out;
     }
   }
 
