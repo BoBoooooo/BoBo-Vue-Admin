@@ -73,7 +73,7 @@
         }
       }
       .main-container {
-        margin-left: 40px;
+        left: 40px;
       }
     }
     .sidebar-wrapper {

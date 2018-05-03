@@ -32,7 +32,10 @@ export default {
   computed: {
     visitedViews() {
       return this.$store.state.tagsView.visitedViews
-    }
+    },
+      sidebar(){
+        return this.$store.getters.sidebar.opened
+      }
   },
   watch: {
     $route() {
@@ -103,7 +106,11 @@ export default {
     openMenu(tag, e) {
       this.visible = true
       this.selectedTag = tag
-      this.left = e.clientX
+      console.log(e)
+      if(!this.sidebar)
+      this.left = e.clientX-10
+      else
+      this.left = e.clientX-150
       this.top = e.clientY
     },
     closeMenu() {
