@@ -22,7 +22,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column label="操作" align="center">
+      <el-table-column label="操作" align="center" min-width="110px">
         <template slot-scope="scope">
           <el-button @click="Edit(scope.row.ID)" type="success" size="small">编辑</el-button>
 
