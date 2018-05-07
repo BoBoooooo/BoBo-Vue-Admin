@@ -54,7 +54,7 @@
  
   import echarts from 'echarts'
 import {SearchPersonByMonth} from '@/api/KaoQin/Attendance'
-
+require('echarts/theme/roma')
   export default {
     name: '',
     data() {
@@ -92,7 +92,7 @@ import {SearchPersonByMonth} from '@/api/KaoQin/Attendance'
 
       drawPersonMonth() {
         // 基于准备好的dom，初始化echarts实例
-        let myChart = echarts.init(document.getElementById('myChart'))
+        let myChart = echarts.init(document.getElementById('myChart'),'roma')
         // 绘制图表
         myChart.setOption({
           tooltip: {
@@ -131,7 +131,7 @@ import {SearchPersonByMonth} from '@/api/KaoQin/Attendance'
 
       },
       drawPersonYear() {
-        let myChart = echarts.init(document.getElementById('main'))
+        let myChart = echarts.init(document.getElementById('main'),'roma')
 
         myChart.setOption({
           tooltip: {
@@ -185,7 +185,7 @@ import {SearchPersonByMonth} from '@/api/KaoQin/Attendance'
       this.data = this.getVirtulData(2018)
     },
     mounted() {
-      this.$nextTick(function () {
+      this.$nextTick( () =>{
         // this.drawPie('main1')
         this.drawPersonYear()
         this.drawPersonMonth()

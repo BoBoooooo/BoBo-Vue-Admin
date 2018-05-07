@@ -2,7 +2,7 @@
   <div class="login-container">
     <el-form autoComplete="on" :model="loginForm"  ref="loginForm" label-position="left" label-width="0px"
       class="card-box login-form">
-      <h3 class="title"> <img style="width:7%" src='/logo.ico'> 人事考勤管理系统</h3>
+      <h3 class="title"> <img style="width:7%" src='/logo.ico'> Anshare</h3>
          
 
       <el-form-item prop="username">
