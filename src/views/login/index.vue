@@ -58,7 +58,7 @@
               this.$router.push({
                 path: "/"
               });
-            }, 2000);
+            }, 2000)
           })
           .catch((error) => {
             this.$message.error(error);
