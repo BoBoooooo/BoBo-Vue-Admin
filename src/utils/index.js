@@ -31,6 +31,7 @@
      }
      return value || 0
    })
+
    return time_str
  }
 

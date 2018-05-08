@@ -53,7 +53,7 @@
 
     <el-row>
       <h3>知乎日报</h3>
-      <el-col :span="6" :offset="index%3===0?1:2" v-for="(item,index) in report" :key="index">
+      <el-col :span="6" :offset="index%3===0?1:2" v-for="(item,index) in report" :key="index" style='margin-top:5px'>
         <el-card :body-style="{ padding: '15px 0px',height:'250px'}">
 
           <div class="dashboard-text" style="padding-top:0px">

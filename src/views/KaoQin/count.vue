@@ -51,151 +51,169 @@
   </div>
 </template>
 <script>
- 
-  import echarts from 'echarts'
-import {SearchPersonByMonth} from '@/api/KaoQin/Attendance'
-require('echarts/theme/roma')
-  export default {
-    name: '',
-    data() {
-      return {
-        data: [],
-        tabPosition: 'left',
-        params: {
-          month: "",
-          name: ""
-        },
-    
-          vacation:"",
-          early_later:"",
-          normal:""
-        
-
-      }
-    },
-    methods: {
-
-      getVirtulData(year) {
-        year = year || '2018';
-        var date = +echarts.number.parseDate(year + '-01-01');
-        var end = +echarts.number.parseDate((+year + 1) + '-01-01');
-        var dayTime = 3600 * 24 * 1000;
-        var data = [];
-        for (var time = date; time < end; time += dayTime) {
-          data.push([
-            echarts.format.formatTime('yyyy-MM-dd', time),
-            Math.floor(Math.random() * 10000)
-          ]);
-        }
-        return data;
+import echarts from "echarts";
+import { SearchPersonByMonth } from "@/api/KaoQin/Attendance";
+import { parseTime } from "@/utils/index";
+require("echarts/theme/roma");
+export default {
+  name: "",
+  data() {
+    return {
+      data: [],
+      tabPosition: "left",
+      params: {
+        month: "",
+        name: ""
       },
 
-      drawPersonMonth() {
-        // 基于准备好的dom，初始化echarts实例
-        let myChart = echarts.init(document.getElementById('myChart'),'roma')
-        // 绘制图表
-        myChart.setOption({
-          tooltip: {
-            position: 'top'
-          },
+      vacation: "",
+      early_later: "",
+      normal: "",
+      MyChartPerson:null,
+      option:null
+    };
+  },
+  methods: {
+    getVirtulData(year) {
+      year = year || "2018";
+      var date = +echarts.number.parseDate(year + "-01-01");
+      var end = +echarts.number.parseDate(+year + 1 + "-01-01");
+      var dayTime = 3600 * 24 * 1000;
+      var data = [];
+      for (var time = date; time < end; time += dayTime) {
+        data.push([
+          echarts.format.formatTime("yyyy-MM-dd", time),
+          Math.floor(Math.random() * 10000)
+        ]);
+      }
+      return data;
+    },
 
-          calendar: [{
-            orient: 'vertical',
+    drawPersonMonth() {
+      // 基于准备好的dom，初始化echarts实例
+      this.MyChartPerson = echarts.init(document.getElementById("myChart"), "vintage");
+      // 绘制图表
+       this.option = {
+        tooltip: {
+          position: "top",
+           formatter: function(params) {
+            return "上班时间:  下班时间";
+          }
+        },
 
-            range: '2018-01',
+        calendar: [
+          {
+            orient: "vertical",
 
-            cellSize: ['auto', 50],
+            range: new Date().format("yyyy-MM"),
+
+            cellSize: ["auto", 50],
             yearLabel: {
               margin: 40
             },
             monthLabel: {
-              nameMap: 'cn',
+              nameMap: "cn",
               margin: 15
             },
             dayLabel: {
               firstDay: 1,
               margin: 15,
 
-              nameMap: 'cn'
+              nameMap: "cn"
             }
-          }],
+          }
+        ],
 
-          series: [{
-            type: 'scatter',
-            coordinateSystem: 'calendar',
+        series: [
+          {
+            type: "scatter",
+            coordinateSystem: "calendar",
             calendarIndex: 0,
-            data: this.data
-          }]
+            data: this.data,
+            symbolSize:5,
+            label: {
+              normal: {
+                show: true,
+                formatter: function(params) {
+                  console.log(params);
+                  var d = echarts.number.parseDate(params.value[0]);
+                  return d.getDate()+"\n\n";
+                }
+              }
+            }
+          }
+        ]
+      }
+      this.MyChartPerson.setOption(this.option);
+    },
+    drawPersonYear() {
+      let myChart = echarts.init(document.getElementById("main"), "vintage");
 
-        })
+      myChart.setOption({
+        tooltip: {
+          position: "top",
+          formatter: function(params) {
+            return "上班时间:  下班时间";
+          }
+        },
 
-      },
-      drawPersonYear() {
-        let myChart = echarts.init(document.getElementById('main'),'roma')
+        calendar: [
+          {
+            range: ["2018-01-01", "2018-12-31"],
 
-        myChart.setOption({
-          tooltip: {
-            position: 'top'
-          },
-
-          calendar: [{
-            range: ['2018-01-01', '2018-12-31'],
-
-            cellSize: ['auto', 20],
+            cellSize: ["auto", 20],
             yearLabel: {
               margin: 40
             },
             monthLabel: {
-              nameMap: 'cn',
+              nameMap: "cn",
               margin: 20
             },
             dayLabel: {
-              nameMap: 'cn'
+              nameMap: "cn"
             }
-          }],
+          }
+        ],
 
-          series: [{
-            type: 'scatter',
-            coordinateSystem: 'calendar',
+        series: [
+          {
+            type: "scatter",
+            coordinateSystem: "calendar",
             calendarIndex: 0,
             data: this.data
-          }]
-
-        })
-
-
-      },
-       setMonth(val) {
-         console.log(val);
-            this.params.month=val;
-        },
-
-      SearchPersonByMonth(){
-        
-        SearchPersonByMonth(this.params).then(response => {
-                  this.vacation =response.data.vaction;
-                  this.normal = response.data.normal;
-                  this.early_later = response.data.ealry_later;
-        })
-      }
-
+          }
+        ]
+      });
     },
-    //调用
-    created() {
-      this.data = this.getVirtulData(2018)
+    setMonth(val) {
+      console.log(val);
+      this.params.month = val;
     },
-    mounted() {
-      this.$nextTick( () =>{
-        // this.drawPie('main1')
-        this.drawPersonYear()
-        this.drawPersonMonth()
-      })
+
+    SearchPersonByMonth() {
+      SearchPersonByMonth(this.params).then(response => {
+        console.log(response.data);
+        this.vacation = response.data[0].vaction;
+        this.normal = response.data[0].normal;
+        this.early_later = response.data[0].ealry_later;
+        this.data=response.data;
+        this.MyChartPerson.setOption(this.option,true);
+      });
     }
-    
+  },
+  //调用
+  created() {
+    this.data = this.getVirtulData(2018);
+  },
+  mounted() {
+    this.$nextTick(() => {
+      // this.drawPie('main1')
+      this.drawPersonYear();
+      this.drawPersonMonth();
+    });
   }
-
+};
 </script>
 <style lang="scss" scoped>
-
 
 </style>
