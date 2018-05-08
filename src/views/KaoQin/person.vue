@@ -120,7 +120,7 @@
 
   import Multiselect from 'vue-multiselect'
 
-  export default {
+  export default {//
     data() {
       return {
         selected: null,

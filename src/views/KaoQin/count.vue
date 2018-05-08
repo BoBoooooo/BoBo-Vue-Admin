@@ -141,7 +141,7 @@ export default {
                 }
               }
             }
-          }
+          }//
         ]
       }
       this.MyChartPerson.setOption(this.option);

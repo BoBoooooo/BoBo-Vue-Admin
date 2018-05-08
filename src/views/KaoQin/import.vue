@@ -137,7 +137,7 @@ export default {
       this.listQuery.pageNumber = val;
       this.fetchData(this.listQuery);
     },
-    fetchData(params) {
+    fetchData(params) {//
       this.listLoading = true;
       GetUsers(params).then(response => {
         this.list = response.data.rows;
@@ -171,7 +171,7 @@ export default {
         }
         this.temp.PersonId = ID;
       });
-    },
+    },//
 
     update() {
       this.temp.Vacation = this.selected.value;
