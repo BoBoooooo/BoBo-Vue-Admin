@@ -18,7 +18,6 @@ service.interceptors.request.use(config => {
   if (store.getters.token) {
     config.headers['auth'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
   }
-  console.log("拦截req")
   return config
 }, error => {
   // Do something with request error
@@ -33,10 +32,7 @@ service.interceptors.request.use(config => {
 //respone拦截器
 service.interceptors.response.use(
   response => {
-
     const res = response.data
-
-
     // 400:帐号信息与token不匹配  需要重新拉取token
     if (res.code === 401) {
       MessageBox.alert('帐号信息发生变化，请重新登录', {
@@ -51,17 +47,13 @@ service.interceptors.response.use(
       return Promise.reject(error)
 
     } else {
-
       if (res.Success != null) { //增删改操作的状态返回
-
         if (res.Success == false) {
           Message({
             message: res.Message,
             type: 'error',
             duration: 1500
           })
-
-
         } else {
           Message({
             message: res.Message,
@@ -69,11 +61,8 @@ service.interceptors.response.use(
             duration: 1500
           })
         }
-
       }
-
       return response;
-
     }
   },
   error => {
