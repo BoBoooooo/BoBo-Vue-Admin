@@ -14,12 +14,12 @@
       </el-table-column>
       <el-table-column label="类型" align="center">
         <template slot-scope="scope">
-          <el-tag :key="index" type="primary" v-for="(item,index) in scope.row.genres" style="margin-right:5px">{{item}}</el-tag>
+          <el-tag :key="index" type="primary" v-for="(item,index) in scope.row.genres" style="margin-right:5px;margin-top:5px">{{item}}</el-tag>
 
         </template>
       </el-table-column>
 
-      <el-table-column label="主演" align="center">
+      <el-table-column label="主演" align="center" min-width="100px">
         <template slot-scope="scope">
           <el-tag :key="index" type="danger" v-for="(item,index) in scope.row.casts" style="margin-right:5px;margin-top:5px">{{item.name}}</el-tag>
 
@@ -29,7 +29,7 @@
 
         <template slot-scope="scope">
 
-          <el-rate v-model="scope.row.rating.average" disabled show-score text-color="#ff9900" score-template="{value}">
+          <el-rate v-model="scope.row.rating.average"  disabled show-score text-color="#ff9900" score-template="{value}">
           </el-rate>
         </template>
       </el-table-column>
@@ -79,6 +79,10 @@
 
               console.log(response.data)
               this.tableData = response.data.subjects;
+              // for(let i = 0 ; i<this.tableData.subjects;i++){
+              //     let obj = this.tableData.subjects[i];
+              //     obj.rating.averange = (obj.rating.averange/2).toFixed(1);
+              // }
               this.listLoading = false;
               this.totalCount = response.data.total;
             },
