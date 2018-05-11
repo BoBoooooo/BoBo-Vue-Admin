@@ -17,7 +17,7 @@ export default {
   props: {
     visibilityHeight: {
       type: Number,
-      default: 400
+      default: 200
     },
     backPosition: {
       type: Number,
@@ -51,6 +51,8 @@ export default {
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll)
+     
+
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll)

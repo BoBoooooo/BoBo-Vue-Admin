@@ -3,7 +3,9 @@
     <transition name="fade" mode="out-in">
       <router-view :key="key"></router-view>
     </transition>
+
   </section>
+
 </template>
 
 <script>

@@ -47,6 +47,11 @@
         message: this.$store.getters.name
       });
     },
+    mounted(){
+        window.addEventListener('scroll', ()=>{
+alert(1)
+        })
+    }
    
   }
 
