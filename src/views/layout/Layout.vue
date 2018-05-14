@@ -97,8 +97,8 @@ alert(1)
       top: 0;
       bottom: 0;
       left: 0;
-      right: -7px;
-      overflow-y: scroll;
+      width: 180px;
+      overflow-y: auto;
       overflow-x: hidden;
     }
     .main-container {
