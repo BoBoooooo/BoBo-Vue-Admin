@@ -14,29 +14,24 @@ router.beforeEach((to, from, next) => {
       next({
         path: '/'
       })
-    }
-
-  
-    else 
-    {    
+    } else {
       if (store.getters.roles.length === 0) {
         store.dispatch('GetInfo').then(res => {
           const roles = res.data.Roles
-          store.dispatch('GenerateRoutes', { roles }).then(() => {
+          store.dispatch('GenerateRoutes', {
+            roles
+          }).then(() => {
             router.addRoutes(store.getters.addRouters)
-            next({ ...to })
+            next({ ...to
+            })
           })
         })
-      } 
-      else {
+      } else {
         next()
       }
     }
-  
-  }
 
- 
-  else {
+  } else {
     if (whiteList.indexOf(to.path) !== -1) {
       next()
     } else {
