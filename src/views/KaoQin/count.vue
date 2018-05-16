@@ -17,7 +17,7 @@
 
               <div id="myChart" style="width: 600px;height: 400px;position:relative"></div>
 
- <el-card style="width:200px;position:absolute;left:620px;top:120px" v-show="vacation!==''">
+ <el-card style="width:150px;position:absolute;left:620px;top:120px" v-show="vacation!==''">
               <h4>
                 请假:{{vacation}}次
               </h4>
@@ -62,10 +62,10 @@ export default {
       data: [],
       tabPosition: "left",
       params: {
-        month: "",
+        month: new Date().format("yyyy-MM"),
         name: ""
       },
-
+      simpledata:[],
       vacation: "",
       early_later: "",
       normal: "",
@@ -96,16 +96,27 @@ export default {
        this.option = {
         tooltip: {
           position: "top",
-           formatter: function(params) {
-            return "上班时间:  下班时间";
-          }
+          trigger:"item",
+           formatter: function(params) {  
+             console.log(params);
+                let res = "";  
+                let myseries = this.option.series;  
+                for (var i = 0; i < myseries.length; i++) {  
+                    for(var j=0;j<myseries[i].data.length;j++){  
+                        if(myseries[i].data[j].name==params.name){  
+                            res+=myseries[i].name +' : '+myseries[i].data[j].value+'</br>';  
+                        }  
+                    }  
+                }  
+                return res;  
+            }  
         },
 
         calendar: [
           {
             orient: "vertical",
 
-            range: new Date().format("yyyy-MM"),
+            range: this.params.month,
 
             cellSize: ["auto", 50],
             yearLabel: {
@@ -196,7 +207,14 @@ export default {
         this.vacation = response.data[0].vaction;
         this.normal = response.data[0].normal;
         this.early_later = response.data[0].ealry_later;
-        this.data=response.data;
+
+        for(let i = 0;i<response.data.length;i++){
+            let obj = response.data[i];
+            this.simpledata.push([obj.Date.substring(0,10),obj.StartTime,obj.EndTime,obj.Vacation]);
+        }
+
+        console.log(this.simpledata);
+        this.data=this.simpledata;
         this.MyChartPerson.setOption(this.option,true);
       });
     }
