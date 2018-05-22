@@ -65,12 +65,14 @@ export default {
         month: new Date().format("yyyy-MM"),
         name: ""
       },
-      simpledata:[],
+      tooltipdata: [],
+      heatmapdata: [],
+      simpledata: [],
       vacation: "",
       early_later: "",
       normal: "",
-      MyChartPerson:null,
-      option:null
+      MyChartPerson: null,
+      option: null
     };
   },
   methods: {
@@ -91,36 +93,50 @@ export default {
 
     drawPersonMonth() {
       // 基于准备好的dom，初始化echarts实例
-      this.MyChartPerson = echarts.init(document.getElementById("myChart"), "vintage");
+      this.MyChartPerson = echarts.init(document.getElementById("myChart"));
       // 绘制图表
-       this.option = {
+      let that = this;
+      this.option = {
         tooltip: {
-          position: "top",
-          trigger:"item",
-           formatter: function(params) {  
-             console.log(params);
-                let res = "";  
-                let myseries = this.option.series;  
-                for (var i = 0; i < myseries.length; i++) {  
-                    for(var j=0;j<myseries[i].data.length;j++){  
-                        if(myseries[i].data[j].name==params.name){  
-                            res+=myseries[i].name +' : '+myseries[i].data[j].value+'</br>';  
-                        }  
-                    }  
-                }  
-                return res;  
-            }  
+          formatter: function(params) {
+            console.log(params);
+            let res = "";
+            if (params.seriesIndex == 0)
+              res = `<span>上班时间:${
+                params.value[2]
+              }</span><br><span>下班时间:${params.value[3]}</span>`;
+            if (params.seriesIndex == 1) {
+              for (let i = 0; i < that.tooltipdata.length; i++) {
+                let obj = that.tooltipdata[i];
+                console.log(obj[0]);
+                console.log(params.value[0]);
+                if (obj[0] == params.value[0] && obj[1] != 1) {
+                  res = `<span>上班时间:${obj[3]}</span><br><span>下班时间:${
+                    obj[4]
+                  }</span>`;
+                } else if (obj[0] == params.value[0] && obj[1] == 1) {
+                  res = `<span>${obj[5]}</span>`;
+                }
+              }
+            }
+
+            return res;
+          }
         },
 
         calendar: [
           {
+            top: "middle",
+            left: "center",
+
             orient: "vertical",
 
             range: this.params.month,
 
             cellSize: ["auto", 50],
             yearLabel: {
-              margin: 40
+              margin:40
+           
             },
             monthLabel: {
               nameMap: "cn",
@@ -131,30 +147,80 @@ export default {
               margin: 15,
 
               nameMap: "cn"
+            },
+            splitLine: {
+              show: true,
+              lineStyle: {
+                color: "#000",
+                width: 2,
+                type: "solid"
+              }
             }
           }
         ],
+        visualMap: {
+          show: false,
+          min: 0,
+          max: 2,
+          calculable: true,
+          seriesIndex: [1],
+          orient: "horizontal",
+          left: "center",
+          bottom: 20,
+          inRange: {
+            color: ["#90EE90", "#F08080", "#87CEFA"],
+            opacity: 0.3
+          },
+          controller: {
+            inRange: {
+              opacity: 0.5
+            }
+          }
+        },
 
         series: [
           {
+            name: "显示",
             type: "scatter",
             coordinateSystem: "calendar",
             calendarIndex: 0,
             data: this.data,
-            symbolSize:5,
+            symbolSize: 1,
             label: {
               normal: {
                 show: true,
                 formatter: function(params) {
                   console.log(params);
                   var d = echarts.number.parseDate(params.value[0]);
-                  return d.getDate()+"\n\n";
+                  let no = params.data[4];
+                  if (no !== 1)
+                    return (
+                      d.getDate() +
+                      "\n\n" +
+                      params.data[2] +
+                      "~" +
+                      params.data[3]
+                    );
+                  else if (no == 1) {
+                    return d.getDate() + "\n\n" + params.data[5];
+                  }
+                },
+                textStyle: {
+                  color: "#000"
                 }
               }
             }
-          }//
+          },
+          {
+            name: "考勤",
+            type: "heatmap",
+            coordinateSystem: "calendar",
+            calendarIndex: 0,
+
+            data: this.heatmapdata
+          }
         ]
-      }
+      };
       this.MyChartPerson.setOption(this.option);
     },
     drawPersonYear() {
@@ -204,24 +270,48 @@ export default {
     SearchPersonByMonth() {
       SearchPersonByMonth(this.params).then(response => {
         console.log(response.data);
+
+if(response.data.length==0)return; //如果没有考勤信息则不显示
+
         this.vacation = response.data[0].vaction;
         this.normal = response.data[0].normal;
         this.early_later = response.data[0].ealry_later;
+        this.simpledata = [];
+        this.tooltipdata = [];
+        this.data = [];
+        for (let i = 0; i < response.data.length; i++) {
+          let obj = response.data[i];
+          this.simpledata.push([
+            obj.Date.substring(0, 10),
+            1,
+            obj.StartTime,
+            obj.EndTime,
+            obj.Vacation,
+            obj.Vacation_Reason
+          ]);
 
-        for(let i = 0;i<response.data.length;i++){
-            let obj = response.data[i];
-            this.simpledata.push([obj.Date.substring(0,10),obj.StartTime,obj.EndTime,obj.Vacation]);
+          this.heatmapdata.push([obj.Date.substring(0, 10), obj.Vacation]);
+
+          this.tooltipdata.push([
+            obj.Date.substring(0, 10),
+            obj.Vacation,
+            1,
+            obj.StartTime,
+            obj.EndTime,
+            obj.Vacation_Reason
+          ]);
+          //  this.simpledata.push([obj.Date.substring(0,10),obj.normal]);
         }
 
-        console.log(this.simpledata);
-        this.data=this.simpledata;
-        this.MyChartPerson.setOption(this.option,true);
+        this.data = this.simpledata;
+         this.drawPersonMonth();
       });
     }
   },
   //调用
   created() {
-    this.data = this.getVirtulData(2018);
+    // this.data = this.getVirtulData(2018);
+    console.log(this.data);
   },
   mounted() {
     this.$nextTick(() => {
@@ -233,5 +323,4 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-
 </style>

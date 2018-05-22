@@ -20,6 +20,11 @@
         </template>
       </el-table-column>
 
+      <el-table-column label="考勤情况" align="center">
+        <template slot-scope="scope">
+          {{scope.row.StartTime==null?"请假:"+scope.row.Vacation_Reason:scope.row.StartTime+"~"+scope.row.EndTime}}
+        </template>
+      </el-table-column>
 
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
@@ -39,15 +44,15 @@
 
         <el-form-item label="考勤时间">
           <el-time-select v-model="temp.StartTime" :picker-options="{
-    start: '08:30',
+    start: '08:00',
     step: '00:05',
-    end: '09:30'
+    end: '09:00'
   }" placeholder="上班时间">
           </el-time-select>
           <el-time-select v-model="temp.EndTime" :picker-options="{
-    start: '16:30',
+    start: '17:00',
     step: '00:05',
-    end: '17:30'
+    end: '18:00'
   }" placeholder="下班时间">
           </el-time-select>
         </el-form-item>
@@ -101,7 +106,7 @@ export default {
         }
       ],
       listQuery: {
-        totalCount: "",
+        totalCount: null,
         pageSize: "10",
         pageNumber: "1"
       },
@@ -141,6 +146,7 @@ export default {
       this.listLoading = true;
       GetUsers(params).then(response => {
         this.list = response.data.rows;
+        console.log(this.list);
         this.listQuery.totalCount = response.data.total;
         this.listLoading = false;
       });

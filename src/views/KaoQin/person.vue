@@ -131,7 +131,7 @@
           create: "新增"
         },
         listQuery: {
-          totalCount: "",
+          totalCount: null,
           pageSize: "10",
           pageNumber: "1",
         },
