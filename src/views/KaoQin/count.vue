@@ -13,7 +13,7 @@
          
             <div class="charts">
 
-              <div id="myChart" style="width: 1000px;height: 600px;position:relative"></div>
+              <div id="myChart" style="width: 600px;height: 400px;position:relative"></div>
 
  <el-card style="width:150px;position:absolute;left:650px;top:150px" v-show="vacation!==''">
               <h4>
@@ -127,7 +127,6 @@ export default {
 
         calendar: [
           {
-            top: "middle",
             left: "center",
 
             orient: "vertical",
@@ -226,6 +225,7 @@ export default {
     },
     drawPersonYear() {
       let myChart = echarts.init(document.getElementById("main"), "vintage");
+            let that = this;
 
       myChart.setOption({
     
@@ -237,11 +237,9 @@ export default {
               res = `<span>上班时间:${
                 params.value[2]
               }</span><br><span>下班时间:${params.value[3]}</span>`;
-            if (params.seriesIndex == 1) {
+            if (params.seriesIndex == 0) {
               for (let i = 0; i < that.tooltipdata_year.length; i++) {
                 let obj = that.tooltipdata_year[i];
-                console.log(obj[0]);
-                console.log(params.value[0]);
                 if (obj[0] == params.value[0] && obj[1] != 1) {
                   res = `<span>上班时间:${obj[3]}</span><br><span>下班时间:${
                     obj[4]
@@ -289,7 +287,7 @@ export default {
           min: 0,
           max: 2,
           calculable: true,
-          seriesIndex: [1],
+          seriesIndex: [0],
           orient: "horizontal",
           left: "center",
           bottom: 20,
@@ -305,38 +303,15 @@ export default {
         },
 
         series: [
-          {
-            name: "显示",
-            type: "scatter",
-            coordinateSystem: "calendar",
-            calendarIndex: 0,
-            data: this.data_year,
-            symbolSize: 1,
-            label: {
-              normal: {
-                show: true,
-                formatter: function(params) {
-                  console.log(params);
-                  var d = echarts.number.parseDate(params.value[0]);
-                  let no = params.data[4];
-                  if (no !== 1)
-                    return (
-                      d.getDate() +
-                      "\n\n" +
-                      params.data[2] +
-                      "~" +
-                      params.data[3]
-                    );
-                  else if (no == 1) {
-                    return d.getDate() + "\n\n" + params.data[5];
-                  }
-                },
-                textStyle: {
-                  color: "#000"
-                }
-              }
-            }
-          },
+          // {
+          //   name: "显示",
+          //   type: "scatter",
+          //   coordinateSystem: "calendar",
+          //   calendarIndex: 0,
+          //   data: this.data_year,
+          //   symbolSize: 5
+    
+          // },
           {
             name: "考勤",
             type: "heatmap",
@@ -346,10 +321,9 @@ export default {
             data: this.heatmapdata_year
           }
         ]
-      });
+      },true);
     },
     setMonth(val) {
-      console.log(val);
       this.params.month = val;
     },
 

@@ -31,7 +31,7 @@
           {{scope.row.Workduty}}
         </template>
       </el-table-column>
-      <el-table-column label="入职时间" align="center">
+      <!-- <el-table-column label="入职时间" align="center">
         <template slot-scope="scope">
           {{scope.row.Workduty}}
         </template>
@@ -40,7 +40,7 @@
         <template slot-scope="scope">
           {{scope.row.Phone}}
         </template>
-      </el-table-column>
+      </el-table-column> -->
 
       <el-table-column label="操作" align="center" min-width="110px">
         <template slot-scope="scope">
