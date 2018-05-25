@@ -47,3 +47,15 @@ export function SearchPersonByMonth(data){
       })
 }
 
+
+export function SearchPersonByYear(data){
+    return fetch({
+        url: '/Attendance/SearchPersonByYear',
+        method: 'post',
+        params:{
+            name:data.name
+        }
+
+      })
+}
+
