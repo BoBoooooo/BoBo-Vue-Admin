@@ -1,7 +1,13 @@
 <template>
   <div class="app-container" id="person">
+        <el-button @click="New()" type="primary" size="small">新增</el-button>
 
-    <el-button @click="New()" type="primary" size="small">新增</el-button>
+   <el-input @keyup.enter.native="Refresh" placeholder="请输入姓名/工号" v-model="listQuery.criteria" style="padding-bottom:10px;width:90%">
+            
+              <el-button slot="append" icon="el-icon-search" v-on:click="Refresh"></el-button>
+                            <el-button slot="append" icon="el-icon-refresh" v-on:click="Clear"></el-button>
+
+          </el-input>   
     <br>
     <br>
 
@@ -26,9 +32,9 @@
           {{scope.row.DeptName}}
         </template>
       </el-table-column>
-      <el-table-column label="职位" align="center">
+     <el-table-column label="手机号码" align="center">
         <template slot-scope="scope">
-          {{scope.row.Workduty}}
+          {{scope.row.Phone}}
         </template>
       </el-table-column>
       <!-- <el-table-column label="入职时间" align="center">
@@ -89,9 +95,9 @@
 
         </el-form-item>
 
-        <el-form-item label="职位">
+        <el-form-item label="联系方式">
 
-          <el-input class="filter-item" v-model="temp.Workduty" placeholder="请输入职位">
+          <el-input class="filter-item" v-model="temp.Phone" placeholder="请输入手机号码">
 
           </el-input>
         </el-form-item>
@@ -107,84 +113,88 @@
 </template>
 
 <script>
-  import {
-    GetUsers,
-    DeleteUser,
-    GetUsersDetail,
-    SaveNewUsers,
-    UpdateUsers
-  } from "@/api/KaoQin/person";
-  import {
-    GetDeptTree
-  } from "@/api/system/dept";
+import {
+  GetUsers,
+  DeleteUser,
+  GetUsersDetail,
+  SaveNewUsers,
+  UpdateUsers
+} from "@/api/KaoQin/person";
+import { GetDeptTree } from "@/api/system/dept";
 
-  import Multiselect from 'vue-multiselect'
+import Multiselect from "vue-multiselect";
 
-  export default {//
-    data() {
-      return {
-        selected: null,
-        options: ['男', '女'],
-        depttree: [],
-        textMap: {
-          update: "编辑",
-          create: "新增"
-        },
-        listQuery: {
-          totalCount: null,
-          pageSize: "10",
-          pageNumber: "1",
-        },
+export default {
+  //
+  data() {
+    return {
+      selected: null,
+      options: ["男", "女"],
+      depttree: [],
+      textMap: {
+        update: "编辑",
+        create: "新增"
+      },
+      listQuery: {
+        totalCount: null,
+        pageSize: "10",
+        pageNumber: "1",
+        criteria: ""
+      },
 
-        dialogFormVisible: false,
-        dialogStatus: "",
-        list: null,
-        listLoading: true,
-        RoleID: "",
+      dialogFormVisible: false,
+      dialogStatus: "",
+      list: null,
+      listLoading: true,
+      RoleID: "",
 
-        temp: {
-          ID: "",
-          No: "",
-          Name: "",
-          Gender: "",
-          Workduty: "",
-          DeptName: "",
-          DeptID: "",
-          phone: "",
-          IsDeleted: false
-        },
-        defaultProps: {
-          children: "children",
-          label: "text"
-        },
+      temp: {
+        ID: "",
+        No: "",
+        Name: "",
+        Gender: "",
+        Workduty: "",
+        DeptName: "",
+        DeptID: "",
+        Phone: "",
+        IsDeleted: false
+      },
+      defaultProps: {
+        children: "children",
+        label: "text"
+      }
+    };
+  },
+  components: {
+    Multiselect
+  },
 
-      };
-    },
-    components: {
-      Multiselect
-    },
-
-    created() {
+  created() {
+    this.fetchData(this.listQuery);
+    GetDeptTree().then(response => {
+      this.depttree = JSON.parse(response.data);
+    });
+  },
+  methods: {
+    handleSizeChange(val) {
+      this.listQuery.pageSize = val;
       this.fetchData(this.listQuery);
-      GetDeptTree().then(response => {
-        this.depttree = JSON.parse(response.data);
-
-      });
     },
-    methods: {
-      handleSizeChange(val) {
-        this.listQuery.pageSize = val;
-        this.fetchData(this.listQuery);
-      },
-      handleCurrentChange(val) {
+    handleCurrentChange(val) {
+      this.listQuery.pageNumber = val;
+      this.fetchData(this.listQuery);
+    },
 
-       this.listQuery.pageNumber =val;
-                this.fetchData(this.listQuery);
-
-      },
-    
+    Refresh(){
+      this.fetchData(this.listQuery);
+    },
+    Clear(){
+      this.listQuery.criteria="";
+      this.fetchData(this.listQuery);
+    },
     fetchData(params) {
       this.listLoading = true;
+
       GetUsers(params).then(response => {
         this.list = response.data.rows;
         this.listQuery.totalCount = response.data.total;
@@ -204,7 +214,7 @@
       this.selected = null;
       this.dialogFormVisible = true;
 
-      this.$refs.tree.setCheckedKeys([])
+      this.$refs.tree.setCheckedKeys([]);
 
       this.dialogStatus = "create";
     },
@@ -215,9 +225,7 @@
         type: "warning"
       }).then(() => {
         DeleteUser(ID).then(response => {
-
-
-          this.fetchData();
+          this.fetchData(this.listQuery);
         });
       });
     },
@@ -226,7 +234,6 @@
       this.dialogFormVisible = true;
 
       GetUsersDetail(ID).then(response => {
-
         this.temp = response.data;
         this.$refs.tree.setCheckedKeys([this.temp.DeptID]);
         this.selected = this.temp.Gender;
@@ -234,27 +241,24 @@
     },
 
     create() {
-      this.temp.DeptID = this.$refs.tree.getCheckedKeys().join(',');
+      this.temp.DeptID = this.$refs.tree.getCheckedKeys().join(",");
       this.temp.Gender = this.selected;
       SaveNewUsers(this.temp).then(response => {
-
         this.dialogFormVisible = false;
 
-        this.fetchData();
+        this.fetchData(this.listQuery);
       });
     },
     update() {
       this.temp.Gender = this.selected;
-      this.temp.DeptID = this.$refs.tree.getCheckedKeys().join(',');
+      this.temp.DeptID = this.$refs.tree.getCheckedKeys().join(",");
 
       UpdateUsers(this.temp).then(response => {
-
         this.dialogFormVisible = false;
 
-        this.fetchData();
+        this.fetchData(this.listQuery);
       });
     }
   }
-  }
-
+};
 </script>

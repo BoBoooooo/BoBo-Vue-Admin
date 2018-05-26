@@ -80,6 +80,7 @@
 import {
   DeleteAtten,
   AttenDetailByPerson,
+  GetAttenListToday,
   UpdateAtten
 } from "@/api/KaoQin/Attendance";
 import { GetUsers } from "@/api/KaoQin/person";
@@ -144,7 +145,7 @@ export default {
     },
     fetchData(params) {//
       this.listLoading = true;
-      GetUsers(params).then(response => {
+      GetAttenListToday(params).then(response => {
         this.list = response.data.rows;
         console.log(this.list);
         this.listQuery.totalCount = response.data.total;
