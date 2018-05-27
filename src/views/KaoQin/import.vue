@@ -1,6 +1,17 @@
 <template>
   <div class="app-container" id="import_Atten">
 
+    <el-button @click="New()" type="primary" size="small">新增</el-button>
+
+   <el-input @keyup.enter.native="Refresh" placeholder="请输入姓名/工号" v-model="listQuery.criteria" style="padding-bottom:10px;width:90%">
+            
+              <el-button slot="append" icon="el-icon-search" v-on:click="Refresh"></el-button>
+                            <el-button slot="append" icon="el-icon-refresh" v-on:click="Clear"></el-button>
+
+          </el-input>   
+    <br>
+    <br>
+
 
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
       <el-table-column align="center" label='工号' width="95">
@@ -22,13 +33,13 @@
 
       <el-table-column label="考勤情况" align="center">
         <template slot-scope="scope">
-          {{scope.row.StartTime==null?"请假:"+scope.row.Vacation_Reason:scope.row.StartTime+"~"+scope.row.EndTime}}
+          {{(scope.row.StartTime==null||scope.row.StartTime=="")?scope.row.Vacation_Reason:scope.row.StartTime+"~"+scope.row.EndTime}}
         </template>
       </el-table-column>
 
       <el-table-column label="操作" align="center">
         <template slot-scope="scope">
-          <el-button @click="Edit(scope.row.ID,scope.row.Name)" type="success" size="small">录入</el-button>
+          <el-button @click="Edit(scope.row.ID,scope.row.Name)" type="success" size="small">编辑</el-button>
 
           <el-button @click="Delete(scope.row.ID)" type="danger" size="small">删除</el-button>
         </template>
@@ -39,8 +50,14 @@
       style="margin-top:5px">
     </el-pagination>
 
-    <el-dialog :title="Title" :visible.sync="dialogFormVisible" width="50%">
+    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="50%">
       <el-form class="small-space" :model="temp" label-position="left" label-width="70px">
+
+        <el-form-item label="工号">
+          <el-input class="filter-item" v-model="temp.No" placeholder="请输入工号">
+
+          </el-input>
+        </el-form-item>
 
         <el-form-item label="考勤时间">
           <el-time-select v-model="temp.StartTime" :picker-options="{
@@ -68,7 +85,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button v-if="dialogStatus=='create'" type="primary" @click="create">确 定</el-button>
+        <el-button v-if="textMap[dialogStatus]=='create'" type="primary" @click="create">确 定</el-button>
         <el-button v-else type="primary" @click="update">确 定</el-button>
       </div>
     </el-dialog>
@@ -96,6 +113,10 @@ export default {
         text: "否",
         value: 0
       },
+        textMap: {
+        update: "编辑",
+        create: "新增"
+      },
       options: [
         {
           text: "是",
@@ -109,7 +130,8 @@ export default {
       listQuery: {
         totalCount: null,
         pageSize: "10",
-        pageNumber: "1"
+        pageNumber: "1",
+        criteria: ""
       },
       dialogFormVisible: false,
       dialogStatus: "",
@@ -117,7 +139,7 @@ export default {
       listLoading: true,
       temp: {
         ID: "",
-        PersonId: "",
+        No: "",
         Date: "",
         StartTime: "",
         EndTime: "",
@@ -143,7 +165,8 @@ export default {
       this.listQuery.pageNumber = val;
       this.fetchData(this.listQuery);
     },
-    fetchData(params) {//
+    fetchData(params) {
+      //
       this.listLoading = true;
       GetAttenListToday(params).then(response => {
         this.list = response.data.rows;
@@ -171,6 +194,7 @@ export default {
       this.temp.Date = parseTime(new Date());
       AttenDetailByPerson(ID).then(response => {
         this.temp = response.data;
+        console.log(this.temp);
         if (this.temp.Vacation === 1) {
           this.selected = this.options[0];
         } else {
@@ -178,20 +202,64 @@ export default {
         }
         this.temp.PersonId = ID;
       });
-    },//
+    }, //
+ create() {
+      this.temp.Vacation = this.selected.value;
+      this.temp.Date = parseTime(new Date());
+          if(this.temp.Vacation==1){
+        this.temp.StartTime="";
+        this.temp.EndTime="";
+      }
+        if(this.temp.Vacation==0){
+        this.temp.Vacation_Reason="";
+      }
 
+      UpdateAtten(this.temp).then(response => {
+        this.dialogFormVisible = false;
+        this.fetchData(this.listQuery);
+      });
+    },
     update() {
       this.temp.Vacation = this.selected.value;
+      if(this.temp.Vacation==1){
+        this.temp.StartTime="";
+        this.temp.EndTime="";
+      }
+        if(this.temp.Vacation==0){
+        this.temp.Vacation_Reason="";
+      }
       this.temp.Date = parseTime(new Date());
       UpdateAtten(this.temp).then(response => {
         this.dialogFormVisible = false;
         this.fetchData(this.listQuery);
       });
+    },
+    Refresh() {
+      this.fetchData(this.listQuery);
+    },
+    Clear() {
+      this.listQuery.criteria = "";
+      this.fetchData(this.listQuery);
+    },
+    New() {
+      this.temp = {
+        ID: "",
+        PersonId: "",
+        Date: "",
+        StartTime: "",
+        EndTime: "",
+        Vacation: "",
+        Vacation_Reason: "",
+        IsDeleted: false
+      };
+      this.selected.value = 0;
+      this.dialogFormVisible = true;
+
+      this.dialogStatus = "create";
     }
   }
 };
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-
 </style>
