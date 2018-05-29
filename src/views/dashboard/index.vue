@@ -6,14 +6,10 @@
       <el-col :span="6" :offset="1">
         <el-card :body-style="{ padding: '15px 0px',height:'300px'}">
                 <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/100/h/100" style="border-radius:80px" >
-
+<br><br>
           <div class="dashboard-text">人事考勤管理系统</div>
           <div class="bottom clearfix">
-            <!-- <div class='dashboard-text'>{{name}} -->
-            <!-- <span v-for='role in roles' :key='role'>{{role}}</span> -->
-            <!-- </div> -->
-
-            <time class="time dashboard-text">{{ currentDate }}</time>
+                                  <span style="display:block;">{{ currentDate }}</span>        
           </div>
 
         </el-card>
@@ -25,7 +21,6 @@
                 <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/100/h/100" style="border-radius:80px" >
 
           <div class="dashboard-text">
-            <span style="display:block;">Anshare Vue Admin</span>
                       <span style="display:block;">Author:BoBo</span>
                       <span style="display:block;">Follow me on GitHub</span>
 
@@ -138,18 +133,18 @@ export default {
   created() {
     this.GetNowTime();
     this.GetReport();
-    console.log("created!")
+    console.log("created!");
     // this.GetMusic()
   },
-  beforeCreate(){
-    console.log("beforeCreate")
+  beforeCreate() {
+    console.log("beforeCreate");
   },
-  
-  mounted(){
-    console.log("mounted!")
+
+  mounted() {
+    console.log("mounted!");
   },
-  beforeMount(){
-    console.log("beforemounted")
+  beforeMount() {
+    console.log("beforemounted");
   }
 };
 </script>
@@ -168,7 +163,7 @@ export default {
   }
   &-text {
     text-align: center;
-    margin: 30px;
+    margin: 0 30px 30px 30px;
 
     font-size: 20px;
     line-height: 30px;
