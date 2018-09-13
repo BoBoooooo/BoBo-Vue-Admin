@@ -31,6 +31,18 @@ export const constantRouterMap = [
       meta: { title: '首页', icon: 'dashboard', noCache: true }
     }]
   },
+
+  {
+    path: '/DouBan',
+    component: Layout,
+    redirect: '/DouBan/movie',
+    name:"DouBan",
+    title:"豆瓣查询" ,
+    icon:'tubiao',
+    children: [{ path: 'movie', name: 'movie', component: _import('DouBan/movie'),meta:{title:"热映电影"}},
+    { path: 'music', name: 'music', component: _import('DouBan/music'),meta:{title:"热门音乐"}},
+    { path: 'book', name: 'book', component: _import('DouBan/book'),meta:{title:"热门书籍"}}]
+  }
 ]
 
 export default new Router({
