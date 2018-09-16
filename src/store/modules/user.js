@@ -44,18 +44,18 @@ const user = {
       return new Promise((resolve, reject) => {
         login(username, userInfo.password).then(response => {
           const data = response.data
-          if (data.Success != false) {
-            setToken(data.Token)
+          if (data.code == 200) {
+            setToken(data.data)
  
             
-            commit('SET_TOKEN', data.Token)
+            commit('SET_TOKEN', data.data)
             resolve(data)
 
           } else {
             commit('SET_TOKEN', '')
             commit('SET_ROLES', [])
             removeToken()
-            reject(data.Message)
+            reject(data.message)
           }
 
         }).catch(error => {

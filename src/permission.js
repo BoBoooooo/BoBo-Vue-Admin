@@ -9,37 +9,36 @@ import {
 const whiteList = ['/login']
 router.beforeEach((to, from, next) => {
   NProgress.start()
-  next()
-  // if (getToken()) {
-  //   if (to.path === '/login') {
-  //     next({
-  //       path: '/'
-  //     })
-  //   } else {
-  //     if (store.getters.roles.length === 0) {
-  //       store.dispatch('GetInfo').then(res => {
-  //         const roles = res.data.Roles
-  //         store.dispatch('GenerateRoutes', {
-  //           roles
-  //         }).then(() => {
-  //           router.addRoutes(store.getters.addRouters)
-  //           next({ ...to
-  //           })
-  //         })
-  //       })
-  //     } else {
-  //       next()
-  //     }
-  //   }
+  if (getToken()) {
+    if (to.path === '/login') {
+      next({
+        path: '/'
+      })
+    } else {
+      if (store.getters.roles.length === 0) {
+        store.dispatch('GetInfo').then(res => {
+          const roles = res.data.Roles
+          store.dispatch('GenerateRoutes', {
+            roles
+          }).then(() => {
+            router.addRoutes(store.getters.addRouters)
+            next({ ...to
+            })
+          })
+        })
+      } else {
+        next()
+      }
+    }
 
-  // } else {
-  //   if (whiteList.indexOf(to.path) !== -1) {
-  //     next()
-  //   } else {
-  //     next('/login')
-  //     NProgress.done()
-  //   }
-  // }
+  } else {
+    if (whiteList.indexOf(to.path) !== -1) {
+      next()
+    } else {
+      next('/login')
+      NProgress.done()
+    }
+  }
 })
 
 router.afterEach(() => {

@@ -47,20 +47,14 @@ service.interceptors.response.use(
       return Promise.reject(error)
 
     } else {
-      if (res.Success != null) { //增删改操作的状态返回
-        if (res.Success == false) {
+      if (res.code !== 200) { //增删改操作的状态返回
+   
           Message({
-            message: res.Message,
+            message: res.message,
             type: 'error',
             duration: 1500
           })
-        } else {
-          Message({
-            message: res.Message,
-            type: 'success',
-            duration: 1500
-          })
-        }
+        
       }
       return response;
     }

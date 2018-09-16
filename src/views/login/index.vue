@@ -42,26 +42,22 @@ export default {
   methods: {
     handleLogin() {
       this.loading = true;
-      // this.$store
-      //   .dispatch("Login", this.loginForm)
-      //   .then(response => {
-      //     this.loading = false;
+      this.$store
+        .dispatch("Login", this.loginForm)
+        .then(response => {
+          this.loading = false;
 
-      //     setTimeout(() => {
-      //       this.$router.push({
-      //         path: "/"
-      //       });
-      //     }, 2000);
-      //   })
-      //   .catch(error => {
-      //     this.$message.error(error);
-      //     this.loading = false;
-      //   });
-       setTimeout(() => {
+          setTimeout(() => {
             this.$router.push({
               path: "/"
             });
           }, 2000);
+        })
+        .catch(error => {
+          this.$message.error(error);
+          this.loading = false;
+        });
+ 
     }
   }
 };
