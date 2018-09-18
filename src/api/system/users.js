@@ -1,7 +1,7 @@
 import fetch from '@/utils/fetch'
 export function GetUsers(params){
     return fetch({
-        url: '/admin/pulluserlist',
+        url: '/users/list',
         method: 'post',
         params
       })
@@ -9,7 +9,7 @@ export function GetUsers(params){
 
 export function DeleteUser(ID){
     return fetch({
-        url: '/admin/DelUser',
+        url: '/users/delete',
         method: 'post',
         params:{ID}
       })
@@ -17,7 +17,7 @@ export function DeleteUser(ID){
 
 export function GetUsersDetail(ID){
     return fetch({
-        url: '/admin/PullUsersDetail',
+        url: '/users/detail',
         method: 'post',
         params:{ID}
       })
@@ -25,7 +25,7 @@ export function GetUsersDetail(ID){
 
 export function SaveNewUsers(data){
     return fetch({
-        url: '/admin/SaveNewUsers',
+        url: '/users/add',
         method: 'post',
         data
       })
@@ -33,7 +33,7 @@ export function SaveNewUsers(data){
 
 export function UpdateUsers(data){
     return fetch({
-        url: '/admin/UpdateUsers',
+        url: '/users/update',
         method: 'post',
         data
       })
@@ -42,7 +42,7 @@ export function UpdateUsers(data){
 
 export function ChangePassword(data){
     return fetch({
-        url: '/admin/ChangePassword',
+        url: '/users/ChangePassword',
         method: 'post',
         data
       })

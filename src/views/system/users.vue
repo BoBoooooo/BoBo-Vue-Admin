@@ -176,8 +176,8 @@ export default {
     fetchData(params) {
       this.listLoading = true;
       GetUsers(params).then(response => {
-        this.list = response.data.rows;
-        this.listQuery.totalCount = response.data.total;
+        this.list = response.data.data.list;
+        this.listQuery.totalCount = response.data.data.total;
         this.listLoading = false;
       });
     },

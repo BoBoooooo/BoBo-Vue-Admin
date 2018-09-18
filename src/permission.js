@@ -17,7 +17,8 @@ router.beforeEach((to, from, next) => {
     } else {
       if (store.getters.roles.length === 0) {
         store.dispatch('GetInfo').then(res => {
-          const roles = res.data.Roles
+          console.log(res.data);
+          const roles = res.data.data.Roles.split(',')
           store.dispatch('GenerateRoutes', {
             roles
           }).then(() => {
