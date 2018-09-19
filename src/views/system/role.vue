@@ -6,27 +6,27 @@
     <br>
 
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
-      <el-table-column align="center" label='ID' width="95">
+      <el-table-column align="center" label='id' width="95">
         <template slot-scope="scope">
           {{scope.$index+1}}
         </template>
       </el-table-column>
       <el-table-column label="角色名">
         <template slot-scope="scope">
-          {{scope.row.RoleName}}
+          {{scope.row.rolename}}
         </template>
       </el-table-column>
       <el-table-column label="排序码">
         <template slot-scope="scope">
-          {{scope.row.Rank}}
+          {{scope.row.rank}}
         </template>
       </el-table-column>
 
       <el-table-column label="操作" align="center" min-width="110px">
         <template slot-scope="scope">
-          <el-button @click="Edit(scope.row.ID)" type="success" size="small">编辑</el-button>
+          <el-button @click="Edit(scope.row.id)" type="success" size="small">编辑</el-button>
 
-          <el-button @click="Delete(scope.row.ID)" type="danger" size="small">删除</el-button>
+          <el-button @click="Delete(scope.row.id)" type="danger" size="small">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -39,12 +39,12 @@
       <el-form class="small-space" :model="temp" label-position="left" label-width="70px">
 
         <el-form-item label="角色名">
-          <el-input class="filter-item" v-model="temp.RoleName" placeholder="请输入角色名">
+          <el-input class="filter-item" v-model="temp.rolename" placeholder="请输入角色名">
 
           </el-input>
         </el-form-item>
         <el-form-item label="排序码">
-          <el-input class="filter-item" v-model="temp.Rank" placeholder="请输入排序码">
+          <el-input class="filter-item" v-model="temp.rank" placeholder="请输入排序码">
 
           </el-input>
         </el-form-item>
@@ -89,15 +89,15 @@ export default {
       list: null,
       listLoading: true,
       temp: {
-        ID: "",
-        RoleName: "",
-        Rank: "",
-        IsDeleted: false,
-        RoleAuthName: null
+        id: "",
+        rolename: "",
+        rank: "",
+        isdeleted: false,
+        roleauthname: null
       },
       menu: null,
       listQuery: {
-        totalCount: "",
+        totalCount: 0,
         pageSize: "10",
         pageNumber: "1"
       },
@@ -133,8 +133,9 @@ export default {
     fetchData(params) {
       this.listLoading = true;
       GetRoles(params).then(response => {
-        this.list = response.data.rows;
-        this.listQuery.totalCount = response.data.total;
+        this.list = response.data.data.list;
+        console.log(this.list)
+        this.listQuery.totalCount = parseInt(response.data.data.total)
         this.listLoading = false;
       });
     },
@@ -146,13 +147,13 @@ export default {
 
       this.dialogStatus = "create";
     },
-    Delete(ID) {
+    Delete(id) {
       this.$confirm("确认删除?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        DeleteRole(ID).then(response => {
+        DeleteRole(id).then(response => {
           this.$message({
             type: "success",
             message: "删除成功!"
@@ -161,12 +162,13 @@ export default {
         });
       });
     },
-    Edit(ID) {
+    Edit(id) {
       this.dialogStatus = "update";
 
-      GetRoleDetail(ID).then(response => {
+      GetRoleDetail(id).then(response => {
         this.dialogStatus = "update";
-        this.temp = response.data;
+        this.temp = response.data.data;
+        console.log(response.data.data)
         this.dialogFormVisible = true;
       });
     },

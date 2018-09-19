@@ -1,7 +1,7 @@
 import fetch from '@/utils/fetch'
 export function GetRoles(params){
     return fetch({
-        url: '/admin/pullrolelist',
+        url: '/role/list',
         method: 'post',
         params
       })
@@ -9,31 +9,31 @@ export function GetRoles(params){
 
 export function GetRolesOptions(){
     return fetch({
-        url: '/admin/pullrolelist',
+        url: '/role/list',
         method: 'post',
         
       })
 }
 
-export function DeleteRole(ID){
+export function DeleteRole(id){
     return fetch({
-        url: '/admin/Delrole',
+        url: '/role/delete',
         method: 'post',
-        params:{ID}
+        params:{id}
       })
 }
 
-export function GetRoleDetail(ID){
+export function GetRoleDetail(id){
     return fetch({
-        url: '/admin/PullroleDetail',
+        url: '/role/detail',
         method: 'post',
-        params:{ID}
+        params:{id}
       })
 }
 
 export function SaveNewRole(data){
     return fetch({
-        url: '/admin/SaveNewrole',
+        url: '/role/add',
         method: 'post',
         data
       })
@@ -41,7 +41,7 @@ export function SaveNewRole(data){
 
 export function UpdateRole(data){
     return fetch({
-        url: '/admin/Updaterole',
+        url: '/role/update',
         method: 'post',
         data
       })
