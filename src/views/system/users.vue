@@ -13,27 +13,27 @@
       </el-table-column>
       <el-table-column label="昵称">
         <template slot-scope="scope">
-          {{scope.row.RealName}}
+          {{scope.row.realname}}
         </template>
       </el-table-column>
       <el-table-column label="用户名" align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.UserName}}</span>
+          <span>{{scope.row.username}}</span>
         </template>
       </el-table-column>
       <el-table-column label="密码" align="center">
         <template slot-scope="scope">
-          {{scope.row.Password}}
+          {{scope.row.password}}
         </template>
       </el-table-column>
       <el-table-column label="角色" align="center">
         <template slot-scope="scope">
-          {{scope.row.RoleName}}
+          {{scope.row.rolename}}
         </template>
       </el-table-column>
       <el-table-column label="部门" align="center">
         <template slot-scope="scope">
-          {{scope.row.DeptName}}
+          {{scope.row.deptname}}
         </template>
       </el-table-column>
 
@@ -55,22 +55,22 @@
 
 
         <el-form-item label="昵称">
-          <el-input class="filter-item" v-model="temp.RealName" placeholder="请输入昵称">
+          <el-input class="filter-item" v-model="temp.realname" placeholder="请输入昵称">
 
           </el-input>
         </el-form-item>
         <el-form-item label="用户名">
-          <el-input class="filter-item" v-model="temp.UserName" placeholder="请输入用户名">
+          <el-input class="filter-item" v-model="temp.username" placeholder="请输入用户名">
 
           </el-input>
         </el-form-item>
         <el-form-item label="密码">
-          <el-input class="filter-item" type="password" v-model="temp.Password" placeholder="请输入密码">
+          <el-input class="filter-item" type="password" v-model="temp.password" placeholder="请输入密码">
 
           </el-input>
         </el-form-item>
         <el-form-item label="排序码">
-          <el-input class="filter-item" v-model="temp.Rank" placeholder="请输入排序码">
+          <el-input class="filter-item" v-model="temp.rank" placeholder="请输入排序码">
 
           </el-input>
         </el-form-item>
@@ -131,12 +131,12 @@ export default {
 
       temp: {
         ID: "",
-        UserName: "",
-        Password: "",
-        RealName: "",
-        DeptID: "",
+        username: "",
+        password: "",
+        realname: "",
+        deptid: "",
         RoleID: "",
-        IsDeleted: false
+        isdeleted: false
       },
       options: [],
       defaultProps: {
@@ -145,7 +145,7 @@ export default {
       },
       selected: null,
       listQuery: {
-        totalCount: "",
+        totalCount: 0,
         pageSize: "10",
         pageNumber: "1"
       }
@@ -185,10 +185,10 @@ export default {
       this.selected = null;
       this.temp = {
         ID: "",
-        UserName: "",
-        Password: "",
-        RealName: "",
-        IsDeleted: false
+        username: "",
+        password: "",
+        realname: "",
+        isdeleted: false
       };
       this.dialogFormVisible = true;
 
@@ -213,7 +213,7 @@ export default {
 
       GetUsersDetail(ID).then(response => {
         this.temp = response.data;
-        this.$refs.tree.setCheckedKeys([this.temp.DeptID]);
+        this.$refs.tree.setCheckedKeys([this.temp.deptid]);
         for (let i = 0; i < this.options.length; i++) {
           let obj = this.options[i];
           if (obj.ID == this.temp.RoleID) {
@@ -224,7 +224,7 @@ export default {
     },
 
     create() {
-      this.temp.DeptID = this.$refs.tree.getCheckedKeys().join(",");
+      this.temp.deptid = this.$refs.tree.getCheckedKeys().join(",");
       this.temp.RoleID = this.selected.ID;
 
   
@@ -235,7 +235,7 @@ export default {
       });
     },
     update() {
-      this.temp.DeptID = this.$refs.tree.getCheckedKeys().join(",");
+      this.temp.deptid = this.$refs.tree.getCheckedKeys().join(",");
 
       this.temp.RoleID = this.selected.ID;
 
