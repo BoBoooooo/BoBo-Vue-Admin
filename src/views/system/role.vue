@@ -51,7 +51,7 @@
         <el-form-item label="菜单">
              <el-tree :data="menu" auto-expand-parent show-checkbox default-expand-all node-key="name" ref="tree" highlight-current
             :props="defaultProps" check-strictly>
-          </el-tree>
+             </el-tree>
         </el-form-item>
 
       </el-form>
@@ -93,7 +93,7 @@ export default {
         rolename: "",
         rank: "",
         isdeleted: false,
-        roleauthname: null
+        roleauthname: null,
       },
       menu: null,
       listQuery: {
@@ -103,7 +103,7 @@ export default {
       },
       defaultProps: {
         children: "children",
-        label: "name"
+        label: "title"
       }
     };
   },
@@ -118,6 +118,7 @@ export default {
         arr.splice(i--, 1);
       }
     }
+    console.log(arr)
     this.menu = arr;
   },
   methods: {
@@ -141,9 +142,9 @@ export default {
     },
     New() {
       this.dialogFormVisible = true;
-      this.temp.RoleName = "";
-      this.temp.Rank = "";
-      this.temp.RoleAuthName = "";
+      this.temp.rolename = "";
+      this.temp.rank = "";
+      this.temp.roleauthname = "";
 
       this.dialogStatus = "create";
     },
@@ -174,25 +175,24 @@ export default {
     },
 
     create() {
-      this.temp.RoleAuthName = this.$refs.tree.getCheckedKeys().join(",");
+      this.temp.roleauthname = this.$refs.tree.getCheckedKeys().join(",");
 
       SaveNewRole(this.temp).then(response => {
-        this.$message({
-          message: response.data.Message,
-          type: "success"
-        });
+        // this.$message({
+        //   message: response.data.message,
+        //   type: "success"
+        // });
         this.dialogFormVisible = false;
         this.fetchData(this.listQuery);
       });
     },
     update() {
-      this.temp.RoleAuthName = this.$refs.tree.getCheckedKeys().join(",");
-      console.log(this.temp.RoleAuthName);
+      this.temp.roleauthname = this.$refs.tree.getCheckedKeys().join(",");
       UpdateRole(this.temp).then(response => {
-        this.$message({
-          message: response.data.Message,
-          type: "success"
-        });
+        // this.$message({
+        //   message: response.data.data.message,
+        //   type: "success"
+        // });
         this.dialogFormVisible = false;
 
         this.fetchData(this.listQuery);

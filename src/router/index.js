@@ -49,9 +49,9 @@ export const asyncRouterMap = [
     name:"DouBan",
     title:"豆瓣查询" ,
     icon:'tubiao',
-    children: [{ path: 'movie', name: 'movie', component: _import('DouBan/movie'),meta:{title:"热映电影"}},
-    { path: 'music', name: 'music', component: _import('DouBan/music'),meta:{title:"热门音乐"}},
-    { path: 'book', name: 'book', component: _import('DouBan/book'),meta:{title:"热门书籍"}}]
+    children: [{ path: 'movie', name: 'movie',title:"热映电影", component: _import('DouBan/movie'),meta:{title:"热映电影"}},
+    { path: 'music', name: 'music',title:"热门音乐", component: _import('DouBan/music'),meta:{title:"热门音乐"}},
+    { path: 'book', name: 'book',title:"热门书籍", component: _import('DouBan/book'),meta:{title:"热门书籍"}}]
   },
   {
     path: '/People',
@@ -60,7 +60,7 @@ export const asyncRouterMap = [
     name:"person",
     title:"人员信息",
     icon:'wujiaoxing',
-    children: [{ path: 'person', name: 'person1', component: _import('KaoQin/person'),meta:{title:"人员信息录入"}}]
+    children: [{ path: 'person', name: 'person1',title:"人员信息录入", component: _import('KaoQin/person'),meta:{title:"人员信息录入"}}]
   },
   {
     path: '/KaoQin',
@@ -69,8 +69,8 @@ export const asyncRouterMap = [
     name:"KaoQin",
     title:"考勤管理" ,
     icon:'zonghe',
-    children: [{ path: 'import', name: 'import', component: _import('KaoQin/import'), meta:{title:"考勤信息录入"}},
-    { path: 'count', name: 'count', component: _import('KaoQin/count'), meta:{title:"考勤信息汇总"}}]
+    children: [{ path: 'import', name: 'import',title:"考勤信息录入", component: _import('KaoQin/import'), meta:{title:"考勤信息录入"}},
+    { path: 'count', name: 'count', title:"考勤信息汇总",component: _import('KaoQin/count'), meta:{title:"考勤信息汇总"}}]
   },
   // {
   //   path: '/table',
@@ -90,10 +90,10 @@ export const asyncRouterMap = [
     title:"系统设置",
     icon:'zujian',
     children: [
-      { path: 'users', name: 'users', icon: 'icons', component: _import('system/users'),meta:{title:"用户设置"}},
+      { path: 'users', name: 'users', icon: 'icons', title:"用户设置",component: _import('system/users'),meta:{title:"用户设置"}},
       
-      { path: 'role', name: 'role', icon: 'icons', component: _import('system/role'),meta:{title:"角色设置"}},
-      { path: 'dept', name: 'dept', icon: 'icons', component: _import('system/dept'),meta:{title:"部门设置"}}
+      { path: 'role', name: 'role', icon: 'icons',title:"角色设置", component: _import('system/role'),meta:{title:"角色设置"}},
+      { path: 'dept', name: 'dept', icon: 'icons', title:"部门设置",component: _import('system/dept'),meta:{title:"部门设置"}}
 
       
     ]

@@ -54,9 +54,22 @@ service.interceptors.response.use(
             type: 'error',
             duration: 1500
           })
-        
+          return Promise.reject(error)
+
+      }
+
+      else if(res.data==null)
+
+      {
+        Message({
+          message: res.message,
+          type: 'success',
+          duration: 1500
+        })
+
       }
       return response;
+
     }
   },
   error => {
