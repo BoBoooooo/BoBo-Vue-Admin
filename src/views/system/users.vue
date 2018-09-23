@@ -13,27 +13,27 @@
       </el-table-column>
       <el-table-column label="昵称">
         <template slot-scope="scope">
-          {{scope.row.realname}}
+          {{scope.row.RealName}}
         </template>
       </el-table-column>
       <el-table-column label="用户名" align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.username}}</span>
+          <span>{{scope.row.UserName}}</span>
         </template>
       </el-table-column>
       <el-table-column label="密码" align="center">
         <template slot-scope="scope">
-          {{scope.row.password}}
+          {{scope.row.Password}}
         </template>
       </el-table-column>
       <el-table-column label="角色" align="center">
         <template slot-scope="scope">
-          {{scope.row.rolename}}
+          {{scope.row.RoleName}}
         </template>
       </el-table-column>
       <el-table-column label="部门" align="center">
         <template slot-scope="scope">
-          {{scope.row.deptname}}
+          {{scope.row.DeptName}}
         </template>
       </el-table-column>
 
