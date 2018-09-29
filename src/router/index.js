@@ -39,7 +39,7 @@ export default new Router({
   routes: constantRouterMap
 })
 
-export const asyncRouterMap = [
+ const asyncRouterMap = [
  
 
   {

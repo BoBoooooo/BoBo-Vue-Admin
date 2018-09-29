@@ -75,8 +75,7 @@ import {
   UpdateRole
 } from "@/api/system/role";
 import { mapGetters } from "vuex";
-import { asyncRouterMap } from "@/router/index";
-
+import store from '@/store'
 export default {
   data() {
     return {
@@ -111,7 +110,7 @@ export default {
   created() {
     this.fetchData(this.listQuery);
 
-    let arr = asyncRouterMap;
+    let arr = store.getters.AddRouters;
 
     for (let i = 0; i < arr.length; i++) {
       if (arr[i].hidden) {

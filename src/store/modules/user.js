@@ -11,15 +11,52 @@ import {
 import {
   ChangePassword
 } from '@/api/system/users'
+import { constantRouterMap } from '@/router/index'
+
+import 'nprogress/nprogress.css' // Progress 进度条样式
+import Layout from '@/views/layout/Layout'
+
+const _import = require('@/router/_import_' + process.env.NODE_ENV)
+
+function filterAsyncRouter(asyncRouterMap) { //遍历后台传来的路由字符串，转换为组件对象
+  const accessedRouters = asyncRouterMap.filter(route => {
+    if (route.component) {
+   if (route.component === 'Layout') {//Layout组件特殊处理
+        route.component = Layout
+      } else {
+        route.component = _import(route.component)
+      }
+    }
+    if (route.children && route.children.length) {
+      route.children = filterAsyncRouter(route.children)
+    }
+    return true
+  })
+
+  return accessedRouters
+}
+
+
+
 const user = {
   state: {
     token: getToken(),
     name: '', //用户昵称名
-    realname:'',//用户登录名
-    roles: []
+    realname: '', //用户登录名
+    routers: constantRouterMap,
+    addRouters: []  
+  
   },
 
   mutations: {
+
+    SET_ROUTERS: (state, routers) => {
+      state.addRouters = routers.push({path:"*",redirect:'/404',hidden:true})
+      state.routers = constantRouterMap.concat(routers)
+    },
+
+ 
+
     SET_TOKEN: (state, token) => {
       state.token = token
     },
@@ -27,9 +64,7 @@ const user = {
       state.name = name
     },
 
-    SET_ROLES: (state, roles) => {
-      state.roles = roles
-    },
+    
     SET_REALNAME: (state, realname) => {
       state.realname = realname
     }
@@ -47,8 +82,8 @@ const user = {
           if (data.code == 200) {
             console.log(data.data);
             setToken(data.data)
- 
-            
+
+
             commit('SET_TOKEN', data.data)
             resolve(data)
 
@@ -75,11 +110,15 @@ const user = {
 
           const data = response.data.data
           console.log(data);
-          commit('SET_ROLES', data.Roles)
           commit('SET_NAME', data.RealName)
           commit('SET_REALNAME', data.UserName)
+
           
-          resolve(response)
+          commit('SET_ROUTERS', filterAsyncRouter(data.Routers))
+          
+          
+
+          resolve(data)
         }).catch(error => {
           reject(error)
         })
@@ -87,16 +126,23 @@ const user = {
     },
 
 
-    // 前端 登出
+    //  登出
     FedLogOut({
       commit
     }) {
       return new Promise(resolve => {
         commit('SET_TOKEN', '')
         commit('SET_ROLES', [])
+        logout().then(res => {
+          if (res.data.code === 200) {
+            removeToken()
+            resolve()
+          } else
+            reject()
+        }).catch(err => {
+          reject(err)
+        })
 
-        removeToken()
-        resolve()
       })
     },
 
