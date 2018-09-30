@@ -112,9 +112,9 @@ const user = {
           console.log(data);
           commit('SET_NAME', data.RealName)
           commit('SET_REALNAME', data.UserName)
-
-          
-          commit('SET_ROUTERS', filterAsyncRouter(data.Routers))
+          const asyncrouters  =filterAsyncRouter(data.Routers)
+          console.log(asyncrouters)
+          commit('SET_ROUTERS', asyncrouters)
           
           
 
