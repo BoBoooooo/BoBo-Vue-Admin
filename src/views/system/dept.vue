@@ -6,27 +6,27 @@
     <br>
 
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
-      <el-table-column align="center" label='ID' width="95">
+      <el-table-column align="center" label='序号' width="95">
         <template slot-scope="scope">
           {{scope.$index+1}}
         </template>
       </el-table-column>
       <el-table-column label="部门名称">
         <template slot-scope="scope">
-          {{scope.row.DeptName}}
+          {{scope.row.deptname}}
         </template>
       </el-table-column>
       <el-table-column label="排序码">
         <template slot-scope="scope">
-          {{scope.row.Rank}}
+          {{scope.row.rank}}
         </template>
       </el-table-column>
 
       <el-table-column label="操作" align="center" min-width="110px">
         <template slot-scope="scope">
-          <el-button @click="Edit(scope.row.ID)" type="success" size="small">编辑</el-button>
+          <el-button @click="Edit(scope.row.id)" type="success" size="small">编辑</el-button>
 
-          <el-button @click="Delete(scope.row.ID)" type="danger" size="small">删除</el-button>
+          <el-button @click="Delete(scope.row.id)" type="danger" size="small">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -37,12 +37,12 @@
       <el-form class="small-space" :model="temp" label-position="left" label-width="70px">
 
         <el-form-item label="部门名称">
-          <el-input class="filter-item" v-model="temp.DeptName" placeholder="请输入部门名称">
+          <el-input class="filter-item" v-model="temp.deptname" placeholder="请输入部门名称">
 
           </el-input>
         </el-form-item>
         <el-form-item label="排序码">
-          <el-input class="filter-item" v-model="temp.Rank" placeholder="请输入排序码">
+          <el-input class="filter-item" v-model="temp.rank" placeholder="请输入排序码">
 
           </el-input>
         </el-form-item>
@@ -80,10 +80,10 @@
         list: null,
         listLoading: true,
         temp: {
-          ID: "",
-          DeptName: "",
-          Rank: "",
-          IsDeleted: false,
+          id: "",
+          deptname: "",
+          rank: "",
+          isdeleted: false,
         },
         depttree: [],
         defaultProps: {
@@ -94,9 +94,9 @@
     },
 
     created() {
-      GetDeptTree().then(response => {
-        this.depttree = JSON.parse(response.data);
-      });
+      // GetDeptTree().then(response => {
+      //   this.depttree = JSON.parse(response.data);
+      // });
       this.fetchData();
 
 
@@ -105,38 +105,35 @@
       fetchData() {
         this.listLoading = true;
         GetDepts().then(response => {
-          this.list = response.data;
+          this.list = response.data.data.list;
           this.listLoading = false;
         });
       },
       New() {
         this.dialogFormVisible = true;
-        this.temp.DeptName = "";
-        this.temp.Rank = "";
+        this.temp.deptname = "";
+        this.temp.rank = "";
         this.dialogStatus = "create";
       },
-      Delete(ID) {
+      Delete(id) {
         this.$confirm("确认删除?", "提示", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
             type: "warning"
           })
           .then(() => {
-            DeleteDept(ID).then(response => {
-              this.$message({
-                type: "success",
-                message: "删除成功!"
-              });
-            });
+            DeleteDept(id).then(()=>{    
+                      this.fetchData()
+})
           })
 
       },
-      Edit(ID) {
+      Edit(id) {
         this.dialogStatus = "update";
 
-        GetDeptDetail(ID).then(response => {
+        GetDeptDetail(id).then(response => {
           this.dialogStatus = "update";
-          this.temp = response.data;
+          this.temp = response.data.data;
           console.log(this.temp)
           this.dialogFormVisible = true;
 
@@ -147,10 +144,7 @@
 
       create() {
         SaveNewDept(this.temp).then(response => {
-          this.$message({
-            message: '保存成功',
-            type: 'success'
-          });
+         
           this.dialogFormVisible = false;
           this.fetchData();
 
@@ -159,10 +153,7 @@
       },
       update() {
         UpdateDept(this.temp).then(response => {
-          this.$message({
-            message: '保存成功',
-            type: 'success'
-          });
+          
           this.dialogFormVisible = false;
 
           this.fetchData();

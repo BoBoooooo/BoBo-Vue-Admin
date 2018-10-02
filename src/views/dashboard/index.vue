@@ -7,7 +7,7 @@
         <el-card :body-style="{ padding: '15px 0px',height:'300px'}">
                 <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/100/h/100" style="border-radius:80px" >
 <br><br>
-          <div class="dashboard-text">人事考勤管理系统</div>
+          <div class="dashboard-text">Anshare_Vue_Admin</div>
           <div class="bottom clearfix">
                                   <span style="display:block;">{{ currentDate }}</span>        
           </div>

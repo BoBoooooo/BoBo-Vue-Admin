@@ -154,10 +154,7 @@ export default {
         type: "warning"
       }).then(() => {
         DeleteRole(id).then(response => {
-          this.$message({
-            type: "success",
-            message: "删除成功!"
-          });
+       
           this.fetchData(this.listQuery);
         });
       });

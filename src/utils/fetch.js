@@ -57,7 +57,7 @@ service.interceptors.response.use(
           return Promise.reject(error)
 
       }
-
+console.log(res.message)
        if(res.message!==""&&res.message!=null&&res.message!=="SUCCESS")  //统一显示后台返回结果
 
       {

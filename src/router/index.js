@@ -29,17 +29,7 @@ export const constantRouterMap = [
       name: 'dashboard',
       meta: { title: '首页', icon: 'dashboard', noCache: true }
     }]
-  },
-  {
-    path:"/aaa",
-    component:Layout,
-    hidden:true,
-    children:[
-      { path: '/aaa/test', component: ()=>import('@/views/dashboard/index'), hidden: true },
-
-    ]
-  },
-
+  }
 
 ]
 
@@ -49,66 +39,24 @@ export default new Router({
   routes: constantRouterMap
 })
 
- const asyncRouterMap = [
- 
 
-  {
-    path: '/DouBan',
-    component: Layout,
-    redirect: '/DouBan/movie',
-    name:"DouBan",
-    title:"豆瓣查询" ,
-    icon:'tubiao',
-    children: [{ path: 'movie', name: 'movie',title:"热映电影", component: ()=>import('@/views/DouBan/movie'),meta:{title:"热映电影"}},
-    { path: 'music', name: 'music',title:"热门音乐", component: ()=>import('@/views/DouBan/music'),meta:{title:"热门音乐"}},
-    { path: 'book', name: 'book',title:"热门书籍", component: ()=>import('@/views/DouBan/book'),meta:{title:"热门书籍"}}]
-  },
-  {
-    path: '/People',
-    component: Layout,
-    redirect: '/People/person',
-    name:"person",
-    title:"人员信息",
-    icon:'wujiaoxing',
-    children: [{ path: 'person', name: 'person1',title:"人员信息录入", component: ()=>import('@/views/KaoQin/person'),meta:{title:"人员信息录入"}}]
-  },
-  {
-    path: '/KaoQin',
-    component: Layout,
-    redirect: '/KaoQin/import',
-    name:"KaoQin",
-    title:"考勤管理" ,
-    icon:'zonghe',
-    children: [{ path: 'import', name: 'import',title:"考勤信息录入", component: ()=>import('@/views/KaoQin/import'), meta:{title:"考勤信息录入"}},
-    { path: 'count', name: 'count', title:"考勤信息汇总",component: ()=>import('@/views/KaoQin/count'), meta:{title:"考勤信息汇总"}}]
-  },
+
+  export  const asyncRouterMap_Map = {
+    "movie": ()=>import('@/views/DouBan/movie'),
+  "music": ()=>import('@/views/DouBan/music'),
+   "book": ()=>import('@/views/DouBan/book'),
+   "users": ()=>import('@/views/system/users'),
+     
+   "role": ()=>import('@/views/system/role'),
+    "dept": ()=>import('@/views/system/dept')
+ }
   // {
-  //   path: '/table',
+  //   path: '/People',
   //   component: Layout,
-  //   redirect: '/table/index',
-  //   noDropdown:true,
-  //   title:"Table",
-  //   icon:'zonghe',
-  //   children: [{ path: 'import', name: 'table1', component: ()=>import('@/views/table/index'), meta:{title:"EasyMock"}}]
+  //   redirect: '/People/person',
+  //   name:"person",
+  //   title:"人员信息",
+  //   icon:'wujiaoxing',
+  //   children: [{ path: 'person', name: 'person1',title:"人员信息录入", component: ()=>import('@/views/KaoQin/person'),meta:{title:"人员信息录入"}}]
   // },
-  
-  {
-    path: '/system',
-    component: Layout,
-    redirect: 'noredirect',
-    name: 'system',
-    title:"系统设置",
-    icon:'zujian',
-    children: [
-      { path: 'users', name: 'users', icon: 'icons', title:"用户设置",component: ()=>import('@/views/system/users'),meta:{title:"用户设置"}},
-      
-      { path: 'role', name: 'role', icon: 'icons',title:"角色设置", component: ()=>import('@/views/system/role'),meta:{title:"角色设置"}},
-      { path: 'dept', name: 'dept', icon: 'icons', title:"部门设置",component: ()=>import('@/views/system/dept'),meta:{title:"部门设置"}}
 
-      
-    ]
-  },
-
-
-  { path: '*', redirect: '/404', hidden: true }
-]

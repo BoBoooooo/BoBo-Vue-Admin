@@ -11,7 +11,7 @@ import {
 import {
   ChangePassword
 } from '@/api/system/users'
-import { constantRouterMap } from '@/router/index'
+import { constantRouterMap,asyncRouterMap_Map } from '@/router/index'
 
 import 'nprogress/nprogress.css' // Progress 进度条样式
 import Layout from '@/views/layout/Layout'
@@ -23,7 +23,11 @@ function filterAsyncRouter(asyncRouterMap) { //遍历后台传来的路由字符
    if (route.component === 'Layout') {//Layout组件特殊处理
         route.component = Layout
       } else {
-        route.component = ()=>import(`@/views/${route.component}`)
+        // route.component = ()=>import(`@/views/${route.component}`)
+
+        route.component =asyncRouterMap_Map[route.name]
+
+        
       }
     }
     if (route.children && route.children.length) {

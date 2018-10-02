@@ -108,9 +108,9 @@ export default {
       this.selectedTag = tag
       console.log(e)
       if(!this.sidebar)
-      this.left = e.clientX-10
+      this.left = e.clientX-40
       else
-      this.left = e.clientX-150
+      this.left = e.clientX-180
       this.top = e.clientY
     },
     closeMenu() {

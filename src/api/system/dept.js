@@ -1,30 +1,30 @@
 import fetch from '@/utils/fetch'
 export function GetDepts(){
     return fetch({
-        url: '/admin/pulldeptlist',
+        url: '/dept/list',
         method: 'post'
       })
 }
 
-export function DeleteDept(ID){
+export function DeleteDept(id){
     return fetch({
-        url: '/admin/Deldept',
+        url: '/dept/delete',
         method: 'post',
-        params:{ID}
+        params:{id}
       })
 }
 
-export function GetDeptDetail(ID){
+export function GetDeptDetail(id){
     return fetch({
-        url: '/admin/PulldeptDetail',
+        url: '/dept/detail',
         method: 'post',
-        params:{ID}
+        params:{id}
       })
 }
 
 export function SaveNewDept(data){
     return fetch({
-        url: '/admin/SaveNewdept',
+        url: '/dept/add',
         method: 'post',
         data
       })
@@ -32,7 +32,7 @@ export function SaveNewDept(data){
 
 export function UpdateDept(data){
     return fetch({
-        url: '/admin/Updatedept',
+        url: '/dept/update',
         method: 'post',
         data
       })
