@@ -15,13 +15,12 @@ export default {
     SidebarItem
   },
   computed: {
-    ...mapGetters(["permission_routers", "AllRouters"]),
+    ...mapGetters(["permission_routers"]),
     sidebar() {
       return this.$store.getters.sidebar.opened;
     }
   },
   created() {
-    console.log(this.AllRouters);
   }
 };
 </script>

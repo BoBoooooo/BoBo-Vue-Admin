@@ -16,7 +16,6 @@ import { constantRouterMap } from '@/router/index'
 import 'nprogress/nprogress.css' // Progress 进度条样式
 import Layout from '@/views/layout/Layout'
 
-const _import = require('@/router/_import_' + process.env.NODE_ENV)
 
 function filterAsyncRouter(asyncRouterMap) { //遍历后台传来的路由字符串，转换为组件对象
   const accessedRouters = asyncRouterMap.filter(route => {
@@ -24,7 +23,7 @@ function filterAsyncRouter(asyncRouterMap) { //遍历后台传来的路由字符
    if (route.component === 'Layout') {//Layout组件特殊处理
         route.component = Layout
       } else {
-        route.component = _import(route.component)
+        route.component = ()=>import(`@/views/${route.component}`)
       }
     }
     if (route.children && route.children.length) {
@@ -43,15 +42,18 @@ const user = {
     token: getToken(),
     name: '', //用户昵称名
     realname: '', //用户登录名
-    routers: constantRouterMap,
-    addRouters: []  
-  
+    routers: constantRouterMap,  //登录后 则保存的是全部路由
+    addRouters: []    //后台返回的异步路由信息
+    
   },
 
   mutations: {
 
     SET_ROUTERS: (state, routers) => {
-      state.addRouters = routers.push({path:"*",redirect:'/404',hidden:true})
+
+      console.log(routers)
+      routers.push({path:"*",redirect:'/404',hidden:true})
+      state.addRouters = routers
       state.routers = constantRouterMap.concat(routers)
     },
 
@@ -113,7 +115,7 @@ const user = {
           commit('SET_NAME', data.RealName)
           commit('SET_REALNAME', data.UserName)
           const asyncrouters  =filterAsyncRouter(data.Routers)
-          console.log(asyncrouters)
+        
           commit('SET_ROUTERS', asyncrouters)
           
           

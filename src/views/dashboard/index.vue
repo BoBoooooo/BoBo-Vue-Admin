@@ -67,8 +67,6 @@
 
 <script>
 import GithubCorner from "@/components/GithubCorner";
-import Aplayer from "vue-aplayer";
-
 import { mapGetters } from "vuex";
 import { parseTime } from "@/utils/index";
 import axios from "axios";
@@ -89,7 +87,7 @@ export default {
   computed: {
     ...mapGetters(["name", "roles", "AllRouters"])
   },
-  components: { GithubCorner, Aplayer },
+  components: { GithubCorner },
   methods: {
     getImage(url) {
       if (url !== undefined) {
@@ -170,6 +168,7 @@ export default {
     span {
       display: block;
       padding-top: 10px;
+      color:black;
     }
   }
 }

@@ -49,7 +49,6 @@
     },
     mounted(){
         window.addEventListener('scroll', ()=>{
-alert(1)
         })
     }
    
@@ -110,7 +109,7 @@ alert(1)
       transition: all .28s ease-out;
     }
     .content-container{
-      position: absolute;
+      // position: absolute;
       left: 0;
       top: 84px;
       bottom: 0;

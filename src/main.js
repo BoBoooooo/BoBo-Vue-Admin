@@ -8,7 +8,6 @@ import store from './store'
 import '@/icons' // icon
 import '@/permission' // 权限import axios from 'axios';
 import axios from 'axios'
-import $ from 'jquery'
 import * as filters from './filters' // global filters
 
 Vue.use(ElementUI)
@@ -21,9 +20,11 @@ new Vue({
   el: '#app',
   router,
   store,
-  template: '<App/>',
-  components: { App }
+  render: h => h(App)
 })
+
+
+
 
 Date.prototype.format = function(format)
 {

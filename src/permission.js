@@ -17,7 +17,7 @@ router.beforeEach((to, from, next) => {
     } else {   
       if (store.getters.addRouters.length === 0) {
         store.dispatch('GetInfo').then(res => {
-
+            console.log(store.getters.addRouters)
           router.addRoutes(store.getters.addRouters)
           next({ ...to})
         })
