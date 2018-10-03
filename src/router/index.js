@@ -46,9 +46,13 @@ export default new Router({
   "music": ()=>import('@/views/DouBan/music'),
    "book": ()=>import('@/views/DouBan/book'),
    "users": ()=>import('@/views/system/users'),
-     
    "role": ()=>import('@/views/system/role'),
-    "dept": ()=>import('@/views/system/dept')
+    "dept": ()=>import('@/views/system/dept'),
+    "menu": ()=>import('@/views/system/menu'),
+
+    "person_edit": ()=>import('@/views/Archive/person'),
+    "person_detail": ()=>import('@/views/Archive/person_detail')
+
  }
   // {
   //   path: '/People',

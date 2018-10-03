@@ -4,7 +4,7 @@
       <github-corner></github-corner>
     <el-row>
       <el-col :span="6" :offset="1">
-        <el-card :body-style="{ padding: '15px 0px',height:'300px'}">
+        <el-card :body-style="{ padding: '15px 0px',height:'250px'}">
                 <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/100/h/100" style="border-radius:80px" >
 <br><br>
           <div class="dashboard-text">Anshare_Vue_Admin</div>
@@ -17,7 +17,7 @@
 
 
    <el-col  :span="6" :offset="2">
-        <el-card :body-style="{ padding: '15px 0px',height:'300px'}">
+        <el-card :body-style="{ padding: '15px 0px',height:'250px'}">
                 <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/100/h/100" style="border-radius:80px" >
 
           <div class="dashboard-text">
@@ -52,12 +52,9 @@
         <el-card :body-style="{ padding: '15px 0px',height:'250px'}">
 
           <div class="dashboard-text" style="padding-top:0px">
-
             <img :src="getImage(item.thumbnail)">
             <a :href="'http:\/\/daily.zhihu.com\/story\/'+item.news_id" target="_blank"><span style="display:block;font-size:14px">{{item.title}}</span></a>
           </div>
-
-
         </el-card>
       </el-col>
     </el-row>
@@ -163,7 +160,7 @@ export default {
     text-align: center;
     margin: 0 30px 30px 30px;
 
-    font-size: 20px;
+    font-size: 1em;
     line-height: 30px;
     span {
       display: block;

@@ -3,7 +3,7 @@
     <el-menu mode="vertical" style="border:none" :default-active="$route.path">
       <sidebar-item :routes='permission_routers'></sidebar-item>
     </el-menu>
-    <img src="../../assets/401.gif" v-show="sidebar" style="position:fixed;bottom:10px;left:10px;z-index:1111;width:150px">
+    <!-- <img src="../../assets/401.gif" v-show="sidebar" style="position:fixed;bottom:10px;left:10px;z-index:1111;width:150px"> -->
   </div>
 </template>
 

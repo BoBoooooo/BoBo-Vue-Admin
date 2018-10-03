@@ -10,7 +10,7 @@ import {
 } from '@/utils/auth'
 import {
   ChangePassword
-} from '@/api/system/users'
+} from '@/api/login'
 import { constantRouterMap,asyncRouterMap_Map } from '@/router/index'
 
 import 'nprogress/nprogress.css' // Progress 进度条样式
@@ -84,7 +84,7 @@ const user = {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
         login(username, userInfo.password).then(response => {
-          const data = response.data
+          const data = response
           if (data.code == 200) {
             console.log(data.data);
             setToken(data.data)
@@ -114,7 +114,7 @@ const user = {
       return new Promise((resolve, reject) => {
         getInfo(state.token).then(response => {
 
-          const data = response.data.data
+          const data = response.data
           console.log(data);
           commit('SET_NAME', data.RealName)
           commit('SET_REALNAME', data.UserName)
@@ -137,14 +137,10 @@ const user = {
       commit
     }) {
       return new Promise(resolve => {
-        commit('SET_TOKEN', '')
-        commit('SET_ROLES', [])
         logout().then(res => {
-          if (res.data.code === 200) {
+            commit('SET_TOKEN', '')
             removeToken()
             resolve()
-          } else
-            reject()
         }).catch(err => {
           reject(err)
         })
@@ -158,16 +154,19 @@ const user = {
     }, NewPassword) {
       return new Promise((resolve, reject) => {
         ChangePassword({
-          UserName: state.realname,
-          Password: NewPassword
+          username: state.realname,
+          password: NewPassword
         }).then(response => {
-          const data = response.data
-          if (data.Success != false) {
+          const data = response
             resolve(data)
-          } else {
-            reject(data.Message)
-
-          }
+            logout().then(res => {
+              commit('SET_TOKEN', '')
+              removeToken()
+              resolve()
+          }).catch(err => {
+            reject(err)
+          })
+          
         }).catch(error => {
           reject(error)
         })

@@ -44,7 +44,7 @@
 </template>
 <script>
 import echarts from "echarts";
-import { SearchPersonByMonth,SearchPersonByYear } from "@/api/KaoQin/Attendance";
+import { SearchPersonByMonth,SearchPersonByYear } from "@/api/Archive/Attendance";
 import { parseTime } from "@/utils/index";
 require("echarts/theme/roma");
 export default {

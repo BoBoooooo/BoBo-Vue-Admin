@@ -40,10 +40,3 @@ export function UpdateUsers(data){
 }
 
 
-export function ChangePassword(data){
-    return fetch({
-        url: '/users/ChangePassword',
-        method: 'post',
-        data
-      })
-}

@@ -14,45 +14,45 @@
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
       <el-table-column align="center" label='工号' width="95">
         <template slot-scope="scope">
-          {{scope.row.No}}
+          {{scope.row.no}}
         </template>
       </el-table-column>
       <el-table-column label="姓名" align="center">
         <template slot-scope="scope">
-          {{scope.row.Name}}
+          {{scope.row.name}}
         </template>
       </el-table-column>
       <el-table-column label="性别" align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.Gender}}</span>
+          <span>{{scope.row.gender}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="部门" align="center">
+      <!-- <el-table-column label="部门" align="center">
         <template slot-scope="scope">
           {{scope.row.DeptName}}
         </template>
-      </el-table-column>
+      </el-table-column> -->
      <el-table-column label="手机号码" align="center">
         <template slot-scope="scope">
-          {{scope.row.Phone}}
+          {{scope.row.phone}}
         </template>
       </el-table-column>
       <!-- <el-table-column label="入职时间" align="center">
         <template slot-scope="scope">
-          {{scope.row.Workduty}}
+          {{scope.row.workduty}}
         </template>
       </el-table-column>
       <el-table-column label="联系电话" align="center">
         <template slot-scope="scope">
-          {{scope.row.Phone}}
+          {{scope.row.phone}}
         </template>
       </el-table-column> -->
 
       <el-table-column label="操作" align="center" min-width="110px">
         <template slot-scope="scope">
-          <el-button @click="Edit(scope.row.ID)" type="success" size="small">编辑</el-button>
+          <el-button @click="Edit(scope.row.id)" type="success" size="small">编辑</el-button>
 
-          <el-button @click="Delete(scope.row.ID)" type="danger" size="small">删除</el-button>
+          <el-button @click="Delete(scope.row.id)" type="danger" size="small">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -70,17 +70,17 @@
       <el-form class="small-space" :model="temp" label-position="left" label-width="70px">
 
         <el-form-item label="工号">
-          <el-input class="filter-item" v-model="temp.No" placeholder="请输入工号">
+          <el-input class="filter-item" v-model="temp.no" placeholder="请输入工号">
 
           </el-input>
         </el-form-item>
         <el-form-item label="姓名">
-          <el-input class="filter-item" v-model="temp.Name" placeholder="请输入姓名">
+          <el-input class="filter-item" v-model="temp.name" placeholder="请输入姓名">
 
           </el-input>
         </el-form-item>
         <el-form-item label="性别">
-          <multiselect v-model="selected" :value="temp.Gender" :options="options" :searchable="false" :close-on-select="true" :allow-empty="false"
+          <multiselect v-model="selected" :value="temp.gender" :options="options" :searchable="false" :close-on-select="true" :allow-empty="false"
             placeholder="请选择性别" :showLabels="false" style="z-index:3;height:30px">
           </multiselect>
         </el-form-item>
@@ -97,7 +97,7 @@
 
         <el-form-item label="联系方式">
 
-          <el-input class="filter-item" v-model="temp.Phone" placeholder="请输入手机号码">
+          <el-input class="filter-item" v-model="temp.phone" placeholder="请输入手机号码">
 
           </el-input>
         </el-form-item>
@@ -119,7 +119,7 @@ import {
   GetUsersDetail,
   SaveNewUsers,
   UpdateUsers
-} from "@/api/KaoQin/person";
+} from "@/api/Archive/person";
 import { GetDeptTree } from "@/api/system/dept";
 
 import Multiselect from "vue-multiselect";
@@ -149,15 +149,15 @@ export default {
       RoleID: "",
 
       temp: {
-        ID: "",
-        No: "",
-        Name: "",
-        Gender: "",
-        Workduty: "",
+        id: "",
+        no: "",
+        name: "",
+        gender: "",
+        workduty: "",
         DeptName: "",
-        DeptID: "",
-        Phone: "",
-        IsDeleted: false
+        deptid: "",
+        phone: "",
+        isdeleted: false
       },
       defaultProps: {
         children: "children",
@@ -171,9 +171,7 @@ export default {
 
   created() {
     this.fetchData(this.listQuery);
-    GetDeptTree().then(response => {
-      this.depttree = JSON.parse(response.data);
-    });
+  
   },
   methods: {
     handleSizeChange(val) {
@@ -196,20 +194,20 @@ export default {
       this.listLoading = true;
 
       GetUsers(params).then(response => {
-        this.list = response.data.rows;
-        this.listQuery.totalCount = response.data.total;
+        this.list = response.data.list;
+        this.listQuery.totalCount = response.total;
         this.listLoading = false;
       });
     },
     New() {
       this.temp = {
-        No: "",
-        DeptID: "",
-        Workduty: "",
-        Gender: "",
-        Name: "",
-        Phone: "",
-        IsDeleted: false
+        no: "",
+        deptid: "",
+        workduty: "",
+        gender: "",
+        name: "",
+        phone: "",
+        isdeleted: false
       };
       this.selected = null;
       this.dialogFormVisible = true;
@@ -218,31 +216,31 @@ export default {
 
       this.dialogStatus = "create";
     },
-    Delete(ID) {
+    Delete(id) {
       this.$confirm("确认删除?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        DeleteUser(ID).then(response => {
+        DeleteUser(id).then(response => {
           this.fetchData(this.listQuery);
         });
       });
     },
-    Edit(ID) {
+    Edit(id) {
       this.dialogStatus = "update";
       this.dialogFormVisible = true;
 
-      GetUsersDetail(ID).then(response => {
+      GetUsersDetail(id).then(response => {
         this.temp = response.data;
-        this.$refs.tree.setCheckedKeys([this.temp.DeptID]);
-        this.selected = this.temp.Gender;
+        this.$refs.tree.setCheckedKeys([this.temp.deptid]);
+        this.selected = this.temp.gender;
       });
     },
 
     create() {
-      this.temp.DeptID = this.$refs.tree.getCheckedKeys().join(",");
-      this.temp.Gender = this.selected;
+      // this.temp.deptid = this.$refs.tree.getCheckedKeys().join(",");
+      this.temp.gender = this.selected;
       SaveNewUsers(this.temp).then(response => {
         this.dialogFormVisible = false;
 
@@ -250,8 +248,8 @@ export default {
       });
     },
     update() {
-      this.temp.Gender = this.selected;
-      this.temp.DeptID = this.$refs.tree.getCheckedKeys().join(",");
+      this.temp.gender = this.selected;
+      this.temp.deptid = this.$refs.tree.getCheckedKeys().join(",");
 
       UpdateUsers(this.temp).then(response => {
         this.dialogFormVisible = false;

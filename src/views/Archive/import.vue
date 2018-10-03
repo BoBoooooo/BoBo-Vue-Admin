@@ -99,8 +99,8 @@ import {
   AttenDetailByPerson,
   GetAttenListToday,
   UpdateAtten
-} from "@/api/KaoQin/Attendance";
-import { GetUsers } from "@/api/KaoQin/person";
+} from "@/api/Archive/Attendance";
+import { GetUsers } from "@/api/Archive/person";
 import { GetDeptTree } from "@/api/system/dept";
 import { parseTime } from "@/utils/index";
 import Multiselect from "vue-multiselect";

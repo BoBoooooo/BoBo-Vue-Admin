@@ -1,31 +1,31 @@
 import fetch from '@/utils/fetch'
 export function GetUsers(params){
     return fetch({
-        url: '/Person/pulluserlist',
+        url: '/person/list',
         method: 'post',
         params
       })
 }
 
-export function DeleteUser(ID){
+export function DeleteUser(id){
     return fetch({
-        url: '/Person/DelUser',
+        url: '/person/delete',
         method: 'post',
-        params:{ID}
+        params:{id}
       })
 }
 
-export function GetUsersDetail(ID){
+export function GetUsersDetail(id){
     return fetch({
-        url: '/Person/PullUsersDetail',
+        url: '/person/detail',
         method: 'post',
-        params:{ID}
+        params:{id}
       })
 }
 
 export function SaveNewUsers(data){
     return fetch({
-        url: '/Person/SaveNewUsers',
+        url: '/person/add',
         method: 'post',
         data
       })
@@ -33,17 +33,9 @@ export function SaveNewUsers(data){
 
 export function UpdateUsers(data){
     return fetch({
-        url: '/Person/UpdateUsers',
+        url: '/person/update',
         method: 'post',
         data
       })
 }
 
-
-export function ChangePassword(data){
-    return fetch({
-        url: '/Person/ChangePassword',
-        method: 'post',
-        data
-      })
-}

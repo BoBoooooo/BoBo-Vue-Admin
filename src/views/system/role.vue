@@ -133,9 +133,9 @@ export default {
     fetchData(params) {
       this.listLoading = true;
       GetRoles(params).then(response => {
-        this.list = response.data.data.list;
+        this.list = response.list;
         console.log(this.list)
-        this.listQuery.totalCount = parseInt(response.data.data.total)
+        this.listQuery.totalCount = parseInt(response.total)
         this.listLoading = false;
       });
     },
@@ -164,8 +164,8 @@ export default {
 
       GetRoleDetail(id).then(response => {
         this.dialogStatus = "update";
-        this.temp = response.data.data;
-        console.log(response.data.data)
+        this.temp = response;
+        console.log(response)
         this.dialogFormVisible = true;
       });
     },

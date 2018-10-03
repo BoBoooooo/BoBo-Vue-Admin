@@ -4,9 +4,9 @@ export function login(username, password) {
   return fetch({
     url: '/login/login',
     method: 'post',
-    data: {
-      Username:username,
-      Password:password
+    params: {
+      username,
+      password
     }
   })
 }
@@ -26,4 +26,13 @@ export function logout() {
     url: '/login/logout',
     method: 'post'
   })
+}
+
+
+export function ChangePassword(data){
+  return fetch({
+      url: '/login/changepassword',
+      method: 'post',
+      params:data
+    })
 }

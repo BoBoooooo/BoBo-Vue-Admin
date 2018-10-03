@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <el-form ref="loginForm" :model="loginForm"  class="login-form" auto-complete="on" label-position="left">
-      <h3 class="title">Anshare后台管理模板</h3>
+      <h3 class="title">Anshare后台管理v2.0</h3>
       <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="yonghuming" />
@@ -81,14 +81,14 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss">
 $bg:#2d3a4b;
-$light_gray:#eee;
+$light_gray:white;
 
 /* reset element-ui css */
 .login-container {
   .el-input {
     display: inline-block;
-    height: 55px;
-    width: 80%;
+    height: 20px;
+    width: 70%;
     input {
       background: transparent;
       border: 0px;
@@ -96,11 +96,8 @@ $light_gray:#eee;
       border-radius: 0px;
       padding: 12px 5px 12px 15px;
       color: $light_gray;
-      height: 55px;
-      &:-webkit-autofill {
-        -webkit-box-shadow: 0 0 0px 1000px $bg inset !important;
-        -webkit-text-fill-color: #fff !important;
-      }
+      height: 30px;
+    
     }
   }
   .el-form-item {
@@ -115,21 +112,25 @@ $light_gray:#eee;
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 $bg:#2d3a4b;
-$dark_gray:#889aa4;
-$light_gray:#eee;
+$dark_gray:#fff;
+$light_gray:#fff;
 .login-container {
   position: fixed;
   height: 100%;
   width: 100%;
-  background-color: $bg;
+      background: url('~@/assets/loginbg.jpg') center center no-repeat;
+background-size:100% 100%;
+  // background-color: $bg;
   .login-form {
     position: absolute;
     left: 0;
     right: 0;
-    width: 520px;
+    width: 300px;
+    background:rgba(255,255,255,.4);
     max-width: 100%;
-    padding: 35px 35px 15px 35px;
-    margin: 120px auto;
+    padding: 20px 35px;
+    margin: 100px auto;
+   
   }
   .tips {
     font-size: 14px;
@@ -151,7 +152,7 @@ $light_gray:#eee;
   .title {
     font-size: 26px;
     font-weight: 400;
-    color: $light_gray;
+    color: #f2f2f2;
     margin: 0px auto 40px auto;
     text-align: center;
     font-weight: bold;

@@ -2,7 +2,7 @@
   <el-breadcrumb class="app-breadcrumb" separator="/">
     <transition-group name="breadcrumb">
       <el-breadcrumb-item v-for="(item,index)  in levelList" :key="item.path" v-if='item.meta.title'>
-        <span v-if='item.meta.father||index==levelList.length-1' class="no-redirect">{{item.meta.title}}</span>
+        <span v-if='!item.meta.parent||index==levelList.length-1' class="no-redirect">{{item.meta.title}}</span>
         <router-link v-else :to="item.redirect||item.path">{{item.meta.title}}</router-link>
       </el-breadcrumb-item>
     </transition-group>
@@ -33,6 +33,7 @@ export default {
         matched = [{ path: '/dashboard', meta: { title: '首页' }}].concat(matched)
       }
       this.levelList = matched
+      console.log(this.levelList);
     }
   }
 }

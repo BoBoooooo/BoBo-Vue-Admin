@@ -66,27 +66,8 @@ import Breadcrumb from '@/components/Breadcrumb'
         }).then(({
           value
         }) => {
-          this.$store.dispatch('ChangePassword', value).then(response => {
-            this.$message({
-              type: 'success',
-              message: response.Message + ",请重新登录"
-            });
-            setTimeout(() => {
-
-              this.logout()
-
-
-            }, 2000);
-          }).catch(error => {
-          this.$message({
-            type: 'error',
-            message: error
-          });
+          this.$store.dispatch('ChangePassword', value)
         })
-        });
-
-
-
       }
     }
   }

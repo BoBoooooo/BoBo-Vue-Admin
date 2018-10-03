@@ -6,19 +6,42 @@
     <br>
 
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
-      <el-table-column align="center" label='序号' width="95">
+      <el-table-column align="center" label='ID' width="95">
         <template slot-scope="scope">
-          {{scope.$index+1}}
+          {{scope.row.id}}
         </template>
       </el-table-column>
-      <el-table-column label="部门名称">
+      <el-table-column label="菜单名称">
         <template slot-scope="scope">
-          {{scope.row.deptname}}
+          {{scope.row.title}}
         </template>
       </el-table-column>
-      <el-table-column label="排序码">
+      <el-table-column label="菜单路径">
         <template slot-scope="scope">
-          {{scope.row.rank}}
+          {{scope.row.path}}
+        </template>
+      </el-table-column>
+
+ <el-table-column label="菜单唯一标识">
+        <template slot-scope="scope">
+          {{scope.row.name}}
+        </template>
+      </el-table-column>
+
+       <el-table-column label="父级菜单">
+        <template slot-scope="scope">
+          {{scope.row.parentid}}
+        </template>
+      </el-table-column>
+
+       <el-table-column label="菜单图标">
+        <template slot-scope="scope">
+          {{scope.row.icon}}
+        </template>
+      </el-table-column>
+ <el-table-column label="排序码">
+        <template slot-scope="scope">
+          {{scope.row.sequence}}
         </template>
       </el-table-column>
 
@@ -65,8 +88,7 @@
     Detail,
     Add,
     Update,
-    getdeptree
-  } from "@/api/system/dept";
+  } from "@/api/system/menu";
 
   export default {
     data() {
@@ -81,9 +103,13 @@
         listLoading: true,
         temp: {
           id: "",
-          deptname: "",
-          rank: "",
-          isdeleted: false,
+          name: "",
+          icon: "",
+          parentid: "",
+          path: "",
+          sequence: "",
+          title: "",
+          redirect: "noredirect",
         },
         depttree: [],
         defaultProps: {
@@ -106,6 +132,7 @@
         this.listLoading = true;
         List().then(response => {
           this.list = response.data.list;
+          console.log(this.list)
           this.listLoading = false;
         });
       },
