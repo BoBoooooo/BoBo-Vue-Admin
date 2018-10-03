@@ -38,6 +38,7 @@ export default {
 .svg-icon {
   margin-right: 10px;
 }
+
 .hideSidebar .menu-indent{
   display: block;
   text-indent: 10px;

@@ -110,7 +110,7 @@ export default {
   created() {
     this.fetchData(this.listQuery);
 
-    let arr = store.getters.AddRouters;
+    let arr = store.getters.routers;
 
     for (let i = 0; i < arr.length; i++) {
       if (arr[i].hidden) {
@@ -133,9 +133,9 @@ export default {
     fetchData(params) {
       this.listLoading = true;
       GetRoles(params).then(response => {
-        this.list = response.list;
+        this.list = response.data.list;
         console.log(this.list)
-        this.listQuery.totalCount = parseInt(response.total)
+        this.listQuery.totalCount = parseInt(response.data.total)
         this.listLoading = false;
       });
     },
@@ -164,7 +164,7 @@ export default {
 
       GetRoleDetail(id).then(response => {
         this.dialogStatus = "update";
-        this.temp = response;
+        this.temp = response.data;
         console.log(response)
         this.dialogFormVisible = true;
       });

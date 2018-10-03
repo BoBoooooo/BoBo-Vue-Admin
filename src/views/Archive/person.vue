@@ -120,7 +120,6 @@ import {
   SaveNewUsers,
   UpdateUsers
 } from "@/api/Archive/person";
-import { GetDeptTree } from "@/api/system/dept";
 
 import Multiselect from "vue-multiselect";
 
@@ -233,7 +232,7 @@ export default {
 
       GetUsersDetail(id).then(response => {
         this.temp = response.data;
-        this.$refs.tree.setCheckedKeys([this.temp.deptid]);
+        // this.$refs.tree.setCheckedKeys([this.temp.deptid]);
         this.selected = this.temp.gender;
       });
     },

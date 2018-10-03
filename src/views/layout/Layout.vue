@@ -87,6 +87,7 @@
       bottom: 0;
       left: 0;
       z-index: 1001;
+      background: rgb(48, 65, 86);
       overflow: hidden;
       transition: all .28s ease-out;
     }
@@ -96,6 +97,8 @@
       top: 0;
       bottom: 0;
       left: 0;
+            background: rgb(48, 65, 86);
+
       width: 180px;
       overflow-y: auto;
       overflow-x: hidden;
