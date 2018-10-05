@@ -83,11 +83,11 @@
 
 <script>
   import {
-    List,
-    Delete,
-    Detail,
-    Add,
-    Update,
+   MenuList,
+    DeleteMenu,
+    GetMenuDetail,
+    AddMenu,
+    UpdateMenu,
   } from "@/api/system/menu";
 
   export default {
@@ -130,7 +130,7 @@
     methods: {
       fetchData() {
         this.listLoading = true;
-        List().then(response => {
+        MenuList().then(response => {
           this.list = response.data.list;
           console.log(this.list)
           this.listLoading = false;
@@ -149,7 +149,7 @@
             type: "warning"
           })
           .then(() => {
-            Delete(id).then(()=>{    
+            DeleteMenu(id).then(()=>{    
                       this.fetchData()
 })
           })
@@ -158,7 +158,7 @@
       Edit(id) {
         this.dialogStatus = "update";
 
-        Detail(id).then(response => {
+        GetMenuDetail(id).then(response => {
           this.dialogStatus = "update";
           this.temp = response.data;
           console.log(this.temp)
@@ -170,7 +170,7 @@
 
 
       create() {
-        Add(this.temp).then(response => {
+        AddMenu(this.temp).then(response => {
          
           this.dialogFormVisible = false;
           this.fetchData();
@@ -179,7 +179,7 @@
 
       },
       update() {
-        Update(this.temp).then(response => {
+        UpdateMenu(this.temp).then(response => {
           
           this.dialogFormVisible = false;
 

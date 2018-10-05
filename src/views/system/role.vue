@@ -68,13 +68,15 @@
 
 <script>
 import {
-  GetRoles,
+  RoleList,
   DeleteRole,
   GetRoleDetail,
-  SaveNewRole,
+  AddRole,
   UpdateRole
-} from "@/api/system/role";
-import { mapGetters } from "vuex";
+} from "@/api/system/role"
+import {GetMenuTreeByRoleID,MenuTree} from "@/api/system/menu"
+
+import { mapGetters } from "vuex"
 import store from '@/store'
 export default {
   data() {
@@ -92,7 +94,7 @@ export default {
         rolename: "",
         rank: "",
         isdeleted: false,
-        roleauthname: null,
+        menulist: "",
       },
       menu: null,
       listQuery: {
@@ -104,48 +106,45 @@ export default {
         children: "children",
         label: "title"
       }
-    };
+    }
   },
 
   created() {
-    this.fetchData(this.listQuery);
+    this.fetchData(this.listQuery)
+    MenuTree().then(response=>{
+      this.menu=response.data.list
+    })
 
-    let arr = store.getters.routers;
-
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i].hidden) {
-        arr.splice(i--, 1);
-      }
-    }
-    console.log(arr)
-    this.menu = arr;
+    this.menu = arr
   },
   methods: {
     handleSizeChange(val) {
-      this.listQuery.pageSize = val;
-      this.fetchData(this.listQuery);
+      this.listQuery.pageSize = val
+      this.fetchData(this.listQuery)
     },
     handleCurrentChange(val) {
-      this.listQuery.pageNumber = val;
-      this.fetchData(this.listQuery);
+      this.listQuery.pageNumber = val
+      this.fetchData(this.listQuery)
     },
 
     fetchData(params) {
-      this.listLoading = true;
-      GetRoles(params).then(response => {
-        this.list = response.data.list;
+      this.listLoading = true
+      RoleList(params).then(response => {
+        this.list = response.data.list
         console.log(this.list)
         this.listQuery.totalCount = parseInt(response.data.total)
-        this.listLoading = false;
-      });
+        this.listLoading = false
+      })
     },
     New() {
-      this.dialogFormVisible = true;
-      this.temp.rolename = "";
-      this.temp.rank = "";
-      this.temp.roleauthname = "";
+      this.dialogFormVisible = true
+      this.temp.rolename = ""
+      this.temp.rank = ""
+      this.temp.menulist = ""
+      this.temp.id=""
+              this.$refs.tree.setCheckedKeys([]);
 
-      this.dialogStatus = "create";
+      this.dialogStatus = "create"
     },
     Delete(id) {
       this.$confirm("确认删除?", "提示", {
@@ -155,45 +154,39 @@ export default {
       }).then(() => {
         DeleteRole(id).then(response => {
        
-          this.fetchData(this.listQuery);
-        });
-      });
+          this.fetchData(this.listQuery)
+        })
+      })
     },
     Edit(id) {
-      this.dialogStatus = "update";
+      this.dialogStatus = "update"
 
       GetRoleDetail(id).then(response => {
-        this.dialogStatus = "update";
-        this.temp = response.data;
-        console.log(response)
-        this.dialogFormVisible = true;
-      });
+        this.dialogStatus = "update"
+        this.temp = response.data
+        this.$refs.tree.setCheckedKeys([this.temp.menulist]);
+        this.dialogFormVisible = true
+      })
     },
 
     create() {
-      this.temp.roleauthname = this.$refs.tree.getCheckedKeys().join(",");
+      this.temp.menulist = this.$refs.tree.getCheckedKeys().join(",")
 
-      SaveNewRole(this.temp).then(response => {
-        // this.$message({
-        //   message: response.data.message,
-        //   type: "success"
-        // });
-        this.dialogFormVisible = false;
-        this.fetchData(this.listQuery);
-      });
+      AddRole(this.temp).then(response => {
+  
+        this.dialogFormVisible = false
+        this.fetchData(this.listQuery)
+      })
     },
     update() {
-      this.temp.roleauthname = this.$refs.tree.getCheckedKeys().join(",");
+      this.temp.roleauthname = this.$refs.tree.getCheckedKeys().join(",")
       UpdateRole(this.temp).then(response => {
-        // this.$message({
-        //   message: response.data.data.message,
-        //   type: "success"
-        // });
-        this.dialogFormVisible = false;
+    
+        this.dialogFormVisible = false
 
-        this.fetchData(this.listQuery);
-      });
+        this.fetchData(this.listQuery)
+      })
     }
   }
-};
+}
 </script>

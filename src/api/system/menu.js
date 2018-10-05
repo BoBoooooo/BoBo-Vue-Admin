@@ -1,12 +1,19 @@
 import fetch from '@/utils/fetch'
-export function List(){
+export function MenuList(){
     return fetch({
         url: '/menu/list',
         method: 'post'
       })
 }
 
-export function Delete(id){
+export function MenuTree(){
+    return fetch({
+        url: '/menu/treelist',
+        method: 'post'
+      })
+}
+
+export function DeleteMenu(id){
     return fetch({
         url: '/menu/delete',
         method: 'post',
@@ -14,7 +21,7 @@ export function Delete(id){
       })
 }
 
-export function Detail(id){
+export function GetMenuDetail(id){
     return fetch({
         url: '/menu/detail',
         method: 'post',
@@ -22,7 +29,7 @@ export function Detail(id){
       })
 }
 
-export function Add(data){
+export function AddMenu(data){
     return fetch({
         url: '/menu/add',
         method: 'post',
@@ -30,7 +37,7 @@ export function Add(data){
       })
 }
 
-export function Update(data){
+export function UpdateMenu(data){
     return fetch({
         url: '/menu/update',
         method: 'post',
@@ -38,3 +45,12 @@ export function Update(data){
       })
 }
 
+export function GetMenuTreeByRoleID(roleid){
+    return fetch({
+        url: '/menu/MenuTreeByRoleID',
+        method: 'post',
+        params:{
+            roleid
+        }
+      })
+}

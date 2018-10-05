@@ -76,21 +76,21 @@
         </el-form-item>
 
         <el-form-item label="部门">
-          <el-tree :data="depttree" check-strictly auto-expand-parent show-checkbox default-expand-all node-key="id" ref="tree" highlight-current
-            :props="defaultProps">
-          </el-tree>
-
+        <el-select v-model="temp.deptid" placeholder="请选择">
+            <el-option v-for="item in deptoptions" :key="item.id" :label="item.deptname" :value="item.id">
+            </el-option>
+          </el-select>
 
         </el-form-item>
 
         <el-form-item label="角色">
-          <!-- <el-select v-model="RoleID" placeholder="请选择">
-            <el-option v-for="item in options" :key="item.ID" :label="item.RoleName" :value="item.ID">
+          <el-select v-model="temp.roleid" placeholder="请选择">
+            <el-option v-for="item in roleoptions" :key="item.id" :label="item.rolename" :value="item.id">
             </el-option>
-          </el-select> -->
-          <multiselect v-model="selected" :value="selected" :options="options" :searchable="false" :close-on-select="true" :allow-empty="false"
+          </el-select>
+          <!-- <multiselect v-model="selected" :value="selected" :options="options" :searchable="false" :close-on-select="true" :allow-empty="false"
             label="RoleName" placeholder="请选择角色" track-by="ID" :showLabels="false">
-          </multiselect>
+          </multiselect> -->
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -105,15 +105,17 @@
 
 <script>
 import {
-  GetUsers,
-  DeleteUser,
+  UsersList,
+  DeleteUsers,
   GetUsersDetail,
-  SaveNewUsers,
+  AddUsers,
   UpdateUsers
 } from "@/api/system/users";
-import { GetDeptTree } from "@/api/system/dept";
-import { GetRolesOptions } from "@/api/system/role";
-import Multiselect from "vue-multiselect";
+import { List } from "@/api/system/dept";
+import { RoleList } from "@/api/system/role";
+import { DeptList } from "@/api/system/dept";
+
+// import Multiselect from "vue-multiselect";
 
 export default {
   data() {
@@ -134,11 +136,12 @@ export default {
         username: "",
         password: "",
         realname: "",
+        roleid: "",
         deptid: "",
-        RoleID: "",
         isdeleted: false
       },
-      options: [],
+      roleoptions: [],
+      deptoptions: [],
       defaultProps: {
         children: "children",
         label: "text"
@@ -151,17 +154,21 @@ export default {
       }
     };
   },
-  components: {
-    Multiselect
-  },
+  // components: {
+  //   Multiselect
+  // },
 
   created() {
     this.fetchData(this.listQuery);
-    GetDeptTree().then(response => {
-      this.depttree = JSON.parse(response.data);
+    // GetDeptTree().then(response => {
+    //   this.depttree = JSON.parse(response.data);
+    // });
+    RoleList().then(response => {
+      this.roleoptions = response.data.list;
     });
-    GetRolesOptions().then(response => {
-      this.options = response.data;
+
+     DeptList().then(response => {
+      this.deptoptions = response.data.list;
     });
   },
   methods: {
@@ -175,26 +182,28 @@ export default {
     },
     fetchData(params) {
       this.listLoading = true;
-      GetUsers(params).then(response => {
+      UsersList(params).then(response => {
         this.list = response.data.list;
         this.listQuery.totalCount = response.data.total;
         this.listLoading = false;
       });
     },
     New() {
-      this.selected = null;
+      // this.selected = null;
       this.temp = {
         ID: "",
         username: "",
         password: "",
         realname: "",
+        roleid:"",
+        deptid:"",
         isdeleted: false
       };
       this.dialogFormVisible = true;
 
       this.dialogStatus = "create";
 
-      this.$refs.tree.setCheckedKeys([]);
+      // this.$refs.tree.setCheckedKeys([]);
     },
     Delete(ID) {
       this.$confirm("确认删除?", "提示", {
@@ -202,7 +211,7 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        DeleteUser(ID).then(response => {
+        DeleteUsers(ID).then(response => {
           this.fetchData(this.listQuery);
         });
       });
@@ -213,31 +222,31 @@ export default {
 
       GetUsersDetail(ID).then(response => {
         this.temp = response.data;
-        this.$refs.tree.setCheckedKeys([this.temp.deptid]);
-        for (let i = 0; i < this.options.length; i++) {
-          let obj = this.options[i];
-          if (obj.ID == this.temp.RoleID) {
-            this.selected = obj;
-          }
-        }
+        // this.$refs.tree.setCheckedKeys([this.temp.deptid]);
+        // for (let i = 0; i < this.options.length; i++) {
+        //   let obj = this.options[i];
+        //   if (obj.ID == this.temp.RoleID) {
+        //     this.selected = obj;
+        //   }
+        // }
       });
     },
 
     create() {
-      this.temp.deptid = this.$refs.tree.getCheckedKeys().join(",");
-      this.temp.RoleID = this.selected.ID;
+      // this.temp.deptid = this.$refs.tree.getCheckedKeys().join(",");
+      // this.temp.RoleID = this.RoleID;
 
   
-      SaveNewUsers(this.temp).then(response => {
+      AddUsers(this.temp).then(response => {
         this.dialogFormVisible = false;
 
         this.fetchData(this.listQuery);
       });
     },
     update() {
-      this.temp.deptid = this.$refs.tree.getCheckedKeys().join(",");
+      // this.temp.deptid = this.$refs.tree.getCheckedKeys().join(",");
 
-      this.temp.RoleID = this.selected.ID;
+      // this.temp.RoleID = this.selected.ID;
 
       UpdateUsers(this.temp).then(response => {
         this.dialogFormVisible = false;

@@ -1,5 +1,5 @@
 import fetch from '@/utils/fetch'
-export function GetUsers(params){
+export function UsersList(params){
     return fetch({
         url: '/users/list',
         method: 'post',
@@ -7,7 +7,7 @@ export function GetUsers(params){
       })
 }
 
-export function DeleteUser(ID){
+export function DeleteUsers(ID){
     return fetch({
         url: '/users/delete',
         method: 'post',
@@ -23,7 +23,7 @@ export function GetUsersDetail(ID){
       })
 }
 
-export function SaveNewUsers(data){
+export function AddUsers(data){
     return fetch({
         url: '/users/add',
         method: 'post',
