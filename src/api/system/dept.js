@@ -1,12 +1,12 @@
 import fetch from '@/utils/fetch'
-export function List(){
+export function DeptList(){
     return fetch({
         url: '/dept/list',
         method: 'post'
       })
 }
 
-export function Delete(id){
+export function DeleteDept(id){
     return fetch({
         url: '/dept/delete',
         method: 'post',
@@ -14,7 +14,7 @@ export function Delete(id){
       })
 }
 
-export function Detail(id){
+export function GetDeptDetail(id){
     return fetch({
         url: '/dept/detail',
         method: 'post',
@@ -22,7 +22,7 @@ export function Detail(id){
       })
 }
 
-export function Add(data){
+export function AddDept(data){
     return fetch({
         url: '/dept/add',
         method: 'post',
@@ -30,7 +30,7 @@ export function Add(data){
       })
 }
 
-export function Update(data){
+export function UpdateDept(data){
     return fetch({
         url: '/dept/update',
         method: 'post',

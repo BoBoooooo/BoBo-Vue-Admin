@@ -1,5 +1,5 @@
 import fetch from '@/utils/fetch'
-export function GetRoles(params){
+export function RoleList(params){
     return fetch({
         url: '/role/list',
         method: 'post',
@@ -31,7 +31,7 @@ export function GetRoleDetail(id){
       })
 }
 
-export function SaveNewRole(data){
+export function AddRole(data){
     return fetch({
         url: '/role/add',
         method: 'post',
