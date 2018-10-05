@@ -187,6 +187,6 @@ export default {
         this.fetchData(this.listQuery)
       })
     }
-  }
+  }//
 }
 </script>
