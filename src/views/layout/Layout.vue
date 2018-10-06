@@ -104,7 +104,7 @@
       overflow-x: hidden;
     }
     .main-container {
-      position: absolute;
+      position: fixed;
       left: 180px;
       top: 0;
       bottom: 0;
@@ -112,7 +112,7 @@
       transition: all .28s ease-out;
     }
     .content-container{
-      // position: absolute;
+      position: absolute;
       left: 0;
       top: 84px;
       bottom: 0;

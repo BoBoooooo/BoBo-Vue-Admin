@@ -1,9 +1,8 @@
 <template>
   <div class="app-container" id="users">
 
-    <el-button @click="New()" type="primary" size="small">新增</el-button>
-    <br>
-    <br>
+     <el-button @click="New()" type="primary" size="small" style="margin:10px 0px">新增</el-button>
+
 
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
       <el-table-column align="center" label='ID' width="95">
@@ -50,7 +49,7 @@
       style="margin-top:5px">
     </el-pagination>
 
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="50%">
+    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="50%" :modal-append-to-body='false'>
       <el-form class="small-space" :model="temp" label-position="left" label-width="70px">
 
 
@@ -132,7 +131,7 @@ export default {
       RoleID: "",
 
       temp: {
-        ID: "",
+        id: "",
         username: "",
         password: "",
         realname: "",
@@ -197,11 +196,10 @@ export default {
         realname: "",
         roleid:"",
         deptid:"",
-        isdeleted: false
-      };
-      this.dialogFormVisible = true;
+      }
+      this.dialogFormVisible = true
 
-      this.dialogStatus = "create";
+      this.dialogStatus = "create"
 
       // this.$refs.tree.setCheckedKeys([]);
     },
@@ -218,7 +216,6 @@ export default {
     },
     Edit(ID) {
       this.dialogStatus = "update";
-      this.dialogFormVisible = true;
 
       GetUsersDetail(ID).then(response => {
         this.temp = response.data;
@@ -229,6 +226,9 @@ export default {
         //     this.selected = obj;
         //   }
         // }
+
+              this.dialogFormVisible = true;
+
       });
     },
 

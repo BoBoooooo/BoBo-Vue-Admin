@@ -1,12 +1,9 @@
 <template>
   <div class="app-container" id="role">
+    <el-button @click="New()" type="primary" size="small" style="margin:10px 0px">新增</el-button>
 
-    <el-button @click="New()" type="primary" size="small">新增</el-button>
-    <br>
-    <br>
-
-    <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
-      <el-table-column align="center" label='id' width="95">
+    <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row >
+      <el-table-column align="center" label='序号' width="95">
         <template slot-scope="scope">
           {{scope.$index+1}}
         </template>
@@ -24,7 +21,7 @@
 
       <el-table-column label="操作" align="center" min-width="110px">
         <template slot-scope="scope">
-          <el-button @click="Edit(scope.row.id)" type="success" size="small">编辑</el-button>
+          <el-button  @click="Edit(scope.row.id)" type="success" size="small">编辑</el-button>
 
           <el-button @click="Delete(scope.row.id)" type="danger" size="small">删除</el-button>
         </template>
@@ -93,9 +90,8 @@ export default {
         id: "",
         rolename: "",
         rank: "",
-        isdeleted: false,
-        menulist: "",
       },
+      menulist:[],
       menu: null,
       listQuery: {
         totalCount: 0,
@@ -112,10 +108,9 @@ export default {
   created() {
     this.fetchData(this.listQuery)
     MenuTree().then(response=>{
-      this.menu=response.data.list
+      this.menu=response.data
     })
 
-    this.menu = arr
   },
   methods: {
     handleSizeChange(val) {
@@ -137,14 +132,19 @@ export default {
       })
     },
     New() {
-      this.dialogFormVisible = true
-      this.temp.rolename = ""
+       this.temp.rolename = ""
       this.temp.rank = ""
-      this.temp.menulist = ""
+      this.menulist = ""
       this.temp.id=""
-              this.$refs.tree.setCheckedKeys([]);
-
       this.dialogStatus = "create"
+    
+      this.dialogFormVisible = true
+     
+
+         this.$nextTick(() => {
+                this.$refs.tree.setCheckedKeys([])
+})
+
     },
     Delete(id) {
       this.$confirm("确认删除?", "提示", {
@@ -163,24 +163,29 @@ export default {
 
       GetRoleDetail(id).then(response => {
         this.dialogStatus = "update"
-        this.temp = response.data
-        this.$refs.tree.setCheckedKeys([this.temp.menulist]);
+        this.temp = response.data.Role
         this.dialogFormVisible = true
+
+        this.$nextTick(() => {
+                this.$refs.tree.setCheckedKeys(response.data.MenuList)
+})
+
+
       })
     },
 
     create() {
-      this.temp.menulist = this.$refs.tree.getCheckedKeys().join(",")
+      this.menulist = this.$refs.tree.getCheckedKeys()
 
-      AddRole(this.temp).then(response => {
+      AddRole(this.temp,this.menulist).then(response => {
   
         this.dialogFormVisible = false
         this.fetchData(this.listQuery)
       })
     },
     update() {
-      this.temp.roleauthname = this.$refs.tree.getCheckedKeys().join(",")
-      UpdateRole(this.temp).then(response => {
+      this.menulist = this.$refs.tree.getCheckedKeys()
+      UpdateRole(this.temp,this.menulist).then(response => {
     
         this.dialogFormVisible = false
 

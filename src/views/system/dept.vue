@@ -1,9 +1,7 @@
 <template>
   <div class="app-container" id="dept">
 
-    <el-button @click="New()" type="primary" size="small">新增</el-button>
-    <br>
-    <br>
+     <el-button @click="New()" type="primary" size="small" style="margin:10px 0px">新增</el-button>
 
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
       <el-table-column align="center" label='序号' width="95">
@@ -60,11 +58,11 @@
 
 <script>
   import {
-    List,
-    Delete,
-    Detail,
-    Add,
-    Update,
+    DeptList,
+    DeleteDept,
+    GetDeptDetail,
+    AddDept,
+    UpdateDept,
     getdeptree
   } from "@/api/system/dept";
 
@@ -104,7 +102,7 @@
     methods: {
       fetchData() {
         this.listLoading = true;
-        List().then(response => {
+        DeptList().then(response => {
           this.list = response.data.list;
           this.listLoading = false;
         });
@@ -122,7 +120,7 @@
             type: "warning"
           })
           .then(() => {
-            Delete(id).then(()=>{    
+            DeleteDept(id).then(()=>{    
                       this.fetchData()
 })
           })
@@ -131,7 +129,7 @@
       Edit(id) {
         this.dialogStatus = "update";
 
-        Detail(id).then(response => {
+        GetDeptDetail(id).then(response => {
           this.dialogStatus = "update";
           this.temp = response.data;
           console.log(this.temp)
@@ -143,7 +141,7 @@
 
 
       create() {
-        Add(this.temp).then(response => {
+        AddDept(this.temp).then(response => {
          
           this.dialogFormVisible = false;
           this.fetchData();
@@ -152,7 +150,7 @@
 
       },
       update() {
-        Update(this.temp).then(response => {
+        UpdateDept(this.temp).then(response => {
           
           this.dialogFormVisible = false;
 

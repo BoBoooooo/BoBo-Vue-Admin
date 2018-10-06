@@ -7,19 +7,19 @@ export function UsersList(params){
       })
 }
 
-export function DeleteUsers(ID){
+export function DeleteUsers(id){
     return fetch({
         url: '/users/delete',
         method: 'post',
-        params:{ID}
+        params:{id}
       })
 }
 
-export function GetUsersDetail(ID){
+export function GetUsersDetail(id){
     return fetch({
         url: '/users/detail',
         method: 'post',
-        params:{ID}
+        params:{id}
       })
 }
 

@@ -68,6 +68,8 @@ console.log(res.message)
         })
 
       }
+
+      console.log(res)
 return res
 
 

@@ -1,11 +1,10 @@
 <template>
-  <div class="app-container" id="dept">
+  <div class="app-container" ref="container" id="dept">
 
-    <el-button @click="New()" type="primary" size="small">新增</el-button>
-    <br>
-    <br>
+   <el-button @click="New()" type="primary" size="small" style="margin:10px 0px">新增</el-button>
 
-    <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
+
+    <el-table     :height="windowheight"  :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
       <el-table-column align="center" label='ID' width="95">
         <template slot-scope="scope">
           {{scope.row.id}}
@@ -100,6 +99,7 @@
         dialogFormVisible: false,
         dialogStatus: "",
         list: null,
+        windowheight:"550",
         listLoading: true,
         temp: {
           id: "",
@@ -125,6 +125,14 @@
       // });
       this.fetchData();
 
+
+    },
+    mounted(){
+      this.$nextTick(()=>{
+       this.windowheight =400
+      console.log(this.$refs.container.$el)
+
+      })
 
     },
     methods: {
