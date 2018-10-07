@@ -13,12 +13,13 @@ export default {
 <style>
 .app-container{
   height:100%;
+  padding:15px;
 }
 
 
 .el-table{
-
-  height:100%;
+  height:calc(100% - 100px)!important;
   overflow: auto;
 }
+
 </style>

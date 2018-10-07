@@ -4,7 +4,7 @@
    <el-button @click="New()" type="primary" size="small" style="margin:10px 0px">新增</el-button>
 
 
-    <el-table     :height="windowheight"  :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
+    <el-table   :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
       <el-table-column align="center" label='ID' width="95">
         <template slot-scope="scope">
           {{scope.row.id}}
@@ -128,12 +128,7 @@
 
     },
     mounted(){
-      this.$nextTick(()=>{
-       this.windowheight =400
-      console.log(this.$refs.container.$el)
-
-      })
-
+     
     },
     methods: {
       fetchData() {
