@@ -19,9 +19,9 @@
   import {
     Navbar,
     Sidebar,
-    AppMain
-  } from '@/views/layout'
-  import TagsView from '@/views/layout/TagsView'
+    AppMain,
+    TagsView
+  } from '@/views/layout/components'
   import BackToTop from '@/components/BackToTop'
   export default {
     name: 'layout',

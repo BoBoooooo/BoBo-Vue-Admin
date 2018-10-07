@@ -24,9 +24,6 @@ export default {
   },
   computed: {
     ...mapGetters(["permission_routers"]),
-    sidebar() {
-      return this.$store.getters.sidebar.opened;
-    },
       isCollapse() {
       return !this.$store.getters.sidebar.opened;
     }
