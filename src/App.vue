@@ -18,7 +18,7 @@ export default {
 
 .el-table{
 
-  height:calc(100% - 130px);
+  height:100%;
   overflow: auto;
 }
 </style>

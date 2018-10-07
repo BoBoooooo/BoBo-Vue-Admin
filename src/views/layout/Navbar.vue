@@ -3,7 +3,7 @@
   <el-menu class="navbar" mode="horizontal">
     <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
     <breadcrumb class="breadcrumb-container"></breadcrumb>
-
+    <Screenfull class="screenfull"></Screenfull>
     <el-dropdown class="avatar-container" trigger="click">
       <div class="avatar-wrapper">
         {{name}}
@@ -33,11 +33,12 @@
   } from 'vuex'
   import Hamburger from '@/components/Hamburger'
 import Breadcrumb from '@/components/Breadcrumb'
+import Screenfull from '@/components/Screenfull'
 
   export default {
     components: {
           Breadcrumb,
-
+Screenfull,
       Hamburger
     },
     computed: {
@@ -98,9 +99,16 @@ import Breadcrumb from '@/components/Breadcrumb'
     .screenfull {
       position: absolute;
       right: 90px;
-      top: 16px;
+      top: 14px;
+
       color: red;
+
+      &:focus{
+             outline: none;
+
+      }
     }
+    
     .avatar-container {
       height: 50px;
       display: inline-block;

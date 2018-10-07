@@ -31,7 +31,7 @@
 
     <!-- <el-tree :data="depttree"  default-expand-all node-key="id" ref="tree" highlight-current :props="defaultProps">
     </el-tree> -->
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="50%">
+    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="50%" :modal-append-to-body='false'>
       <el-form class="small-space" :model="temp" label-position="left" label-width="70px">
 
         <el-form-item label="部门名称">

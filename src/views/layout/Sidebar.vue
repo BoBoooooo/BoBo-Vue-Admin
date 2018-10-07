@@ -1,10 +1,16 @@
 <template>
-  <div id="menu">
-    <el-menu mode="vertical" style="border:none" :default-active="$route.path">
+  <el-scrollbar  wrap-class="scrollbar-wrapper">
+    <el-menu mode="vertical" 
+      background-color="#304156"
+      text-color="#bfcbd9"
+      active-text-color="#409EFF" 
+      style="border:none" 
+      :default-active="$route.path">
+
       <sidebar-item :routes='permission_routers'></sidebar-item>
     </el-menu>
     <!-- <img src="../../assets/401.gif" v-show="sidebar" style="position:fixed;bottom:10px;left:10px;z-index:1111;width:150px"> -->
-  </div>
+  </el-scrollbar>
 </template>
 
 <script>
@@ -28,5 +34,7 @@ export default {
 <style rel="stylesheet/scss" lang="scss" scoped>
 .el-menu {
   min-height: 100%;
+  background: rgb(48, 65, 86);
+  color:rgb(191, 203, 217);
 }
 </style>

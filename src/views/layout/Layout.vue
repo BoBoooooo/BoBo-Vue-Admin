@@ -1,5 +1,5 @@
 <template>
-  <div class="app-wrapper" :class="{hideSidebar:!sidebar.opened}">
+  <div :class="classObj" class="app-wrapper">
     <div class="sidebar-wrapper">
       <sidebar class="sidebar-container"></sidebar>
     </div>
@@ -36,7 +36,13 @@
     computed: {
       sidebar() {
         return this.$store.state.app.sidebar
+      },
+         classObj() {
+      return {
+        hideSidebar: !this.sidebar.opened,
+        openSidebar: this.sidebar.opened,
       }
+    }
     },
     created() {
       this.$notify({
@@ -63,63 +69,18 @@
     position: relative;
     height: 100%;
     width: 100%;
-    &.hideSidebar {
-      .sidebar-wrapper {
-        transform: translate(-140px, 0);
-        .sidebar-container {
-          transform: translate(132px, 0);
-        }
-        &:hover {
-          transform: translate(0, 0);
-          .sidebar-container {
-            transform: translate(0, 0);
-          }
-        }
-      }
-      .main-container {
-        left: 40px;
-      }
-    }
-    .sidebar-wrapper {
-      width: 180px;
+    &.mobile.openSidebar{
       position: fixed;
       top: 0;
-      bottom: 0;
-      left: 0;
-      z-index: 1001;
-      background: rgb(48, 65, 86);
-      overflow: hidden;
-      transition: all .28s ease-out;
-    }
-    .sidebar-container {
-      transition: all .28s ease-out;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-            background: rgb(48, 65, 86);
-
-      width: 180px;
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
-    .main-container {
-      position: fixed;
-      left: 180px;
-      top: 0;
-      bottom: 0;
-      right: 0;
-      transition: all .28s ease-out;
-    }
-    .content-container{
-      position: absolute;
-      left: 0;
-      top: 84px;
-      bottom: 0;
-      right: 0;
-      overflow: auto;
-      transition: all .28s ease-out;
     }
   }
-
+  .drawer-bg {
+    background: #000;
+    opacity: 0.3;
+    width: 100%;
+    top: 0;
+    height: 100%;
+    position: absolute;
+    z-index: 999;
+  }
 </style>

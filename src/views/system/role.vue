@@ -32,7 +32,7 @@
       style="margin-top:5px">
     </el-pagination>
 
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="50%">
+    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="50%" :modal-append-to-body='false'>
       <el-form class="small-space" :model="temp" label-position="left" label-width="70px">
 
         <el-form-item label="角色名">

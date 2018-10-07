@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div  class="menu-wrapper"> 
     <template v-for="item in routes">
       <router-link :key="item.name" v-if="!item.hidden&&item.noDropdown&&item.children.length>0" :to="item.path+'/'+item.children[0].path">
         <el-menu-item :index="item.path+'/'+item.children[0].path">
