@@ -5,6 +5,8 @@
       text-color="#bfcbd9"
       active-text-color="#409EFF" 
       style="border:none" 
+      :collapse="isCollapse"
+
       :default-active="$route.path">
 
       <sidebar-item :routes='permission_routers'></sidebar-item>
@@ -24,6 +26,9 @@ export default {
     ...mapGetters(["permission_routers"]),
     sidebar() {
       return this.$store.getters.sidebar.opened;
+    },
+      isCollapse() {
+      return !this.$store.getters.sidebar.opened;
     }
   },
   created() {
