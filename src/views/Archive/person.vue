@@ -2,8 +2,14 @@
   <div class="app-container" id="person">
         <el-button @click="New()" type="primary" size="small">新增</el-button>
 
-   <el-input @keyup.enter.native="Refresh" placeholder="请输入姓名/工号" v-model="listQuery.criteria" style="padding-bottom:10px;width:90%">
-            
+   <el-input @keyup.enter.native="Refresh" placeholder="请输入姓名/工号" v-model="listQuery.SearchValue" style="padding-bottom:10px;width:90%">
+              <el-select v-model="SearchKey" slot="prepend" placeholder="请选择">
+      <el-option label="姓名" value="name"></el-option>
+      <el-option label="工作单位" value="workunit"></el-option>
+      <el-option label="职务" value="workduty"></el-option>
+            <el-option label="职级" value="worklevel"></el-option>
+
+    </el-select>
               <el-button slot="append" icon="el-icon-search" v-on:click="Refresh"></el-button>
                             <el-button slot="append" icon="el-icon-refresh" v-on:click="Clear"></el-button>
 
@@ -32,21 +38,21 @@
           {{scope.row.DeptName}}
         </template>
       </el-table-column> -->
-     <el-table-column label="手机号码" align="center">
+     <el-table-column label="工作单位" align="center">
         <template slot-scope="scope">
-          {{scope.row.phone}}
+          {{scope.row.workunit}}
         </template>
       </el-table-column>
-      <!-- <el-table-column label="入职时间" align="center">
+      <el-table-column label="职务" align="center">
         <template slot-scope="scope">
           {{scope.row.workduty}}
         </template>
       </el-table-column>
-      <el-table-column label="联系电话" align="center">
+      <el-table-column label="职级" align="center">
         <template slot-scope="scope">
-          {{scope.row.phone}}
+          {{scope.row.worklevel}}
         </template>
-      </el-table-column> -->
+      </el-table-column>
 
       <el-table-column label="操作" align="center" min-width="110px">
         <template slot-scope="scope">
@@ -69,11 +75,6 @@
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="50%">
       <el-form class="small-space" :model="temp" label-position="left" label-width="70px">
 
-        <el-form-item label="工号">
-          <el-input class="filter-item" v-model="temp.no" placeholder="请输入工号">
-
-          </el-input>
-        </el-form-item>
         <el-form-item label="姓名">
           <el-input class="filter-item" v-model="temp.name" placeholder="请输入姓名">
 
@@ -138,7 +139,9 @@ export default {
         totalCount: null,
         pageSize: "10",
         pageNumber: "1",
-        criteria: ""
+        SearchKey: "",
+                SearchValue: ""
+
       },
 
       dialogFormVisible: false,
@@ -153,10 +156,7 @@ export default {
         name: "",
         gender: "",
         workduty: "",
-        DeptName: "",
-        deptid: "",
-        phone: "",
-        isdeleted: false
+        worklevel: "",
       },
       defaultProps: {
         children: "children",
@@ -186,7 +186,9 @@ export default {
       this.fetchData(this.listQuery);
     },
     Clear(){
-      this.listQuery.criteria="";
+      this.listQuery.SearchKey="";
+            this.listQuery.SearchValue="";
+
       this.fetchData(this.listQuery);
     },
     fetchData(params) {
