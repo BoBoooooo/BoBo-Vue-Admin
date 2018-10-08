@@ -28,7 +28,10 @@
         </template>
       </el-table-column>
     </el-table>
-
+ <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :currentpage="listQuery.pageNumber"
+      :page-sizes="[10, 20, 30]" :pagesize="listQuery.pageSize" 　 layout="total,sizes, prev, pager, next" :total="listQuery.totalCount"
+      style="margin-top:5px">
+    </el-pagination>
     <!-- <el-tree :data="depttree"  default-expand-all node-key="id" ref="tree" highlight-current :props="defaultProps">
     </el-tree> -->
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="50%" :modal-append-to-body='false'>
@@ -83,6 +86,11 @@
           rank: "",
           isdeleted: false,
         },
+          listQuery: {
+        totalCount: 0,
+        pageSize: "10",
+        pageNumber: "1"
+      },
         depttree: [],
         defaultProps: {
           children: "children",
@@ -95,16 +103,27 @@
       // GetDeptTree().then(response => {
       //   this.depttree = JSON.parse(response.data);
       // });
-      this.fetchData();
+    this.fetchData(this.listQuery)
 
 
     },
     methods: {
-      fetchData() {
+
+          handleSizeChange(val) {
+      this.listQuery.pageSize = val
+      this.fetchData(this.listQuery)
+    },
+    handleCurrentChange(val) {
+      this.listQuery.pageNumber = val
+      this.fetchData(this.listQuery)
+    },
+
+      fetchData(params) {
         this.listLoading = true;
-        DeptList().then(response => {
-          this.list = response.data.list;
-          this.listLoading = false;
+        DeptList(params).then(response => {
+          this.list = response.data.list
+          this.listQuery.totalCount = parseInt(response.data.total)
+          this.listLoading = false
         });
       },
       New() {

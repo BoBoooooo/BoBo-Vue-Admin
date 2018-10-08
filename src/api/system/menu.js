@@ -1,8 +1,9 @@
 import fetch from '@/utils/fetch'
-export function MenuList(){
+export function MenuList(params){
     return fetch({
         url: '/menu/list',
-        method: 'post'
+        method: 'post',
+        params
       })
 }
 

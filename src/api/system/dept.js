@@ -1,8 +1,9 @@
 import fetch from '@/utils/fetch'
-export function DeptList(){
+export function DeptList(params){
     return fetch({
         url: '/dept/list',
-        method: 'post'
+        method: 'post',
+        params
       })
 }
 
