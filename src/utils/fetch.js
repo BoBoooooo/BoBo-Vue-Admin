@@ -4,7 +4,7 @@ import {
 } from 'element-ui'
 import store from '../store'
 import {
-  getToken,setToken
+  getToken,setToken,removeToken
 } from '@/utils/auth'
 
 // 创建axios实例
@@ -34,7 +34,7 @@ service.interceptors.response.use(
   response => {
     const res = response.data
     // 401 403 :帐号信息与token不匹配  需要重新拉取token
-    if (res.code === 401||res.code === 403) {
+    if (res.code === 401||res.code === 403||(res.message.indexOf("Token")&&res.status===500)) {
       MessageBox.alert('帐号信息发生变化，请重新登录', {
         confirmButtonText: '重新登录',
         showCancelButton: false,
