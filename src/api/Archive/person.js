@@ -39,3 +39,12 @@ export function UpdateUsers(data){
       })
 }
 
+
+export function Getobj(){
+    return fetch({
+        url: '/person/Getkey',
+        method: 'post',       
+      })
+}
+
+

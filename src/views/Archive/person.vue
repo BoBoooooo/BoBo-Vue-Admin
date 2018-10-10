@@ -2,8 +2,11 @@
   <div class="app-container" id="person">
         <el-button @click="New()" type="primary" size="small">新增</el-button>
 
-   <el-input @keyup.enter.native="Refresh" placeholder="请输入姓名/工号" v-model="listQuery.SearchValue" style="padding-bottom:10px;width:90%">
-              <el-select v-model="SearchKey" slot="prepend" placeholder="请选择">
+
+
+
+   <el-input @keyup.enter.native="Refresh" placeholder="请输入" v-model="listQuery.SearchValue" style="padding-bottom:10px;width:90%">
+              <el-select v-model="listQuery.SearchKey" slot="prepend" placeholder="请选择">
       <el-option label="姓名" value="name"></el-option>
       <el-option label="工作单位" value="workunit"></el-option>
       <el-option label="职务" value="workduty"></el-option>
@@ -18,11 +21,7 @@
     <br>
 
     <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
-      <el-table-column align="center" label='工号' width="95">
-        <template slot-scope="scope">
-          {{scope.row.no}}
-        </template>
-      </el-table-column>
+  
       <el-table-column label="姓名" align="center">
         <template slot-scope="scope">
           {{scope.row.name}}
@@ -72,37 +71,15 @@
       :total="listQuery.totalCount" style="margin-top:5px">
       </el-pagination>
 
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="50%">
-      <el-form class="small-space" :model="temp" label-position="left" label-width="70px">
-
-        <el-form-item label="姓名">
-          <el-input class="filter-item" v-model="temp.name" placeholder="请输入姓名">
-
-          </el-input>
+    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="80%">
+      <el-form class="small-space" :model="temp"  label-position="left" label-width="70px">
+        <el-col :span="12" v-for="(value,key,index) in temp" :key="index">
+        <el-form-item :label="key" >
+          <el-input class="filter-item" style="width:80%" v-model="temp[key]" :value="value"  :placeholder="`请输入${key}`"></el-input>
         </el-form-item>
-        <el-form-item label="性别">
-          <multiselect v-model="selected" :value="temp.gender" :options="options" :searchable="false" :close-on-select="true" :allow-empty="false"
-            placeholder="请选择性别" :showLabels="false" style="z-index:3;height:30px">
-          </multiselect>
-        </el-form-item>
-
-
-
-        <el-form-item label="部门">
-          <el-tree :data="depttree" auto-expand-parent show-checkbox default-expand-all node-key="id" ref="tree" highlight-current
-            :props="defaultProps">
-          </el-tree>
-
-
-        </el-form-item>
-
-        <el-form-item label="联系方式">
-
-          <el-input class="filter-item" v-model="temp.phone" placeholder="请输入手机号码">
-
-          </el-input>
-        </el-form-item>
+        </el-col>
       </el-form>
+
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
         <el-button v-if="dialogStatus=='create'" type="primary" @click="create">确 定</el-button>
@@ -119,7 +96,8 @@ import {
   DeleteUser,
   GetUsersDetail,
   SaveNewUsers,
-  UpdateUsers
+  UpdateUsers,
+  Getobj
 } from "@/api/Archive/person";
 
 import Multiselect from "vue-multiselect";
@@ -150,14 +128,7 @@ export default {
       listLoading: true,
       RoleID: "",
 
-      temp: {
-        id: "",
-        no: "",
-        name: "",
-        gender: "",
-        workduty: "",
-        worklevel: "",
-      },
+      temp: null,
       defaultProps: {
         children: "children",
         label: "text"
@@ -169,10 +140,18 @@ export default {
   },
 
   created() {
-    this.fetchData(this.listQuery);
-  
+    this.fetchData(this.listQuery)
+    this.getObj()
   },
   methods: {
+
+
+    getObj(){
+      Getobj().then(res=>{
+        this.temp = res.data
+      })
+    },
+
     handleSizeChange(val) {
       this.listQuery.pageSize = val;
       this.fetchData(this.listQuery);
@@ -201,21 +180,15 @@ export default {
       });
     },
     New() {
-      this.temp = {
-        no: "",
-        deptid: "",
-        workduty: "",
-        gender: "",
-        name: "",
-        phone: "",
-        isdeleted: false
-      };
+
+      for(let i in this.temp){
+        this.temp[i] = ""
+      }
       this.selected = null;
+      this.dialogStatus = "create";
       this.dialogFormVisible = true;
 
-      this.$refs.tree.setCheckedKeys([]);
 
-      this.dialogStatus = "create";
     },
     Delete(id) {
       this.$confirm("确认删除?", "提示", {
@@ -230,13 +203,16 @@ export default {
     },
     Edit(id) {
       this.dialogStatus = "update";
-      this.dialogFormVisible = true;
 
       GetUsersDetail(id).then(response => {
+        console.log(response.data)
         this.temp = response.data;
         // this.$refs.tree.setCheckedKeys([this.temp.deptid]);
         this.selected = this.temp.gender;
       });
+
+            this.dialogFormVisible = true;
+
     },
 
     create() {
@@ -249,8 +225,6 @@ export default {
       });
     },
     update() {
-      this.temp.gender = this.selected;
-      this.temp.deptid = this.$refs.tree.getCheckedKeys().join(",");
 
       UpdateUsers(this.temp).then(response => {
         this.dialogFormVisible = false;
