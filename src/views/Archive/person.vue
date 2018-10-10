@@ -166,7 +166,7 @@ export default {
     },
     Clear(){
       this.listQuery.SearchKey="";
-            this.listQuery.SearchValue="";
+            this.listQuery.SearchValue="";//
 
       this.fetchData(this.listQuery);
     },
