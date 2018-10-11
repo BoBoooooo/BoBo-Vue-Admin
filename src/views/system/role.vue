@@ -46,7 +46,7 @@
           </el-input>
         </el-form-item>
         <el-form-item label="菜单">
-             <el-tree :data="menu" auto-expand-parent show-checkbox default-expand-all node-key="name" ref="tree" highlight-current
+             <el-tree :data="menu" auto-expand-parent show-checkbox default-expand-all node-key="id" ref="tree" highlight-current
             :props="defaultProps" check-strictly>
              </el-tree>
         </el-form-item>
@@ -164,11 +164,11 @@ export default {
       GetRoleDetail(id).then(response => {
         this.dialogStatus = "update"
         this.temp = response.data.Role
-        this.dialogFormVisible = true
-
+console.log(response.data.MenuList)
         this.$nextTick(() => {
                 this.$refs.tree.setCheckedKeys(response.data.MenuList)
 })
+        this.dialogFormVisible = true
 
 
       })
