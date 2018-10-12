@@ -4,9 +4,9 @@
 
 
 
-
-   <el-input @keyup.enter.native="Refresh" placeholder="请输入" v-model="listQuery.SearchValue" style="padding-bottom:10px;width:90%">
-              <el-select v-model="listQuery.SearchKey" slot="prepend" placeholder="请选择">
+  
+   <el-input @keyup.enter.native="Refresh" placeholder="请输入" v-model="listQuery.SearchValue"  class="input-with-select" style="width:90%">
+            <el-select v-model="listQuery.SearchKey" slot="prepend" placeholder="请选择">
       <el-option label="姓名" value="name"></el-option>
       <el-option label="工作单位" value="workunit"></el-option>
       <el-option label="职务" value="workduty"></el-option>
@@ -72,13 +72,25 @@
       </el-pagination>
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="80%">
-      <el-form class="small-space" :model="temp"  label-position="left" label-width="70px">
+      <!-- <el-form class="small-space" :model="temp"  label-position="left" label-width="70px">
         <el-col :span="12" v-for="(value,key,index) in temp" :key="index">
         <el-form-item :label="key" >
           <el-input class="filter-item" style="width:80%" v-model="temp[key]" :value="value"  :placeholder="`请输入${key}`"></el-input>
         </el-form-item>
         </el-col>
+      </el-form> -->
+ <el-form class="small-space" :model="temp_obj"  label-position="right" label-width="110px">
+        <el-col :span="12" v-for="(item,index) in temp" :key="index">
+        <el-form-item :label="item.COLUMN_COMMENT" >
+          <el-input  class="filter-item" style="width:80%"    :placeholder="`请输入${item.COLUMN_COMMENT}`"></el-input>
+   
+        </el-form-item>
+        </el-col>
       </el-form>
+
+
+
+
 
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -88,6 +100,12 @@
     </el-dialog>
 
   </div>
+
+
+
+
+
+
 </template>
 
 <script>
@@ -113,13 +131,13 @@ export default {
         update: "编辑",
         create: "新增"
       },
+      temp_obj:null,
       listQuery: {
         totalCount: null,
         pageSize: "10",
         pageNumber: "1",
         SearchKey: "",
-                SearchValue: ""
-
+        SearchValue: ""
       },
 
       dialogFormVisible: false,
@@ -140,16 +158,16 @@ export default {
   },
 
   created() {
-    this.fetchData(this.listQuery)
-    this.getObj()
+    this.fetchData(this.listQuery);
+    this.getObj();
   },
   methods: {
+    getObj() {
+      Getobj().then(res => {
 
-
-    getObj(){
-      Getobj().then(res=>{
-        this.temp = res.data
-      })
+        console.log(res)
+        this.temp = res.data;
+      });
     },
 
     handleSizeChange(val) {
@@ -161,12 +179,12 @@ export default {
       this.fetchData(this.listQuery);
     },
 
-    Refresh(){
+    Refresh() {
       this.fetchData(this.listQuery);
     },
-    Clear(){
-      this.listQuery.SearchKey="";
-            this.listQuery.SearchValue="";//
+    Clear() {
+      this.listQuery.SearchKey = "";
+      this.listQuery.SearchValue = ""; //
 
       this.fetchData(this.listQuery);
     },
@@ -180,15 +198,12 @@ export default {
       });
     },
     New() {
-
-      for(let i in this.temp){
-        this.temp[i] = ""
+      for (let i in this.temp_obj) {
+        this.temp_obj[i] = "";
       }
       this.selected = null;
       this.dialogStatus = "create";
       this.dialogFormVisible = true;
-
-
     },
     Delete(id) {
       this.$confirm("确认删除?", "提示", {
@@ -205,14 +220,13 @@ export default {
       this.dialogStatus = "update";
 
       GetUsersDetail(id).then(response => {
-        console.log(response.data)
+        console.log(response.data);
         this.temp = response.data;
         // this.$refs.tree.setCheckedKeys([this.temp.deptid]);
         this.selected = this.temp.gender;
       });
 
-            this.dialogFormVisible = true;
-
+      this.dialogFormVisible = true;
     },
 
     create() {
@@ -225,7 +239,6 @@ export default {
       });
     },
     update() {
-
       UpdateUsers(this.temp).then(response => {
         this.dialogFormVisible = false;
 
