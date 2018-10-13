@@ -80,9 +80,9 @@
         </el-col>
       </el-form> -->
  <el-form class="small-space" :model="temp_obj"  label-position="right" label-width="110px">
-        <el-col :span="12" v-for="(item,index) in temp" :key="index">
-        <el-form-item :label="item.COLUMN_COMMENT" >
-          <el-input  class="filter-item" style="width:80%"    :placeholder="`请输入${item.COLUMN_COMMENT}`"></el-input>
+        <el-col :span="12" v-for="(item,index) in temp" :key="index" >
+        <el-form-item :label="item.COLUMN_COMMENT" v-if="item.COLUMN_COMMENT.indexOf('PK')==-1">
+          <el-input   class="filter-item" style="width:80%" v-model="temp_obj[item['COLUMN_NAME'].toLowerCase()]"   :placeholder="`请输入${item.COLUMN_COMMENT}`"></el-input>
    
         </el-form-item>
         </el-col>
@@ -131,7 +131,7 @@ export default {
         update: "编辑",
         create: "新增"
       },
-      temp_obj:null,
+      temp_obj:{},
       listQuery: {
         totalCount: null,
         pageSize: "10",
@@ -167,6 +167,12 @@ export default {
 
         console.log(res)
         this.temp = res.data;
+
+        for(let i in this.temp){
+            this.temp_obj[this.temp[i]["COLUMN_NAME"].toLowerCase()]=""
+        }
+        console.log(this.temp_obj)
+
       });
     },
 
@@ -220,26 +226,23 @@ export default {
       this.dialogStatus = "update";
 
       GetUsersDetail(id).then(response => {
-        console.log(response.data);
-        this.temp = response.data;
-        // this.$refs.tree.setCheckedKeys([this.temp.deptid]);
-        this.selected = this.temp.gender;
+        this.temp_obj = response.data;
+      this.dialogFormVisible = true;
       });
 
-      this.dialogFormVisible = true;
     },
 
     create() {
       // this.temp.deptid = this.$refs.tree.getCheckedKeys().join(",");
       this.temp.gender = this.selected;
-      SaveNewUsers(this.temp).then(response => {
+      SaveNewUsers(this.temp_obj).then(response => {
         this.dialogFormVisible = false;
 
         this.fetchData(this.listQuery);
       });
     },
     update() {
-      UpdateUsers(this.temp).then(response => {
+      UpdateUsers(this.temp_obj).then(response => {
         this.dialogFormVisible = false;
 
         this.fetchData(this.listQuery);
