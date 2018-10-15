@@ -20,14 +20,14 @@
     <br>
     <br>
 
-    <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
+    <el-table :default-sort="{prop: 'name', order: 'descending'}" :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
   
-      <el-table-column label="姓名" align="center">
+      <el-table-column label="姓名" prop="name" sortable align="center">
         <template slot-scope="scope">
           {{scope.row.name}}
         </template>
       </el-table-column>
-      <el-table-column label="性别" align="center">
+      <el-table-column label="性别" prop="gender" sortable align="center">
         <template slot-scope="scope">
           <span>{{scope.row.gender}}</span>
         </template>
@@ -37,17 +37,17 @@
           {{scope.row.DeptName}}
         </template>
       </el-table-column> -->
-     <el-table-column label="工作单位" align="center">
+     <el-table-column label="工作单位" prop="workunit"  sortable align="center">
         <template slot-scope="scope">
           {{scope.row.workunit}}
         </template>
       </el-table-column>
-      <el-table-column label="职务" align="center">
+      <el-table-column label="职务"  prop="workduty"  sortable align="center">
         <template slot-scope="scope">
           {{scope.row.workduty}}
         </template>
       </el-table-column>
-      <el-table-column label="职级" align="center">
+      <el-table-column label="职级" prop="worklevel"  sortable align="center">
         <template slot-scope="scope">
           {{scope.row.worklevel}}
         </template>
@@ -80,11 +80,18 @@
         </el-col>
       </el-form> -->
  <el-form class="small-space" :model="temp_obj"  label-position="right" label-width="110px">
-        <el-col :span="12" v-for="(item,index) in temp" :key="index" >
-        <el-form-item :label="item.COLUMN_COMMENT" v-if="item.COLUMN_COMMENT.indexOf('PK')==-1">
-          <el-input   class="filter-item" style="width:80%" v-model="temp_obj[item['COLUMN_NAME'].toLowerCase()]"   :placeholder="`请输入${item.COLUMN_COMMENT}`"></el-input>
-   
+        <el-col :span="12" v-for="(item,index) in temp" :key="index" v-if="item['COLUMN_COMMENT'].indexOf('PK')===-1">
+        <el-form-item  v-if="item['COLUMN_COMMENT'].indexOf('时间')===-1"  :label="item.COLUMN_COMMENT" >
+          <el-input  class="filter-item" style="width:80%" v-model="temp_obj[item['COLUMN_NAME'].toLowerCase()]"   :placeholder="`请输入${item.COLUMN_COMMENT}`"></el-input>
+           
         </el-form-item>
+
+         <el-form-item v-else  :label="item.COLUMN_COMMENT" >
+             <el-date-picker     type="date"
+ class="filter-item" style="width:80%" v-model="temp_obj[item['COLUMN_NAME'].toLowerCase()]"   :placeholder="`请输入${item.COLUMN_COMMENT}`"></el-date-picker >
+
+        </el-form-item>
+
         </el-col>
       </el-form>
 
