@@ -13,8 +13,8 @@
             <el-option label="职级" value="worklevel"></el-option>
 
     </el-select>
-              <el-button slot="append" icon="el-icon-search" v-on:click="Refresh"></el-button>
-                            <el-button slot="append" icon="el-icon-refresh" v-on:click="Clear"></el-button>
+        <el-button slot="append" icon="el-icon-search" v-on:click="Refresh"></el-button>
+         <el-button slot="append" icon="el-icon-refresh" v-on:click="Clear"></el-button>
 
           </el-input>   
     <br>
@@ -177,6 +177,7 @@ export default {
 
         for(let i in this.temp){
             this.temp_obj[this.temp[i]["COLUMN_NAME"].toLowerCase()]=""
+
         }
         console.log(this.temp_obj)
 
