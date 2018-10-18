@@ -92,7 +92,9 @@ const user = {
         logout().then(res => {
           commit('SET_TOKEN', '')
           removeToken()
+          location.reload()
           resolve()
+
         })
 
       })

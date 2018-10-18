@@ -54,9 +54,7 @@ Screenfull,
         this.$store.dispatch('ToggleSideBar')
       },
       logout() {
-        this.$store.dispatch('FedLogOut').then(() => {
-          location.reload() // 为了重新实例化vue-router对象 避免bug
-        })
+        this.$store.dispatch('FedLogOut')
       },
       changepassword() {
 
@@ -98,7 +96,7 @@ Screenfull,
     }
     .screenfull {
       position: absolute;
-      right: 90px;
+      right: 120px;
       top: 14px;
 
       color: red;
