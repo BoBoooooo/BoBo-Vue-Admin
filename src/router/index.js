@@ -41,26 +41,55 @@ export default new Router({
 
 
 
-  export  const asyncRouterMap_Map = {
-    "movie": ()=>import('@/views/DouBan/movie'),
-  "music": ()=>import('@/views/DouBan/music'),
-   "book": ()=>import('@/views/DouBan/book'),
-   "users": ()=>import('@/views/system/users'),
-   "role": ()=>import('@/views/system/role'),
-    "dept": ()=>import('@/views/system/dept'),
-    "menu": ()=>import('@/views/system/menu'),
+  export  const asyncRouterMap = [
+    {
+      path: '/Archive',
+      component: Layout,
+      redirect: '/Archive/person',
+      name:"Archive",
+      title:"廉政档案",
+      icon:'yonghuming',
+      children: [
+        { path: 'person', name: 'person',title:"廉政档案编辑", component: ()=>import('@/views/Archive/person'),meta:{title:"廉政档案编辑"}},
+        { path: 'person_detail', name: 'person_detail',title:"廉政档案查看", component: ()=>import('@/views/Archive/person_detail'),meta:{title:"廉政档案查看"}}
+      ]
+    },
 
-    "person_edit": ()=>import('@/views/Archive/person'),
-    "person_detail": ()=>import('@/views/Archive/person_detail')
 
- }
-  // {
-  //   path: '/People',
-  //   component: Layout,
-  //   redirect: '/People/person',
-  //   name:"person",
-  //   title:"人员信息",
-  //   icon:'wujiaoxing',
-  //   children: [{ path: 'person', name: 'person1',title:"人员信息录入", component: ()=>import('@/views/KaoQin/person'),meta:{title:"人员信息录入"}}]
-  // },
+    {
+      path: '/DouBan',
+      component: Layout,
+      redirect: '/DouBan/person',
+      name:"DouBan",
+      title:"豆瓣查询",
+      icon:'tubiao',
+      children: [
+        { path: 'movie', name: 'movie',title:"热门电影", component: ()=>import('@/views/DouBan/movie'),meta:{title:"热门电影"}},
+        { path: 'music', name: 'music',title:"热门音乐", component: ()=>import('@/views/DouBan/music'),meta:{title:"热门音乐"}},
+        { path: 'book', name: 'book',title:"热门书籍", component: ()=>import('@/views/DouBan/book'),meta:{title:"热门书籍"}}
 
+      ]
+    },
+
+    {
+      path: '/system',
+      component: Layout,
+      redirect: '/system/user',
+      name:"system",
+      title:"系统设置",
+      icon:'zujian',
+      children: [
+        { path: 'users', name: 'users',title:"用户设置", component: ()=>import('@/views/system/users'),meta:{title:"用户设置"}},
+        { path: 'dept', name: 'dept',title:"部门设置", component: ()=>import('@/views/system/dept'),meta:{title:"部门设置"}},
+        { path: 'role', name: 'role',title:"角色设置", component: ()=>import('@/views/system/role'),meta:{title:"角色设置"}},
+        // { path: 'menu', name: 'menu',title:"菜单设置", component: ()=>import('@/views/system/menu'),meta:{title:"菜单设置"}}
+
+      ]
+    },
+
+    {path:"*",redirect:"/404",hidden:true}
+  ]
+
+
+ 
+ 

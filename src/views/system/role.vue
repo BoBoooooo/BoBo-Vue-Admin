@@ -46,7 +46,7 @@
           </el-input>
         </el-form-item>
         <el-form-item label="菜单">
-             <el-tree :data="menu" auto-expand-parent show-checkbox default-expand-all node-key="id" ref="tree" highlight-current
+             <el-tree :data="menu" auto-expand-parent show-checkbox default-expand-all node-key="name" ref="tree" highlight-current
             :props="defaultProps" check-strictly>
              </el-tree>
         </el-form-item>
@@ -71,8 +71,9 @@ import {
   AddRole,
   UpdateRole
 } from "@/api/system/role"
-import {GetMenuTreeByRoleID,MenuTree} from "@/api/system/menu"
 
+
+import {asyncRouterMap} from '@/router/index'
 import { mapGetters } from "vuex"
 import store from '@/store'
 export default {
@@ -90,8 +91,8 @@ export default {
         id: "",
         rolename: "",
         rank: "",
+        roleauthname:null
       },
-      menulist:[],
       menu: null,
       listQuery: {
         totalCount: 0,
@@ -107,9 +108,18 @@ export default {
 
   created() {
     this.fetchData(this.listQuery)
-    MenuTree().then(response=>{
-      this.menu=response.data
+
+
+   let arr =  asyncRouterMap.filter(item=>{
+
+      if(item.hidden)
+      return false
+      else
+      return true
+
     })
+          this.menu=arr
+
 
   },
   methods: {
@@ -163,10 +173,9 @@ export default {
 
       GetRoleDetail(id).then(response => {
         this.dialogStatus = "update"
-        this.temp = response.data.Role
-console.log(response.data.MenuList)
+        this.temp = response.data
         this.$nextTick(() => {
-                this.$refs.tree.setCheckedKeys(response.data.MenuList)
+                this.$refs.tree.setCheckedKeys(this.temp.roleauthname.split(','))
 })
         this.dialogFormVisible = true
 
@@ -175,17 +184,17 @@ console.log(response.data.MenuList)
     },
 
     create() {
-      this.menulist = this.$refs.tree.getCheckedKeys()
+      this.temp.roleauthname = this.$refs.tree.getCheckedKeys().join(',')
 
-      AddRole(this.temp,this.menulist).then(response => {
+      AddRole(this.temp).then(response => {
   
         this.dialogFormVisible = false
         this.fetchData(this.listQuery)
       })
     },
     update() {
-      this.menulist = this.$refs.tree.getCheckedKeys()
-      UpdateRole(this.temp,this.menulist).then(response => {
+      this.temp.roleauthname = this.$refs.tree.getCheckedKeys().join(',')
+      UpdateRole(this.temp).then(response => {
     
         this.dialogFormVisible = false
 

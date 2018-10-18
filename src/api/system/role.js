@@ -31,25 +31,19 @@ export function GetRoleDetail(id){
       })
 }
 
-export function AddRole(Role,MenuList){
+export function AddRole(data){
     return fetch({
         url: '/role/add',
         method: 'post',
-        data:{
-            Role,
-            MenuList
-        }
+        data
       })
 }
 
-export function UpdateRole(Role,MenuList){
+export function UpdateRole(data){
     return fetch({
         url: '/role/update',
         method: 'post',
-        data:{
-            Role,
-            MenuList
-        }
+        data
       })
 }
 

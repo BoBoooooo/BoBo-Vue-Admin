@@ -70,7 +70,6 @@ export default {
           }, 2000);
         })
         .catch(error => {
-          this.$message.error(error);
           this.loading = false;
         });
  
