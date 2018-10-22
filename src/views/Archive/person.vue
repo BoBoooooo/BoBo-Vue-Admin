@@ -4,7 +4,6 @@
 
 
 
-  
    <el-input @keyup.enter.native="Refresh" placeholder="请输入" v-model="listQuery.SearchValue"  class="input-with-select" style="width:90%">
             <el-select v-model="listQuery.SearchKey" slot="prepend" placeholder="请选择">
       <el-option label="姓名" value="name"></el-option>
@@ -93,12 +92,20 @@
         </el-form-item>
 
         </el-col>
+<el-row>
+    <el-upload
+  class="upload-demo"
+  drag
+  action="http://localhost:8089/file/Upload"
+  :data="formData"
+    :headers="token"
+
+  multiple>
+  <i class="el-icon-upload"></i>
+  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+</el-upload>
+</el-row>
       </el-form>
-
-
-
-
-
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
         <el-button v-if="dialogStatus=='create'" type="primary" @click="create">确 定</el-button>
@@ -124,7 +131,7 @@ import {
   UpdateUsers,
   Getobj
 } from "@/api/Archive/person";
-
+import { getToken } from "@/utils/auth";
 import Multiselect from "vue-multiselect";
 
 export default {
@@ -138,7 +145,7 @@ export default {
         update: "编辑",
         create: "新增"
       },
-      temp_obj:{},
+      temp_obj: {},
       listQuery: {
         totalCount: null,
         pageSize: "10",
@@ -146,7 +153,12 @@ export default {
         SearchKey: "",
         SearchValue: ""
       },
-
+      formData: {
+        MasterID: "123"
+      },
+      token: {
+        auth: getToken()
+      },
       dialogFormVisible: false,
       dialogStatus: "",
       list: null,
@@ -171,16 +183,13 @@ export default {
   methods: {
     getObj() {
       Getobj().then(res => {
-
-        console.log(res)
+        console.log(res);
         this.temp = res.data;
 
-        for(let i in this.temp){
-            this.temp_obj[this.temp[i]["COLUMN_NAME"].toLowerCase()]=""
-
+        for (let i in this.temp) {
+          this.temp_obj[this.temp[i]["COLUMN_NAME"].toLowerCase()] = "";
         }
-        console.log(this.temp_obj)
-
+        console.log(this.temp_obj);
       });
     },
 
@@ -235,9 +244,8 @@ export default {
 
       GetUsersDetail(id).then(response => {
         this.temp_obj = response.data;
-      this.dialogFormVisible = true;
+        this.dialogFormVisible = true;
       });
-
     },
 
     create() {
