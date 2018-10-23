@@ -12,10 +12,12 @@ export function upload(MasterID) {
 
 export function download(AffixID) {
   return fetch({
-    url: '/file/Download',
+    url: '/file/download',
     method: 'get',
     params:{
       AffixID
     }
   })
 }
+
+

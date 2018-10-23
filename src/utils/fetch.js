@@ -37,6 +37,21 @@ service.interceptors.response.use(
   response => {
     const res = response.data
     console.log(response)
+    if(response.headers["content-type"]=="application/octet-stream")
+    {
+       let date = new Date();
+            let filefix = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+            let blob = new Blob([response.data]); //创建一个blob对象
+            let a = document.createElement('a'); //创建一个<a></a>标签
+            a.href = URL.createObjectURL(blob); // response is a blob
+            a.download = filefix + "下载文件.docx";  //文件名称
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+ 
+
+    }
     // 401 403 :帐号信息与token不匹配  需要重新拉取token
     if (res.code === 401 || res.code === 403) {
       MessageBox.alert('帐号信息发生变化，请重新登录', {

@@ -98,12 +98,12 @@
   drag
   action="http://localhost:8089/file/Upload"
   :data="formData"
-    :headers="token"
-
+  :headers="token"
   multiple>
   <i class="el-icon-upload"></i>
   <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
 </el-upload>
+<el-button @click="exportfile()"></el-button>
 </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -114,11 +114,6 @@
     </el-dialog>
 
   </div>
-
-
-
-
-
 
 </template>
 
@@ -133,7 +128,7 @@ import {
 } from "@/api/Archive/person";
 import { getToken } from "@/utils/auth";
 import Multiselect from "vue-multiselect";
-
+import {download} from '@/api/public/file'
 export default {
   //
   data() {
@@ -192,7 +187,9 @@ export default {
         console.log(this.temp_obj);
       });
     },
-
+    exportfile(){
+        download("d186a7e6-a038-4874-8234-4d12598e6bac")
+    },
     handleSizeChange(val) {
       this.listQuery.pageSize = val;
       this.fetchData(this.listQuery);
