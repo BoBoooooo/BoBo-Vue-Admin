@@ -21,3 +21,14 @@ export function download(AffixID) {
 }
 
 
+export function GetFileList(MasterID) {
+  return fetch({
+    url: '/file/list',
+    method: 'get',
+    params:{
+      MasterID
+    }
+  })
+}
+
+

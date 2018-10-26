@@ -105,6 +105,30 @@
 </el-upload>
 <el-button @click="exportfile()"></el-button>
 </el-row>
+<el-row>
+   <el-table :default-sort="{prop: 'name', order: 'descending'}" :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
+  
+      <el-table-column label="文件名" prop="filename" sortable align="center">
+        <template slot-scope="scope">
+          {{scope.row.filename}}
+        </template>
+      </el-table-column>
+      <el-table-column label="上传时间" prop="timestamp" sortable align="center">
+        <template slot-scope="scope">
+          <span>{{timestampToTime(scope.row.timestamp)}}</span>
+        </template>
+      </el-table-column>
+   
+
+      <el-table-column label="操作" align="center" min-width="110px">
+        <template slot-scope="scope">
+          <el-button @click="exportfile(scope.row.id)" type="success" size="small">下载</el-button>
+
+          <el-button @click="delete_file(scope.row.id)" type="danger" size="small">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+</el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -128,7 +152,8 @@ import {
 } from "@/api/Archive/person";
 import { getToken } from "@/utils/auth";
 import Multiselect from "vue-multiselect";
-import {download} from '@/api/public/file'
+import {download,GetFileList} from '@/api/public/file'
+import {timestampToTime} from '@/utils/index'
 export default {
   //
   data() {
@@ -149,7 +174,7 @@ export default {
         SearchValue: ""
       },
       formData: {
-        MasterID: "123"
+        MasterID: ""
       },
       token: {
         auth: getToken()
@@ -159,7 +184,7 @@ export default {
       list: null,
       listLoading: true,
       RoleID: "",
-
+      filelist:null,
       temp: null,
       defaultProps: {
         children: "children",
@@ -187,8 +212,8 @@ export default {
         console.log(this.temp_obj);
       });
     },
-    exportfile(){
-        download("d186a7e6-a038-4874-8234-4d12598e6bac")
+    exportfile(id){
+        download(id)
     },
     handleSizeChange(val) {
       this.listQuery.pageSize = val;
@@ -217,6 +242,15 @@ export default {
         this.listLoading = false;
       });
     },
+
+      fetchData_File(id) {
+      this.listLoading = true;
+
+      GetFileList(id).then(response => {
+        this.filelist = response.data.list;
+        this.listLoading = false;
+      });
+    },
     New() {
       for (let i in this.temp_obj) {
         this.temp_obj[i] = "";
@@ -236,6 +270,16 @@ export default {
         });
       });
     },
+       Delete_File(id) {
+      this.$confirm("确认删除?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+       this.fetchData_File(id)
+      });
+    },
+    
     Edit(id) {
       this.dialogStatus = "update";
 
@@ -260,7 +304,18 @@ export default {
 
         this.fetchData(this.listQuery);
       });
-    }
+    },
+    timestampToTime(timestamp) {
+  var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+  var Y = date.getFullYear() + '-';
+  var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+  var D = date.getDate() + ' ';
+  var h = date.getHours() + ':';
+  var m = date.getMinutes() + ':';
+  var s = date.getSeconds();
+  return Y+M+D+h+m+s;
+}
+  
   }
 };
 </script>
