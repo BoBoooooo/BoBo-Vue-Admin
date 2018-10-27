@@ -1,0 +1,98 @@
+<template>
+     <div class="upload-container">
+<el-upload
+  class="upload-demo"
+  :action="Params['Url']"
+   :data="Params['ParamID']"
+  :headers="token"
+  :on-success="fetchData_File(Params['ParamID']['MasterID'])"
+  >
+  <el-button size="small" type="primary">点击上传</el-button>
+</el-upload>
+
+
+   <el-table :default-sort="{prop: 'name', order: 'descending'}" :data="filelist" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
+  
+      <el-table-column label="文件名" prop="filename" sortable align="center">
+        <template slot-scope="scope">
+          {{scope.row.filename}}
+        </template>
+      </el-table-column>
+      <el-table-column label="上传时间" prop="timestamp" sortable align="center">
+        <template slot-scope="scope">
+          <span>{{timestampToTime(scope.row.timestamp)}}</span>
+        </template>
+      </el-table-column>
+   
+
+      <el-table-column label="操作" align="center" min-width="110px">
+        <template slot-scope="scope">
+          <el-button @click="exportfile(scope.row.id)" type="success" size="small">下载</el-button>
+
+          <el-button @click="delete_file(scope.row.id)" type="danger" size="small">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+</div>
+</template>
+
+
+<script>
+import { getToken } from "@/utils/auth";
+import { download, GetFileList, deletefile } from "@/api/public/file";
+import { timestampToTime } from "@/utils/index";
+
+export default {
+  name: "UploadAffix",
+  data() {
+    return {
+        filelist:null,
+        token:{
+            auth:getToken()
+        }
+    };
+  },
+
+  props: {
+    Params: {
+      type: Object
+    }
+  },
+  methods: {
+    exportfile(id) {
+      download(id);
+    },
+    delete_file(id) {
+      this.$confirm("确认删除?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+        deletefile(id).then(res => {
+          this.fetchData_File(id);
+        });
+      });
+    },
+
+    fetchData_File(id) {
+      this.listLoading = true;
+
+      GetFileList(id).then(response => {
+        this.filelist = response.data.list;
+        this.listLoading = false;
+      });
+    },
+  },
+  watch:{
+      "Params['ParamID']['MasterID']" : function(){
+
+                this.fetchData_File(id)
+
+      }
+  }
+};
+</script>
+
+
+<style lang="scss" scoped>
+</style>

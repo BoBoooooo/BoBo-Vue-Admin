@@ -71,13 +71,7 @@
       </el-pagination>
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="80%">
-      <!-- <el-form class="small-space" :model="temp"  label-position="left" label-width="70px">
-        <el-col :span="12" v-for="(value,key,index) in temp" :key="index">
-        <el-form-item :label="key" >
-          <el-input class="filter-item" style="width:80%" v-model="temp[key]" :value="value"  :placeholder="`请输入${key}`"></el-input>
-        </el-form-item>
-        </el-col>
-      </el-form> -->
+     
  <el-form class="small-space" :model="temp_obj"  label-position="right" label-width="110px">
         <el-col :span="12" v-for="(item,index) in temp" :key="index" v-if="item['COLUMN_COMMENT'].indexOf('PK')===-1">
         <el-form-item  v-if="item['COLUMN_COMMENT'].indexOf('时间')===-1"  :label="item.COLUMN_COMMENT" >
@@ -90,45 +84,9 @@
  class="filter-item" style="width:80%" v-model="temp_obj[item['COLUMN_NAME'].toLowerCase()]"   :placeholder="`请输入${item.COLUMN_COMMENT}`"></el-date-picker >
 
         </el-form-item>
-
         </el-col>
-<el-row>
-    <el-upload
-  class="upload-demo"
-  drag
-  action="http://localhost:8089/file/Upload"
-  :data="formData"
-  :headers="token"
-  multiple>
-  <i class="el-icon-upload"></i>
-  <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-</el-upload>
-<el-button @click="exportfile()"></el-button>
-</el-row>
-<el-row>
-   <el-table :default-sort="{prop: 'name', order: 'descending'}" :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
-  
-      <el-table-column label="文件名" prop="filename" sortable align="center">
-        <template slot-scope="scope">
-          {{scope.row.filename}}
-        </template>
-      </el-table-column>
-      <el-table-column label="上传时间" prop="timestamp" sortable align="center">
-        <template slot-scope="scope">
-          <span>{{timestampToTime(scope.row.timestamp)}}</span>
-        </template>
-      </el-table-column>
-   
 
-      <el-table-column label="操作" align="center" min-width="110px">
-        <template slot-scope="scope">
-          <el-button @click="exportfile(scope.row.id)" type="success" size="small">下载</el-button>
-
-          <el-button @click="delete_file(scope.row.id)" type="danger" size="small">删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-</el-row>
+    <upload-affix :Params="uploadParams"></upload-affix>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -151,9 +109,7 @@ import {
   Getobj
 } from "@/api/Archive/person";
 import { getToken } from "@/utils/auth";
-import Multiselect from "vue-multiselect";
-import {download,GetFileList} from '@/api/public/file'
-import {timestampToTime} from '@/utils/index'
+import UploadAffix from "@/components/UploadAffix";
 export default {
   //
   data() {
@@ -173,18 +129,19 @@ export default {
         SearchKey: "",
         SearchValue: ""
       },
-      formData: {
-        MasterID: ""
+      uploadParams: {
+        ParamID: {
+          MasterID: ""
+        },
+        Url: "http://localhost:8089/file/Upload"
       },
-      token: {
-        auth: getToken()
-      },
+
       dialogFormVisible: false,
       dialogStatus: "",
       list: null,
       listLoading: true,
       RoleID: "",
-      filelist:null,
+      filelist: null,
       temp: null,
       defaultProps: {
         children: "children",
@@ -193,7 +150,7 @@ export default {
     };
   },
   components: {
-    Multiselect
+    UploadAffix
   },
 
   created() {
@@ -212,9 +169,7 @@ export default {
         console.log(this.temp_obj);
       });
     },
-    exportfile(id){
-        download(id)
-    },
+
     handleSizeChange(val) {
       this.listQuery.pageSize = val;
       this.fetchData(this.listQuery);
@@ -243,18 +198,11 @@ export default {
       });
     },
 
-      fetchData_File(id) {
-      this.listLoading = true;
-
-      GetFileList(id).then(response => {
-        this.filelist = response.data.list;
-        this.listLoading = false;
-      });
-    },
     New() {
       for (let i in this.temp_obj) {
         this.temp_obj[i] = "";
       }
+      this.filelist = null;
       this.selected = null;
       this.dialogStatus = "create";
       this.dialogFormVisible = true;
@@ -270,18 +218,11 @@ export default {
         });
       });
     },
-       Delete_File(id) {
-      this.$confirm("确认删除?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      }).then(() => {
-       this.fetchData_File(id)
-      });
-    },
-    
+
     Edit(id) {
       this.dialogStatus = "update";
+      this.formData.MasterID = id;
+      this.fetchData_File(id);
 
       GetUsersDetail(id).then(response => {
         this.temp_obj = response.data;
@@ -306,16 +247,8 @@ export default {
       });
     },
     timestampToTime(timestamp) {
-  var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-  var Y = date.getFullYear() + '-';
-  var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-  var D = date.getDate() + ' ';
-  var h = date.getHours() + ':';
-  var m = date.getMinutes() + ':';
-  var s = date.getSeconds();
-  return Y+M+D+h+m+s;
-}
-  
+      timestampToTime(timestamp);
+    }
   }
 };
 </script>
