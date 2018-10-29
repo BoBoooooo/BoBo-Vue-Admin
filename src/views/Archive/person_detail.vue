@@ -1,58 +1,58 @@
 <template>
   <div class="app-container" id="person">
-        <el-button @click="New()" type="primary" size="small">新增</el-button>
-
-   <el-input @keyup.enter.native="Refresh" placeholder="请输入姓名/工号" v-model="listQuery.criteria" style="padding-bottom:10px;width:90%">
-            
-              <el-button slot="append" icon="el-icon-search" v-on:click="Refresh"></el-button>
-                            <el-button slot="append" icon="el-icon-refresh" v-on:click="Clear"></el-button>
+<el-row>
+ 
+  <el-col :span="24">
+ <el-select v-model="listQuery.SearchKey"  placeholder="请选择"  style="float:left;width:20%">
+      <el-option label="姓名" value="name"></el-option>
+      <el-option label="工作单位" value="workunit"></el-option>
+      <el-option label="职务" value="workduty"></el-option>
+      <el-option label="职级" value="worklevel"></el-option>
+  </el-select>
+       <el-input @keyup.enter.native="Refresh" placeholder="请输入" v-model="listQuery.SearchValue"    style="float:left;width:80%">
+      
+        <el-button slot="append" icon="el-icon-search" v-on:click="Refresh"></el-button>
+         <el-button slot="append" icon="el-icon-refresh" v-on:click="Clear"></el-button>
 
           </el-input>   
-    <br>
+  </el-col>
+</el-row>
+    
     <br>
 
-    <el-table :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
-      <el-table-column align="center" label='工号' width="95">
+    <el-table :default-sort="{prop: 'name', order: 'descending'}" :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
+  
+      <el-table-column label="姓名" prop="name" sortable align="center">
         <template slot-scope="scope">
-          {{scope.row.No}}
+          {{scope.row.name}}
         </template>
       </el-table-column>
-      <el-table-column label="姓名" align="center">
+      <el-table-column label="性别" prop="gender" sortable align="center">
         <template slot-scope="scope">
-          {{scope.row.Name}}
+          <span>{{scope.row.gender}}</span>
         </template>
       </el-table-column>
-      <el-table-column label="性别" align="center">
+  
+     <el-table-column label="工作单位" prop="workunit"  sortable align="center">
         <template slot-scope="scope">
-          <span>{{scope.row.Gender}}</span>
+          {{scope.row.workunit}}
         </template>
       </el-table-column>
-      <el-table-column label="部门" align="center">
+      <el-table-column label="职务"  prop="workduty"  sortable align="center">
         <template slot-scope="scope">
-          {{scope.row.DeptName}}
+          {{scope.row.workduty}}
         </template>
       </el-table-column>
-     <el-table-column label="手机号码" align="center">
+      <el-table-column label="职级" prop="worklevel"  sortable align="center">
         <template slot-scope="scope">
-          {{scope.row.Phone}}
+          {{scope.row.worklevel}}
         </template>
       </el-table-column>
-      <!-- <el-table-column label="入职时间" align="center">
-        <template slot-scope="scope">
-          {{scope.row.Workduty}}
-        </template>
-      </el-table-column>
-      <el-table-column label="联系电话" align="center">
-        <template slot-scope="scope">
-          {{scope.row.Phone}}
-        </template>
-      </el-table-column> -->
 
       <el-table-column label="操作" align="center" min-width="110px">
         <template slot-scope="scope">
-          <el-button @click="Edit(scope.row.ID)" type="success" size="small">编辑</el-button>
+          <el-button @click="Detail(scope.row.id)" type="primary" size="small">详情</el-button>
 
-          <el-button @click="Delete(scope.row.ID)" type="danger" size="small">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -66,50 +66,24 @@
       :total="listQuery.totalCount" style="margin-top:5px">
       </el-pagination>
 
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="50%">
-      <el-form class="small-space" :model="temp" label-position="left" label-width="70px">
-
-        <el-form-item label="工号">
-          <el-input class="filter-item" v-model="temp.No" placeholder="请输入工号">
-
-          </el-input>
-        </el-form-item>
-        <el-form-item label="姓名">
-          <el-input class="filter-item" v-model="temp.Name" placeholder="请输入姓名">
-
-          </el-input>
-        </el-form-item>
-        <el-form-item label="性别">
-          <multiselect v-model="selected" :value="temp.Gender" :options="options" :searchable="false" :close-on-select="true" :allow-empty="false"
-            placeholder="请选择性别" :showLabels="false" style="z-index:3;height:30px">
-          </multiselect>
+    <el-dialog title="查看" :visible.sync="dialogFormVisible" width="80%">
+     
+ <el-form class="small-space" :model="temp_obj"  label-position="right" label-width="110px">
+    <el-col :span="12" v-for="(item,index) in temp" :key="index" v-if="item['COLUMN_COMMENT'].indexOf('PK')===-1">
+       <el-form-item   :label="item.COLUMN_COMMENT" >
+          <el-input  readonly="true" class="filter-item" style="width:80%" v-model="temp_obj[item['COLUMN_NAME'].toLowerCase()]">
+           </el-input>  
         </el-form-item>
 
+   </el-col>
 
-
-        <el-form-item label="部门">
-          <el-tree :data="depttree" auto-expand-parent show-checkbox default-expand-all node-key="id" ref="tree" highlight-current
-            :props="defaultProps">
-          </el-tree>
-
-
-        </el-form-item>
-
-        <el-form-item label="联系方式">
-
-          <el-input class="filter-item" v-model="temp.Phone" placeholder="请输入手机号码">
-
-          </el-input>
-        </el-form-item>
+    <upload-affix :Params="uploadParams" ></upload-affix>
       </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button v-if="dialogStatus=='create'" type="primary" @click="create">确 定</el-button>
-        <el-button v-else type="primary" @click="update">确 定</el-button>
-      </div>
+   
     </el-dialog>
 
   </div>
+
 </template>
 
 <script>
@@ -118,147 +92,96 @@ import {
   DeleteUser,
   GetUsersDetail,
   SaveNewUsers,
-  UpdateUsers
-} from "@/api/Archive/person";
-import { GetDeptTree } from "@/api/system/dept";
-
-import Multiselect from "vue-multiselect";
-
+  UpdateUsers,
+  Getobj
+} from "@/api/Archive/person"
+import { getToken } from "@/utils/auth"
+import UploadAffix from "@/components/UploadAffix"
 export default {
   //
   data() {
     return {
       selected: null,
-      options: ["男", "女"],
-      depttree: [],
-      textMap: {
-        update: "编辑",
-        create: "新增"
-      },
+      temp_obj: {},
       listQuery: {
         totalCount: null,
         pageSize: "10",
         pageNumber: "1",
-        criteria: ""
+        SearchKey: "",
+        SearchValue: ""
       },
+      uploadParams: {
+        Param: {
+          MasterID: ""
+        },
+                IsDetail:true,
 
+        Url: "http://localhost:8089/file/Upload"
+      },
       dialogFormVisible: false,
-      dialogStatus: "",
       list: null,
       listLoading: true,
-      RoleID: "",
-
-      temp: {
-        ID: "",
-        No: "",
-        Name: "",
-        Gender: "",
-        Workduty: "",
-        DeptName: "",
-        DeptID: "",
-        Phone: "",
-        IsDeleted: false
-      },
+      filelist: null,
+      temp: null,
       defaultProps: {
         children: "children",
         label: "text"
       }
-    };
+    }
   },
   components: {
-    Multiselect
+    UploadAffix
   },
 
   created() {
-    this.fetchData(this.listQuery);
-    GetDeptTree().then(response => {
-      this.depttree = JSON.parse(response.data);
-    });
+    this.fetchData(this.listQuery)
+    this.getObj()
   },
   methods: {
+    getObj() {
+      Getobj().then(res => {
+        console.log(res)
+        this.temp = res.data
+
+        for (let i in this.temp) {
+          this.temp_obj[this.temp[i]["COLUMN_NAME"].toLowerCase()] = ""
+        }
+        console.log(this.temp_obj)
+      })
+    },
+
     handleSizeChange(val) {
-      this.listQuery.pageSize = val;
-      this.fetchData(this.listQuery);
+      this.listQuery.pageSize = val
+      this.fetchData(this.listQuery)
     },
     handleCurrentChange(val) {
-      this.listQuery.pageNumber = val;
-      this.fetchData(this.listQuery);
+      this.listQuery.pageNumber = val
+      this.fetchData(this.listQuery)
     },
 
-    Refresh(){
-      this.fetchData(this.listQuery);
+    Refresh() {
+      this.fetchData(this.listQuery)
     },
-    Clear(){
-      this.listQuery.criteria="";
-      this.fetchData(this.listQuery);
+    Clear() {
+      this.listQuery.SearchKey = ""
+      this.listQuery.SearchValue = ""
+      this.fetchData(this.listQuery)
     },
     fetchData(params) {
-      this.listLoading = true;
-
+      this.listLoading = true
       GetUsers(params).then(response => {
-        this.list = response.data.rows;
-        this.listQuery.totalCount = response.data.total;
-        this.listLoading = false;
-      });
+        this.list = response.data.list
+        this.listQuery.totalCount = response.total
+        this.listLoading = false
+      })
     },
-    New() {
-      this.temp = {
-        No: "",
-        DeptID: "",
-        Workduty: "",
-        Gender: "",
-        Name: "",
-        Phone: "",
-        IsDeleted: false
-      };
-      this.selected = null;
-      this.dialogFormVisible = true;
-
-      this.$refs.tree.setCheckedKeys([]);
-
-      this.dialogStatus = "create";
-    },
-    Delete(ID) {
-      this.$confirm("确认删除?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      }).then(() => {
-        DeleteUser(ID).then(response => {
-          this.fetchData(this.listQuery);
-        });
-      });
-    },
-    Edit(ID) {
-      this.dialogStatus = "update";
-      this.dialogFormVisible = true;
-
-      GetUsersDetail(ID).then(response => {
-        this.temp = response.data;
-        this.$refs.tree.setCheckedKeys([this.temp.DeptID]);
-        this.selected = this.temp.Gender;
-      });
-    },
-
-    create() {
-      this.temp.DeptID = this.$refs.tree.getCheckedKeys().join(",");
-      this.temp.Gender = this.selected;
-      SaveNewUsers(this.temp).then(response => {
-        this.dialogFormVisible = false;
-
-        this.fetchData(this.listQuery);
-      });
-    },
-    update() {
-      this.temp.Gender = this.selected;
-      this.temp.DeptID = this.$refs.tree.getCheckedKeys().join(",");
-
-      UpdateUsers(this.temp).then(response => {
-        this.dialogFormVisible = false;
-
-        this.fetchData(this.listQuery);
-      });
-    }
+    Detail(id) {
+      this.uploadParams.Param.MasterID = id
+      GetUsersDetail(id).then(response => {
+        this.temp_obj = response.data
+        this.dialogFormVisible = true
+      })
+    } 
   }
-};
+}
 </script>

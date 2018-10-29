@@ -34,12 +34,9 @@ export const constantRouterMap = [
 ]
 
 export default new Router({
-  // mode: 'history', //后端支持可开
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
 })
-
-
 
   export  const asyncRouterMap = [
     {
@@ -54,8 +51,6 @@ export default new Router({
         { path: 'person_detail', name: 'person_detail',title:"廉政档案查看", component: ()=>import('@/views/Archive/person_detail'),meta:{title:"廉政档案查看"}}
       ]
     },
-
-
     {
       path: '/DouBan',
       component: Layout,

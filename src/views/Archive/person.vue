@@ -92,7 +92,7 @@
       </el-form-item>
    </el-col>
 
-    <upload-affix :Params="uploadParams" :test="uploadParams['ParamID']['MasterID']"></upload-affix>
+    <upload-affix :Params="uploadParams" :test="uploadParams['Param']['MasterID']"></upload-affix>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -113,16 +113,14 @@ import {
   SaveNewUsers,
   UpdateUsers,
   Getobj
-} from "@/api/Archive/person";
-import { getToken } from "@/utils/auth";
-import UploadAffix from "@/components/UploadAffix";
+} from "@/api/Archive/person"
+import { getToken } from "@/utils/auth"
+import UploadAffix from "@/components/UploadAffix"
 export default {
   //
   data() {
     return {
       selected: null,
-      options: ["男", "女"],
-      depttree: [],
       textMap: {
         update: "编辑",
         create: "新增"
@@ -136,9 +134,10 @@ export default {
         SearchValue: ""
       },
       uploadParams: {
-        ParamID: {
+        Param: {
           MasterID: ""
         },
+        IsDetail:false,
         Url: "http://localhost:8089/file/Upload"
       },
 
@@ -153,65 +152,62 @@ export default {
         children: "children",
         label: "text"
       }
-    };
+    }
   },
   components: {
     UploadAffix
   },
 
   created() {
-    this.fetchData(this.listQuery);
-    this.getObj();
+    this.fetchData(this.listQuery)
+    this.getObj()
   },
   methods: {
     getObj() {
       Getobj().then(res => {
-        console.log(res);
-        this.temp = res.data;
-
+        this.temp = res.data
         for (let i in this.temp) {
-          this.temp_obj[this.temp[i]["COLUMN_NAME"].toLowerCase()] = "";
+          this.temp_obj[this.temp[i]["COLUMN_NAME"].toLowerCase()] = ""
         }
-        console.log(this.temp_obj);
-      });
+      })
     },
 
     handleSizeChange(val) {
-      this.listQuery.pageSize = val;
-      this.fetchData(this.listQuery);
+      this.listQuery.pageSize = val
+      this.fetchData(this.listQuery)
     },
     handleCurrentChange(val) {
-      this.listQuery.pageNumber = val;
-      this.fetchData(this.listQuery);
+      this.listQuery.pageNumber = val
+      this.fetchData(this.listQuery)
     },
 
     Refresh() {
-      this.fetchData(this.listQuery);
+      this.fetchData(this.listQuery)
     },
     Clear() {
-      this.listQuery.SearchKey = "";
-      this.listQuery.SearchValue = ""; //
+      this.listQuery.SearchKey = ""
+      this.listQuery.SearchValue = "" //
 
-      this.fetchData(this.listQuery);
+      this.fetchData(this.listQuery)
     },
     fetchData(params) {
-      this.listLoading = true;
+      this.listLoading = true
 
       GetUsers(params).then(response => {
-        this.list = response.data.list;
-        this.listQuery.totalCount = response.total;
-        this.listLoading = false;
-      });
+        this.list = response.data.list
+        this.listQuery.totalCount = response.total
+        this.listLoading = false
+      })
     },
 
     New() {
       for (let i in this.temp_obj) {
-        this.temp_obj[i] = "";
+        this.temp_obj[i] = ""
       }
-      this.filelist = null;
-      this.selected = null;
-      this.dialogStatus = "create";
-      this.dialogFormVisible = true;
+      this.filelist = null
+      this.selected = null
+      this.dialogStatus = "create"
+      this.dialogFormVisible = true
     },
     Delete(id) {
       this.$confirm("确认删除?", "提示", {
@@ -220,38 +216,35 @@ export default {
         type: "warning"
       }).then(() => {
         DeleteUser(id).then(response => {
-          this.fetchData(this.listQuery);
-        });
-      });
+          this.fetchData(this.listQuery)
+        })
+      })
     },
 
     Edit(id) {
-      this.dialogStatus = "update";
-      this.uploadParams.ParamID.MasterID = id;
+      this.dialogStatus = "update"
 
       GetUsersDetail(id).then(response => {
-        this.temp_obj = response.data;
-        this.dialogFormVisible = true;
-      });
+        this.temp_obj = response.data
+        this.dialogFormVisible = true
+              this.uploadParams.Param.MasterID = id
+
+      })
     },
 
     create() {
-      // this.temp.deptid = this.$refs.tree.getCheckedKeys().join(",");
-      this.temp.gender = this.selected;
+      this.temp.gender = this.selected
       SaveNewUsers(this.temp_obj).then(response => {
-        this.dialogFormVisible = false;
-
-        this.fetchData(this.listQuery);
-      });
+        this.dialogFormVisible = false
+        this.fetchData(this.listQuery)
+      })
     },
     update() {
       UpdateUsers(this.temp_obj).then(response => {
-        this.dialogFormVisible = false;
-
-        this.fetchData(this.listQuery);
-      });
-    },
-   
+        this.dialogFormVisible = false
+        this.fetchData(this.listQuery)
+      })
+    }
   }
-};
+}
 </script>
