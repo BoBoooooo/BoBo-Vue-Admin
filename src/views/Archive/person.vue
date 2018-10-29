@@ -2,16 +2,16 @@
   <div class="app-container" id="person">
         <el-button @click="New()" type="primary" size="small">新增</el-button>
 
-
-
-   <el-input @keyup.enter.native="Refresh" placeholder="请输入" v-model="listQuery.SearchValue"  class="input-with-select" style="width:90%">
-            <el-select v-model="listQuery.SearchKey" slot="prepend" placeholder="请选择">
+      <el-select v-model="listQuery.SearchKey" slot="prepend" placeholder="请选择">
       <el-option label="姓名" value="name"></el-option>
       <el-option label="工作单位" value="workunit"></el-option>
       <el-option label="职务" value="workduty"></el-option>
             <el-option label="职级" value="worklevel"></el-option>
 
     </el-select>
+
+   <el-input @keyup.enter.native="Refresh" placeholder="请输入" v-model="listQuery.SearchValue"  class="input-with-select" style="width:90%">
+      
         <el-button slot="append" icon="el-icon-search" v-on:click="Refresh"></el-button>
          <el-button slot="append" icon="el-icon-refresh" v-on:click="Clear"></el-button>
 
