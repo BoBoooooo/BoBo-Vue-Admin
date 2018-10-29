@@ -1,22 +1,25 @@
 <template>
   <div class="app-container" id="person">
-        <el-button @click="New()" type="primary" size="small">新增</el-button>
-
-      <el-select v-model="listQuery.SearchKey" slot="prepend" placeholder="请选择">
+<el-row>
+  <el-col :span="2">
+      <el-button @click="New()" type="primary" size="small">新增</el-button>
+  </el-col>
+  <el-col :span="22">
+ <el-select v-model="listQuery.SearchKey"  placeholder="请选择"  style="float:left;width:20%">
       <el-option label="姓名" value="name"></el-option>
       <el-option label="工作单位" value="workunit"></el-option>
       <el-option label="职务" value="workduty"></el-option>
-            <el-option label="职级" value="worklevel"></el-option>
-
-    </el-select>
-
-   <el-input @keyup.enter.native="Refresh" placeholder="请输入" v-model="listQuery.SearchValue"  class="input-with-select" style="width:90%">
+      <el-option label="职级" value="worklevel"></el-option>
+  </el-select>
+       <el-input @keyup.enter.native="Refresh" placeholder="请输入" v-model="listQuery.SearchValue"    style="float:left;width:80%">
       
         <el-button slot="append" icon="el-icon-search" v-on:click="Refresh"></el-button>
          <el-button slot="append" icon="el-icon-refresh" v-on:click="Clear"></el-button>
 
           </el-input>   
-    <br>
+  </el-col>
+</el-row>
+    
     <br>
 
     <el-table :default-sort="{prop: 'name', order: 'descending'}" :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
@@ -73,18 +76,21 @@
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="80%">
      
  <el-form class="small-space" :model="temp_obj"  label-position="right" label-width="110px">
-        <el-col :span="12" v-for="(item,index) in temp" :key="index" v-if="item['COLUMN_COMMENT'].indexOf('PK')===-1">
-        <el-form-item  v-if="item['COLUMN_COMMENT'].indexOf('时间')===-1"  :label="item.COLUMN_COMMENT" >
-          <el-input  class="filter-item" style="width:80%" v-model="temp_obj[item['COLUMN_NAME'].toLowerCase()]"   :placeholder="`请输入${item.COLUMN_COMMENT}`"></el-input>
-           
+    <el-col :span="12" v-for="(item,index) in temp" :key="index" v-if="item['COLUMN_COMMENT'].indexOf('PK')===-1">
+       <el-form-item  v-if="item['COLUMN_COMMENT'].indexOf('时间')===-1"  :label="item.COLUMN_COMMENT" >
+          <el-input  class="filter-item" style="width:80%" v-model="temp_obj[item['COLUMN_NAME'].toLowerCase()]"  
+           :placeholder="`请输入${item.COLUMN_COMMENT}`">
+           </el-input>  
         </el-form-item>
-
          <el-form-item v-else  :label="item.COLUMN_COMMENT" >
-             <el-date-picker     type="date"
- class="filter-item" style="width:80%" v-model="temp_obj[item['COLUMN_NAME'].toLowerCase()]"   :placeholder="`请输入${item.COLUMN_COMMENT}`"></el-date-picker >
-
-        </el-form-item>
-        </el-col>
+             <el-date-picker   
+               type="date"
+               class="filter-item" style="width:80%" 
+               v-model="temp_obj[item['COLUMN_NAME'].toLowerCase()]"   
+               :placeholder="`请输入${item.COLUMN_COMMENT}`">
+         </el-date-picker >
+      </el-form-item>
+   </el-col>
 
     <upload-affix :Params="uploadParams" :test="uploadParams['ParamID']['MasterID']"></upload-affix>
       </el-form>

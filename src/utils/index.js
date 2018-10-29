@@ -64,6 +64,7 @@
   var D = (date.getDate()+1 < 10 ? '0'+(date.getDate()+1) : date.getDate()+1) + '-';
   var h = (date.getHours()+1 < 10 ? '0'+(date.getHours()+1) : date.getHours()+1) + ':';
   var m = (date.getMinutes()+1 < 10 ? '0'+(date.getMinutes()+1) : date.getMinutes()+1) + ':';
-  var s = (date.getSeconds()+1 < 10 ? '0'+(date.getSeconds()+1) : date.getSeconds()+1) + ':';
+  var s = (date.getSeconds()+1 < 10 ? '0'+(date.getSeconds()+1) : date.getSeconds()+1) ;
+  console.log(Y+M+D+h+m+s)
   return Y+M+D+h+m+s;
 }

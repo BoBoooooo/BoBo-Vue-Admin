@@ -5,14 +5,12 @@
   :action="Params['Url']"
    :data="Params['ParamID']"
   :headers="token"
-  :on-success="fetchData_File(Params['ParamID']['MasterID'])"
+  
   >
   <el-button size="small" style="float:left;margin-top:10px 0" type="primary">点击上传</el-button>
 </el-upload>
 
-<!--  
--->
-   <el-table :default-sort="{prop: 'name', order: 'descending'}" :data="filelist" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
+   <el-table :default-sort="{prop: 'name', order: 'descending'}" :data="filelist" v-if="filelist!=null" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
   
       <el-table-column label="文件名" prop="filename" sortable align="center">
         <template slot-scope="scope">
@@ -82,13 +80,12 @@ export default {
     fetchData_File(id) {
       this.listLoading = true;
       GetFileList(id).then(response => {
+        
         this.filelist = response.data.list;
         this.listLoading = false;
       });
     },
-     timestampToTime(timestamp) {
-      timestampToTime(timestamp);
-    }
+    timestampToTime
   },
   watch:{
      "Params.ParamID.MasterID":{
