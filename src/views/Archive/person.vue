@@ -96,8 +96,8 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button v-if="dialogStatus=='create'" type="primary" @click="create">确 定</el-button>
-        <el-button v-else type="primary" @click="update">确 定</el-button>
+        <el-button v-if="dialogStatus=='create'" type="primary" @click="create">新 增</el-button>
+        <el-button v-else type="primary" @click="update">修 改</el-button>
       </div>
     </el-dialog>
 
