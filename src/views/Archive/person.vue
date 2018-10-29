@@ -86,7 +86,7 @@
         </el-form-item>
         </el-col>
 
-    <upload-affix :Params="uploadParams"></upload-affix>
+    <upload-affix :Params="uploadParams" :test="uploadParams['ParamID']['MasterID']"></upload-affix>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -221,8 +221,7 @@ export default {
 
     Edit(id) {
       this.dialogStatus = "update";
-      this.formData.MasterID = id;
-      this.fetchData_File(id);
+      this.uploadParams.ParamID.MasterID = id;
 
       GetUsersDetail(id).then(response => {
         this.temp_obj = response.data;
@@ -246,9 +245,7 @@ export default {
         this.fetchData(this.listQuery);
       });
     },
-    timestampToTime(timestamp) {
-      timestampToTime(timestamp);
-    }
+   
   }
 };
 </script>
