@@ -66,9 +66,9 @@
     <el-pagination 
     @size-change="handleSizeChange"
      @current-change="handleCurrentChange" 
-     :currentpage="listQuery.pageNumber" 
+     :current-page="listQuery.pageNumber" 
      :page-sizes="[10, 20, 30]"
-      :pagesize="listQuery.pageSize" 　
+      :page-size="listQuery.pageSize" 　
       layout="total,sizes, prev, pager, next" 
       :total="listQuery.totalCount" style="margin-top:5px">
       </el-pagination>
@@ -128,8 +128,8 @@ export default {
       temp_obj: {},
       listQuery: {
         totalCount: null,
-        pageSize: "10",
-        pageNumber: "1",
+        pageSize: 10,
+        pageNumber: 1,
         SearchKey: "",
         SearchValue: ""
       },

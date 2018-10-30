@@ -36,7 +36,6 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(
   response => {
     const res = response.data
-    console.log(response)
     if(response.headers["content-type"]=="application/octet-stream")
     {
        let date = new Date();
@@ -49,8 +48,6 @@ service.interceptors.response.use(
             document.body.appendChild(a);
             a.click();
             a.remove();
- 
-
     }
     // 401 403 :帐号信息与token不匹配  需要重新拉取token
     if (res.code === 401 || res.code === 403) {
@@ -84,7 +81,6 @@ service.interceptors.response.use(
 
       }
 
-      console.log(res)
       return res
 
 

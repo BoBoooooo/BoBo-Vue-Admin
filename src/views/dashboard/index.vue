@@ -128,19 +128,9 @@ export default {
   created() {
     this.GetNowTime();
     this.GetReport();
-    console.log("created!");
-    // this.GetMusic()
-  },
-  beforeCreate() {
-    console.log("beforeCreate");
-  },
 
-  mounted() {
-    console.log("mounted!");
   },
-  beforeMount() {
-    console.log("beforemounted");
-  }
+  
 };
 </script>
 

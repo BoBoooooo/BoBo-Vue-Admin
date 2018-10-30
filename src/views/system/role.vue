@@ -27,8 +27,8 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :currentpage="listQuery.pageNumber"
-      :page-sizes="[10, 20, 30]" :pagesize="listQuery.pageSize" 　 layout="total,sizes, prev, pager, next" :total="listQuery.totalCount"
+    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="listQuery.pageNumber"
+      :page-sizes="[10, 20, 30]" :page-size="listQuery.pageSize" 　 layout="total,sizes, prev, pager, next" :total="listQuery.totalCount"
       style="margin-top:5px">
     </el-pagination>
 
@@ -96,8 +96,8 @@ export default {
       menu: null,
       listQuery: {
         totalCount: 0,
-        pageSize: "10",
-        pageNumber: "1"
+        pageSize: 10,
+        pageNumber: 1
       },
       defaultProps: {
         children: "children",
