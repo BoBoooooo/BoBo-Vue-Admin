@@ -1,5 +1,14 @@
 <template>
   <div class="app-container" id="person">
+
+<el-button @click="test()"></el-button>
+
+<generate-form
+    :data="jsonData"
+    ref="generateForm">
+</generate-form>
+
+
 <el-row>
   <el-col :span="2">
       <el-button @click="New()" type="primary" size="small">新增</el-button>
@@ -116,10 +125,85 @@ import {
 } from "@/api/Archive/person"
 import { getToken } from "@/utils/auth"
 import UploadAffix from "@/components/UploadAffix"
+import {
+  GenerateForm
+} from 'form-making'
+
 export default {
   //
   data() {
     return {
+      jsonData:{
+  "list": [
+    {
+      "type": "input",
+      "name": "单行文本",
+      "icon": "regular/keyboard",
+      "options": {
+        "width": "100%",
+        "defaultValue": "",
+        "required": false,
+        "dataType": "string",
+        "pattern": "",
+        "placeholder": "",
+        "remoteFunc": "func_1540898325000_60519"
+      },
+      "key": "1540898325000_60519",
+      "model": "input_1540898325000_60519",
+      "rules": [
+        {
+          "type": "string",
+          "message": "单行文本格式不正确"
+        }
+      ]
+    },
+    {
+      "type": "textarea",
+      "name": "多行文本",
+      "icon": "regular/keyboard",
+      "options": {
+        "width": "100%",
+        "defaultValue": "",
+        "required": false,
+        "pattern": "",
+        "placeholder": "",
+        "remoteFunc": "func_1540898327000_70367"
+      },
+      "key": "1540898327000_70367",
+      "model": "textarea_1540898327000_70367",
+      "rules": []
+    },
+    {
+      "type": "time",
+      "name": "时间选择器",
+      "icon": "regular/clock",
+      "options": {
+        "defaultValue": "",
+        "readonly": false,
+        "disabled": false,
+        "editable": true,
+        "clearable": true,
+        "placeholder": "",
+        "startPlaceholder": "",
+        "endPlaceholder": "",
+        "isRange": false,
+        "arrowControl": true,
+        "format": "HH:mm:ss",
+        "required": false,
+        "width": "",
+        "remoteFunc": "func_1540898328000_61326"
+      },
+      "key": "1540898328000_61326",
+      "model": "time_1540898328000_61326",
+      "rules": []
+    }
+  ],
+  "config": {
+    "labelWidth": 100,
+    "labelPosition": "left",
+    "size": "small"
+  }
+},
       selected: null,
       textMap: {
         update: "编辑",
@@ -155,7 +239,8 @@ export default {
     }
   },
   components: {
-    UploadAffix
+    UploadAffix,
+    GenerateForm
   },
 
   created() {
@@ -244,7 +329,16 @@ export default {
         this.dialogFormVisible = false
         this.fetchData(this.listQuery)
       })
-    }
+    },
+    test(){
+            // 调用此方法验证表单数据和获取表单数据
+            this.$refs.generateForm.getData().then(data => {
+                console.log(data)
+                // data 为获取的表单数据
+            }).catch(e => {
+                // 数据校验失败
+            })
+        }
   }
 }
 </script>

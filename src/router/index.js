@@ -12,7 +12,6 @@ Vue.use(Router)
   * hidden : if `hidden:true` will not show in the sidebar
   * redirect : if `redirect:noredirect` will not redirct in the levelbar
   * noDropdown : if `noDropdown:true` will not has submenu in the sidebar
-  * meta : `{ role: ['admin'] }`  will control the page role
   **/
 export const constantRouterMap = [
   { path: '/login', component: ()=>import('@/views/login/index'), hidden: true },
@@ -54,7 +53,7 @@ export default new Router({
     {
       path: '/DouBan',
       component: Layout,
-      redirect: '/DouBan/person',
+      redirect: '/DouBan/movie',
       name:"DouBan",
       title:"豆瓣查询",
       icon:'tubiao',
@@ -69,7 +68,7 @@ export default new Router({
     {
       path: '/system',
       component: Layout,
-      redirect: '/system/user',
+      redirect: '/system/users',
       name:"system",
       title:"系统设置",
       icon:'zujian',
@@ -77,10 +76,12 @@ export default new Router({
         { path: 'users', name: 'users',title:"用户设置", component: ()=>import('@/views/system/users'),meta:{title:"用户设置"}},
         { path: 'dept', name: 'dept',title:"部门设置", component: ()=>import('@/views/system/dept'),meta:{title:"部门设置"}},
         { path: 'role', name: 'role',title:"角色设置", component: ()=>import('@/views/system/role'),meta:{title:"角色设置"}},
-        // { path: 'menu', name: 'menu',title:"菜单设置", component: ()=>import('@/views/system/menu'),meta:{title:"菜单设置"}}
+        { path: 'role2', name: 'role2',title:"表单设计", component: ()=>import('@/views/system/formdesigner'),meta:{title:"表单设计"}},
 
       ]
     },
+
+    
 
     {path:"*",redirect:"/404",hidden:true}
   ]

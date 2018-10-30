@@ -109,7 +109,7 @@ export default {
   created() {
     this.fetchData(this.listQuery)
 
-
+console.log(asyncRouterMap)
    let arr =  asyncRouterMap.filter(item=>{
 
       if(item.hidden)
