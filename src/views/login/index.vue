@@ -32,6 +32,7 @@
       </el-form-item>
     </el-form>
   </div>
+
 </template>
 
 <script>
@@ -46,8 +47,10 @@ export default {
       pwdType: 'password',
 
       loading: false
-    };
+    }
   },
+
+  
   methods: {
        showPwd() {
       if (this.pwdType === 'password') {
@@ -114,12 +117,14 @@ $light_gray:white;
 $bg:#2d3a4b;
 $dark_gray:#fff;
 $light_gray:#fff;
+
+
 .login-container {
   position: fixed;
   height: 100%;
   width: 100%;
-      background: url('~@/assets/loginbg.jpg') center center no-repeat;
-background-size:100% 100%;
+  background: url('~@/assets/loginbg.jpg') center center no-repeat;
+  background-size:100% 100%;
   // background-color: $bg;
   .login-form {
     position: absolute;

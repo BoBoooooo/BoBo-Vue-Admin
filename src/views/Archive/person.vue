@@ -1,7 +1,7 @@
 <template>
   <div class="app-container" id="person">
 
-<el-button @click="test()"></el-button>
+<el-button @click="test()">测试保存表单</el-button>
 
 <generate-form
     :data="jsonData"
