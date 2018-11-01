@@ -2,11 +2,13 @@
   <div class="app-container" id="person">
 
 <el-button @click="test()">测试保存表单</el-button>
-
+<el-button @click="GetFormDetail()">获取person表单</el-button>
+<br>
 <generate-form
     :data="jsonData"
     ref="generateForm">
 </generate-form>
+<br>
 
 
 <el-row>
@@ -128,82 +130,12 @@ import UploadAffix from "@/components/UploadAffix"
 import {
   GenerateForm
 } from 'form-making'
-
+import {GetFormDetail} from '@/api/system/form'
 export default {
   //
   data() {
     return {
-      jsonData:{
-  "list": [
-    {
-      "type": "input",
-      "name": "单行文本",
-      "icon": "regular/keyboard",
-      "options": {
-        "width": "100%",
-        "defaultValue": "",
-        "required": false,
-        "dataType": "string",
-        "pattern": "",
-        "placeholder": "",
-        "remoteFunc": "func_1540898325000_60519"
-      },
-      "key": "1540898325000_60519",
-      "model": "input_1540898325000_60519",
-      "rules": [
-        {
-          "type": "string",
-          "message": "单行文本格式不正确"
-        }
-      ]
-    },
-    {
-      "type": "textarea",
-      "name": "多行文本",
-      "icon": "regular/keyboard",
-      "options": {
-        "width": "100%",
-        "defaultValue": "",
-        "required": false,
-        "pattern": "",
-        "placeholder": "",
-        "remoteFunc": "func_1540898327000_70367"
-      },
-      "key": "1540898327000_70367",
-      "model": "textarea_1540898327000_70367",
-      "rules": []
-    },
-    {
-      "type": "time",
-      "name": "时间选择器",
-      "icon": "regular/clock",
-      "options": {
-        "defaultValue": "",
-        "readonly": false,
-        "disabled": false,
-        "editable": true,
-        "clearable": true,
-        "placeholder": "",
-        "startPlaceholder": "",
-        "endPlaceholder": "",
-        "isRange": false,
-        "arrowControl": true,
-        "format": "HH:mm:ss",
-        "required": false,
-        "width": "",
-        "remoteFunc": "func_1540898328000_61326"
-      },
-      "key": "1540898328000_61326",
-      "model": "time_1540898328000_61326",
-      "rules": []
-    }
-  ],
-  "config": {
-    "labelWidth": 100,
-    "labelPosition": "left",
-    "size": "small"
-  }
-},
+      jsonData:null,
       selected: null,
       textMap: {
         update: "编辑",
@@ -256,6 +188,12 @@ export default {
         }
       })
     },
+
+GetFormDetail(){
+   GetFormDetail("Person").then(res=>{
+     this.jsonData = JSON.parse(res.data.formJson)
+   })
+},
 
     handleSizeChange(val) {
       this.listQuery.pageSize = val

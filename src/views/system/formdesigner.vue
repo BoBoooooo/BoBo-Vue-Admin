@@ -3,10 +3,12 @@
 <making-form preview generate-json ref="form">
     <template slot="action">
 
-          <span style="margin-left:20px" v-if="selectform!==''">{{selectform}}</span>
-            <el-button style="border:none;float:left;margin-left:80px" @click="openmodal">选择要制作的表</el-button>
+          <span style="margin-left:20px;float:left" v-if="selectform!==''">正在制作:{{selectform}}</span>
+      <el-button style="border:none" @click="save"><svg-icon icon-class="icons"></svg-icon>
+保存</el-button>
+                  <el-button style="border:none;margin-right:0px" @click="openmodal"><svg-icon icon-class="icons"></svg-icon>
+选择要制作的表</el-button>
 
-      <el-button style="border:none" @click="save">保存</el-button>
     </template>
 </making-form>
 
@@ -48,6 +50,7 @@ export default {
       IsNew: true,
       tablelist: null,
       selectform: "",
+      ID:"",
       dialogFormVisible: false
     };
   },
@@ -62,6 +65,7 @@ export default {
      let json = this.$refs.form.getJSON()
      console.log(json)
           let obj = {
+            id:this.ID,
             tableName: this.selectform,
             formJson: json
           }
@@ -77,18 +81,21 @@ export default {
     },
     select() {
       GetFormDetail(this.selectform).then(res => {
-        if (res.code !== 400) {
+                this.dialogFormVisible = false;
+    console.log(res)
+        if (res.data!==null) {
          
           this.$refs.form.setJSON(JSON.parse(res.data.formJson));
                     this.IsNew = false;
+                    this.ID = res.data.id;
 
         } else
         {
-                    this.$refs.form.setJSON([]);
+          
+                    this.$refs.form.setJSON({});
                     this.IsNew = true;
-
+this.ID = ""
         }
-        this.dialogFormVisible = false;
       });
     }
   },
