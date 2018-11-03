@@ -51,7 +51,7 @@ export default {
       token: {
         auth: getToken()
       },
-      listLoading: true
+      listLoading: false
     }
   },
 
@@ -80,7 +80,8 @@ export default {
       console.log("上传成功");
     },
     fetchData_File(id) {
-      this.listLoading = true
+    this.listLoading = true
+
       GetFileList(id).then(response => {
         this.filelist = response.data.list
         this.listLoading = false
@@ -91,10 +92,13 @@ export default {
   watch: {
     "Params.Param.MasterID": {
       handler: function(id) {
+        console.log(id)
         this.$nextTick(() => {
           this.fetchData_File(id)
         })
-      }
+      },
+          immediate: true
+
     }
   }
 }

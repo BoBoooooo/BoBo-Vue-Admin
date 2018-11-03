@@ -76,7 +76,7 @@ export default new Router({
         { path: 'users', name: 'users',title:"用户设置", component: ()=>import('@/views/system/users'),meta:{title:"用户设置"}},
         { path: 'dept', name: 'dept',title:"部门设置", component: ()=>import('@/views/system/dept'),meta:{title:"部门设置"}},
         { path: 'role', name: 'role',title:"角色设置", component: ()=>import('@/views/system/role'),meta:{title:"角色设置"}},
-        { path: 'role2', name: 'role2',title:"表单设计", component: ()=>import('@/views/system/formdesigner'),meta:{title:"表单设计"}},
+        { path: 'formdesigner', name: 'formdesigner',title:"表单设计", component: ()=>import('@/views/system/formdesigner'),meta:{title:"表单设计"}},
 
       ]
     },

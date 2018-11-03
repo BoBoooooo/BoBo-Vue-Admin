@@ -1,16 +1,5 @@
 <template>
   <div class="app-container" id="person">
-
-<el-button @click="test()">测试保存表单</el-button>
-<el-button @click="GetFormDetail()">获取person表单</el-button>
-<br>
-<generate-form
-    :data="jsonData"
-    ref="generateForm">
-</generate-form>
-<br>
-
-
 <el-row>
   <el-col :span="2">
       <el-button @click="New()" type="primary" size="small">新增</el-button>
@@ -45,11 +34,6 @@
           <span>{{scope.row.gender}}</span>
         </template>
       </el-table-column>
-      <!-- <el-table-column label="部门" align="center">
-        <template slot-scope="scope">
-          {{scope.row.DeptName}}
-        </template>
-      </el-table-column> -->
      <el-table-column label="工作单位" prop="workunit"  sortable align="center">
         <template slot-scope="scope">
           {{scope.row.workunit}}
@@ -87,23 +71,14 @@
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="80%">
      
  <el-form class="small-space" :model="temp_obj"  label-position="right" label-width="110px">
-    <el-col :span="12" v-for="(item,index) in temp" :key="index" v-if="item['COLUMN_COMMENT'].indexOf('PK')===-1">
-       <el-form-item  v-if="item['COLUMN_COMMENT'].indexOf('时间')===-1"  :label="item.COLUMN_COMMENT" >
-          <el-input  class="filter-item" style="width:80%" v-model="temp_obj[item['COLUMN_NAME'].toLowerCase()]"  
-           :placeholder="`请输入${item.COLUMN_COMMENT}`">
-           </el-input>  
-        </el-form-item>
-         <el-form-item v-else  :label="item.COLUMN_COMMENT" >
-             <el-date-picker   
-               type="date"
-               class="filter-item" style="width:80%" 
-               v-model="temp_obj[item['COLUMN_NAME'].toLowerCase()]"   
-               :placeholder="`请输入${item.COLUMN_COMMENT}`">
-         </el-date-picker >
-      </el-form-item>
-   </el-col>
+   
+<generate-form
+    :data="jsonData"
+    ref="generateForm"
+    :value="temp_obj">
+</generate-form>
 
-    <upload-affix :Params="uploadParams" :test="uploadParams['Param']['MasterID']"></upload-affix>
+    <upload-affix :Params="uploadParams" ></upload-affix>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -124,18 +99,17 @@ import {
   SaveNewUsers,
   UpdateUsers,
   Getobj
-} from "@/api/Archive/person"
-import { getToken } from "@/utils/auth"
-import UploadAffix from "@/components/UploadAffix"
-import {
-  GenerateForm
-} from 'form-making'
-import {GetFormDetail} from '@/api/system/form'
+} from "@/api/Archive/person";
+import { getToken } from "@/utils/auth";
+import UploadAffix from "@/components/UploadAffix";
+import { GenerateForm } from "form-making";
+import { GetFormDetail } from "@/api/system/form";
+import { newGuid } from "@/utils/index";
 export default {
   //
   data() {
     return {
-      jsonData:null,
+      jsonData: null,
       selected: null,
       textMap: {
         update: "编辑",
@@ -153,7 +127,7 @@ export default {
         Param: {
           MasterID: ""
         },
-        IsDetail:false,
+        IsDetail: false,
         Url: "http://localhost:8089/file/Upload"
       },
 
@@ -168,7 +142,7 @@ export default {
         children: "children",
         label: "text"
       }
-    }
+    };
   },
   components: {
     UploadAffix,
@@ -176,32 +150,27 @@ export default {
   },
 
   created() {
-    this.fetchData(this.listQuery)
-    this.getObj()
+    this.fetchData(this.listQuery);
+  },
+
+  mounted() {
+      GetFormDetail("Person").then(res => {
+        this.jsonData = JSON.parse(res.data.formJson);
+      })
   },
   methods: {
-    getObj() {
-      Getobj().then(res => {
-        this.temp = res.data
-        for (let i in this.temp) {
-          this.temp_obj[this.temp[i]["COLUMN_NAME"].toLowerCase()] = ""
-        }
-      })
+    newGuid,
+    GetFormDetail() {
+    
     },
-
-GetFormDetail(){
-   GetFormDetail("Person").then(res=>{
-     this.jsonData = JSON.parse(res.data.formJson)
-   })
-},
 
     handleSizeChange(val) {
-      this.listQuery.pageSize = val
-      this.fetchData(this.listQuery)
+      this.listQuery.pageSize = val;
+      this.fetchData(this.listQuery);
     },
     handleCurrentChange(val) {
-      this.listQuery.pageNumber = val
-      this.fetchData(this.listQuery)
+      this.listQuery.pageNumber = val;
+      this.fetchData(this.listQuery);
     },
 
     Refresh() {
@@ -209,28 +178,23 @@ GetFormDetail(){
     },
     Clear() {
       this.listQuery.SearchKey = ""
-      this.listQuery.SearchValue = "" //
+      this.listQuery.SearchValue = ""//
 
-      this.fetchData(this.listQuery)
+      this.fetchData(this.listQuery);
     },
     fetchData(params) {
-      this.listLoading = true
-
       GetUsers(params).then(response => {
-        this.list = response.data.list
-        this.listQuery.totalCount = response.total
-        this.listLoading = false
-      })
+        this.list = response.data.list;
+        this.listQuery.totalCount = response.total;
+        this.listLoading = false;
+      });
     },
 
-    New() {
-      for (let i in this.temp_obj) {
-        this.temp_obj[i] = ""
-      }
-      this.filelist = null
-      this.selected = null
-      this.dialogStatus = "create"
-      this.dialogFormVisible = true
+    New() {   
+      this.dialogStatus = "create";
+      this.dialogFormVisible = true;
+       this.temp_obj = {};    
+      this.filelist = null;
     },
     Delete(id) {
       this.$confirm("确认删除?", "提示", {
@@ -239,44 +203,71 @@ GetFormDetail(){
         type: "warning"
       }).then(() => {
         DeleteUser(id).then(response => {
-          this.fetchData(this.listQuery)
-        })
-      })
+          this.fetchData(this.listQuery);
+        });
+      });
     },
 
     Edit(id) {
-      this.dialogStatus = "update"
-
+      this.dialogStatus = "update";
+      this.temp_obj.id = id;
       GetUsersDetail(id).then(response => {
-        this.temp_obj = response.data
-        this.dialogFormVisible = true
-              this.uploadParams.Param.MasterID = id
+        this.temp_obj = response.data;
+                this.uploadParams.Param.MasterID = id;
 
-      })
+        this.dialogFormVisible = true;
+      });
     },
 
     create() {
-      this.temp.gender = this.selected
-      SaveNewUsers(this.temp_obj).then(response => {
-        this.dialogFormVisible = false
-        this.fetchData(this.listQuery)
-      })
+      this.$refs.generateForm
+        .getData()
+        .then(data => {
+          console.log(data)
+          // data 为获取的表单数据
+
+          this.temp_obj.id = newGuid()//赋值主键
+
+          this.temp_obj = data
+
+          SaveNewUsers(this.temp_obj).then(response => {
+            this.dialogFormVisible = false
+            this.fetchData(this.listQuery)
+          })
+        })
+        .catch(e => {
+          // 数据校验失败
+
+          this.$message({
+            message: "请检查必填项",
+            type: "warning"
+          });
+        });
     },
     update() {
-      UpdateUsers(this.temp_obj).then(response => {
-        this.dialogFormVisible = false
-        this.fetchData(this.listQuery)
-      })
-    },
-    test(){
-            // 调用此方法验证表单数据和获取表单数据
-            this.$refs.generateForm.getData().then(data => {
-                console.log(data)
-                // data 为获取的表单数据
-            }).catch(e => {
-                // 数据校验失败
-            })
-        }
+      this.$refs.generateForm
+        .getData()
+        .then(data => {
+          console.log(data);
+          // data 为获取的表单数据
+
+          this.temp_obj.id = newGuid() //赋值主键
+
+          this.temp_obj = data
+          UpdateUsers(this.temp_obj).then(response => {
+            this.dialogFormVisible = false
+            this.fetchData(this.listQuery)
+          })
+        })
+        .catch(e => {
+          // 数据校验失败
+
+          this.$message({
+            message: "请检查必填项",
+            type: "warning"
+          })
+        })
+    }
   }
-}
+};
 </script>
