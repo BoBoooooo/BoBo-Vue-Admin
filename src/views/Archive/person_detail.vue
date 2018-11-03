@@ -67,18 +67,14 @@
       </el-pagination>
 
     <el-dialog title="查看" :visible.sync="dialogFormVisible" width="80%">
-     
- <el-form class="small-space" :model="temp_obj"  label-position="right" label-width="110px">
-    <el-col :span="12" v-for="(item,index) in temp" :key="index" v-if="item['COLUMN_COMMENT'].indexOf('PK')===-1">
-       <el-form-item   :label="item.COLUMN_COMMENT" >
-          <el-input  readonly="true" class="filter-item" style="width:80%" v-model="temp_obj[item['COLUMN_NAME'].toLowerCase()]">
-           </el-input>  
-        </el-form-item>
-
-   </el-col>
+   
+<generate-form
+    :data="jsonData"
+    ref="generateForm"
+    :value="temp_obj">
+</generate-form>
 
     <upload-affix :Params="uploadParams" ></upload-affix>
-      </el-form>
    
     </el-dialog>
 
@@ -93,15 +89,18 @@ import {
   GetUsersDetail,
   SaveNewUsers,
   UpdateUsers,
-  getKey
+  getObj
 } from "@/api/Archive/person"
 import { getToken } from "@/utils/auth"
 import UploadAffix from "@/components/UploadAffix"
+import { GetFormDetail } from "@/api/system/form"
+import { GenerateForm } from "form-making";
+
 export default {
-  //
+  name:"Person_Detail",
   data() {
     return {
-      selected: null,
+      jsonData: null,
       temp_obj: {},
       listQuery: {
         totalCount: null,
@@ -130,26 +129,20 @@ export default {
     }
   },
   components: {
-    UploadAffix
+    UploadAffix,
+    GenerateForm
   },
 
   created() {
     this.fetchData(this.listQuery)
-    this.getObj()
+  },
+  mounted() {
+      GetFormDetail("Person").then(res => {
+        this.jsonData = JSON.parse(res.data.formJson);
+      })
   },
   methods: {
-    getObj() {
-      getObj().then(res => {
-        console.log(res)
-        this.temp = res.data
-
-        for (let i in this.temp) {
-          this.temp_obj[this.temp[i]["COLUMN_NAME"].toLowerCase()] = ""
-        }
-        console.log(this.temp_obj)
-      })
-    },
-
+ 
     handleSizeChange(val) {
       this.listQuery.pageSize = val
       this.fetchData(this.listQuery)
