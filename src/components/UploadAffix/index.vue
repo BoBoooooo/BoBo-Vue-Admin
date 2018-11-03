@@ -1,13 +1,14 @@
 <template>
      <div class="upload-container">
 <el-upload
+  ref="upload"
   class="upload-demo"
   :action="Params['Url']"
    :data="Params['Param']"
   :headers="token"
    v-if="!Params.IsDetail" 
    :show-file-list = "false"
-   :on-success="test()"
+   :on-success="uploadSuccess"
 >
   <el-button size="small" style="float:left;margin-top:10px 0" type="primary">点击上传</el-button>
 </el-upload>
@@ -76,8 +77,13 @@ export default {
         })
       })
     },
-    test(){
-      console.log("上传成功");
+    uploadSuccess(response, file, fileList){
+      console.log(response)
+            console.log(file)
+            console.log(fileList)
+
+            this.$refs.upload.clearFiles()
+
     },
     fetchData_File(id) {
     this.listLoading = true

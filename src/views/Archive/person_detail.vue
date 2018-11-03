@@ -93,7 +93,7 @@ import {
   GetUsersDetail,
   SaveNewUsers,
   UpdateUsers,
-  Getobj
+  getKey
 } from "@/api/Archive/person"
 import { getToken } from "@/utils/auth"
 import UploadAffix from "@/components/UploadAffix"
@@ -139,7 +139,7 @@ export default {
   },
   methods: {
     getObj() {
-      Getobj().then(res => {
+      getObj().then(res => {
         console.log(res)
         this.temp = res.data
 

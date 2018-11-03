@@ -40,7 +40,7 @@ export function UpdateUsers(data){
 }
 
 
-export function Getobj(){
+export function getKey(){
     return fetch({
         url: '/person/Getkey',
         method: 'post',       
@@ -48,3 +48,9 @@ export function Getobj(){
 }
 
 
+export function getObj(){
+    return fetch({
+        url: '/person/getObj',
+        method: 'post',       
+      })
+}

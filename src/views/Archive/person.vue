@@ -98,7 +98,7 @@ import {
   GetUsersDetail,
   SaveNewUsers,
   UpdateUsers,
-  Getobj
+  getObj
 } from "@/api/Archive/person";
 import { getToken } from "@/utils/auth";
 import UploadAffix from "@/components/UploadAffix";
@@ -151,6 +151,7 @@ export default {
 
   created() {
     this.fetchData(this.listQuery);
+    this.getObj();
   },
 
   mounted() {
@@ -160,10 +161,12 @@ export default {
   },
   methods: {
     newGuid,
-    GetFormDetail() {
-    
+   getObj() {
+      getObj().then(res => {
+        this.temp_obj = res.data
+        
+      })
     },
-
     handleSizeChange(val) {
       this.listQuery.pageSize = val;
       this.fetchData(this.listQuery);
@@ -192,9 +195,14 @@ export default {
 
     New() {   
       this.dialogStatus = "create";
-      this.dialogFormVisible = true;
-       this.temp_obj = {};    
+                 this.uploadParams.Param.MasterID = "";
+
+      for(let key in this.temp_obj){
+        this.temp_obj[key]=""
+      }
       this.filelist = null;
+      this.dialogFormVisible = true;
+
     },
     Delete(id) {
       this.$confirm("确认删除?", "提示", {
