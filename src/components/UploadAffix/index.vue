@@ -3,7 +3,7 @@
 <el-upload
   ref="upload"
   class="upload-demo"
-  :action="Params['Url']"
+  :action="baseUrl"
    :data="Params['Param']"
   :headers="token"
    v-if="!Params.IsDetail" 
@@ -40,10 +40,10 @@
 
 
 <script>
-import { getToken } from "@/utils/auth"
-import { download, GetFileList, deletefile } from "@/api/public/file"
-import { timestampToTime } from "@/utils/index"
-
+import { getToken } from "@/utils/auth";
+import {  GetFileList, deletefile } from "@/api/public/file";
+import { timestampToTime } from "@/utils/index";
+import download from '@/utils/download'
 export default {
   name: "UploadAffix",
   data() {
@@ -52,19 +52,19 @@ export default {
       token: {
         auth: getToken()
       },
-      listLoading: false
-    }
+      listLoading: false,
+      baseUrl:`${process.env.BASE_API}file/upload`
+    };
   },
 
   props: {
     Params: {
-      type: Object
+      type: Object    //  IsDetail true则   只显示文件list以及download button
     }
-   
   },
   methods: {
     exportfile(id) {
-      download(id)
+      download(id);
     },
     delete_file(id) {
       this.$confirm("确认删除?", "提示", {
@@ -73,41 +73,35 @@ export default {
         type: "warning"
       }).then(() => {
         deletefile(id).then(res => {
-          this.fetchData_File(id)
-        })
-      })
+          this.fetchData_File(id);
+        });
+      });
     },
-    uploadSuccess(response, file, fileList){
-      console.log(response)
-            console.log(file)
-            console.log(fileList)
-
-            this.$refs.upload.clearFiles()
-
+    uploadSuccess(response, file, fileList) {
+      this.fetchData_File(this.Params.Param.MasterID);
+      this.$refs.upload.clearFiles();
     },
     fetchData_File(id) {
-    this.listLoading = true
+      this.listLoading = true;
 
       GetFileList(id).then(response => {
-        this.filelist = response.data.list
-        this.listLoading = false
-      })
+        this.filelist = response.data.list;
+        this.listLoading = false;
+      });
     },
     timestampToTime
   },
   watch: {
     "Params.Param.MasterID": {
       handler: function(id) {
-        console.log(id)
         this.$nextTick(() => {
-          this.fetchData_File(id)
-        })
+          this.fetchData_File(id);
+        });
       },
-          immediate: true
-
+      immediate: true
     }
   }
-}
+};
 </script>
 
 

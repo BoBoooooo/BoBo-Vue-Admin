@@ -56,6 +56,7 @@
 <script>
   import axios from "axios";
   export default {
+    name:"book",
     data() {
       return {
         //表格当前页数据

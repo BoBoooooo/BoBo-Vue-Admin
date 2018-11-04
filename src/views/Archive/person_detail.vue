@@ -97,7 +97,7 @@ import { GetFormDetail } from "@/api/system/form"
 import { GenerateForm } from "form-making";
 
 export default {
-  name:"Person_Detail",
+  name:"person_detail",
   data() {
     return {
       jsonData: null,

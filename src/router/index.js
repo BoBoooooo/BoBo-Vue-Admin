@@ -41,13 +41,15 @@ export default new Router({
     {
       path: '/Archive',
       component: Layout,
-      redirect: '/Archive/person',
+      redirect: '/Archive/person_edit',
       name:"Archive",
       title:"廉政档案",
       icon:'yonghuming',
       children: [
-        { path: 'person', name: 'person',title:"廉政档案编辑", component: ()=>import('@/views/Archive/person'),meta:{title:"廉政档案编辑"}},
-        { path: 'person_detail', name: 'person_detail',title:"廉政档案查看", component: ()=>import('@/views/Archive/person_detail'),meta:{title:"廉政档案查看"}}
+        { path: 'person_edit', name: 'person_edit',title:"档案编辑", component: ()=>import('@/views/Archive/person_edit'),meta:{title:"廉政档案编辑"}},
+        { path: 'person_detail', name: 'person_detail',title:"档案查看", component: ()=>import('@/views/Archive/person_detail'),meta:{title:"廉政档案查看"}},
+        { path: 'person_count', name: 'person_count',title:"数据统计", component: ()=>import('@/views/Archive/person_count'),meta:{title:"廉政档案统计"}}
+
       ]
     },
     {

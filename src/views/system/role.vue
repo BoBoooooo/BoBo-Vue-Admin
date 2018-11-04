@@ -77,6 +77,8 @@ import {asyncRouterMap} from '@/router/index'
 import { mapGetters } from "vuex"
 import store from '@/store'
 export default {
+      name:"role",
+
   data() {
     return {
       textMap: {

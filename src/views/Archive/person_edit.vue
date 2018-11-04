@@ -104,7 +104,7 @@ import { GenerateForm } from "form-making";
 import { GetFormDetail } from "@/api/system/form";
 import { newGuid } from "@/utils/index";
 export default {
-  //
+  name:"person_edit",
   data() {
     return {
       jsonData: null,
@@ -125,8 +125,7 @@ export default {
         Param: {
           MasterID: ""
         },
-        IsDetail: false,
-        Url: "http://localhost:8089/file/Upload"
+        IsDetail: false
       },
 
       dialogFormVisible: false,

@@ -70,6 +70,7 @@
   } from "@/api/system/dept";
 
   export default {
+    name:"dept",
     data() {
       return {
         textMap: {

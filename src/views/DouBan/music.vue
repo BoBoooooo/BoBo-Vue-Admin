@@ -49,6 +49,8 @@
 <script>
   import axios from "axios";
   export default {
+        name:"music",
+
     data() {
       return {
         //表格当前页数据
