@@ -6,7 +6,7 @@
           <span style="margin-left:20px;float:left" v-if="selectform!==''">正在制作:{{selectform}}</span>
       <el-button style="border:none" @click="save"><svg-icon icon-class="icons"></svg-icon>
 保存</el-button>
-                  <el-button style="border:none;margin-right:0px" @click="openmodal"><svg-icon icon-class="icons"></svg-icon>
+       <el-button style="border:none;margin-right:0px" @click="openmodal"><svg-icon icon-class="icons"></svg-icon>
 选择要制作的表</el-button>
 
     </template>
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { MakingForm } from "form-making";
+import MakingForm from "@/components/FormDesigner/Container";
 import {
   getTables,
   GetFormDetail,
@@ -50,7 +50,7 @@ export default {
       IsNew: true,
       tablelist: null,
       selectform: "",
-      ID:"",
+      ID: "",
       dialogFormVisible: false
     };
   },
@@ -62,39 +62,33 @@ export default {
 
   methods: {
     save() {
-     let json = this.$refs.form.getJSON()
-     console.log(json)
-          let obj = {
-            id:this.ID,
-            tableName: this.selectform,
-            formJson: json
-          }
-          if (this.IsNew) AddForm(obj);
-          else UpdateForm(obj);
+      let json = this.$refs.form.getJSON();
+      console.log(json);
+      let obj = {
+        id: this.ID,
+        tableName: this.selectform,
+        formJson: json
+      };
+      if (this.IsNew) AddForm(obj);
+      else UpdateForm(obj);
 
-          this.dialogFormVisible = false;
-     
-      
+      this.dialogFormVisible = false;
     },
     openmodal() {
       this.dialogFormVisible = true;
     },
     select() {
       GetFormDetail(this.selectform).then(res => {
-                this.dialogFormVisible = false;
-    console.log(res)
-        if (res.data!==null) {
-         
+        this.dialogFormVisible = false;
+        console.log(res);
+        if (res.data !== null) {
           this.$refs.form.setJSON(JSON.parse(res.data.formJson));
-                    this.IsNew = false;
-                    this.ID = res.data.id;
-
-        } else
-        {
-          
-                    this.$refs.form.setJSON({});
-                    this.IsNew = true;
-this.ID = ""
+          this.IsNew = false;
+          this.ID = res.data.id;
+        } else {
+          this.$refs.form.setJSON({});
+          this.IsNew = true;
+          this.ID = "";
         }
       });
     }

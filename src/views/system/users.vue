@@ -87,9 +87,7 @@
             <el-option v-for="item in roleoptions" :key="item.id" :label="item.rolename" :value="item.id">
             </el-option>
           </el-select>
-          <!-- <multiselect v-model="selected" :value="selected" :options="options" :searchable="false" :close-on-select="true" :allow-empty="false"
-            label="RoleName" placeholder="请选择角色" track-by="ID" :showLabels="false">
-          </multiselect> -->
+      
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -114,9 +112,10 @@ import { List } from "@/api/system/dept";
 import { RoleList } from "@/api/system/role";
 import { DeptList } from "@/api/system/dept";
 
-// import Multiselect from "vue-multiselect";
 
 export default {
+      name:"users",
+
   data() {
     return {
       depttree: [],
@@ -153,15 +152,11 @@ export default {
       }
     };
   },
-  // components: {
-  //   Multiselect
-  // },
+ 
 
   created() {
     this.fetchData(this.listQuery);
-    // GetDeptTree().then(response => {
-    //   this.depttree = JSON.parse(response.data);
-    // });
+  
     RoleList().then(response => {
       this.roleoptions = response.data.list;
     });
@@ -188,7 +183,6 @@ export default {
       });
     },
     New() {
-      // this.selected = null;
       this.temp = {
         ID: "",
         username: "",
@@ -201,7 +195,6 @@ export default {
 
       this.dialogStatus = "create"
 
-      // this.$refs.tree.setCheckedKeys([]);
     },
     Delete(ID) {
       this.$confirm("确认删除?", "提示", {
@@ -219,13 +212,6 @@ export default {
 
       GetUsersDetail(ID).then(response => {
         this.temp = response.data;
-        // this.$refs.tree.setCheckedKeys([this.temp.deptid]);
-        // for (let i = 0; i < this.options.length; i++) {
-        //   let obj = this.options[i];
-        //   if (obj.ID == this.temp.RoleID) {
-        //     this.selected = obj;
-        //   }
-        // }
 
               this.dialogFormVisible = true;
 
@@ -233,8 +219,6 @@ export default {
     },
 
     create() {
-      // this.temp.deptid = this.$refs.tree.getCheckedKeys().join(",");
-      // this.temp.RoleID = this.RoleID;
 
   
       AddUsers(this.temp).then(response => {
@@ -244,9 +228,6 @@ export default {
       });
     },
     update() {
-      // this.temp.deptid = this.$refs.tree.getCheckedKeys().join(",");
-
-      // this.temp.RoleID = this.selected.ID;
 
       UpdateUsers(this.temp).then(response => {
         this.dialogFormVisible = false;

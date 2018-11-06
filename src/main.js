@@ -9,10 +9,7 @@ import '@/permission' // 权限import axios from 'axios';
 // import axios from 'axios'
 import '@/styles/index.scss' // global css
 import * as filters from './filters' // global filters
-import FormMaking from 'form-making'  //form designer
-import 'form-making/dist/FormMaking.css'
 
-Vue.use(FormMaking)
 Vue.use(ElementUI)
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])

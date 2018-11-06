@@ -11,7 +11,7 @@
       <el-option label="职务" value="workduty"></el-option>
       <el-option label="职级" value="worklevel"></el-option>
   </el-select>
-       <el-input @keyup.enter.native="Refresh" placeholder="请输入" v-model="listQuery.SearchValue"    style="float:left;width:80%">
+       <el-input ref="test_input" @keyup.enter.native="Refresh" placeholder="请输入" v-model="listQuery.SearchValue"    style="float:left;width:80%">
       
         <el-button slot="append" icon="el-icon-search" v-on:click="Refresh"></el-button>
          <el-button slot="append" icon="el-icon-refresh" v-on:click="Clear"></el-button>
@@ -100,11 +100,11 @@ import {
 } from "@/api/Archive/person";
 import { getToken } from "@/utils/auth";
 import UploadAffix from "@/components/UploadAffix";
-import { GenerateForm } from "form-making";
+import GenerateForm from "@/components/FormDesigner/GenerateForm";
 import { GetFormDetail } from "@/api/system/form";
 import { newGuid } from "@/utils/index";
 export default {
-  name:"person_edit",
+  name: "person_edit",
   data() {
     return {
       jsonData: null,
@@ -152,17 +152,23 @@ export default {
   },
 
   mounted() {
-      GetFormDetail("Person").then(res => {
-        this.jsonData = JSON.parse(res.data.formJson);
-      })
+    GetFormDetail("Person").then(res => {
+      this.jsonData = JSON.parse(res.data.formJson);
+    });
+    document.addEventListener("click", e => {
+      console.log(e.target);
+      console.log(this.$refs.test_input.$el);
+      if (!this.$refs.test_input.$el.contains(e.target)) {
+        //
+      }
+    })
   },
   methods: {
     newGuid,
-   getObj() {
+    getObj() {
       getObj().then(res => {
-        this.temp_obj = res.data
-        
-      })
+        this.temp_obj = res.data;
+      });
     },
     handleSizeChange(val) {
       this.listQuery.pageSize = val;
@@ -174,11 +180,11 @@ export default {
     },
 
     Refresh() {
-      this.fetchData(this.listQuery)
+      this.fetchData(this.listQuery);
     },
     Clear() {
-      this.listQuery.SearchKey = ""
-      this.listQuery.SearchValue = ""//
+      this.listQuery.SearchKey = "";
+      this.listQuery.SearchValue = ""; //
 
       this.fetchData(this.listQuery);
     },
@@ -190,16 +196,15 @@ export default {
       });
     },
 
-    New() {   
+    New() {
       this.dialogStatus = "create";
-                 this.uploadParams.Param.MasterID = "";
+      this.uploadParams.Param.MasterID = "";
 
-      for(let key in this.temp_obj){
-        this.temp_obj[key]=""
+      for (let key in this.temp_obj) {
+        this.temp_obj[key] = "";
       }
       this.filelist = null;
       this.dialogFormVisible = true;
-
     },
     Delete(id) {
       this.$confirm("确认删除?", "提示", {
@@ -218,7 +223,7 @@ export default {
       this.temp_obj.id = id;
       GetUsersDetail(id).then(response => {
         this.temp_obj = response.data;
-                this.uploadParams.Param.MasterID = id;
+        this.uploadParams.Param.MasterID = id;
 
         this.dialogFormVisible = true;
       });
@@ -228,17 +233,17 @@ export default {
       this.$refs.generateForm
         .getData()
         .then(data => {
-          console.log(data)
+          console.log(data);
           // data 为获取的表单数据
 
-          this.temp_obj.id = newGuid()//赋值主键
+          this.temp_obj.id = newGuid(); //赋值主键
 
-          this.temp_obj = data
+          this.temp_obj = data;
 
           SaveNewUsers(this.temp_obj).then(response => {
-            this.dialogFormVisible = false
-            this.fetchData(this.listQuery)
-          })
+            this.dialogFormVisible = false;
+            this.fetchData(this.listQuery);
+          });
         })
         .catch(e => {
           // 数据校验失败
@@ -256,13 +261,13 @@ export default {
           console.log(data);
           // data 为获取的表单数据
 
-          this.temp_obj.id = newGuid() //赋值主键
+          this.temp_obj.id = newGuid(); //赋值主键
 
-          this.temp_obj = data
+          this.temp_obj = data;
           UpdateUsers(this.temp_obj).then(response => {
-            this.dialogFormVisible = false
-            this.fetchData(this.listQuery)
-          })
+            this.dialogFormVisible = false;
+            this.fetchData(this.listQuery);
+          });
         })
         .catch(e => {
           // 数据校验失败
@@ -270,8 +275,8 @@ export default {
           this.$message({
             message: "请检查必填项",
             type: "warning"
-          })
-        })
+          });
+        });
     }
   }
 };
