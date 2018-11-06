@@ -68,7 +68,7 @@
       :total="listQuery.totalCount" style="margin-top:5px">
       </el-pagination>
 
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="80%">
+    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="80%" >
      
    
 <generate-form
@@ -149,17 +149,18 @@ export default {
   },
 
   created() {
-    this.fetchData(this.listQuery);
-    this.getObj();
+    this.fetchData(this.listQuery)
+    this.getObj()
+        GetFormDetail("Person").then(res => {
+      this.jsonData = JSON.parse(res.data.formJson);
+    })
   },
 
   mounted() {
-    GetFormDetail("Person").then(res => {
-      this.jsonData = JSON.parse(res.data.formJson);
-    });
+
     document.addEventListener("click", e => {
-      console.log(e.target);
-      console.log(this.$refs.test_input.$el);
+      // console.log(e.target);
+      // console.log(this.$refs.test_input.$el);
       if (!this.$refs.test_input.$el.contains(e.target)) {
         //
       }
@@ -217,6 +218,7 @@ export default {
         })
       })
     },
+  
 
     Edit(id) {
             this.Clear = false,

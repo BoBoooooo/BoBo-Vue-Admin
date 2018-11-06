@@ -84,6 +84,7 @@ export default {
           
         }
       }
+
     },
     getData () {
       return new Promise((resolve, reject) => {
@@ -98,10 +99,10 @@ export default {
     },
     refresh () {
 
-        this.$nextTick(() => {
-      this.$refs.generateForm.resetFields()
-      console.log(222)
-        });
+                  for(let key in this.models){
+                    console.log(key)
+                    this.models[key] = ""
+                  }
     }
   },
   watch: {
@@ -109,6 +110,7 @@ export default {
       deep: true,
       handler (val) {
         console.log(JSON.stringify(val))
+        this.$refs.generateForm.clearValidate()
         this.models = {...this.models, ...val}
       }
     },
