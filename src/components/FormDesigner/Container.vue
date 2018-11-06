@@ -55,10 +55,15 @@
     </el-aside>
     <el-container class="center-container" direction="vertical">
       <el-header class="btn-bar" style="height: 45px;">
+             <span style="margin-left:20px;float:left" v-if="selectform!==''">正在制作:{{selectform}}</span>
+      <el-button style="border:none" @click="save"><svg-icon icon-class="icons"></svg-icon>
+保存</el-button>
+       <el-button style="border:none;margin-right:0px" @click="openmodal"><svg-icon icon-class="icons"></svg-icon>
+选择要制作的表</el-button>
         <!-- <el-button type="text" size="medium" @click="handleGoGithub">GitHub</el-button> -->
         <el-button type="text" size="medium" icon="el-icon-view" @click="handlePreview">预览</el-button>
         <el-button type="text" size="medium" icon="el-icon-tickets" @click="handleGenerateJson">生成JSON</el-button>
-        <el-button type="text" size="medium" icon="el-icon-document" @click="handleGenerateCode">生成代码</el-button>
+        <!-- <el-button type="text" size="medium" icon="el-icon-document" @click="handleGenerateCode">生成代码</el-button> -->
       </el-header>
       <el-main :class="{'widget-empty': widgetForm.list.length == 0}">
         
@@ -121,7 +126,26 @@
     >
       <div id="codeeditor" style="height: 500px; width: 100%;">{{htmlTemplate}}</div>
     </cus-dialog>
+
+
+     <el-dialog title="选择表单"  :visible.sync="dialogFormVisible" >
+     <el-select v-model="selectform" placeholder="请选择">
+    <el-option
+ v-for="(item, index) in tablelist"
+ :key="index"
+      :label="item.table_name"
+      :value="item.table_name">
+    </el-option>
+  </el-select>
+
+  <el-button @click="select">选择</el-button>
+  </el-dialog>
+
+
   </el-container>
+
+
+  
 </template>
 
 <script>
@@ -155,7 +179,12 @@ import Clipboard from 'clipboard'
 import {basicComponents, layoutComponents, advanceComponents} from './componentsConfig.js'
 
 import generateCode from './generateCode.js'
-
+import {
+  getTables,
+  GetFormDetail,
+  AddForm,
+  UpdateForm
+} from "@/api/system/form";
 export default {
   name: 'fm-making-form',
   components: {
@@ -205,8 +234,18 @@ export default {
       widgetModels: {},
       blank: '',
       htmlTemplate: '',
-      jsonTemplate: ''
+      jsonTemplate: '',
+       IsNew: true,
+      tablelist: null,
+      selectform: "",
+      ID: "",
+      dialogFormVisible: false
     }
+  },
+    created() {
+    getTables().then(res => {
+      this.tablelist = res.data;
+    });
   },
   mounted () {
     // // loadCss('https://unpkg.com/jsoneditor/dist/jsoneditor.min.css')
@@ -256,6 +295,44 @@ export default {
         // const editor = ace.edit('codeeditor')
         // editor.session.setMode("ace/mode/html")
       })
+    },
+     save() {
+      let json = this.widgetForm
+      console.log(json);
+      let obj = {
+        id: this.ID,
+        tableName: this.selectform,
+        formJson: json
+      };
+      if (this.IsNew) AddForm(obj);
+      else UpdateForm(obj);
+
+      this.dialogFormVisible = false;
+    },
+    openmodal() {
+      this.dialogFormVisible = true;
+    },
+    select() {
+      GetFormDetail(this.selectform).then(res => {
+        this.dialogFormVisible = false;
+        console.log(res);
+        if (res.data !== null) {
+          this.widgetForm=JSON.parse(res.data.formJson);
+          this.IsNew = false;
+          this.ID = res.data.id;
+        } else {
+
+          this.widgetForm = {
+        list: [],
+        config: {
+          labelWidth: 100,
+          labelPosition: 'top'
+        },
+      },
+          this.IsNew = true;
+          this.ID = "";
+        }
+      });
     }
   },
   watch: {
