@@ -225,11 +225,7 @@ export default {
             resolve(options)
           }, 2000)
         },
-        funcGetToken (resolve) {
-          request.get('http://tools-server.xiaoyaoji.cn/api/uptoken').then(res => {
-            resolve(res.uptoken)
-          })
-        }
+    
       },
       widgetModels: {},
       blank: '',
@@ -248,9 +244,7 @@ export default {
     });
   },
   mounted () {
-    // // loadCss('https://unpkg.com/jsoneditor/dist/jsoneditor.min.css')
-    // // loadJs('https://unpkg.com/jsoneditor/dist/jsoneditor.min.js')
-    // loadJs('lib/ace/src/ace.js')
+    
   },
   methods: {
  

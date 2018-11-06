@@ -22,7 +22,9 @@ import MakingForm from "@/components/FormDesigner/Container";
 export default {
   name: "formdesigner",
   data() {
-    return {};
+    return {
+      
+    }
   },
 
   components: {

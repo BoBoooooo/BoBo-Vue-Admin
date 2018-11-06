@@ -14,7 +14,7 @@
        <el-input ref="test_input" @keyup.enter.native="Refresh" placeholder="请输入" v-model="listQuery.SearchValue"    style="float:left;width:80%">
       
         <el-button slot="append" icon="el-icon-search" v-on:click="Refresh"></el-button>
-         <el-button slot="append" icon="el-icon-refresh" v-on:click="Clear"></el-button>
+         <el-button slot="append" icon="el-icon-refresh" v-on:click="ClearOption"></el-button>
 
           </el-input>   
   </el-col>
@@ -74,7 +74,8 @@
 <generate-form
     :data="jsonData"
     ref="generateForm"
-    :value="temp_obj">
+    :value="temp_obj"
+    :clear="Clear">
 </generate-form>
 
     <upload-affix :Params="uploadParams" ></upload-affix>
@@ -109,6 +110,7 @@ export default {
     return {
       jsonData: null,
       selected: null,
+      Clear:true,
       textMap: {
         update: "编辑",
         create: "新增"
@@ -182,7 +184,7 @@ export default {
     Refresh() {
       this.fetchData(this.listQuery);
     },
-    Clear() {
+    ClearOption() {
       this.listQuery.SearchKey = "";
       this.listQuery.SearchValue = ""; //
 
@@ -199,10 +201,8 @@ export default {
     New() {
       this.dialogStatus = "create";
       this.uploadParams.Param.MasterID = "";
-
-      for (let key in this.temp_obj) {
-        this.temp_obj[key] = "";
-      }
+      this.Clear = true, //表单重新初始化
+   
       this.filelist = null;
       this.dialogFormVisible = true;
     },
@@ -214,11 +214,13 @@ export default {
       }).then(() => {
         DeleteUser(id).then(response => {
           this.fetchData(this.listQuery);
-        });
-      });
+        })
+      })
     },
 
     Edit(id) {
+            this.Clear = false,
+
       this.dialogStatus = "update";
       this.temp_obj.id = id;
       GetUsersDetail(id).then(response => {

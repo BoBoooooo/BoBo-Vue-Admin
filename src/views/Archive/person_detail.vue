@@ -71,7 +71,7 @@
 <generate-form
     :data="jsonData"
     ref="generateForm"
-    :value="temp_obj">
+    :value="temp_obj" :clear="uploadParams.IsDetail" :disabled="disabled">
 </generate-form>
 
     <upload-affix :Params="uploadParams" ></upload-affix>
@@ -94,7 +94,7 @@ import {
 import { getToken } from "@/utils/auth"
 import UploadAffix from "@/components/UploadAffix"
 import { GetFormDetail } from "@/api/system/form"
-import { GenerateForm } from "form-making";
+import GenerateForm from "@/components/FormDesigner/GenerateForm";
 
 export default {
   name:"person_detail",
@@ -109,6 +109,8 @@ export default {
         SearchKey: "",
         SearchValue: ""
       },
+              disabled:true,
+
       uploadParams: {
         Param: {
           MasterID: ""

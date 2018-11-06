@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form ref="generateForm" :model="models" :rules="rules" :label-position="data.config.labelPosition" :label-width="data.config.labelWidth + 'px'">
+    <el-form ref="generateForm" :disabled="disabled" :model="models" :rules="rules" :label-position="data.config.labelPosition" :label-width="data.config.labelWidth + 'px'">
       <template v-for="item in data.list">
 
         <template v-if="item.type == 'grid'">
@@ -47,7 +47,7 @@ export default {
   components: {
     GenetateFormItem
   },
-  props: ['data', 'remote', 'value'],
+  props: ['data', 'remote', 'value','clear','disabled'],
   data () {
     return {
       models: {},
@@ -97,7 +97,11 @@ export default {
       })
     },
     refresh () {
-      
+
+        this.$nextTick(() => {
+      this.$refs.generateForm.resetFields()
+      console.log(222)
+        });
     }
   },
   watch: {
@@ -106,6 +110,15 @@ export default {
       handler (val) {
         console.log(JSON.stringify(val))
         this.models = {...this.models, ...val}
+      }
+    },
+    clear:{
+      immediate:true,
+      deep:true,
+      handler(val){
+        console.log(val)
+        if(val)
+        this.refresh()
       }
     }
   }
