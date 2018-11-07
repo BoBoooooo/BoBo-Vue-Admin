@@ -233,6 +233,19 @@ export const advanceComponents = [
     options: {
       defaultType: 'String'
     }
+  },
+  {
+    type: 'upload',
+    name: '文件上传',
+    icon: 'upload',
+    options: {
+      uploadParams: {
+        Param: {
+          MasterID: ""
+        },
+        IsDetail: false
+      }
+    }
   }
 ]
 

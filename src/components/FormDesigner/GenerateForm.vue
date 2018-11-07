@@ -24,10 +24,8 @@
           </el-row>
         </template>
 
-        <template v-else-if="item.type == 'blank'">
-          <el-form-item :label="item.name" :prop="item.model" :key="item.key">
-            <slot :name="item.model" :model="models"></slot>
-          </el-form-item>
+        <template v-else-if="item.type == 'upload'">
+          <upload-affix :key="item.key" :Params="upload_params||item.options.uploadParams"></upload-affix>
         </template>
 
         <template v-else>
@@ -40,14 +38,26 @@
 </template>
 
 <script>
+//常规组件
 import GenetateFormItem from './GenerateFormItem'
+
+
+///自定义组件
+import UploadAffix from '@/components/UploadAffix'  //上传模块
 
 export default {
   name: 'fm-generate-form',
   components: {
-    GenetateFormItem
+    GenetateFormItem,
+    UploadAffix
   },
-  props: ['data', 'remote', 'value','clear','disabled'],
+  props: ['data', 'remote', 'value','clear','disabled','upload_params'],  
+   //data 初始化表单
+   //remote 异步远程请求方法
+   //value 表单赋值
+   //clear 清空表单
+   //disabled 表单只读
+   //upload_params 自定义 文件上传模块的参数  
   data () {
     return {
       models: {},

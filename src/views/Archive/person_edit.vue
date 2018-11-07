@@ -70,15 +70,15 @@
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="80%" >
      
-   
 <generate-form
     :data="jsonData"
     ref="generateForm"
     :value="temp_obj"
-    :clear="Clear">
+    :clear="Clear"
+    :upload_params="uploadParams">
 </generate-form>
 
-    <upload-affix :Params="uploadParams" ></upload-affix>
+    <!-- <upload-affix :Params="uploadParams" ></upload-affix> -->
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
         <el-button v-if="dialogStatus=='create'" type="primary" @click="create">新 增</el-button>

@@ -139,10 +139,12 @@
             :style="{width: element.options.width}"
           ></el-slider>
         </template>
-
-        <template v-if="element.type=='blank'">
-          <div style="height: 50px;color: #999;background: #eee;line-height:50px;text-align:center;">自定义区域</div>
+ <template v-if="element.type=='upload'">
+   <upload-affix :Params="element.options.uploadParams"></upload-affix>
         </template>
+        <!-- <template v-if="element.type=='blank'">
+          <div style="height: 50px;color: #999;background: #eee;line-height:50px;text-align:center;">自定义区域</div>
+        </template> -->
 
         <el-button title="删除" @click.stop="handleWidgetDelete(index)" class="widget-action-delete" v-if="selectWidget.key == element.key" circle plain type="danger">
           <icon name="regular/trash-alt" style="width: 12px;height: 12px;"></icon>
@@ -173,10 +175,13 @@ import 'vue-awesome/icons/toggle-off'
 import 'vue-awesome/icons/sliders-h'
 import 'vue-awesome/icons/regular/image'
 import 'vue-awesome/icons/chalkboard'
+import UploadAffix from '@/components/UploadAffix'  //上传模块
+
 export default {
   props: ['element', 'select', 'index', 'data'],
   components: {
-    icon
+    icon,
+    UploadAffix
   },
   data () {
     return {

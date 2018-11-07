@@ -172,6 +172,8 @@ import 'vue-awesome/icons/toggle-off'
 import 'vue-awesome/icons/sliders-h'
 import 'vue-awesome/icons/regular/image'
 import 'vue-awesome/icons/chalkboard'
+import 'vue-awesome/icons/upload'
+
 import GenerateForm from './GenerateForm'
 // import JSONEditor from 'jsoneditor'
 // import 'jsoneditor/dist/jsoneditor.min.css'
