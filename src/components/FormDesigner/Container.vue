@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-aside style="wdith: 250px;">
+    <el-aside style="width: 20%;max-width:250px">
 
       <div class="components-list">
         <div class="widget-cate">基础字段</div>
@@ -71,15 +71,19 @@
       </el-main>
     </el-container>
     
-    <el-aside class="widget-config-container">
+    <el-aside class="widget-config-container" style="width:30%;">
       <el-container>
         <el-header height="45px">
           <div class="config-tab" :class="{active: configTab=='widget'}" @click="handleConfigSelect('widget')">字段属性</div>
           <div class="config-tab" :class="{active: configTab=='form'}" @click="handleConfigSelect('form')">表单属性</div>
+               <div class="config-tab" :class="{active: configTab=='list'}" @click="handleConfigSelect('list')">列表属性</div>
+
         </el-header>
         <el-main class="config-content">
           <widget-config v-show="configTab=='widget'" :data="widgetFormSelect"></widget-config>
           <form-config v-show="configTab=='form'" :data="widgetForm.config"></form-config>
+          <list-config v-show="configTab=='list'" :data="widgetForm.config" :tablename="selectform"></list-config>
+
         </el-main>
       </el-container>
       
@@ -152,6 +156,8 @@
 import Draggable from 'vuedraggable'
 import WidgetConfig from './WidgetConfig'
 import FormConfig from './FormConfig'
+import ListConfig from './ListConfig'
+
 import WidgetForm from './WidgetForm'
 import CusDialog from './CusDialog'
 import icon from 'vue-awesome/components/Icon'
@@ -175,8 +181,8 @@ import 'vue-awesome/icons/chalkboard'
 import 'vue-awesome/icons/upload'
 
 import GenerateForm from './GenerateForm'
-// import JSONEditor from 'jsoneditor'
-// import 'jsoneditor/dist/jsoneditor.min.css'
+ import JSONEditor from 'jsoneditor'
+ import 'jsoneditor/dist/jsoneditor.min.css'
 import Clipboard from 'clipboard'
 import {basicComponents, layoutComponents, advanceComponents} from './componentsConfig.js'
 
@@ -193,6 +199,7 @@ export default {
     Draggable,
     WidgetConfig,
     FormConfig,
+    ListConfig,
     WidgetForm,
     CusDialog,
     GenerateForm,
@@ -207,11 +214,14 @@ export default {
         list: [],
         config: {
           labelWidth: 100,
-          labelPosition: 'top'
+          labelPosition: 'top',
+                    columnList:[]
+
         },
+       
       },
       configTab: 'widget',
-      widgetFormSelect: null,
+      widgetFormSelect: "",
       previewVisible: false,
       jsonVisible: false,
       codeVisible: false,
@@ -278,8 +288,8 @@ export default {
       this.jsonTemplate = this.widgetForm
       this.$nextTick(() => {
 
-        // const editor = ace.edit('jsoneditor')
-        // // editor.session.setMode("ace/mode/json")
+        const editor = ace.edit('jsoneditor')
+       editor.session.setMode("ace/mode/json")
 
         const btnCopy = new Clipboard('#copybtn')
       })
@@ -322,8 +332,11 @@ export default {
         list: [],
         config: {
           labelWidth: 100,
-          labelPosition: 'top'
+          labelPosition: 'top',
+                              columnList:[]
+
         },
+      
       },
           this.IsNew = true;
           this.ID = "";
@@ -347,8 +360,11 @@ export default {
 @import './styles/index.scss';
 
 .widget-empty{
-  background: url('./assets/form_empty.png') no-repeat;
-  background-position: 50%;
+  background: url('../../assets/form_bg.png') no-repeat;
+  background-position: 50% 30%;
+  background-size:80%;
+  // background-size: 30% 30%;
+  
 }
 
 </style>

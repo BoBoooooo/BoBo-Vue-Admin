@@ -1,15 +1,15 @@
 <template>
   <div class="app-container" id="person">
-<el-row>
+<el-row style="margin-bottom:10px">
   <el-col :span="2">
-      <el-button @click="New()" type="primary" size="small">新增</el-button>
+
+      <el-button type="success" @click="New()"  icon="el-icon-plus" ></el-button>
+
   </el-col>
   <el-col :span="22">
  <el-select v-model="listQuery.SearchKey"  placeholder="请选择"  style="float:left;width:20%">
-      <el-option label="姓名" value="name"></el-option>
-      <el-option label="工作单位" value="workunit"></el-option>
-      <el-option label="职务" value="workduty"></el-option>
-      <el-option label="职级" value="worklevel"></el-option>
+      <el-option v-for="(item,index) in jsonData.config.columnList" :label="item.label" :value="item.value" :key="index"></el-option>
+    
   </el-select>
        <el-input ref="test_input" @keyup.enter.native="Refresh" placeholder="请输入" v-model="listQuery.SearchValue"    style="float:left;width:80%">
       
@@ -20,41 +20,16 @@
   </el-col>
 </el-row>
     
-    <br>
 
     <el-table :default-sort="{prop: 'name', order: 'descending'}" :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
-  
-      <el-table-column label="姓名" prop="name" sortable align="center">
-        <template slot-scope="scope">
-          {{scope.row.name}}
-        </template>
+      <el-table-column  v-for="(item,index) in jsonData.config.columnList"  :key="index" :label="item.label" :prop="item.value" sortable align="center">
       </el-table-column>
-      <el-table-column label="性别" prop="gender" sortable align="center">
-        <template slot-scope="scope">
-          <span>{{scope.row.gender}}</span>
-        </template>
-      </el-table-column>
-     <el-table-column label="工作单位" prop="workunit"  sortable align="center">
-        <template slot-scope="scope">
-          {{scope.row.workunit}}
-        </template>
-      </el-table-column>
-      <el-table-column label="职务"  prop="workduty"  sortable align="center">
-        <template slot-scope="scope">
-          {{scope.row.workduty}}
-        </template>
-      </el-table-column>
-      <el-table-column label="职级" prop="worklevel"  sortable align="center">
-        <template slot-scope="scope">
-          {{scope.row.worklevel}}
-        </template>
-      </el-table-column>
-
       <el-table-column label="操作" align="center" min-width="110px">
         <template slot-scope="scope">
-          <el-button @click="Edit(scope.row.id)" type="success" size="small">编辑</el-button>
+           <el-button type="primary" icon="el-icon-edit" circle @click="Edit(scope.row.id)"></el-button>
 
-          <el-button @click="Delete(scope.row.id)" type="danger" size="small">删除</el-button>
+            <el-button type="danger" icon="el-icon-delete" circle  @click="Delete(scope.row.id)" ></el-button>
+
         </template>
       </el-table-column>
     </el-table>
@@ -70,15 +45,14 @@
 
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="80%" >
      
-<generate-form
-    :data="jsonData"
-    ref="generateForm"
-    :value="temp_obj"
-    :clear="Clear"
-    :upload_params="uploadParams">
-</generate-form>
+    <generate-form
+        :data="jsonData"
+        ref="generateForm"
+        :value="temp_obj"
+        :clear="Clear"
+        :upload_params="uploadParams">
+    </generate-form>
 
-    <!-- <upload-affix :Params="uploadParams" ></upload-affix> -->
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
         <el-button v-if="dialogStatus=='create'" type="primary" @click="create">新 增</el-button>
@@ -108,9 +82,12 @@ export default {
   name: "person_edit",
   data() {
     return {
-      jsonData: null,
+      jsonData: {
+        list:[],
+        config:{}
+      },
       selected: null,
-      Clear:true,
+      Clear: true,
       textMap: {
         update: "编辑",
         create: "新增"
@@ -149,22 +126,21 @@ export default {
   },
 
   created() {
-    this.fetchData(this.listQuery)
-    this.getObj()
-        GetFormDetail("Person").then(res => {
+    this.fetchData(this.listQuery);
+    this.getObj();
+    GetFormDetail("Person").then(res => {
       this.jsonData = JSON.parse(res.data.formJson);
-    })
+    });
   },
 
   mounted() {
-
     document.addEventListener("click", e => {
       // console.log(e.target);
       // console.log(this.$refs.test_input.$el);
       if (!this.$refs.test_input.$el.contains(e.target)) {
         //
       }
-    })
+    });
   },
   methods: {
     newGuid,
@@ -202,9 +178,8 @@ export default {
     New() {
       this.dialogStatus = "create";
       this.uploadParams.Param.MasterID = "";
-      this.Clear = true, //表单重新初始化
-   
-      this.filelist = null;
+      this.Clear = true //表单重新初始化
+      this.filelist = null
       this.dialogFormVisible = true;
     },
     Delete(id) {
@@ -215,15 +190,12 @@ export default {
       }).then(() => {
         DeleteUser(id).then(response => {
           this.fetchData(this.listQuery);
-        })
-      })
+        });
+      });
     },
-  
 
     Edit(id) {
-            this.Clear = false,
-
-      this.dialogStatus = "update";
+      (this.Clear = false), (this.dialogStatus = "update");
       this.temp_obj.id = id;
       GetUsersDetail(id).then(response => {
         this.temp_obj = response.data;

@@ -39,100 +39,102 @@
 
 <script>
 //常规组件
-import GenetateFormItem from './GenerateFormItem'
-
+import GenetateFormItem from "./GenerateFormItem";
 
 ///自定义组件
-import UploadAffix from '@/components/UploadAffix'  //上传模块
+import UploadAffix from "@/components/UploadAffix"; //上传模块
 
 export default {
-  name: 'fm-generate-form',
+  name: "fm-generate-form",
   components: {
     GenetateFormItem,
     UploadAffix
   },
-  props: ['data', 'remote', 'value','clear','disabled','upload_params'],  
-   //data 初始化表单
-   //remote 异步远程请求方法
-   //value 表单赋值
-   //clear 清空表单
-   //disabled 表单只读
-   //upload_params 自定义 文件上传模块的参数  
-  data () {
+  props: ["data", "remote", "value", "clear", "disabled", "upload_params"],
+  //data 初始化表单
+  //remote 异步远程请求方法
+  //value 表单赋值
+  //clear 清空表单
+  //disabled 表单只读
+  //upload_params 自定义 文件上传模块的参数
+  data() {
     return {
       models: {},
       rules: {}
-    }
+    };
   },
-  created () {
-    this.generateModle(this.data.list)
+  created() {
+    this.generateModle(this.data.list);
   },
   methods: {
-    generateModle (genList) {
+    generateModle(genList) {
       for (let i = 0; i < genList.length; i++) {
-        if (genList[i].type === 'grid') {
+        if (genList[i].type === "grid") {
           genList[i].columns.forEach(item => {
-            this.generateModle(item.list)
-          })
+            this.generateModle(item.list);
+          });
         } else {
           if (Object.keys(this.value).indexOf(genList[i].model) >= 0) {
-            this.models[genList[i].model] = this.value[genList[i].model]
+            this.models[genList[i].model] = this.value[genList[i].model];
           } else {
-            if (genList[i].type === 'blank') {
-              this.models[genList[i].model] = genList[i].options.defaultType === 'String' ? '' : (genList[i].options.defaultType === 'Object' ? {} : [])
+            if (genList[i].type === "blank") {
+              this.models[genList[i].model] =
+                genList[i].options.defaultType === "String"
+                  ? ""
+                  : genList[i].options.defaultType === "Object"
+                    ? {}
+                    : [];
             } else {
-              this.models[genList[i].model] = genList[i].options.defaultValue
+              this.models[genList[i].model] = genList[i].options.defaultValue;
             }
-            
           }
-          
+
           if (this.rules[genList[i].model]) {
-            this.rules[genList[i].model] = [...this.rules[genList[i].model], ...genList[i].rules]
+            this.rules[genList[i].model] = [
+              ...this.rules[genList[i].model],
+              ...genList[i].rules
+            ];
           } else {
-            this.rules[genList[i].model] = [...genList[i].rules]
+            this.rules[genList[i].model] = [...genList[i].rules];
           }
-          
         }
       }
-
     },
-    getData () {
+    getData() {
       return new Promise((resolve, reject) => {
         this.$refs.generateForm.validate(valid => {
           if (valid) {
-            resolve(this.models)
+            resolve(this.models);
           } else {
-            reject(new Error('表单数据校验失败').message)
+            reject(new Error("表单数据校验失败").message);
           }
-        })
-      })
+        });
+      });
     },
-    refresh () {
-
-                  for(let key in this.models){
-                    console.log(key)
-                    this.models[key] = ""
-                  }
+    refresh() {
+      for (let key in this.models) {
+        console.log(key);
+        this.models[key] = "";
+      }
     }
   },
   watch: {
     value: {
       deep: true,
-      handler (val) {
-        console.log(JSON.stringify(val))
-        this.$refs.generateForm.clearValidate()
-        this.models = {...this.models, ...val}
+      handler(val) {
+        console.log(JSON.stringify(val));
+        this.$refs.generateForm.clearValidate();
+        this.models = { ...this.models, ...val };
       }
     },
-    clear:{
-      immediate:true,
-      deep:true,
-      handler(val){
-        console.log(val)
-        if(val)
-        this.refresh()
+    clear: {
+      immediate: true,
+      deep: true,
+      handler(val) {
+        console.log(val);
+        if (val) this.refresh();
       }
     }
   }
-}
+};
 </script>

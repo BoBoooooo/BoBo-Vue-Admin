@@ -1,8 +1,19 @@
 import fetch from '@/utils/fetch'
 export function getTables(){
     return fetch({
-        url: '/form/GetTables',
+        url: '/form/getTables',
         method: 'post',
+
+      })
+}
+
+export function getKeyBytableName(tablename){
+    return fetch({
+        url: '/form/getKey',
+        method: 'post',
+        params:{
+            tablename
+        }
 
       })
 }

@@ -55,7 +55,8 @@ $primary-background-color: #ecf5ff;
   .form-edit-widget-label{
     font-size: 12px;
     display: block;
-    width: 48%;
+    width: 100px;
+
     line-height: 26px;
     position: relative;
     float: left;
@@ -204,7 +205,7 @@ $primary-background-color: #ecf5ff;
 
 .widget-config-container{
   position: relative;
-
+  
   .el-header{
     border-bottom: solid 2px #e4e7ed;
     padding: 0 5px;
@@ -214,7 +215,7 @@ $primary-background-color: #ecf5ff;
     height: 45px;
     line-height: 45px;
     display: inline-block;
-    width: 142px;
+    width: 32%;
     text-align: center;
     font-size: 14px;
     font-weight: 500;
@@ -228,7 +229,7 @@ $primary-background-color: #ecf5ff;
 
   .config-content{
     padding: 10px;
-
+    margin-top:30px;
     .el-form-item__label{
       padding: 0;
       font-weight: 500;

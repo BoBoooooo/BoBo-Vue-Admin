@@ -2,6 +2,7 @@
   <div class="dashboard-container">
     <!-- <Aplayer></Aplayer> -->
       <github-corner></github-corner>
+   
     <el-row>
       <el-col :span="6" :offset="1">
         <el-card :body-style="{ padding: '15px 0px',height:'250px'}">
