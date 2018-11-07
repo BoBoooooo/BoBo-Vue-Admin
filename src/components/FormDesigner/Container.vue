@@ -58,7 +58,7 @@
              <span style="margin-left:20px;float:left" v-if="selectform!==''">正在制作:{{selectform}}</span>
       <el-button style="border:none" @click="save"><svg-icon icon-class="icons"></svg-icon>
 保存</el-button>
-       <el-button style="border:none;margin-right:0px" @click="openmodal"><svg-icon icon-class="icons"></svg-icon>
+       <el-button style="border:none;margin-right:0px" @click="openmodal"><svg-icon icon-class="wujiaoxing"></svg-icon>
 选择要制作的表</el-button>
         <!-- <el-button type="text" size="medium" @click="handleGoGithub">GitHub</el-button> -->
         <el-button type="text" size="medium" icon="el-icon-view" @click="handlePreview">预览</el-button>

@@ -226,14 +226,7 @@ export const basicComponents = [
 ]
 
 export const advanceComponents = [
-  {
-    type: 'blank',
-    name: '自定义',
-    icon: 'chalkboard',
-    options: {
-      defaultType: 'String'
-    }
-  },
+  
   {
     type: 'upload',
     name: '文件上传',
