@@ -26,7 +26,7 @@
    
        <el-form-item>
          
-        <el-button :loading="loading" type="default" style="width:100%;background:rbg(170,198,190)" @click.native.prevent="handleLogin">
+        <el-button  :loading="loading" type="default" style="width:100%;background:rbg(170,198,190)" @click.native.prevent="handleLogin">
             <svg-icon icon-class="login" style="font-size:24px"></svg-icon>
         </el-button>
       </el-form-item>
@@ -133,8 +133,11 @@ $light_gray:#fff;
     width: 300px;
     max-width: 100%;
     padding: 20px 35px;
-   
+
+  
+
   }
+  
   .tips {
     font-size: 14px;
     color: #fff;
@@ -151,6 +154,7 @@ $light_gray:#fff;
     vertical-align: middle;
     width: 30px;
     display: inline-block;
+    
   }
   .title {
     font-size: 26px;
@@ -168,6 +172,7 @@ $light_gray:#fff;
     color: $dark_gray;
     cursor: pointer;
     user-select: none;
+    
   }
 }
 </style>

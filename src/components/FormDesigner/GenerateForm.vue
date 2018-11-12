@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-form ref="generateForm" :disabled="disabled" :model="models" :rules="rules" :label-position="data.config.labelPosition" :label-width="data.config.labelWidth + 'px'">
-      <template v-for="item in data.list">
+      <template v-for="item in formJson">
 
         <template v-if="item.type == 'grid'">
           <el-row
@@ -60,11 +60,13 @@ export default {
   data() {
     return {
       models: {},
-      rules: {}
+      rules: {},
+      formJson:{}
     };
   },
   created() {
-    this.generateModle(this.data.list);
+    this.formJson = this.data.list
+    this.generateModle(this.formJson);
   },
   methods: {
     generateModle(genList) {
@@ -112,17 +114,13 @@ export default {
       });
     },
     refresh() {
-      for (let key in this.models) {
-        console.log(key);
-        this.models[key] = "";
-      }
+    
     }
   },
   watch: {
     value: {
       deep: true,
       handler(val) {
-        console.log(JSON.stringify(val));
         this.$refs.generateForm.clearValidate();
         this.models = { ...this.models, ...val };
       }
@@ -131,8 +129,12 @@ export default {
       immediate: true,
       deep: true,
       handler(val) {
-        console.log(val);
-        if (val) this.refresh();
+        if(val){
+            for(let key in this.models){
+              this.models[key]=""
+            }
+        }
+       
       }
     }
   }

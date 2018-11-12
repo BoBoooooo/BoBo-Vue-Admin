@@ -46,9 +46,9 @@ export default new Router({
       title:"廉政档案",
       icon:'yonghuming',
       children: [
-        { path: 'person_edit', name: 'person_edit',title:"档案编辑", component: ()=>import('@/views/Archive/person_edit'),meta:{title:"廉政档案编辑"}},
-        { path: 'person_detail', name: 'person_detail',title:"档案查看", component: ()=>import('@/views/Archive/person_detail'),meta:{title:"廉政档案查看"}},
-        { path: 'person_count', name: 'person_count',title:"数据统计", component: ()=>import('@/views/Archive/person_count'),meta:{title:"廉政档案统计"}}
+        { path: 'person_edit', name: 'person_edit',component: ()=>import('@/views/Archive/person_edit'),meta:{title:"廉政档案编辑"}},
+        { path: 'person_detail', name: 'person_detail', component: ()=>import('@/views/Archive/person_detail'),meta:{title:"廉政档案查看"}},
+        { path: 'person_count', name: 'person_count', component: ()=>import('@/views/Archive/person_count'),meta:{title:"廉政档案统计"}}
 
       ]
     },
@@ -60,9 +60,9 @@ export default new Router({
       title:"豆瓣查询",
       icon:'tubiao',
       children: [
-        { path: 'movie', name: 'movie',title:"热门电影", component: ()=>import('@/views/DouBan/movie'),meta:{title:"热门电影"}},
-        { path: 'music', name: 'music',title:"热门音乐", component: ()=>import('@/views/DouBan/music'),meta:{title:"热门音乐"}},
-        { path: 'book', name: 'book',title:"热门书籍", component: ()=>import('@/views/DouBan/book'),meta:{title:"热门书籍"}}
+        { path: 'movie', name: 'movie', component: ()=>import('@/views/DouBan/movie'),meta:{title:"热门电影"}},
+        { path: 'music', name: 'music', component: ()=>import('@/views/DouBan/music'),meta:{title:"热门音乐"}},
+        { path: 'book', name: 'book', component: ()=>import('@/views/DouBan/book'),meta:{title:"热门书籍"}}
 
       ]
     },
@@ -75,10 +75,10 @@ export default new Router({
       title:"系统设置",
       icon:'zujian',
       children: [
-        { path: 'users', name: 'users',title:"用户设置", component: ()=>import('@/views/system/users'),meta:{title:"用户设置"}},
-        { path: 'dept', name: 'dept',title:"部门设置", component: ()=>import('@/views/system/dept'),meta:{title:"部门设置"}},
-        { path: 'role', name: 'role',title:"角色设置", component: ()=>import('@/views/system/role'),meta:{title:"角色设置"}},
-        { path: 'formdesigner', name: 'formdesigner',title:"表单设计", component: ()=>import('@/views/system/formdesigner'),meta:{title:"表单设计"}},
+        { path: 'users', name: 'users',component: ()=>import('@/views/system/users'),meta:{title:"用户设置"}},
+        { path: 'dept', name: 'dept',component: ()=>import('@/views/system/dept'),meta:{title:"部门设置"}},
+        { path: 'role', name: 'role', component: ()=>import('@/views/system/role'),meta:{title:"角色设置"}},
+        { path: 'formdesigner', name: 'formdesigner', component: ()=>import('@/views/system/formdesigner'),meta:{title:"表单设计"}},
 
       ]
     },
