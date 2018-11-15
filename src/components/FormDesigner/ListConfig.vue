@@ -4,17 +4,19 @@
 
 <el-form   ref="dynamicValidateForm" label-width="100px" class="demo-dynamic">
 
-  <el-form-item
-    v-for="(item, index) in allList"
+   <draggable v-model="config.columnList" :options = "{animation:500}">
+            <transition-group>
+                <el-form-item
+    v-for="(item, index) in config.columnList"
     :key="index"
   >
 
       <el-select v-model="item.key" class="inline" placeholder="选择字段名">
-        <option
-         v-for="(item, index) in selectList"
+        <el-option
+         v-for="(subitem, index) in selectList"
              :key="index"
-:label="item.label" :value="item.value"
-        ></option>
+:label="subitem.COLUMN_NAME" :value="subitem.COLUMN_NAME"
+        ></el-option>
       </el-select>
 
       <el-input v-model="item.label" class="inline" placeholder="输入列标题"></el-input>
@@ -23,28 +25,40 @@
     <el-button @click.prevent="removeDomain(item)" circle icon="el-icon-minus"  class="inline_button"></el-button>
 
   </el-form-item>
+            </transition-group>
+    </draggable>
+
+  
   <el-form-item>
-    <el-button @click="addDomain" circle icon="el-icon-plus"></el-button>
+    <el-button style="text-align:center" @click="addDomain" circle icon="el-icon-plus"></el-button>
   </el-form-item>
 </el-form>
 </template>
 
 <script>
+import Draggable from 'vuedraggable'
 import { getKeyBytableName } from "@/api/system/form";
 export default {
   data() {
     return {
-      selectList: []
+      selectList: [],
+      finalList:[]
     };
   },
-  props: ["tablename", "allList"],
+  components:{
+    Draggable
+  },
+
+  props: ["tablename", "config"],
   watch: {
     tablename: {
       immediate: true,
       handler(val) {
-        console.log(222);
-        getKeyBytableName(response => {
-          this.selectList = response.list;
+        getKeyBytableName(this.tablename).then(response => {
+          this.selectList = response.data;
+          this.selectList.forEach(item=>{
+            item["COLUMN_NAME"]=item["COLUMN_NAME"].toLowerCase()
+          })
         });
       }
     }
@@ -59,8 +73,7 @@ export default {
     addDomain() {
       this.allList.push({
         label: "",
-        key: "",
-        value: ""
+        key: ""
       });
     }
   }
@@ -73,5 +86,9 @@ export default {
 }
 .inline_button {
   float: left;
+}
+
+form{
+  width:100%
 }
 </style>

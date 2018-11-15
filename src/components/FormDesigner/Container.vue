@@ -15,6 +15,65 @@
         <el-button type="text" size="medium" icon="el-icon-view" @click="handlePreview">预览</el-button>
         <el-button type="text" size="medium" icon="el-icon-tickets" @click="handleGenerateJson">生成JSON</el-button>
   </div>
+
+
+
+    <cus-dialog
+      :visible="previewVisible"
+      @on-close="previewVisible = false"
+      ref="widgetPreview"
+      @on-submit="handleTest"
+      width="1000px"
+      form
+    >
+      <generate-form v-if="previewVisible" :data="widgetForm" :remote="remoteFuncs" :value="widgetModels" ref="generateForm">
+
+        <template slot="blank" slot-scope="scope">
+          宽度：<el-input v-model="scope.model.blank.width" style="width: 100px"></el-input>
+          高度：<el-input v-model="scope.model.blank.height" style="width: 100px"></el-input>
+        </template>
+      </generate-form>
+    </cus-dialog>
+
+    <cus-dialog
+      :visible="jsonVisible"
+      @on-close="jsonVisible = false"
+      ref="jsonPreview"
+      width="800px"
+      form
+    >
+      <div id="jsoneditor" style="height: 400px;width: 100%;">{{jsonTemplate}}</div>
+      
+      <template slot="action">
+        <el-button id="copybtn" data-clipboard-target=".ace_text-input">双击复制</el-button>
+      </template>
+    </cus-dialog>
+
+    <cus-dialog
+      :visible="codeVisible"
+      @on-close="codeVisible = false"
+      ref="codePreview"
+      width="800px"
+      form
+      :action="false"
+    >
+      <div id="codeeditor" style="height: 500px; width: 100%;">{{htmlTemplate}}</div>
+    </cus-dialog>
+
+
+     <el-dialog title="选择表单"  :visible.sync="dialogFormVisible" >
+     <el-select v-model="selectform" placeholder="请选择">
+    <el-option
+ v-for="(item, index) in tablelist"
+ :key="index"
+      :label="item.table_name"
+      :value="item.table_name">
+    </el-option>
+  </el-select>
+
+  <el-button @click="select">选择</el-button>
+  </el-dialog>
+
    </el-header>
 
   <el-container v-show="configTab=='formcontainer'||configTab=='form'||configTab=='widget'">
@@ -95,62 +154,6 @@
       
     </el-aside>
 
-    <cus-dialog
-      :visible="previewVisible"
-      @on-close="previewVisible = false"
-      ref="widgetPreview"
-      @on-submit="handleTest"
-      width="1000px"
-      form
-    >
-      <generate-form v-if="previewVisible" :data="widgetForm" :remote="remoteFuncs" :value="widgetModels" ref="generateForm">
-
-        <template slot="blank" slot-scope="scope">
-          宽度：<el-input v-model="scope.model.blank.width" style="width: 100px"></el-input>
-          高度：<el-input v-model="scope.model.blank.height" style="width: 100px"></el-input>
-        </template>
-      </generate-form>
-    </cus-dialog>
-
-    <cus-dialog
-      :visible="jsonVisible"
-      @on-close="jsonVisible = false"
-      ref="jsonPreview"
-      width="800px"
-      form
-    >
-      <div id="jsoneditor" style="height: 400px;width: 100%;">{{jsonTemplate}}</div>
-      
-      <template slot="action">
-        <el-button id="copybtn" data-clipboard-target=".ace_text-input">双击复制</el-button>
-      </template>
-    </cus-dialog>
-
-    <cus-dialog
-      :visible="codeVisible"
-      @on-close="codeVisible = false"
-      ref="codePreview"
-      width="800px"
-      form
-      :action="false"
-    >
-      <div id="codeeditor" style="height: 500px; width: 100%;">{{htmlTemplate}}</div>
-    </cus-dialog>
-
-
-     <el-dialog title="选择表单"  :visible.sync="dialogFormVisible" >
-     <el-select v-model="selectform" placeholder="请选择">
-    <el-option
- v-for="(item, index) in tablelist"
- :key="index"
-      :label="item.table_name"
-      :value="item.table_name">
-    </el-option>
-  </el-select>
-
-  <el-button @click="select">选择</el-button>
-  </el-dialog>
-
 </el-container>
 
 
@@ -159,7 +162,7 @@
   <el-container v-show="configTab=='listcontainer'">
 
  
-          <list-config  :allList="widgetForm.config.columnList" :tablename="selectform"></list-config>
+          <list-config  :config="widgetForm.config" :tablename="selectform"></list-config>
 
   </el-container>
 

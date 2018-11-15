@@ -8,7 +8,7 @@
   </el-col>
   <el-col :span="22">
  <el-select v-model="listQuery.SearchKey"  placeholder="请选择"  style="float:left;width:20%">
-      <el-option v-for="(item,index) in jsonData.config.columnList" :label="item.label" :value="item.value" :key="index"></el-option>
+      <el-option v-for="(item,index) in jsonData.config.columnList" :label="item.label" :value="item.key" :key="index"></el-option>
     
   </el-select>
        <el-input ref="test_input" @keyup.enter.native="Refresh" placeholder="请输入" v-model="listQuery.SearchValue" style="float:left;width:80%">
@@ -30,7 +30,7 @@
     
 
     <el-table :default-sort="{prop: 'name', order: 'descending'}" :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
-      <el-table-column  v-for="(item,index) in jsonData.config.columnList"  :key="index" :label="item.label" :prop="item.value" sortable align="center">
+      <el-table-column  v-for="(item,index) in jsonData.config.columnList"  :key="index" :label="item.label" :prop="item.key" sortable align="center">
       </el-table-column>
       <el-table-column label="操作" align="center" min-width="110px">
         <template slot-scope="scope">
