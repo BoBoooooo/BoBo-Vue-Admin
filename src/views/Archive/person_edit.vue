@@ -11,12 +11,20 @@
       <el-option v-for="(item,index) in jsonData.config.columnList" :label="item.label" :value="item.value" :key="index"></el-option>
     
   </el-select>
-       <el-input ref="test_input" @keyup.enter.native="Refresh" placeholder="请输入" v-model="listQuery.SearchValue"    style="float:left;width:80%">
+       <el-input ref="test_input" @keyup.enter.native="Refresh" placeholder="请输入" v-model="listQuery.SearchValue" style="float:left;width:80%">
       
         <el-button slot="append" icon="el-icon-search" v-on:click="Refresh"></el-button>
          <el-button slot="append" icon="el-icon-refresh" v-on:click="ClearOption"></el-button>
-
-          </el-input>   
+          
+<!-- <el-button slot="append"  class="buttonVisible" :icon="buttonVisible"  @click="changeVisible" >
+     <el-select v-show="buttonVisible=='el-icon-arrow-up'" class="buttonVisible_select" v-model="listQuery.SearchKey"  placeholder="请选择" style="float:left;width:20%">
+      <el-option v-for="(item,index) in jsonData.config.columnList" :label="item.label" :value="item.value" :key="index"></el-option>
+    
+  </el-select>
+         <el-input ref="test_input"  placeholder="请输入" v-model="listQuery.SearchValue" style="float:left;width:80%">
+         </el-input>
+  </el-button> -->
+   </el-input>  
   </el-col>
 </el-row>
     
@@ -83,8 +91,8 @@ export default {
   data() {
     return {
       jsonData: {
-        list:[],
-        config:{}
+        list: [],
+        config: {}
       },
       selected: null,
       Clear: true,
@@ -117,7 +125,8 @@ export default {
       defaultProps: {
         children: "children",
         label: "text"
-      }
+      },
+      buttonVisible: "el-icon-arrow-down"
     };
   },
   components: {
@@ -143,6 +152,11 @@ export default {
     });
   },
   methods: {
+    changeVisible() {
+      if (this.buttonVisible == "el-icon-arrow-down")
+        this.buttonVisible = "el-icon-arrow-up";
+      else this.buttonVisible = "el-icon-arrow-down";
+    },
     newGuid,
     getObj() {
       getObj().then(res => {
@@ -178,9 +192,13 @@ export default {
     New() {
       this.dialogStatus = "create";
       this.uploadParams.Param.MasterID = "";
-      this.Clear = true //表单重新初始化
-      this.filelist = null
+      this.filelist = null;
       this.dialogFormVisible = true;
+              this.$nextTick(()=>{
+            this.Clear = true; //表单重新初始化
+
+              })
+
     },
     Delete(id) {
       this.$confirm("确认删除?", "提示", {
@@ -195,13 +213,15 @@ export default {
     },
 
     Edit(id) {
-      (this.Clear = false), (this.dialogStatus = "update");
+      this.dialogStatus = "update"
       this.temp_obj.id = id;
       GetUsersDetail(id).then(response => {
         this.temp_obj = response.data;
         this.uploadParams.Param.MasterID = id;
 
         this.dialogFormVisible = true;
+              this.Clear = false
+
       });
     },
 
@@ -257,3 +277,18 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.buttonVisible {
+  position: relative;
+  min-height: 50px;
+  height: auto;
+  .buttonVisible_select {
+    position: absolute;
+    top: 100px;
+    width:500px;
+    z-index:10;
+    right: 0;
+  }
+}
+</style>

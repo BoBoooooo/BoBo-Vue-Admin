@@ -1,5 +1,23 @@
 <template>
-  <el-container>
+  
+  <el-container class="widget-config-container"> 
+   <el-header style="height:auto;padding-left:0px">
+   
+                   <div class="config-tab2" :class="{active: configTab=='formcontainer'}" @click="handleConfigSelect('formcontainer')">表单设计</div>
+                   <div class="config-tab2" :class="{active: configTab=='listcontainer'}" @click="handleConfigSelect('listcontainer')">列表设计</div>
+             <div style="float:right">
+             <span style="margin-left:20px;" v-if="selectform!==''">正在制作:{{selectform}}</span>
+      <el-button style="border:none" @click="save"><svg-icon icon-class="icons"></svg-icon>
+保存</el-button>
+       <el-button style="border:none;" @click="openmodal"><svg-icon icon-class="wujiaoxing"></svg-icon>
+选择表</el-button>
+        <!-- <el-button type="text" size="medium" @click="handleGoGithub">GitHub</el-button> -->
+        <el-button type="text" size="medium" icon="el-icon-view" @click="handlePreview">预览</el-button>
+        <el-button type="text" size="medium" icon="el-icon-tickets" @click="handleGenerateJson">生成JSON</el-button>
+  </div>
+   </el-header>
+
+  <el-container v-show="configTab=='formcontainer'||configTab=='form'||configTab=='widget'">
     <el-aside style="width: 20%;max-width:250px">
 
       <div class="components-list">
@@ -54,17 +72,7 @@
       
     </el-aside>
     <el-container class="center-container" direction="vertical">
-      <el-header class="btn-bar" style="height: 45px;">
-             <span style="margin-left:20px;float:left" v-if="selectform!==''">正在制作:{{selectform}}</span>
-      <el-button style="border:none" @click="save"><svg-icon icon-class="icons"></svg-icon>
-保存</el-button>
-       <el-button style="border:none;margin-right:0px" @click="openmodal"><svg-icon icon-class="wujiaoxing"></svg-icon>
-选择要制作的表</el-button>
-        <!-- <el-button type="text" size="medium" @click="handleGoGithub">GitHub</el-button> -->
-        <el-button type="text" size="medium" icon="el-icon-view" @click="handlePreview">预览</el-button>
-        <el-button type="text" size="medium" icon="el-icon-tickets" @click="handleGenerateJson">生成JSON</el-button>
-        <!-- <el-button type="text" size="medium" icon="el-icon-document" @click="handleGenerateCode">生成代码</el-button> -->
-      </el-header>
+    
       <el-main :class="{'widget-empty': widgetForm.list.length == 0}">
         
         <widget-form ref="widgetForm" :data="widgetForm" :select.sync="widgetFormSelect"></widget-form>
@@ -76,13 +84,11 @@
         <el-header height="45px">
           <div class="config-tab" :class="{active: configTab=='widget'}" @click="handleConfigSelect('widget')">字段属性</div>
           <div class="config-tab" :class="{active: configTab=='form'}" @click="handleConfigSelect('form')">表单属性</div>
-               <div class="config-tab" :class="{active: configTab=='list'}" @click="handleConfigSelect('list')">列表属性</div>
 
         </el-header>
         <el-main class="config-content">
           <widget-config v-show="configTab=='widget'" :data="widgetFormSelect"></widget-config>
           <form-config v-show="configTab=='form'" :data="widgetForm.config"></form-config>
-          <list-config v-show="configTab=='list'" :data="widgetForm.config" :tablename="selectform"></list-config>
 
         </el-main>
       </el-container>
@@ -144,6 +150,22 @@
 
   <el-button @click="select">选择</el-button>
   </el-dialog>
+
+</el-container>
+
+
+
+
+  <el-container v-show="configTab=='listcontainer'">
+
+ 
+          <list-config  :allList="widgetForm.config.columnList" :tablename="selectform"></list-config>
+
+  </el-container>
+
+
+
+
 
 
   </el-container>
@@ -220,7 +242,8 @@ export default {
         },
        
       },
-      configTab: 'widget',
+      tabVisible:false,
+      configTab: 'formcontainer',
       widgetFormSelect: "",
       previewVisible: false,
       jsonVisible: false,
@@ -302,6 +325,9 @@ export default {
         // editor.session.setMode("ace/mode/html")
       })
     },
+    changetab(){
+      console.log(1)
+    },
      save() {
       let json = this.widgetForm
       console.log(json);
@@ -366,5 +392,8 @@ export default {
   // background-size: 30% 30%;
   
 }
+
+
+
 
 </style>

@@ -210,7 +210,25 @@ $primary-background-color: #ecf5ff;
     border-bottom: solid 2px #e4e7ed;
     padding: 0 5px;
   }
+  span{
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .config-tab2{
+    height: 39px;
+    line-height: 39px;
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    position: relative;
+    cursor: pointer;
 
+    &.active{
+      border-bottom: solid 2px $primary-color;
+    }
+  }
   .config-tab{
     height: 45px;
     line-height: 45px;
