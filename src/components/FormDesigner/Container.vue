@@ -7,10 +7,9 @@
                    <div class="config-tab2" :class="{active: configTab=='listcontainer'}" @click="handleConfigSelect('listcontainer')">列表设计</div>
              <div style="float:right">
              <span style="margin-left:20px;" v-if="selectform!==''">正在制作:{{selectform}}</span>
-      <el-button style="border:none" @click="save"><svg-icon icon-class="icons"></svg-icon>
-保存</el-button>
-       <el-button style="border:none;" @click="openmodal"><svg-icon icon-class="wujiaoxing"></svg-icon>
-选择表</el-button>
+      <el-button style="border:none" type="text" size="medium"  @click="save" icon="el-icon-star-on
+">保存</el-button>
+       <el-button style="border:none;" @click="openmodal"  type="text" size="medium" icon="el-icon-info" >选择表</el-button>
         <!-- <el-button type="text" size="medium" @click="handleGoGithub">GitHub</el-button> -->
         <el-button type="text" size="medium" icon="el-icon-view" @click="handlePreview">预览</el-button>
         <el-button type="text" size="medium" icon="el-icon-tickets" @click="handleGenerateJson">生成JSON</el-button>

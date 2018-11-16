@@ -2,14 +2,13 @@
 <template>
   
 
-<el-form   ref="dynamicValidateForm" label-width="100px" class="demo-dynamic">
-
+<div id="listconfig_container" style="width:100%">
    <draggable v-model="config.columnList" :options = "{animation:500}">
             <transition-group>
-                <el-form-item
+                <div
     v-for="(item, index) in config.columnList"
     :key="index"
-  >
+  style="text-align:center;clear:both">
 
       <el-select v-model="item.key" class="inline" placeholder="选择字段名">
         <el-option
@@ -24,15 +23,13 @@
     
     <el-button @click.prevent="removeDomain(item)" circle icon="el-icon-minus"  class="inline_button"></el-button>
 
-  </el-form-item>
+  </div>
             </transition-group>
     </draggable>
 
-  
-  <el-form-item>
-    <el-button style="text-align:center" @click="addDomain" circle icon="el-icon-plus"></el-button>
-  </el-form-item>
-</el-form>
+      <el-button style="margin:0 auto;display:block;margin-top:10px" @click="addDomain" circle icon="el-icon-plus"></el-button>
+
+</div>
 </template>
 
 <script>
@@ -81,11 +78,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 .inline {
-  float: left;
   width: 150px;
+  display: inline-block;
 }
 .inline_button {
-  float: left;
+    display: inline-block;
+
 }
 
 form{
