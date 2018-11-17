@@ -1,6 +1,16 @@
 
 <template>
 <div id="listconfig_container" style="width:100%">
+
+  <el-table>
+    <el-table-column label="列字段" align="center">
+     
+    </el-table-column>
+
+      <el-table-column label="列标题" align="center">
+     
+    </el-table-column>
+  </el-table>
    <draggable v-model="config.columnList" :options = "{animation:500}">
             <transition-group>
                 <div
@@ -60,13 +70,13 @@ export default {
   },
   methods: {
     removeItem(item) {
-      var index = this.allList.indexOf(item);
+      var index = this.config.columnList.indexOf(item);
       if (index) {
-        this.allList.splice(index, 1);
+        this.config.columnList.splice(index, 1);
       }
     },
     addItem() {
-      this.allList.push({
+      this.config.columnList.push({
         label: "",
         key: ""
       });
