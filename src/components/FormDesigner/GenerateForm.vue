@@ -50,7 +50,7 @@ export default {
     GenetateFormItem,
     UploadAffix
   },
-  props: ["data", "remote", "value", "clear", "disabled", "upload_params"],
+  props: ["data", "remote", "value", "disabled", "upload_params"],
   //data 初始化表单
   //remote 异步远程请求方法
   //value 表单赋值
@@ -110,9 +110,6 @@ export default {
           }
         });
       });
-    },
-    refresh() {
-    
     }
   },
   watch: {
@@ -122,19 +119,7 @@ export default {
         this.$refs.generateForm.clearValidate();
         this.models = { ...this.models, ...val };
       }
-    },
-    clear: {
-      immediate: true,
-      handler(val) {
-        console.log(val)
-        if(val){
-            for(let key in this.models){
-              this.models[key]=""            
-            }
-        }
-       
-      }
-    }
+    } 
   }
 };
 </script>

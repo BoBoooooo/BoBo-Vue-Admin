@@ -71,10 +71,9 @@
 <generate-form
     :data="jsonData"
     ref="generateForm"
-    :value="temp_obj" :clear="uploadParams.IsDetail" :disabled="disabled">
+    :upload_params="uploadParams"
+    :value="temp_obj"   :disabled="disabled">
 </generate-form>
-
-    <upload-affix :Params="uploadParams" ></upload-affix>
    
     </el-dialog>
 
@@ -172,6 +171,7 @@ export default {
     },
     Detail(id) {
       this.uploadParams.Param.MasterID = id
+      this.uploadParams.IsDetail=true
       GetUsersDetail(id).then(response => {
         this.temp_obj = response.data
         this.dialogFormVisible = true

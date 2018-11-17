@@ -23,7 +23,7 @@
         </el-col>
 
   
-  <el-col :span="2">
+  <el-col :span="2" style="text-align:center">
             <el-button style="margin:5px 0px 0px 10px;padding:10px" type="danger" size="mini" @click="removeItem" circle  icon="el-icon-minus"></el-button>
 
         </el-col>
@@ -36,25 +36,18 @@
          </div>
 
 <el-row style="margin-bottom:10px">
-  <el-col :span="2">
+ 
+  <el-col :span="24">
+<el-button-group style="float:right">
+      <el-button @click="New()"  icon="el-icon-plus" ></el-button>
 
-      <el-button type="success" @click="New()"  icon="el-icon-plus" ></el-button>
-
-  </el-col>
-  <el-col :span="22">
- <el-select v-model="listQuery.SearchKey"  placeholder="请选择"  style="float:left;width:20%;border-bottom-right-radius:0px;border-top-right-radius:0px; ">
-      <el-option v-for="(item,index) in filter_search(jsonData.config.columnList)" :label="item.label" :value="item.prop" :key="index"></el-option>
-    
-  </el-select>
-       <el-input ref="test_input"  @keyup.enter.native="Refresh" placeholder="请输入" v-model="listQuery.SearchValue" style="float:left;width:80%;border-bottom-left-radius:0px;border-top-left-radius:0px; ">
-      
-        <el-button slot="append" icon="el-icon-search" v-on:click="Refresh"></el-button>
-         <el-button slot="append" icon="el-icon-refresh" v-on:click="ClearOption"></el-button>
+        <el-button  icon="el-icon-search" @click="Refresh"></el-button>
+         <el-button icon="el-icon-refresh"  v-on:click="ClearOption"></el-button>
           
-<el-button slot="append"  class="buttonVisible" :icon="buttonVisible"  @click="changeVisible" >
+<el-button  class="buttonVisible" :icon="buttonVisible"  @click="changeVisible" >
   
   </el-button>
-   </el-input>  
+</el-button-group>
   </el-col>
 </el-row>
     
@@ -97,7 +90,6 @@
         :data="jsonData"
         ref="generateForm"
         :value="temp_obj"
-        :clear="Clear"
         :upload_params="uploadParams">
     </generate-form>
 
@@ -198,7 +190,8 @@ SearchType:[
         children: "children",
         label: "text"
       },
-      buttonVisible: "el-icon-arrow-down"
+      buttonVisible: "el-icon-arrow-down",
+      id:""
     };
   },
   components: {
@@ -261,9 +254,9 @@ SearchType:[
       this.uploadParams.Param.MasterID = "";
       this.filelist = null;
       this.dialogFormVisible = true;
-      this.$nextTick(() => {
-        this.Clear = true; //表单重新初始化
-      });
+      for( let key in this.temp_obj){
+        this.temp_obj[key]=""
+      }
     },
     Delete(id) {
       this.$confirm("确认删除?", "提示", {
@@ -279,13 +272,11 @@ SearchType:[
 
     Edit(id) {
       this.dialogStatus = "update";
-      this.temp_obj.id = id;
       GetUsersDetail(id).then(response => {
         this.temp_obj = response.data;
+        this.id = id
         this.uploadParams.Param.MasterID = id;
-
         this.dialogFormVisible = true;
-        this.Clear = false;
       });
     },
 
@@ -296,10 +287,9 @@ SearchType:[
           console.log(data);
           // data 为获取的表单数据
 
-          this.temp_obj.id = newGuid(); //赋值主键
-
+ 
           this.temp_obj = data;
-
+          this.temp_obj.id = newGuid(); //赋值主键
           SaveNewUsers(this.temp_obj).then(response => {
             this.dialogFormVisible = false;
             this.fetchData(this.listQuery);
@@ -319,11 +309,10 @@ SearchType:[
         .getData()
         .then(data => {
           console.log(data);
-          // data 为获取的表单数据
-
-          this.temp_obj.id = newGuid(); //赋值主键
 
           this.temp_obj = data;
+                        this.temp_obj.id = this.id;
+
           UpdateUsers(this.temp_obj).then(response => {
             this.dialogFormVisible = false;
             this.fetchData(this.listQuery);
@@ -340,7 +329,7 @@ SearchType:[
     },
       removeItem(item) {
       var index = this.searchArr.indexOf(item);
-      if (index!=null) {
+      if (index) {
         this.searchArr.splice(index, 1);
       }
     },
@@ -358,13 +347,14 @@ SearchType:[
 <style lang="scss" scoped>
 .searchContainer {
     position: absolute;
-    top: 60px;
+    top: 62px;
     left: 20px;
-    padding: 10px;
+    padding: 15px;
     min-height: 100px;
     z-index: 10;
     right: 20px;
-    background-color: rgba(0,0,0,.5);
+    background-color: white;
+;    box-shadow: 0px 0px 10px gray;
 
   }
 </style>

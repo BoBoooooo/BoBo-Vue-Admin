@@ -29,9 +29,9 @@
 
       <el-table-column label="操作" align="center" min-width="110px">
         <template slot-scope="scope">
-          <el-button @click="exportfile(scope.row.id)" type="success" size="small">下载</el-button>
+          <el-button @click="exportfile(scope.row.id)" type="success" :disabled="false" size="small">下载</el-button>
 
-          <el-button v-if="!Params.IsDetail" @click="delete_file(scope.row.id)" type="danger" size="small">删除</el-button>
+          <el-button v-if="!Params.IsDetail" @click="delete_file(scope.row.id)" :disabled="false" type="danger" size="small">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
