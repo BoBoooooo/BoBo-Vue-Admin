@@ -5,12 +5,12 @@
    
                    <div class="config-tab2" :class="{active: configTab=='formcontainer'}" @click="handleConfigSelect('formcontainer')">表单设计</div>
                    <div class="config-tab2" :class="{active: configTab=='listcontainer'}" @click="handleConfigSelect('listcontainer')">列表设计</div>
+                       <span style="" v-if="selectform!==''">正在制作:{{selectform}}表</span>
+
              <div style="float:right">
-             <span style="margin-left:20px;" v-if="selectform!==''">正在制作:{{selectform}}</span>
       <el-button style="border:none" type="text" size="medium"  @click="save" icon="el-icon-star-on
 ">保存</el-button>
        <el-button style="border:none;" @click="openmodal"  type="text" size="medium" icon="el-icon-info" >选择表</el-button>
-        <!-- <el-button type="text" size="medium" @click="handleGoGithub">GitHub</el-button> -->
         <el-button type="text" size="medium" icon="el-icon-view" @click="handlePreview">预览</el-button>
         <el-button type="text" size="medium" icon="el-icon-tickets" @click="handleGenerateJson">生成JSON</el-button>
   </div>
@@ -140,14 +140,13 @@
     <el-aside class="widget-config-container" style="width:30%;">
       <el-container>
         <el-header height="45px">
-          <div class="config-tab" :class="{active: configTab=='widget'}" @click="handleConfigSelect('widget')">字段属性</div>
+          <div class="config-tab" :class="{active: configTab=='widget'||configTab=='formcontainer'}" @click="handleConfigSelect('widget')">字段属性</div>
           <div class="config-tab" :class="{active: configTab=='form'}" @click="handleConfigSelect('form')">表单属性</div>
 
         </el-header>
         <el-main class="config-content">
-          <widget-config v-show="configTab=='widget'" :data="widgetFormSelect"></widget-config>
+          <widget-config v-show="configTab=='widget'||configTab=='formcontainer'" :data="widgetFormSelect"></widget-config>
           <form-config v-show="configTab=='form'" :data="widgetForm.config"></form-config>
-
         </el-main>
       </el-container>
       

@@ -110,17 +110,17 @@ export default {
       
       //为拖拽到容器的元素添加唯一 key
       const key = Date.parse(new Date()) + '_' + Math.ceil(Math.random() * 99999)
-      this.$set(this.data.list, newIndex, {
-        ...this.data.list[newIndex],
-        options: {
-          ...this.data.list[newIndex].options,
-          remoteFunc: 'func_' + key
-        },
-        key,
-        // 绑定键值
-        model: this.data.list[newIndex].type + '_' + key,
-        rules: []
-      })
+      // this.$set(this.data.list, newIndex, {
+      //   ...this.data.list[newIndex],
+      //   options: {
+      //     ...this.data.list[newIndex].options,
+      //     remoteFunc: 'func_' + key
+      //   },
+      //   key,
+      //   // 绑定键值
+      //   model: this.data.list[newIndex].type + '_' + key,
+      //   rules: []
+      // })
 
       if (this.data.list[newIndex].type === 'radio' || this.data.list[newIndex].type === 'checkbox') {
         this.$set(this.data.list, newIndex, {
@@ -164,17 +164,17 @@ export default {
 
       const key = Date.parse(new Date()) + '_' + Math.ceil(Math.random() * 99999)
 
-      this.$set(row.columns[colIndex].list, newIndex, {
-        ...row.columns[colIndex].list[newIndex],
-        options: {
-          ...row.columns[colIndex].list[newIndex].options,
-          remoteFunc: 'func_' + key
-        },
-        key,
-        // 绑定键值
-        model: row.columns[colIndex].list[newIndex].type + '_' + key,
-        rules: []
-      })
+      // this.$set(row.columns[colIndex].list, newIndex, {
+      //   ...row.columns[colIndex].list[newIndex],
+      //   options: {
+      //     ...row.columns[colIndex].list[newIndex].options,
+      //     remoteFunc: 'func_' + key
+      //   },
+      //   key,
+      //   // 绑定键值
+      //   model: row.columns[colIndex].list[newIndex].type + '_' + key,
+      //   rules: []
+      // })
 
       if (row.columns[colIndex].list[newIndex].type === 'radio' || row.columns[colIndex].list[newIndex].type === 'checkbox') {
         this.$set(row.columns[colIndex].list, newIndex, {

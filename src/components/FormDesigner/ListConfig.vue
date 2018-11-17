@@ -1,7 +1,5 @@
 
 <template>
-  
-
 <div id="listconfig_container" style="width:100%">
    <draggable v-model="config.columnList" :options = "{animation:500}">
             <transition-group>
@@ -21,13 +19,13 @@
       <el-input v-model="item.label" class="inline" placeholder="输入列标题"></el-input>
 
     
-    <el-button @click.prevent="removeDomain(item)" circle icon="el-icon-minus"  class="inline_button"></el-button>
+    <el-button @click.prevent="removeItem(item)"  type="mini" icon="el-icon-minus" circle class="inline_button"></el-button>
 
   </div>
             </transition-group>
     </draggable>
 
-      <el-button style="margin:0 auto;display:block;margin-top:10px" @click="addDomain" circle icon="el-icon-plus"></el-button>
+      <el-button style="margin:0 auto;display:block;margin-top:10px" type="mini" @click="addItem" circle  icon="el-icon-plus"></el-button>
 
 </div>
 </template>
@@ -61,13 +59,13 @@ export default {
     }
   },
   methods: {
-    removeDomain(item) {
-      var index = this.allList.includes(item);
+    removeItem(item) {
+      var index = this.allList.indexOf(item);
       if (index) {
         this.allList.splice(index, 1);
       }
     },
-    addDomain() {
+    addItem() {
       this.allList.push({
         label: "",
         key: ""

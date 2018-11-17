@@ -1,5 +1,8 @@
  //覆盖一些element-ui样式
 
+ .el-input__inner{    //去掉border-radius
+   border-radius: 0px;
+ }
  .el-breadcrumb__inner, .el-breadcrumb__inner a{
   font-weight: 400!important;
 }
@@ -16,6 +19,7 @@
  .el-upload__input {
    display: none;
  }
+
 
  .cell {
    .el-tag {

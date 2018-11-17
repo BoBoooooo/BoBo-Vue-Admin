@@ -90,6 +90,9 @@ $primary-background-color: #ecf5ff;
       span{
         display: inline-block;
         vertical-align: middle;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        
       }
     }
   }
@@ -233,7 +236,7 @@ $primary-background-color: #ecf5ff;
     height: 45px;
     line-height: 45px;
     display: inline-block;
-    width: 32%;
+    width: 49%;
     text-align: center;
     font-size: 14px;
     font-weight: 500;

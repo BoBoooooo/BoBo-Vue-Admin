@@ -1,5 +1,40 @@
 <template>
   <div class="app-container" id="person">
+
+    <div v-show="buttonVisible=='el-icon-arrow-up'" class="searchContainer">
+    <el-row v-for="(item,index) in searchArr" :key="index" style="margin-top:2px">
+        <el-col :span="6">
+              <el-select   v-model="item.SearchKey"  placeholder="请选择查询项" >
+        <el-option v-for="(subitem,index) in jsonData.config.columnList" :label="subitem.label" :value="subitem.key" :key="index"></el-option>
+      </el-select>
+        </el-col>
+                <el-col :span="6">
+
+ <el-select   v-model="item.SearchType"  placeholder="请选择查询条件" >
+        <el-option v-for="(subitem,index) in SearchType" :label="subitem.label" :value="subitem.key" :key="index"></el-option>
+      </el-select>
+                </el-col>
+
+        <el-col :span="10">
+      <el-input   placeholder="请输入查询内容" v-model="item.SearchValue" >
+
+      </el-input>
+
+        </el-col>
+
+  
+  <el-col :span="2">
+            <el-button style="margin:5px 0px 0px 10px;padding:10px" type="danger" @click="removeItem" circle  icon="el-icon-minus"></el-button>
+
+        </el-col>
+
+
+
+    </el-row>
+      <el-button style="margin:0 auto;display:block;margin-top:10px" type="primary" @click="addItem" circle  icon="el-icon-plus"></el-button>
+
+         </div>
+
 <el-row style="margin-bottom:10px">
   <el-col :span="2">
 
@@ -7,23 +42,18 @@
 
   </el-col>
   <el-col :span="22">
- <el-select v-model="listQuery.SearchKey"  placeholder="请选择"  style="float:left;width:20%">
+ <el-select v-model="listQuery.SearchKey"  placeholder="请选择"  style="float:left;width:20%;border-bottom-right-radius:0px;border-top-right-radius:0px; ">
       <el-option v-for="(item,index) in jsonData.config.columnList" :label="item.label" :value="item.key" :key="index"></el-option>
     
   </el-select>
-       <el-input ref="test_input" @keyup.enter.native="Refresh" placeholder="请输入" v-model="listQuery.SearchValue" style="float:left;width:80%">
+       <el-input ref="test_input" @keyup.enter.native="Refresh" placeholder="请输入" v-model="listQuery.SearchValue" style="float:left;width:80%;border-bottom-left-radius:0px;border-top-left-radius:0px; ">
       
         <el-button slot="append" icon="el-icon-search" v-on:click="Refresh"></el-button>
          <el-button slot="append" icon="el-icon-refresh" v-on:click="ClearOption"></el-button>
           
-<!-- <el-button slot="append"  class="buttonVisible" :icon="buttonVisible"  @click="changeVisible" >
-     <el-select v-show="buttonVisible=='el-icon-arrow-up'" class="buttonVisible_select" v-model="listQuery.SearchKey"  placeholder="请选择" style="float:left;width:20%">
-      <el-option v-for="(item,index) in jsonData.config.columnList" :label="item.label" :value="item.value" :key="index"></el-option>
-    
-  </el-select>
-         <el-input ref="test_input"  placeholder="请输入" v-model="listQuery.SearchValue" style="float:left;width:80%">
-         </el-input>
-  </el-button> -->
+<el-button slot="append"  class="buttonVisible" :icon="buttonVisible"  @click="changeVisible" >
+  
+  </el-button>
    </el-input>  
   </el-col>
 </el-row>
@@ -108,6 +138,38 @@ export default {
         SearchKey: "",
         SearchValue: ""
       },
+SearchType:[
+  {
+    label:"等于",
+    key:"="
+  },
+  {
+    label:"不等于",
+    key:"<>"
+  },
+  {
+    label:"大于",
+    key:">"
+  },
+  {
+    label:"大于等于",
+    key:">="
+  },
+  {
+    label:"小于",
+    key:"<"
+  },
+  {
+    label:"小于等于",
+    key:"<="
+  }
+],
+      searchArr: [
+        {
+        SearchKey: "",
+        SearchValue: ""
+      }
+      ],
       uploadParams: {
         Param: {
           MasterID: ""
@@ -142,15 +204,6 @@ export default {
     });
   },
 
-  mounted() {
-    document.addEventListener("click", e => {
-      // console.log(e.target);
-      // console.log(this.$refs.test_input.$el);
-      if (!this.$refs.test_input.$el.contains(e.target)) {
-        //
-      }
-    });
-  },
   methods: {
     changeVisible() {
       if (this.buttonVisible == "el-icon-arrow-down")
@@ -194,11 +247,9 @@ export default {
       this.uploadParams.Param.MasterID = "";
       this.filelist = null;
       this.dialogFormVisible = true;
-              this.$nextTick(()=>{
-            this.Clear = true; //表单重新初始化
-
-              })
-
+      this.$nextTick(() => {
+        this.Clear = true; //表单重新初始化
+      });
     },
     Delete(id) {
       this.$confirm("确认删除?", "提示", {
@@ -213,15 +264,14 @@ export default {
     },
 
     Edit(id) {
-      this.dialogStatus = "update"
+      this.dialogStatus = "update";
       this.temp_obj.id = id;
       GetUsersDetail(id).then(response => {
         this.temp_obj = response.data;
         this.uploadParams.Param.MasterID = id;
 
         this.dialogFormVisible = true;
-              this.Clear = false
-
+        this.Clear = false;
       });
     },
 
@@ -273,22 +323,35 @@ export default {
             type: "warning"
           });
         });
+    },
+      removeItem(item) {
+      var index = this.searchArr.indexOf(item);
+      if (index) {
+        this.searchArr.splice(index, 1);
+      }
+    },
+    addItem() {
+      this.searchArr.push({
+        SearchKey: "",
+        SearchValue: "",
+                SearchType: ""
+
+      });
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.buttonVisible {
-  position: relative;
-  min-height: 50px;
-  height: auto;
-  .buttonVisible_select {
+.searchContainer {
     position: absolute;
-    top: 100px;
-    width:500px;
-    z-index:10;
-    right: 0;
+    top: 60px;
+    left: 20px;
+    padding: 10px;
+    min-height: 100px;
+    z-index: 10;
+    right: 20px;
+    background-color: rgba(0,0,0,.5);
+
   }
-}
 </style>
