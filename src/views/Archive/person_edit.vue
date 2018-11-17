@@ -4,19 +4,19 @@
     <div v-show="buttonVisible=='el-icon-arrow-up'" class="searchContainer">
     <el-row v-for="(item,index) in searchArr" :key="index" style="margin-top:2px">
         <el-col :span="6">
-              <el-select   v-model="item.SearchKey"  placeholder="请选择查询项" >
-        <el-option v-for="(subitem,index) in jsonData.config.columnList" :label="subitem.label" :value="subitem.key" :key="index"></el-option>
+              <el-select style="width:100%"  v-model="item.SearchKey"  placeholder="请选择查询项" >
+        <el-option v-for="(subitem,index) in filter_search(jsonData.config.columnList)" :label="subitem.label"  :value="subitem.prop" :key="index"></el-option>
       </el-select>
         </el-col>
                 <el-col :span="6">
 
- <el-select   v-model="item.SearchType"  placeholder="请选择查询条件" >
-        <el-option v-for="(subitem,index) in SearchType" :label="subitem.label" :value="subitem.key" :key="index"></el-option>
+ <el-select   v-model="item.SearchType"  style="width:100%"  placeholder="请选择查询条件" >
+        <el-option   v-for="(subitem,index) in SearchType" :label="subitem.label" :value="subitem.key" :key="index"></el-option>
       </el-select>
                 </el-col>
 
         <el-col :span="10">
-      <el-input   placeholder="请输入查询内容" v-model="item.SearchValue" >
+      <el-input  style="width:100%"    placeholder="请输入查询内容" v-model="item.SearchValue" >
 
       </el-input>
 
@@ -24,14 +24,14 @@
 
   
   <el-col :span="2">
-            <el-button style="margin:5px 0px 0px 10px;padding:10px" type="danger" @click="removeItem" circle  icon="el-icon-minus"></el-button>
+            <el-button style="margin:5px 0px 0px 10px;padding:10px" type="danger" size="mini" @click="removeItem" circle  icon="el-icon-minus"></el-button>
 
         </el-col>
 
 
 
     </el-row>
-      <el-button style="margin:0 auto;display:block;margin-top:10px" type="primary" @click="addItem" circle  icon="el-icon-plus"></el-button>
+      <el-button style="margin:0 auto;display:block;margin-top:10px" type="primary" size="mini" @click="addItem" circle  icon="el-icon-plus"></el-button>
 
          </div>
 
@@ -43,10 +43,10 @@
   </el-col>
   <el-col :span="22">
  <el-select v-model="listQuery.SearchKey"  placeholder="请选择"  style="float:left;width:20%;border-bottom-right-radius:0px;border-top-right-radius:0px; ">
-      <el-option v-for="(item,index) in jsonData.config.columnList" :label="item.label" :value="item.key" :key="index"></el-option>
+      <el-option v-for="(item,index) in filter_search(jsonData.config.columnList)" :label="item.label" :value="item.prop" :key="index"></el-option>
     
   </el-select>
-       <el-input ref="test_input" @keyup.enter.native="Refresh" placeholder="请输入" v-model="listQuery.SearchValue" style="float:left;width:80%;border-bottom-left-radius:0px;border-top-left-radius:0px; ">
+       <el-input ref="test_input"  @keyup.enter.native="Refresh" placeholder="请输入" v-model="listQuery.SearchValue" style="float:left;width:80%;border-bottom-left-radius:0px;border-top-left-radius:0px; ">
       
         <el-button slot="append" icon="el-icon-search" v-on:click="Refresh"></el-button>
          <el-button slot="append" icon="el-icon-refresh" v-on:click="ClearOption"></el-button>
@@ -59,8 +59,18 @@
 </el-row>
     
 
-    <el-table :default-sort="{prop: 'name', order: 'descending'}" :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
-      <el-table-column  v-for="(item,index) in jsonData.config.columnList"  :key="index" :label="item.label" :prop="item.key" sortable align="center">
+    <el-table  :default-sort="{prop: 'name', order: 'descending'}" :data="list" v-loading.body="listLoading" element-loading-text="拼命加载中" border fit highlight-current-row>
+      <el-table-column 
+        :label="item.label"
+        :prop="item.prop"
+        :align="item.align"
+        :sortable="item.sortable"
+        :width="item.width"
+        :min-width="item.min_width"
+        :header-align="item.header_align"
+        :show-overflow-tooltip="item.show_overflow_tooltip"
+         v-for="(item,index) in jsonData.config.columnList" 
+         :key="index" >
       </el-table-column>
       <el-table-column label="操作" align="center" min-width="110px">
         <template slot-scope="scope">
@@ -201,6 +211,7 @@ SearchType:[
     this.getObj();
     GetFormDetail("Person").then(res => {
       this.jsonData = JSON.parse(res.data.formJson);
+      console.log(this.jsonData);
     });
   },
 
@@ -209,6 +220,9 @@ SearchType:[
       if (this.buttonVisible == "el-icon-arrow-down")
         this.buttonVisible = "el-icon-arrow-up";
       else this.buttonVisible = "el-icon-arrow-down";
+    },
+    filter_search(item){
+      return item.filter(item=>item.searchable)
     },
     newGuid,
     getObj() {
@@ -326,7 +340,7 @@ SearchType:[
     },
       removeItem(item) {
       var index = this.searchArr.indexOf(item);
-      if (index) {
+      if (index!=null) {
         this.searchArr.splice(index, 1);
       }
     },
@@ -334,8 +348,7 @@ SearchType:[
       this.searchArr.push({
         SearchKey: "",
         SearchValue: "",
-                SearchType: ""
-
+        SearchType: ""
       });
     }
   }
