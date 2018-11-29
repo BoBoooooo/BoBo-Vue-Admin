@@ -1,7 +1,17 @@
-﻿# vueAdmin-template
+﻿# AnshareVueAdmin  By  @NanJing Anshare Tech.
 
-> vue-cli+axios+jwt+.net web api 一套前后端分离框架。.
-整合了知乎日报api ,豆瓣图书api,音乐api,热门电影api，以及一个考勤统计模块
+> * vue-cli+springboot  一套前后端分离框架
+
+## 包括以下:
+
+1. 表单设计
+2. 列表可配置
+3. 高级查询
+4. 基础三元管理
+5. 基于json web token鉴权 (结合配套的springboot admin)
+6. 数据可视化组件
+
+7. 数据字典 (正在开发)
 
 ## Build Setup.
 
