@@ -8,8 +8,7 @@
         <img class="pic-404__child right" :src="img_404_cloud" alt="404">
       </div>
       <div class="bullshit">
-
-        <a href="/" class="bullshit__return-home">返回首页</a>
+             <a href="/" class="bullshit__return-home">返回首页</a>
       </div>
     </div>
   </div>

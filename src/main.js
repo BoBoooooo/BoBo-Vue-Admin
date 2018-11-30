@@ -6,7 +6,7 @@ import router from './router'
 import store from './store'
 import '@/icons' // icon
 import '@/permission' // 权限import axios from 'axios';
-// import axios from 'axios'
+import axios from 'axios'
 import '@/styles/index.scss' // global css
 import * as filters from './filters' // global filters
 
@@ -23,4 +23,3 @@ new Vue({
   render: h => h(App)
 
 })
-

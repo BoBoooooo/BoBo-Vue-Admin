@@ -29,10 +29,10 @@ export function logout() {
 }
 
 
-export function ChangePassword(data){
+export function ChangePassword(data) {
   return fetch({
-      url: '/login/changepassword',
-      method: 'post',
-      params:data
-    })
+    url: '/login/changepassword',
+    method: 'post',
+    params: data
+  })
 }
