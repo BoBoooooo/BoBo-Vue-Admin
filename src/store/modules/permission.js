@@ -65,7 +65,3 @@ const permission = {
 }
 
 export default permission
-
-
-// var => let
-//

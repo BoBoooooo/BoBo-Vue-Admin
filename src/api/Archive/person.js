@@ -1,9 +1,9 @@
 import fetch from '@/utils/fetch'
-export function GetUsers(params){
+export function GetUsers(data){
     return fetch({
         url: '/person/list',
         method: 'post',
-        params
+        data
       })
 }
 

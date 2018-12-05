@@ -39,7 +39,7 @@
 <script>
 
 export default {
-  name: 'BasicTable',
+  name: 'CommonTable',
   props:{
     list:{
       type:Array      //展示数据
@@ -50,23 +50,13 @@ export default {
     listLoading:{     //正在加载
       type:Boolean,
       default:true
+    },
+    listQuery:{
+      type:Object,
+      default:{}
     }
 
   },
-  data() {
-    return {   
-      listQuery: {
-        totalCount: 0,
-        pageSize: 10,
-        pageNumber: 1,
-        SearchKey: '',
-        SearchValue: ''
-      } 
-    }
-  },
-
- 
-
   methods: {
 
     handleSizeChange(val) {
@@ -75,8 +65,9 @@ export default {
     },
     handleCurrentChange(val) {
       this.listQuery.pageNumber = val
-      this.$emit('Refresh',this.listQuery)
+      this.$emit('handleCurrentChange',this.listQuery)
     },
+    
     Edit(id){
       this.$emit('Edit',id)
 
@@ -87,31 +78,15 @@ export default {
     }
 
   },
-  watch:{
-    'list':{
-      deep:true,
-      immediate:true,
-      handler(val){
-        this.listQuery.totalCount = val.length||0;
-      }
-    }
-  }
+  
 
   
 }
 </script>
 
 <style lang="scss" scoped>
-.searchContainer {
-    position: absolute;
-    top: 62px;
-    left: 20px;
-    padding: 15px;
-    min-height: 100px;
-    z-index: 10;
-    right: 20px;
-    background-color: white;
-;    box-shadow: 0px 0px 10px gray;
-
-  }
+.el-table th,
+.el-table tr.table-header-row {
+  background: #e5c5d2; /* 示例， 对表格样式上的修饰 */
+}
 </style>

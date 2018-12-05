@@ -3,7 +3,7 @@
     <github-corner />
 
     <el-row>
-      <el-col span="6" offset="1">
+      <el-col :span="6" :offset="1">
         <el-card body-style="{ padding: '15px 0px',height:'250px'}">
           <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/100/h/100" style="border-radius:80px">
           <br><br>
