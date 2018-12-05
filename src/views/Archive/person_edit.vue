@@ -2,7 +2,7 @@
   <div id="person" class="app-container">
 
    <common-tool-bar
-    :optionJson="jsonData.config.columnList"
+    :optionJson ="jsonData.config.columnList"
     :searchArr ="listQuery.searchArr"
     @addEvent ="New"
     @searchEvent ="Refresh"
@@ -202,7 +202,7 @@ export default {
       this.$refs.generateForm
         .getData()
         .then(data => {
-          this.temp_obj = data
+          this.temp_obj = data       
           this.temp_obj.id = this.id
           UpdateUsers(this.temp_obj).then(response => {
             this.dialogFormVisible = false
