@@ -122,12 +122,7 @@ export default {
       this.$emit('searchEvent')
     },
     ClearOption() {
-      this.searchArr = [
-        {
-          SearchKey: '',
-          SearchValue: ''
-        }
-      ]
+    
       this.buttonVisible = 'el-icon-arrow-down'
       this.$emit('clearEvent')
     },

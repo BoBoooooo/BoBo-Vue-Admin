@@ -25,7 +25,6 @@
   import BackToTop from '@/components/BackToTop'
   export default {
     name: 'layout',
-  
     components: {
       Navbar,
       Sidebar,

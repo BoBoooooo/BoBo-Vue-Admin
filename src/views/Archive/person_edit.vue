@@ -6,7 +6,7 @@
     :searchArr ="listQuery.searchArr"
     @addEvent ="New"
     @searchEvent ="Refresh"
-    @clearEvent ="Refresh"
+    @clearEvent ="Clear"
    ></common-tool-bar>
 
 
@@ -158,7 +158,15 @@ export default {
         })
       })
     },
-
+    Clear(){
+        this.listQuery.searchArr = [
+          {
+            SearchKey: '',
+            SearchValue: ''
+          }
+       ]
+       this.Refresh()
+    },
     Edit(id) {
       this.dialogStatus = 'update'
       GetUsersDetail(id).then(response => {
