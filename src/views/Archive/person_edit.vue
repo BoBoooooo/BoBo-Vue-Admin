@@ -1,27 +1,32 @@
 <template>
-  <div id="person" class="app-container">
+  <div
+    id="person"
+    class="app-container">
 
-   <common-tool-bar
-    :optionJson ="jsonData.config.columnList"
-    :searchArr ="listQuery.searchArr"
-    @addEvent ="New"
-    @searchEvent ="Refresh"
-    @clearEvent ="Clear"
-   ></common-tool-bar>
+    <common-tool-bar
+      :option-json ="jsonData.config.columnList"
+      :search-arr ="listQuery.searchArr"
+      @addEvent ="New"
+      @searchEvent ="Refresh"
+      @clearEvent ="Clear"
+    />
 
 
-    <common-table 
-    :list="list"
-    :tableJson="jsonData.config.columnList"
-    :listQuery="listQuery"
-    :listLoading="listLoading"
-    @Edit="Edit" 
-    @Delete="Delete"
-    @handleCurrentChange="Refresh"
-    ></common-table>
-    
+    <common-table
+      :list="list"
+      :table-json="jsonData.config.columnList"
+      :list-query="listQuery"
+      :list-loading="listLoading"
+      @Edit="Edit"
+      @Delete="Delete"
+      @handleCurrentChange="Refresh"
+    />
 
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="80%">
+
+    <el-dialog
+      :title="textMap[dialogStatus]"
+      :visible.sync="dialogFormVisible"
+      width="80%">
 
       <generate-form
         ref="generateForm"
@@ -30,10 +35,18 @@
         :upload_params="uploadParams"
       />
 
-      <div slot="footer" class="dialog-footer">
+      <div
+        slot="footer"
+        class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button v-if="dialogStatus=='create'" type="primary" @click="create">新 增</el-button>
-        <el-button v-else type="primary" @click="update">修 改</el-button>
+        <el-button
+          v-if="dialogStatus=='create'"
+          type="primary"
+          @click="create">新 增</el-button>
+        <el-button
+          v-else
+          type="primary"
+          @click="update">修 改</el-button>
       </div>
     </el-dialog>
 
@@ -48,30 +61,32 @@ import {
   GetUsersDetail,
   SaveNewUsers,
   UpdateUsers,
-  getObj
-} from '@/api/Archive/person'
-import GenerateForm from '@/components/FormDesigner/GenerateForm'
-import { GetFormDetail } from '@/api/system/form'
-import { newGuid } from '@/utils/index'
-import CommonTable from '@/components/CommonTable'
-import CommonToolBar from '@/components/CommonToolBar'
+  getObj,
+} from '@/api/Archive/person';
+import GenerateForm from '@/components/FormDesigner/GenerateForm';
+import { GetFormDetail } from '@/api/system/form';
+import { newGuid } from '@/utils/index';
+import CommonTable from '@/components/CommonTable';
+import CommonToolBar from '@/components/CommonToolBar';
+
+
 export default {
   name: 'PersonEdit',
   components: {
     GenerateForm,
     CommonTable,
-    CommonToolBar
+    CommonToolBar,
   },
   data() {
     return {
       jsonData: {
         list: [],
-        config: {}
+        config: {},
       },
       selected: null,
       textMap: {
         update: '编辑',
-        create: '新增'
+        create: '新增',
       },
       temp_obj: {},
       listQuery: {
@@ -81,17 +96,15 @@ export default {
         searchArr: [
           {
             SearchKey: '',
-            SearchValue: ''
-          }
-       ]
+            SearchValue: '',
+          },
+        ],
       },
-    
-  
       uploadParams: {
         Param: {
-          MasterID: ''
+          MasterID: '',
         },
-        IsDetail: false
+        IsDetail: false,
       },
 
       dialogFormVisible: false,
@@ -102,47 +115,47 @@ export default {
       temp: null,
       defaultProps: {
         children: 'children',
-        label: 'text'
+        label: 'text',
       },
-      id: ''
-    }
+      id: '',
+    };
   },
 
   created() {
-    this.fetchData(this.listQuery)
-    this.getObj()
-    GetFormDetail('Person').then(res => {
-      this.jsonData = JSON.parse(res.data.formJson)
-      console.log(this.jsonData)
-    })
+    this.fetchData(this.listQuery);
+    this.getObj();
+    GetFormDetail('Person').then((res) => {
+      this.jsonData = JSON.parse(res.data.formJson);
+      console.log(this.jsonData);
+    });
   },
 
   methods: {
-  
+
     newGuid,
     getObj() {
-      getObj().then(res => {
-        this.temp_obj = res.data
-      })
+      getObj().then((res) => {
+        this.temp_obj = res.data;
+      });
     },
 
     Refresh() {
-      this.fetchData(this.listQuery)
+      this.fetchData(this.listQuery);
     },
-    
+
     fetchData(params) {
-      GetUsers(params).then(response => {
-        this.list = response.data.list
-        this.listQuery.totalCount = response.total
-        this.listLoading = false
-      })
+      GetUsers(params).then((response) => {
+        this.list = response.data.list;
+        this.listQuery.totalCount = response.total;
+        this.listLoading = false;
+      });
     },
 
     New() {
-      this.dialogStatus = 'create'
-      this.uploadParams.Param.MasterID = ''
-      this.filelist = null
-      this.dialogFormVisible = true
+      this.dialogStatus = 'create';
+      this.uploadParams.Param.MasterID = '';
+      this.filelist = null;
+      this.dialogFormVisible = true;
       for (const key in this.temp_obj) {
         this.temp_obj[key] = ''
       }
@@ -151,79 +164,79 @@ export default {
       this.$confirm('确认删除?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        type: 'warning'
+        type: 'warning',
       }).then(() => {
-        DeleteUser(id).then(response => {
-          this.fetchData(this.listQuery)
-        })
-      })
+        DeleteUser(id).then(() => {
+          this.fetchData(this.listQuery);
+        });
+      });
     },
-    Clear(){
-        this.listQuery.searchArr = [
-          {
-            SearchKey: '',
-            SearchValue: ''
-          }
-       ]
-       this.Refresh()
+    Clear() {
+      this.listQuery.searchArr = [
+        {
+          SearchKey: '',
+          SearchValue: '',
+        },
+      ];
+      this.Refresh();
     },
     Edit(id) {
-      this.dialogStatus = 'update'
-      GetUsersDetail(id).then(response => {
-        this.temp_obj = response.data
-        this.id = id
-        this.uploadParams.Param.MasterID = id
-        this.dialogFormVisible = true
-      })
+      this.dialogStatus = 'update';
+      GetUsersDetail(id).then((response) => {
+        this.temp_obj = response.data;
+        this.id = id;
+        this.uploadParams.Param.MasterID = id;
+        this.dialogFormVisible = true;
+      });
     },
 
     create() {
       this.$refs.generateForm
         .getData()
-        .then(data => {
-          console.log(data)
+        .then((data) => {
+          console.log(data);
           // data 为获取的表单数据
 
-          this.temp_obj = data
-          this.temp_obj.id = newGuid() // 赋值主键
-          SaveNewUsers(this.temp_obj).then(response => {
-            this.dialogFormVisible = false
-            this.fetchData(this.listQuery)
-          })
+          this.temp_obj = data;
+          this.temp_obj.id = newGuid(); // 赋值主键
+          SaveNewUsers(this.temp_obj).then(() => {
+            this.dialogFormVisible = false;
+            this.fetchData(this.listQuery);
+          });
         })
-        .catch(e => {
+        .catch(() => {
           this.$message({
             message: '请检查必填项',
-            type: 'warning'
-          })
-        })
+            type: 'warning',
+          });
+        });
     },
     update() {
       this.$refs.generateForm
         .getData()
-        .then(data => {
-          this.temp_obj = data       
-          this.temp_obj.id = this.id
-          UpdateUsers(this.temp_obj).then(response => {
-            this.dialogFormVisible = false
-            this.fetchData(this.listQuery)
-          })
+        .then((data) => {
+          this.temp_obj = data;
+          this.temp_obj.id = this.id;
+          UpdateUsers(this.temp_obj).then(() => {
+            this.dialogFormVisible = false;
+            this.fetchData(this.listQuery);
+          });
         })
-        .catch(e => {
+        .catch(() => {
           // 数据校验失败
           this.$message({
             message: '请检查必填项',
-            type: 'warning'
-          })
-        })
+            type: 'warning',
+          });
+        });
     },
-    //todolist
-    handleRowClick(row, event, column){ // 点击行的事件，同理可以绑定其他事件
-      console.log('click row:',row, event, column)
+    // todolist
+    handleRowClick(row, event, column) { // 点击行的事件，同理可以绑定其他事件
+      console.log('click row:', row, event, column);
     },
-     handleSelectionChange(selection){
-      console.log(selection)
-    }
-  }
-}
+    handleSelectionChange(selection) {
+      console.log(selection);
+    },
+  },
+};
 </script>

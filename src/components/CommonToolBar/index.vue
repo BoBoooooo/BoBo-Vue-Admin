@@ -1,31 +1,67 @@
 <template>
-  <div  id="toolbar">
-   <div v-show="buttonVisible=='el-icon-arrow-up'" class="searchContainer">
-      <el-row v-for="(item,index) in searchArr" :key="index" style="margin-top:2px">
+  <div id="toolbar">
+    <div
+      v-show="buttonVisible=='el-icon-arrow-up'"
+      class="searchContainer">
+      <el-row
+        v-for="(item,index) in searchArr"
+        :key="index"
+        style="margin-top:2px">
         <el-col :span="6">
-          <el-select v-model="item.SearchKey" style="width:100%" placeholder="请选择查询项">
-            <el-option v-for="(subitem,index_) in filter_search(optionJson)" :key="index_" :label="subitem.label" :value="subitem.prop" />
+          <el-select
+            v-model="item.SearchKey"
+            style="width:100%"
+            placeholder="请选择查询项">
+            <el-option
+              v-for="(subitem,index_) in filter_search(optionJson)"
+              :key="index_"
+              :label="subitem.label"
+              :value="subitem.prop" />
           </el-select>
         </el-col>
         <el-col :span="6">
 
-          <el-select v-model="item.SearchType" style="width:100%" placeholder="请选择查询条件">
-            <el-option v-for="(subitem,index__) in SearchType" :key="index__" :label="subitem.label" :value="subitem.key" />
+          <el-select
+            v-model="item.SearchType"
+            style="width:100%"
+            placeholder="请选择查询条件">
+            <el-option
+              v-for="(subitem,index__) in SearchType"
+              :key="index__"
+              :label="subitem.label"
+              :value="subitem.key" />
           </el-select>
         </el-col>
 
         <el-col :span="10">
-          <el-input v-model="item.SearchValue" style="width:100%" placeholder="请输入查询内容" />
+          <el-input
+            v-model="item.SearchValue"
+            style="width:100%"
+            placeholder="请输入查询内容" />
 
         </el-col>
 
-        <el-col :span="2" style="text-align:center">
-          <el-button style="margin:5px 0px 0px 10px;padding:10px" type="danger" size="mini" circle icon="el-icon-minus" @click="removeItem" />
+        <el-col
+          :span="2"
+          style="text-align:center">
+          <el-button
+            style="margin:5px 0px 0px 10px;padding:10px"
+            type="danger"
+            size="mini"
+            circle
+            icon="el-icon-minus"
+            @click="removeItem" />
 
         </el-col>
 
       </el-row>
-      <el-button style="margin:0 auto;display:block;margin-top:10px" type="primary" size="mini" circle icon="el-icon-plus" @click="addItem" />
+      <el-button
+        style="margin:0 auto;display:block;margin-top:10px"
+        type="primary"
+        size="mini"
+        circle
+        icon="el-icon-plus"
+        @click="addItem" />
 
     </div>
 
@@ -33,12 +69,21 @@
 
       <el-col :span="24">
         <el-button-group style="float:right">
-          <el-button icon="el-icon-plus" @click="New()" />
+          <el-button
+            icon="el-icon-plus"
+            @click="New()" />
 
-          <el-button icon="el-icon-search" @click="Refresh" />
-          <el-button icon="el-icon-refresh" @click="ClearOption" />
+          <el-button
+            icon="el-icon-search"
+            @click="Refresh" />
+          <el-button
+            icon="el-icon-refresh"
+            @click="ClearOption" />
 
-          <el-button class="buttonVisible" :icon="buttonVisible" @click="changeVisible" />
+          <el-button
+            :icon="buttonVisible"
+            class="buttonVisible"
+            @click="changeVisible" />
         </el-button-group>
       </el-col>
     </el-row>
@@ -51,90 +96,86 @@
 
 export default {
   name: 'CommonToolBar',
-  props:{
-    optionJson:{
-      type:Array      //展示数据
+  props: {
+    optionJson: {
+      type: Array, // 展示数据
     },
-    searchArr:{
-      type:Array      //列表配置json
+    searchArr: {
+      type: Array, // 列表配置json
     },
   },
   data() {
-    return {   
+    return {
       buttonVisible: 'el-icon-arrow-down',
 
       SearchType: [
         {
           label: '等于',
-          key: '='
+          key: '=',
         },
         {
           label: '不等于',
-          key: '<>'
+          key: '<>',
         },
         {
           label: '大于',
-          key: '>'
+          key: '>',
         },
         {
           label: '大于等于',
-          key: '>='
+          key: '>=',
         },
         {
           label: '小于',
-          key: '<'
+          key: '<',
         },
         {
           label: '小于等于',
-          key: '<='
-        }
+          key: '<=',
+        },
       ],
     }
   },
 
- 
 
   methods: {
 
-     removeItem(item) {
-      let index = this.searchArr.indexOf(item)
+    removeItem(item) {
+      const index = this.searchArr.indexOf(item)
       if (index) {
         this.searchArr.splice(index, 1)
       }
     },
-    New(){
+    New() {
       this.$emit('addEvent')
     },
     addItem() {
       this.searchArr.push({
         SearchKey: '',
         SearchValue: '',
-        SearchType: ''
+        SearchType: '',
       })
     },
-     changeVisible() {
+    changeVisible() {
       if (this.buttonVisible === 'el-icon-arrow-down') { this.buttonVisible = 'el-icon-arrow-up' } else this.buttonVisible = 'el-icon-arrow-down'
     },
     filter_search(item) {
-      return item.filter(item => item.searchable)
+      return item.filter(k => k.searchable)
     },
-    Refresh(){
+    Refresh() {
       this.$emit('searchEvent')
     },
     ClearOption() {
-    
       this.buttonVisible = 'el-icon-arrow-down'
       this.$emit('clearEvent')
     },
 
   },
-  
 
-  
+
 }
 </script>
-
-<<style lang="scss" scoped>
+<style lang="scss" scoped>
 .searchContainer {
     position: absolute;
     top: 62px;

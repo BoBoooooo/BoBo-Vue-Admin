@@ -13,7 +13,10 @@ module.exports = {
         "airbnb-base",
         "plugin:vue/recommended"
     ],
-    "rules": {},
+    rules: {
+      "semi": "off",
+      'no-param-reassign': 0
+    },
     "settings": {
         "import/resolver": {
           "webpack":{
