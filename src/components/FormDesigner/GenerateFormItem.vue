@@ -1,70 +1,80 @@
 <template>
-  <el-form-item :label="widget.name" :prop="widget.model">
+  <el-form-item
+    :label="widget.name"
+    :prop="widget.model">
     <template v-if="widget.type == 'input'" >
-      <el-input 
+      <el-input
         v-if="widget.options.dataType == 'number' || widget.options.dataType == 'integer' || widget.options.dataType == 'float'"
         :type="widget.options.dataType"
         v-model.number="dataModel"
         :placeholder="widget.options.placeholder"
         :style="{width: widget.options.width}"
-      ></el-input>
-      <el-input 
+      />
+      <el-input
         v-else
         :type="widget.options.dataType"
         v-model="dataModel"
         :placeholder="widget.options.placeholder"
         :style="{width: widget.options.width}"
-      ></el-input>
+      />
     </template>
 
     <template v-if="widget.type == 'textarea'">
-      <el-input type="textarea" :rows="5"
+      <el-input
+        :rows="5"
         v-model="dataModel"
         :placeholder="widget.options.placeholder"
         :style="{width: widget.options.width}"
-      ></el-input>
+        type="textarea"
+      />
     </template>
 
     <template v-if="widget.type == 'number'">
-      <el-input-number 
-        v-model="widget.options.defaultValue" 
+      <el-input-number
+        v-model="widget.options.defaultValue"
         :style="{width: widget.options.width}"
         :step="widget.options.step"
         controls-position="right"
-      ></el-input-number>
+      />
     </template>
 
     <template v-if="widget.type == 'radio'">
-      <el-radio-group v-model="dataModel"
+      <el-radio-group
+        v-model="dataModel"
         :style="{width: widget.options.width}"
       >
         <el-radio
+          v-for="(item, index) in (widget.options.remote ? widget.options.remoteOptions : widget.options.options)"
           :style="{display: widget.options.inline ? 'inline-block' : 'block'}"
-          :label="item.value" v-for="(item, index) in (widget.options.remote ? widget.options.remoteOptions : widget.options.options)" :key="index"
+          :label="item.value"
+          :key="index"
         >
-          <template v-if="widget.options.remote">{{item.label}}</template>
-          <template v-else>{{widget.options.showLabel ? item.label : item.value}}</template>
+          <template v-if="widget.options.remote">{{ item.label }}</template>
+          <template v-else>{{ widget.options.showLabel ? item.label : item.value }}</template>
         </el-radio>
       </el-radio-group>
     </template>
 
     <template v-if="widget.type == 'checkbox'">
-      <el-checkbox-group v-model="dataModel"
+      <el-checkbox-group
+        v-model="dataModel"
         :style="{width: widget.options.width}"
       >
         <el-checkbox
-          
+
+          v-for="(item, index) in (widget.options.remote ? widget.options.remoteOptions : widget.options.options)"
           :style="{display: widget.options.inline ? 'inline-block' : 'block'}"
-          :label="item.value" v-for="(item, index) in (widget.options.remote ? widget.options.remoteOptions : widget.options.options)" :key="index"
+          :label="item.value"
+          :key="index"
         >
-          <template v-if="widget.options.remote">{{item.label}}</template>
-          <template v-else>{{widget.options.showLabel ? item.label : item.value}}</template>
+          <template v-if="widget.options.remote">{{ item.label }}</template>
+          <template v-else>{{ widget.options.showLabel ? item.label : item.value }}</template>
         </el-checkbox>
       </el-checkbox-group>
     </template>
 
     <template v-if="widget.type == 'time'">
-      <el-time-picker 
+      <el-time-picker
         v-model="dataModel"
         :is-range="widget.options.isRange"
         :placeholder="widget.options.placeholder"
@@ -74,11 +84,10 @@
         :disabled="widget.options.disabled"
         :editable="widget.options.editable"
         :clearable="widget.options.clearable"
-        :arrowControl="widget.options.arrowControl"
+        :arrow-control="widget.options.arrowControl"
         :value-format="widget.options.format"
         :style="{width: widget.options.width}"
-      >
-      </el-time-picker>
+      />
     </template>
 
     <template v-if="widget.type=='date'">
@@ -95,24 +104,24 @@
         :value-format="widget.options.timestamp ? 'timestamp' : widget.options.format"
         :format="widget.options.format"
         :style="{width: widget.options.width}"
-      >
-      </el-date-picker>
+      />
     </template>
 
     <template v-if="widget.type =='rate'">
-      <el-rate v-model="dataModel"
+      <el-rate
+        v-model="dataModel"
         :max="widget.options.max"
         :disabled="widget.options.disabled"
         :allow-half="widget.options.allowHalf"
-      ></el-rate>
+      />
     </template>
 
     <template v-if="widget.type == 'color'">
-      <el-color-picker 
+      <el-color-picker
         v-model="dataModel"
         :disabled="widget.options.disabled"
         :show-alpha="widget.options.showAlpha"
-      ></el-color-picker>
+      />
     </template>
 
     <template v-if="widget.type == 'select'">
@@ -124,7 +133,11 @@
         :placeholder="widget.options.placeholder"
         :style="{width: widget.options.width}"
       >
-        <el-option v-for="item in (widget.options.remote ? widget.options.remoteOptions : widget.options.options)" :key="item.value" :value="item.value" :label="widget.options.showLabel || widget.options.remote?item.label:item.value"></el-option>
+        <el-option
+          v-for="item in (widget.options.remote ? widget.options.remoteOptions : widget.options.options)"
+          :key="item.value"
+          :value="item.value"
+          :label="widget.options.showLabel || widget.options.remote?item.label:item.value"/>
       </el-select>
     </template>
 
@@ -132,12 +145,11 @@
       <el-switch
         v-model="dataModel"
         :disabled="widget.options.disabled"
-      >
-      </el-switch>
+      />
     </template>
 
     <template v-if="widget.type=='slider'">
-      <el-slider 
+      <el-slider
         v-model="dataModel"
         :min="widget.options.min"
         :max="widget.options.max"
@@ -146,55 +158,51 @@
         :show-input="widget.options.showInput"
         :range="widget.options.range"
         :style="{width: widget.options.width}"
-      ></el-slider>
+      />
     </template>
 
-   
+
   </el-form-item>
 </template>
 
 <script>
 
 export default {
-  props: ['widget', 'models', 'rules', 'remote'],
   components: {
   },
-  data () {
+  props: ['widget', 'models', 'rules', 'remote'],
+  data() {
     return {
-      dataModel: this.models[this.widget.model]
+      dataModel: this.models[this.widget.model],
     }
-  },
-  created () {
-    if (this.widget.options.remote && this.remote[this.widget.options.remoteFunc]) {
-      this.remote[this.widget.options.remoteFunc]((data) => {
-        this.widget.options.remoteOptions = data.map(item => {
-          return {
-            value: item[this.widget.options.props.value],
-            label: item[this.widget.options.props.label]
-          }
-        })
-      })
-    }
-
- 
   },
   watch: {
     dataModel: {
       deep: true,
-      handler (val) {
+      handler(val) {
         this.models[this.widget.model] = val
         this.$emit('update:models', {
           ...this.models,
-          [this.widget.model]: val
+          [this.widget.model]: val,
         })
-      }
+      },
     },
     models: {
       deep: true,
-      handler (val) {
+      handler(val) {
         this.dataModel = val[this.widget.model]
-      }
+      },
+    },
+  },
+  created() {
+    if (this.widget.options.remote && this.remote[this.widget.options.remoteFunc]) {
+      this.remote[this.widget.options.remoteFunc]((data) => {
+        this.widget.options.remoteOptions = data.map(item => ({
+          value: item[this.widget.options.props.value],
+          label: item[this.widget.options.props.label],
+        }))
+      })
     }
-  }
+  },
 }
 </script>

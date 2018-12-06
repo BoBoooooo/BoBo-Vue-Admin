@@ -9,8 +9,8 @@ export const basicComponents = [
       required: false,
       dataType: 'string',
       pattern: '',
-      placeholder: ''
-    }
+      placeholder: '',
+    },
   },
   {
     type: 'textarea',
@@ -21,8 +21,8 @@ export const basicComponents = [
       defaultValue: '',
       required: false,
       pattern: '',
-      placeholder: ''
-    }
+      placeholder: '',
+    },
   },
   {
     type: 'number',
@@ -36,8 +36,8 @@ export const basicComponents = [
       max: '',
       step: 1,
       disabled: false,
-      controlsPosition: ''
-    }
+      controlsPosition: '',
+    },
   },
   {
     type: 'radio',
@@ -50,16 +50,16 @@ export const basicComponents = [
       options: [
         {
           value: '选项1',
-          label: '选项1'
+          label: '选项1',
         },
         {
           value: '选项2',
-          label: '选项2'
+          label: '选项2',
         },
         {
           value: '选项3',
-          label: '选项3'
-        }
+          label: '选项3',
+        },
       ],
       required: false,
       width: '',
@@ -67,10 +67,10 @@ export const basicComponents = [
       remoteOptions: [],
       props: {
         value: 'value',
-        label: 'label'
+        label: 'label',
       },
-      remoteFunc: ''
-    }
+      remoteFunc: '',
+    },
   },
   {
     type: 'checkbox',
@@ -82,14 +82,14 @@ export const basicComponents = [
       showLabel: false,
       options: [
         {
-          value: '选项1'
+          value: '选项1',
         },
         {
-          value: '选项2'
+          value: '选项2',
         },
         {
-          value: '选项3'
-        }
+          value: '选项3',
+        },
       ],
       required: false,
       width: '',
@@ -97,10 +97,10 @@ export const basicComponents = [
       remoteOptions: [],
       props: {
         value: 'value',
-        label: 'label'
+        label: 'label',
       },
-      remoteFunc: ''
-    }
+      remoteFunc: '',
+    },
   },
   {
     type: 'time',
@@ -120,7 +120,7 @@ export const basicComponents = [
       format: 'HH:mm:ss',
       required: false,
       width: '',
-    }
+    },
   },
   {
     type: 'date',
@@ -140,7 +140,7 @@ export const basicComponents = [
       timestamp: false,
       required: false,
       width: '',
-    }
+    },
   },
   {
     type: 'rate',
@@ -151,8 +151,8 @@ export const basicComponents = [
       max: 5,
       disabled: false,
       allowHalf: false,
-      required: false
-    }
+      required: false,
+    },
   },
   {
     type: 'color',
@@ -162,8 +162,8 @@ export const basicComponents = [
       defaultValue: '',
       disabled: false,
       showAlpha: false,
-      required: false
-    }
+      required: false,
+    },
   },
   {
     type: 'select',
@@ -180,22 +180,22 @@ export const basicComponents = [
       width: '',
       options: [
         {
-          value: '下拉框1'
+          value: '下拉框1',
         },
         {
-          value: '下拉框2'
-        },{
-          value: '下拉框3'
-        }
+          value: '下拉框2',
+        }, {
+          value: '下拉框3',
+        },
       ],
       remote: false,
       remoteOptions: [],
       props: {
         value: 'value',
-        label: 'label'
+        label: 'label',
       },
-      remoteFunc: ''
-    }
+      remoteFunc: '',
+    },
   },
   {
     type: 'switch',
@@ -205,7 +205,7 @@ export const basicComponents = [
       defaultValue: false,
       required: false,
       disabled: false,
-    }
+    },
   },
   {
     type: 'slider',
@@ -220,13 +220,13 @@ export const basicComponents = [
       step: 1,
       showInput: false,
       range: false,
-      width: ''
-    }
-  }
+      width: '',
+    },
+  },
 ]
 
 export const advanceComponents = [
-  
+
   {
     type: 'upload',
     name: '文件上传',
@@ -234,12 +234,12 @@ export const advanceComponents = [
     options: {
       uploadParams: {
         Param: {
-          MasterID: ""
+          MasterID: '',
         },
-        IsDetail: false
-      }
-    }
-  }
+        IsDetail: false,
+      },
+    },
+  },
 ]
 
 export const layoutComponents = [
@@ -250,17 +250,17 @@ export const layoutComponents = [
     columns: [
       {
         span: 12,
-        list: []
+        list: [],
       },
       {
         span: 12,
-        list: []
-      }
+        list: [],
+      },
     ],
     options: {
       gutter: 0,
       justify: 'start',
-      align: 'top'
-    }
-  }
+      align: 'top',
+    },
+  },
 ]

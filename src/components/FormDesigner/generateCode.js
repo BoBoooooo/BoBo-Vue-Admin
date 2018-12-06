@@ -1,32 +1,27 @@
-function findRemoteFunc (list, funcList, tokenFuncList, blankList) {
+function findRemoteFunc(list, funcList, tokenFuncList, blankList) {
   for (let i = 0; i < list.length; i++) {
-    if (list[i].type == 'grid') {
-      list[i].columns.forEach(item => {
+    if (list[i].type === 'grid') {
+      list[i].columns.forEach((item) => {
         findRemoteFunc(item.list, funcList, tokenFuncList, blankList)
       })
-    } else {
-      if (list[i].type == 'blank') {
-        if (list[i].model) {
-          blankList.push({
-            name: list[i].model,
-            label: list[i].name
-          })
-        }
-      }  else {
-        if (list[i].options.remote && list[i].options.remoteFunc) {
-          funcList.push({
-            func: list[i].options.remoteFunc,
-            label: list[i].name,
-            model: list[i].model
-          })
-        }
+    } else if (list[i].type == 'blank') {
+      if (list[i].model) {
+        blankList.push({
+          name: list[i].model,
+          label: list[i].name,
+        })
       }
+    } else if (list[i].options.remote && list[i].options.remoteFunc) {
+      funcList.push({
+        func: list[i].options.remoteFunc,
+        label: list[i].name,
+        model: list[i].model,
+      })
     }
   }
 }
 
 export default function (data) {
-
   const funcList = []
 
   const tokenFuncList = []
@@ -39,7 +34,7 @@ export default function (data) {
 
   let blankTemplate = ''
 
-  for(let i = 0; i < funcList.length; i++) {
+  for (let i = 0; i < funcList.length; i++) {
     funcTemplate += `
             ${funcList[i].func} (resolve) {
               // ${funcList[i].label} ${funcList[i].model}
@@ -49,7 +44,7 @@ export default function (data) {
     `
   }
 
-  for(let i = 0; i < tokenFuncList.length; i++) {
+  for (let i = 0; i < tokenFuncList.length; i++) {
     funcTemplate += `
             ${tokenFuncList[i].func} (resolve) {
               // ${tokenFuncList[i].label} ${tokenFuncList[i].model}
