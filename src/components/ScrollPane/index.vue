@@ -1,7 +1,13 @@
 <template>
-  <div class="scroll-container" ref="scrollContainer" @wheel.prevent="handleScroll">
-    <div class="scroll-wrapper" ref="scrollWrapper" :style="{left: left + 'px'}">
-      <slot></slot>
+  <div
+    ref="scrollContainer"
+    class="scroll-container"
+    @wheel.prevent="handleScroll">
+    <div
+      ref="scrollWrapper"
+      :style="{left: left + 'px'}"
+      class="scroll-wrapper">
+      <slot/>
     </div>
   </div>
 </template>
@@ -10,10 +16,10 @@
 const padding = 15 // tag's padding
 
 export default {
-  name: 'scrollPane',
+  name: 'ScrollPane',
   data() {
     return {
-      left: 0
+      left: 0,
     }
   },
   methods: {
@@ -26,16 +32,14 @@ export default {
 
       if (eventDelta > 0) {
         this.left = Math.min(0, this.left + eventDelta)
-      } else {
-        if ($containerWidth - padding < $wrapperWidth) {
-          if (this.left < -($wrapperWidth - $containerWidth + padding)) {
-            this.left = this.left
-          } else {
-            this.left = Math.max(this.left + eventDelta, $containerWidth - $wrapperWidth - padding)
-          }
+      } else if ($containerWidth - padding < $wrapperWidth) {
+        if (this.left < -($wrapperWidth - $containerWidth + padding)) {
+          this.left = this.left
         } else {
-          this.left = 0
+          this.left = Math.max(this.left + eventDelta, $containerWidth - $wrapperWidth - padding)
         }
+      } else {
+        this.left = 0
       }
     },
     moveToTarget($target) {
@@ -54,8 +58,8 @@ export default {
         // tag in the right
         this.left = -($targetLeft - ($containerWidth - $targetWidth) + padding)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

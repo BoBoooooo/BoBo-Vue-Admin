@@ -1,6 +1,6 @@
 import {
   asyncRouterMap,
-  constantRouterMap
+  constantRouterMap,
 } from '@/router/index'
 
 /**
@@ -11,9 +11,8 @@ import {
 function hasPermission(roles, route) {
   if (route.name) {
     return roles.some(role => route.name.includes(role))
-  } else {
-    return true
   }
+  return true
 }
 
 /**
@@ -21,8 +20,8 @@ function hasPermission(roles, route) {
  * @param asyncRouterMap
  * @param roles
  */
-function filterAsyncRouter(asyncRouterMap, roleauthname) {
-  const accessedRouters = asyncRouterMap.filter(route => {
+function filterAsyncRouter(_asyncRouterMap, roleauthname) {
+  const accessedRouters = _asyncRouterMap.filter((route) => {
     if (hasPermission(roleauthname, route)) {
       if (route.children && route.children.length) {
         route.children = filterAsyncRouter(route.children, roleauthname)
@@ -47,21 +46,19 @@ const permission = {
   },
   actions: {
     GenerateRoutes({
-      commit
+      commit,
     }, data) {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         const {
-          roleauthname
+          roleauthname,
         } = data
-        let accessedRouters
-
-        accessedRouters = filterAsyncRouter(asyncRouterMap, roleauthname)
+        const accessedRouters = filterAsyncRouter(asyncRouterMap, roleauthname)
 
         commit('SET_ROUTERS', accessedRouters)
         resolve()
       })
-    }
-  }
+    },
+  },
 }
 
 export default permission

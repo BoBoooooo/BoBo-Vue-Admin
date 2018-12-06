@@ -1,26 +1,25 @@
 import {
   login,
   logout,
-  getInfo
+  getInfo,
 } from '@/api/login'
 import {
   getToken,
   setToken,
-  removeToken
+  removeToken,
 } from '@/utils/auth'
 import {
-  ChangePassword
+  ChangePassword,
 } from '@/api/login'
 
 import 'nprogress/nprogress.css' // Progress 进度条样式
 
 
-
 const user = {
   state: {
     token: getToken(),
-    name: '', //用户昵称名
-    realname: '', //用户登录名
+    name: '', // 用户昵称名
+    realname: '', // 用户登录名
   },
 
   mutations: {
@@ -32,33 +31,31 @@ const user = {
     },
     SET_REALNAME: (state, realname) => {
       state.realname = realname
-    }
+    },
   },
 
   actions: {
     // 登录
     Login({
-      commit
+      commit,
     }, userInfo) {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
-        login(username, userInfo.password).then(response => {
+        login(username, userInfo.password).then((response) => {
           const data = response
-          if (data.code == 200) {
+          if (data.code === 200) {
             console.log(data.data);
             setToken(data.data)
 
 
             commit('SET_TOKEN', data.data)
             resolve(data)
-
           } else {
             commit('SET_TOKEN', '')
             removeToken()
             reject(data.message)
           }
-
-        }).catch(error => {
+        }).catch((error) => {
           reject(error)
         })
       })
@@ -67,17 +64,16 @@ const user = {
     // 获取用户信息
     GetInfo({
       commit,
-      state
+      state,
     }) {
       return new Promise((resolve, reject) => {
-        getInfo(state.token).then(response => {
-
-          const data = response.data
+        getInfo(state.token).then((response) => {
+          const { data } = response
           console.log(data);
           commit('SET_NAME', data.RealName)
           commit('SET_REALNAME', data.UserName)
           resolve(data)
-        }).catch(error => {
+        }).catch((error) => {
           reject(error)
         })
       })
@@ -86,46 +82,42 @@ const user = {
 
     //  登出
     FedLogOut({
-      commit
+      commit,
     }) {
-      return new Promise(resolve => {
-        logout().then(res => {
+      return new Promise((resolve) => {
+        logout().then(() => {
           commit('SET_TOKEN', '')
           removeToken()
-          location.reload()
+          window.location.reload()
           resolve()
-
         })
-
       })
     },
 
     ChangePassword({
       commit,
-      state
+      state,
     }, NewPassword) {
       return new Promise((resolve, reject) => {
         ChangePassword({
           username: state.realname,
-          password: NewPassword
-        }).then(response => {
+          password: NewPassword,
+        }).then((response) => {
           const data = response
           resolve(data)
-          logout().then(res => {
+          logout().then(() => {
             commit('SET_TOKEN', '')
             removeToken()
             resolve()
-          }).catch(err => {
+          }).catch((err) => {
             reject(err)
           })
-
-        }).catch(error => {
+        }).catch((error) => {
           reject(error)
         })
-
       })
-    }
-  }
+    },
+  },
 }
 
 export default user

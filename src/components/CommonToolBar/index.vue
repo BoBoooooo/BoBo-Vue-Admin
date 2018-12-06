@@ -99,9 +99,13 @@ export default {
   props: {
     optionJson: {
       type: Array, // 展示数据
+      default: () => ({}),
+
     },
     searchArr: {
       type: Array, // 列表配置json
+      default: () => ({}),
+
     },
   },
   data() {

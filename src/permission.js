@@ -24,7 +24,8 @@ router.beforeEach((to, from, next) => {
           next({
             ...to,
             replace: true,
-          }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
+          })
+          // hack方法 确保addRoutes已完成
         })
       })
     } else {

@@ -78,7 +78,7 @@ export default {
   props: {
     Params: {
       type: Object, //  IsDetail true则   只显示文件list以及download button
-      default: {},
+      default: () => ({}),
     },
   },
   data() {

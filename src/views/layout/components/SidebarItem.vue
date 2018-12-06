@@ -1,20 +1,40 @@
 <template>
-  <div  class="menu-wrapper"> 
+  <div class="menu-wrapper">
     <template v-for="item in routes">
-      <router-link :key="item.name" v-if="!item.hidden&&item.noDropdown&&item.children.length>0" :to="item.path+'/'+item.children[0].path">
+      <router-link
+        v-if="!item.hidden&&item.noDropdown&&item.children.length>0"
+        :key="item.name"
+        :to="item.path+'/'+item.children[0].path">
         <el-menu-item :index="item.path+'/'+item.children[0].path">
-          <svg-icon v-if='item.icon' :icon-class="item.icon" /> {{item.children[0].meta.title}}
+          <svg-icon
+            v-if="item.icon"
+            :icon-class="item.icon" /> {{ item.children[0].meta.title }}
         </el-menu-item>
       </router-link>
-      <el-submenu :index="item.name" v-if="!item.noDropdown&&!item.hidden" :key="item.name">
+      <el-submenu
+        v-if="!item.noDropdown&&!item.hidden"
+        :index="item.name"
+        :key="item.name">
         <template slot="title">
-          <svg-icon v-if='item.icon' :icon-class="item.icon" /> {{item.title}}
+          <svg-icon
+            v-if="item.icon"
+            :icon-class="item.icon" /> {{ item.title }}
         </template>
-        <template v-for="child in item.children" v-if='!child.hidden'>
-          <sidebar-item :key="child.name" class='menu-indent' v-if='child.children&&child.children.length>0' :routes='[child]'> </sidebar-item>
-          <router-link  :key="child.name" v-else class="menu-indent" :to="item.path+'/'+child.path">
+        <template
+          v-for="child in item.children"
+          v-if="!child.hidden">
+          <sidebar-item
+            v-if="child.children&&child.children.length>0"
+            :key="child.name"
+            :routes="[child]"
+            class="menu-indent"/>
+          <router-link
+            v-else
+            :key="child.name"
+            :to="item.path+'/'+child.path"
+            class="menu-indent">
             <el-menu-item :index="item.path+'/'+child.path">
-              {{child.meta.title}}
+              {{ child.meta.title }}
             </el-menu-item>
           </router-link>
         </template>
@@ -28,9 +48,10 @@ export default {
   name: 'SidebarItem',
   props: {
     routes: {
-      type: Array
-    }
-  }
+      type: Array,
+      default: () => ({}),
+    },
+  },
 }
 </script>
 
@@ -44,4 +65,3 @@ export default {
   text-indent: 10px;
 }
 </style>
-

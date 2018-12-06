@@ -156,9 +156,9 @@ export default {
       this.uploadParams.Param.MasterID = '';
       this.filelist = null;
       this.dialogFormVisible = true;
-      for (const key in this.temp_obj) {
-        this.temp_obj[key] = ''
-      }
+      Object.keys(this.temp_obj).forEach((k) => {
+        this.temp_obj[k] = ''
+      })
     },
     Delete(id) {
       this.$confirm('确认删除?', '提示', {

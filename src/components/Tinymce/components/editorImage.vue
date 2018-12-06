@@ -1,14 +1,30 @@
 <template>
   <div class="upload-container">
-    <el-button icon='upload' :style="{background:color,borderColor:color}" @click=" dialogVisible=true" type="primary">上传图片
+    <el-button
+      :style="{background:color,borderColor:color}"
+      icon="upload"
+      type="primary"
+      @click=" dialogVisible=true">上传图片
     </el-button>
     <el-dialog :visible.sync="dialogVisible">
-      <el-upload class="editor-slide-upload" action="https://httpbin.org/post" :multiple="true" :file-list="fileList" :show-file-list="true"
-        list-type="picture-card" :on-remove="handleRemove" :on-success="handleSuccess" :before-upload="beforeUpload">
-        <el-button size="small" type="primary">点击上传</el-button>
+      <el-upload
+        :multiple="true"
+        :file-list="fileList"
+        :show-file-list="true"
+        :on-remove="handleRemove"
+        :on-success="handleSuccess"
+        :before-upload="beforeUpload"
+        class="editor-slide-upload"
+        action="https://httpbin.org/post"
+        list-type="picture-card">
+        <el-button
+          size="small"
+          type="primary">点击上传</el-button>
       </el-upload>
       <el-button @click="dialogVisible = false">取 消</el-button>
-      <el-button type="primary" @click="handleSubmit">确 定</el-button>
+      <el-button
+        type="primary"
+        @click="handleSubmit">确 定</el-button>
     </el-dialog>
   </div>
 </template>
@@ -17,18 +33,18 @@
 // import { getToken } from 'api/qiniu'
 
 export default {
-  name: 'editorSlideUpload',
+  name: 'EditorSlideUpload',
   props: {
     color: {
       type: String,
-      default: '#20a0ff'
-    }
+      default: '#20a0ff',
+    },
   },
   data() {
     return {
       dialogVisible: false,
       listObj: {},
-      fileList: []
+      fileList: [],
     }
   },
   methods: {
@@ -48,7 +64,7 @@ export default {
       this.dialogVisible = false
     },
     handleSuccess(response, file) {
-      const uid = file.uid
+      const { uid } = file
       const objKeyArr = Object.keys(this.listObj)
       for (let i = 0, len = objKeyArr.length; i < len; i++) {
         if (this.listObj[objKeyArr[i]].uid === uid) {
@@ -59,7 +75,7 @@ export default {
       }
     },
     handleRemove(file) {
-      const uid = file.uid
+      const { uid } = file
       const objKeyArr = Object.keys(this.listObj)
       for (let i = 0, len = objKeyArr.length; i < len; i++) {
         if (this.listObj[objKeyArr[i]].uid === uid) {
@@ -73,16 +89,18 @@ export default {
       const _URL = window.URL || window.webkitURL
       const fileName = file.uid
       this.listObj[fileName] = {}
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         const img = new Image()
         img.src = _URL.createObjectURL(file)
-        img.onload = function() {
-          _self.listObj[fileName] = { hasSuccess: false, uid: file.uid, width: this.width, height: this.height }
+        img.onload = function () {
+          _self.listObj[fileName] = {
+            hasSuccess: false, uid: file.uid, width: this.width, height: this.height,
+          }
         }
         resolve(true)
       })
-    }
-  }
+    },
+  },
 }
 </script>
 

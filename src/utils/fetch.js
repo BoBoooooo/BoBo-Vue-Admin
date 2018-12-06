@@ -54,14 +54,16 @@ service.interceptors.response.use(
           type: 'error',
           duration: 1500,
         })
-      } else if (res.message !== '' && res.message != null && res.message !== 'SUCCESS') // 统一显示后台返回结果
-      {
+      }
+
+      if (res.message !== '' && res.message !== null && res.message !== 'SUCCESS') {
         Message({
           message: res.message,
           type: 'success',
           duration: 1500,
         })
       }
+
       return res
     }
   },

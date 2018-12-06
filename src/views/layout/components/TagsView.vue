@@ -1,12 +1,27 @@
 <template>
   <div class="tags-view-container">
-    <scroll-pane class='tags-view-wrapper' ref='scrollPane'>
-      <router-link style="border-radius:4px" ref='tag' class="tags-view-item" :class="isActive(tag)?'active':''" v-for="tag in Array.from(visitedViews)" :to="tag.path" :key="tag.path" @contextmenu.prevent.native="openMenu(tag,$event)">
-        {{tag.title}}
-        <span class='el-icon-close' @click.prevent.stop='closeSelectedTag(tag)'></span>
+    <scroll-pane
+      ref="scrollPane"
+      class="tags-view-wrapper">
+      <router-link
+        v-for="tag in Array.from(visitedViews)"
+        ref="tag"
+        :class="isActive(tag)?'active':''"
+        :to="tag.path"
+        :key="tag.path"
+        style="border-radius:4px"
+        class="tags-view-item"
+        @contextmenu.prevent.native="openMenu(tag,$event)">
+        {{ tag.title }}
+        <span
+          class="el-icon-close"
+          @click.prevent.stop="closeSelectedTag(tag)"/>
       </router-link>
     </scroll-pane>
-    <ul class='contextmenu' v-show="visible" :style="{left:left+'px',top:top+'px'}">
+    <ul
+      v-show="visible"
+      :style="{left:left+'px',top:top+'px'}"
+      class="contextmenu">
       <li @click="closeSelectedTag(selectedTag)">关闭当前</li>
       <li @click="closeOthersTags">关闭其他</li>
       <li @click="closeAllTags">关闭全部</li>
@@ -17,7 +32,7 @@
 <script>
 import ScrollPane from '@/components/ScrollPane'
 
-export default {  
+export default {
   name: 'TagsView',
 
   components: { ScrollPane },
@@ -26,16 +41,16 @@ export default {
       visible: false,
       top: 0,
       left: 0,
-      selectedTag: {}
+      selectedTag: {},
     }
   },
   computed: {
     visitedViews() {
       return this.$store.state.tagsView.visitedViews
     },
-      sidebar(){
-        return this.$store.getters.sidebar.opened
-      }
+    sidebar() {
+      return this.$store.getters.sidebar.opened
+    },
   },
   watch: {
     $route() {
@@ -48,7 +63,7 @@ export default {
       } else {
         window.removeEventListener('click', this.closeMenu)
       }
-    }
+    },
   },
   mounted() {
     this.addViewTags()
@@ -73,12 +88,20 @@ export default {
     moveToCurrentTag() {
       const tags = this.$refs.tag
       this.$nextTick(() => {
-        for (const tag of tags) {
-          if (tag.to === this.$route.path) {
-            this.$refs.scrollPane.moveToTarget(tag.$el)
-            break
+        tags.some((item) => {
+          if (item.to === this.$route.path) {
+            this.$refs.scrollPane.moveToTarget(item.$el)
+            return true
           }
-        }
+          return false
+        })
+
+        // for (const tag of tags) {
+        //   if (tag.to === this.$route.path) {
+        //     this.$refs.scrollPane.moveToTarget(tag.$el)
+        //     break
+        //   }
+        // }
       })
     },
     closeSelectedTag(view) {
@@ -107,16 +130,13 @@ export default {
       this.visible = true
       this.selectedTag = tag
       console.log(e)
-      if(!this.sidebar)
-      this.left = e.clientX-40
-      else
-      this.left = e.clientX-180
+      if (!this.sidebar) { this.left = e.clientX - 40 } else { this.left = e.clientX - 180 }
       this.top = e.clientY
     },
     closeMenu() {
       this.visible = false
-    }
-  }
+    },
+  },
 }
 </script>
 

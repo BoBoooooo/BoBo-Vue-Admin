@@ -1,40 +1,79 @@
 <template>
-  <div id="movie" class="app-container">
+  <div
+    id="movie"
+    class="app-container">
     <h2>近期热映电影</h2>
-    <el-table v-loading.body="listLoading" :data="tableData" element-loading-text="拼命加载中" fit highlight-current-row>
-      <el-table-column align="center" label="上映年份" width="95">
+    <el-table
+      v-loading.body="listLoading"
+      :data="tableData"
+      element-loading-text="拼命加载中"
+      fit
+      highlight-current-row>
+      <el-table-column
+        align="center"
+        label="上映年份"
+        width="95">
         <template slot-scope="scope">
           {{ scope.row.year }}
         </template>
       </el-table-column>
-      <el-table-column label="电影名" align="center">
+      <el-table-column
+        label="电影名"
+        align="center">
         <template slot-scope="scope">
-          <a id="name" :href="scope.row.alt" target="_blank">{{ scope.row.title }}</a>
+          <a
+            id="name"
+            :href="scope.row.alt"
+            target="_blank">{{ scope.row.title }}</a>
         </template>
       </el-table-column>
-      <el-table-column label="类型" align="center">
+      <el-table-column
+        label="类型"
+        align="center">
         <template slot-scope="scope">
-          <el-tag v-for="(item,index) in scope.row.genres" :key="index" type="primary" style="margin-right:5px;margin-top:5px">{{ item }}</el-tag>
+          <el-tag
+            v-for="(item,index) in scope.row.genres"
+            :key="index"
+            type="primary"
+            style="margin-right:5px;margin-top:5px">{{ item }}</el-tag>
 
         </template>
       </el-table-column>
 
-      <el-table-column label="主演" align="center" min-width="100px">
+      <el-table-column
+        label="主演"
+        align="center"
+        min-width="100px">
         <template slot-scope="scope">
-          <el-tag v-for="(item,index) in scope.row.casts" :key="index" type="danger" style="margin-right:5px;margin-top:5px">{{ item.name }}</el-tag>
+          <el-tag
+            v-for="(item,index) in scope.row.casts"
+            :key="index"
+            type="danger"
+            style="margin-right:5px;margin-top:5px">{{ item.name }}</el-tag>
 
         </template>
       </el-table-column>
-      <el-table-column label="豆瓣评分" align="center">
+      <el-table-column
+        label="豆瓣评分"
+        align="center">
 
         <template slot-scope="scope">
 
-          <el-rate v-model="scope.row.rating.average" disabled show-score text-color="#ff9900" score-template="{value}" />
+          <el-rate
+            v-model="scope.row.rating.average"
+            disabled
+            show-score
+            text-color="#ff9900"
+            score-template="{value}" />
         </template>
       </el-table-column>
-      <el-table-column label="海报" align="center">
+      <el-table-column
+        label="海报"
+        align="center">
         <template slot-scope="scope">
-          <img :src="getImage(scope.row.images.small)" style="height:200px">
+          <img
+            :src="getImage(scope.row.images.small)"
+            style="height:200px">
         </template>
       </el-table-column>
 
@@ -45,6 +84,7 @@
 
 <script>
 import axios from 'axios'
+
 export default {
   name: 'Movie',
 
@@ -64,7 +104,7 @@ export default {
       start: 1,
       // 默认数据总数
       totalCount: 1000,
-      listLoading: true
+      listLoading: true,
     }
   },
   created() {
@@ -72,27 +112,28 @@ export default {
   },
   methods: {
     // 从服务器读取数据
-    loadData: function(pageNum, pageSize) {
+    loadData() {
       axios
         .get(this.url)
         .then(
-          response => {
+          (response) => {
             this.tableData = response.data.subjects
             this.listLoading = false
             this.totalCount = response.data.total
           },
-          function() {
+          () => {
             console.log('failed')
-          }
+          },
         )
     },
     getImage(url) {
       if (url !== undefined) {
+        // eslint-disable-next-line no-useless-escape
         return url.replace('http:\/\/', 'https://images.weserv.nl/?url=')
       }
-    }
+    },
 
-  }
+  },
 }
 
 </script>

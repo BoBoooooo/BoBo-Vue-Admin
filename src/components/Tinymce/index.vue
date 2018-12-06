@@ -1,9 +1,14 @@
 <template>
   <div class="tinymce-container editor-container">
-    <textarea class="tinymce-textarea" :id="tinymceId"></textarea>
+    <textarea
+      :id="tinymceId"
+      class="tinymce-textarea"/>
     <div class="editor-custom-btn-container">
-     <editorImage  color="#20a0ff" class="editor-upload-btn" @successCBK="imageSuccessCBK"></editorImage>
-      </div>
+      <editorImage
+        color="#20a0ff"
+        class="editor-upload-btn"
+        @successCBK="imageSuccessCBK"/>
+    </div>
   </div>
 </template>
 
@@ -11,37 +16,39 @@
 import editorImage from './components/editorImage'
 
 export default {
-  name: 'tinymce',
+  name: 'Tinymce',
   components: { editorImage },
   props: {
     id: {
-      type: String
+      type: String,
+      default: '',
     },
     value: {
       type: String,
-      default: ''
+      default: '',
     },
     toolbar: {
       type: Array,
       required: false,
       default() {
         return ['removeformat undo redo |  bullist numlist | outdent indent | forecolor | fullscreen code', 'bold italic blockquote | h2 p  media link | alignleft aligncenter alignright']
-      }
+      },
     },
     menubar: {
-      default: ''
+      type: String,
+      default: '',
     },
     height: {
       type: Number,
       required: false,
-      default: 360
-    }
+      default: 360,
+    },
   },
   data() {
     return {
       hasChange: false,
       hasInit: false,
-      tinymceId: this.id || 'vue-tinymce-' + +new Date()
+      tinymceId: this.id || `vue-tinymce-${+new Date()}`,
     }
   },
   watch: {
@@ -49,7 +56,7 @@ export default {
       if (!this.hasChange && this.hasInit) {
         this.$nextTick(() => window.tinymce.get(this.tinymceId).setContent(val))
       }
-    }
+    },
   },
   mounted() {
     this.initTinymce()
@@ -58,6 +65,9 @@ export default {
     this.initTinymce()
   },
   deactivated() {
+    this.destroyTinymce()
+  },
+  destroyed() {
     this.destroyTinymce()
   },
   methods: {
@@ -81,7 +91,7 @@ export default {
         imagetools_toolbar: 'watermark',
         default_link_target: '_blank',
         link_title: false,
-        init_instance_callback: editor => {
+        init_instance_callback: (editor) => {
           if (_this.value) {
             editor.setContent(_this.value)
           }
@@ -90,7 +100,7 @@ export default {
             this.hasChange = true
             this.$emit('input', editor.getContent({ format: 'raw' }))
           })
-        }
+        },
         // 整合七牛上传
         // images_dataimg_filter(img) {
         //   setTimeout(() => {
@@ -139,14 +149,11 @@ export default {
     },
     imageSuccessCBK(arr) {
       const _this = this
-      arr.forEach(v => {
+      arr.forEach((v) => {
         window.tinymce.get(_this.tinymceId).insertContent(`<img class="wscnph" src="${v.url}" >`)
       })
-    }
+    },
   },
-  destroyed() {
-    this.destroyTinymce()
-  }
 }
 </script>
 

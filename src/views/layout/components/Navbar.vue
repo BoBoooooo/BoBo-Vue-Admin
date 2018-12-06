@@ -1,26 +1,41 @@
 <template>
 
-  <el-menu class="navbar" mode="horizontal">
-    <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
-    <breadcrumb class="breadcrumb-container"></breadcrumb>
-    <Screenfull class="screenfull"></Screenfull>
-    <el-dropdown class="avatar-container" trigger="click">
+  <el-menu
+    class="navbar"
+    mode="horizontal">
+    <hamburger
+      :toggle-click="toggleSideBar"
+      :is-active="sidebar.opened"
+      class="hamburger-container"/>
+    <breadcrumb class="breadcrumb-container"/>
+    <Screenfull class="screenfull"/>
+    <el-dropdown
+      class="avatar-container"
+      trigger="click">
       <div class="avatar-wrapper">
-        {{name}}
-        <i class="el-icon-caret-bottom"></i>
+        {{ name }}
+        <i class="el-icon-caret-bottom"/>
       </div>
-      <el-dropdown-menu class="user-dropdown" slot="dropdown">
-        <router-link class='inlineBlock' to="/">
+      <el-dropdown-menu
+        slot="dropdown"
+        class="user-dropdown">
+        <router-link
+          class="inlineBlock"
+          to="/">
           <el-dropdown-item>
             首页
           </el-dropdown-item>
         </router-link>
         <el-dropdown-item divided>
-          <span @click="changepassword" style="display:block;">修改密码</span>
+          <span
+            style="display:block;"
+            @click="changepassword">修改密码</span>
         </el-dropdown-item>
 
         <el-dropdown-item divided>
-          <span @click="logout" style="display:block;">退出</span>
+          <span
+            style="display:block;"
+            @click="logout">退出</span>
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
@@ -28,54 +43,53 @@
 </template>
 
 <script>
-  import {
-    mapGetters
-  } from 'vuex'
-  import Hamburger from '@/components/Hamburger'
+import {
+  mapGetters,
+} from 'vuex'
+import Hamburger from '@/components/Hamburger'
 import Breadcrumb from '@/components/Breadcrumb'
 import Screenfull from '@/components/Screenfull'
 
-  export default {
-    components: {
-          Breadcrumb,
-Screenfull,
-      Hamburger
-    },
-    computed: {
-      ...mapGetters([
-        'sidebar',
-        'name'
-      ])
-    },
-  
-    methods: {
-   
-      toggleSideBar() {
-        this.$store.dispatch('ToggleSideBar')
-      },
-      logout() {
-        this.$store.dispatch('FedLogOut')
-      },
-      changepassword() {
+export default {
+  components: {
+    Breadcrumb,
+    Screenfull,
+    Hamburger,
+  },
+  computed: {
+    ...mapGetters([
+      'sidebar',
+      'name',
+    ]),
+  },
 
-        this.$prompt('请输入新密码', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
+  methods: {
 
-        }).then(({
-          value
-        }) => {
-          this.$store.dispatch('ChangePassword', value)
-        })
-      }
-    }
-  }
+    toggleSideBar() {
+      this.$store.dispatch('ToggleSideBar')
+    },
+    logout() {
+      this.$store.dispatch('FedLogOut')
+    },
+    changepassword() {
+      this.$prompt('请输入新密码', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+
+      }).then(({
+        value,
+      }) => {
+        this.$store.dispatch('ChangePassword', value)
+      })
+    },
+  },
+}
 
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
   .navbar {
-    
+
     height: 50px;
     line-height: 50px;
     border-radius: 0px !important;
@@ -106,7 +120,7 @@ Screenfull,
 
       }
     }
-    
+
     .avatar-container {
       height: 50px;
       display: inline-block;

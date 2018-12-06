@@ -1,7 +1,7 @@
 const tagsView = {
   state: {
     visitedViews: [],
-    cachedViews: []
+    cachedViews: [],
   },
   mutations: {
     ADD_VISITED_VIEWS: (state, view) => {
@@ -9,7 +9,7 @@ const tagsView = {
       state.visitedViews.push({
         name: view.name,
         path: view.path,
-        title: view.meta.title || 'no-name'
+        title: view.meta.title || 'no-name',
       })
       if (!view.meta.noCache) {
         state.cachedViews.push(view.name)
@@ -48,7 +48,7 @@ const tagsView = {
     DEL_ALL_VIEWS: (state) => {
       state.visitedViews = []
       state.cachedViews = []
-    }
+    },
   },
   actions: {
     addVisitedViews({ commit }, view) {
@@ -71,8 +71,8 @@ const tagsView = {
         commit('DEL_ALL_VIEWS')
         resolve([...state.visitedViews])
       })
-    }
-  }
+    },
+  },
 }
 
 export default tagsView

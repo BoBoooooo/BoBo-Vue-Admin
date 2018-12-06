@@ -1,63 +1,66 @@
 <template>
-  <div :class="classObj" class="app-wrapper">
+  <div
+    :class="classObj"
+    class="app-wrapper">
     <div class="sidebar-wrapper">
-      <sidebar class="sidebar-container"></sidebar>
+      <sidebar class="sidebar-container"/>
     </div>
     <div class="main-container">
-      <navbar></navbar>
-      <TagsView></TagsView>
+      <navbar/>
+      <TagsView/>
       <div class="content-container">
-        <app-main></app-main>
+        <app-main/>
       </div>
     </div>
-    <BackToTop></BackToTop>
+    <BackToTop/>
   </div>
 </template>
 
 
 <script>
-  import {
+import {
+  Navbar,
+  Sidebar,
+  AppMain,
+  TagsView,
+} from '@/views/layout/components'
+import BackToTop from '@/components/BackToTop'
+
+export default {
+  name: 'Layout',
+  components: {
     Navbar,
     Sidebar,
     AppMain,
-    TagsView
-  } from '@/views/layout/components'
-  import BackToTop from '@/components/BackToTop'
-  export default {
-    name: 'layout',
-    components: {
-      Navbar,
-      Sidebar,
-      AppMain,
-      BackToTop,
-      TagsView
+    BackToTop,
+    TagsView,
+  },
+  computed: {
+    sidebar() {
+      return this.$store.state.app.sidebar
     },
-    computed: {
-      sidebar() {
-        return this.$store.state.app.sidebar
-      },
-         classObj() {
+    classObj() {
       return {
         hideSidebar: !this.sidebar.opened,
         openSidebar: this.sidebar.opened,
       }
-    }
     },
-    created() {
-      this.$notify({
-        title: '欢迎回来',
-        type: 'success',
-        duration: 2000,
-        customClass: '.notify',
-        message: this.$store.getters.name
-      });
-    },
-    mounted(){
-        window.addEventListener('scroll', ()=>{
-        })
-    }
-   
-  }
+  },
+  created() {
+    this.$notify({
+      title: '欢迎回来',
+      type: 'success',
+      duration: 2000,
+      customClass: '.notify',
+      message: this.$store.getters.name,
+    });
+  },
+  mounted() {
+    window.addEventListener('scroll', () => {
+    })
+  },
+
+}
 
 </script>
 

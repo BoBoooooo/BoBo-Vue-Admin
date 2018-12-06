@@ -61,11 +61,11 @@ export default {
   props: {
     list: {
       type: Array, // 展示数据
-      default: [],
+      default: () => ({}),
     },
     tableJson: {
       type: Array, // 列表配置json
-      default: [],
+      default: () => ({}),
 
     },
     listLoading: { // 正在加载
@@ -74,7 +74,7 @@ export default {
     },
     listQuery: {
       type: Object,
-      default: {},
+      default: () => ({}),
     },
 
   },
@@ -95,10 +95,7 @@ export default {
     Delete(id) {
       this.$emit('Delete', id)
     },
-
   },
-
-
 }
 </script>
 

@@ -1,6 +1,8 @@
 <template>
   <section class="app-main">
-    <transition name="fade-transform" mode="out-in">
+    <transition
+      name="fade-transform"
+      mode="out-in">
       <keep-alive :include="cachedViews">
         <router-view :key="key"/>
       </keep-alive>
@@ -10,20 +12,21 @@
 
 
 <script>
-import BackToTop from '@/components/BackToTop' 
+import BackToTop from '@/components/BackToTop'
+
 export default {
   name: 'AppMain',
+  components: {
+    BackToTop,
+  },
   computed: {
     cachedViews() {
       return this.$store.state.tagsView.cachedViews
     },
     key() {
       return this.$route.fullPath
-    }
+    },
   },
-  components:{
-    BackToTop
-  }
 }
 </script>
 <style scoped>
@@ -34,4 +37,3 @@ export default {
   overflow: auto;
 }
 </style>
-
