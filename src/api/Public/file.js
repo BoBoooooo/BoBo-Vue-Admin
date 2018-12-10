@@ -4,10 +4,10 @@ export function upload(MasterID) {
   return fetch({
     url: '/file/Upload',
     method: 'post',
-    contentType : false,
+    contentType: false,
     params: {
-      MasterID
-    }
+      MasterID,
+    },
   })
 }
 
@@ -15,18 +15,18 @@ export function download(AffixID) {
   return fetch({
     url: '/file/download',
     method: 'get',
-    params:{
-      AffixID
-    }
+    params: {
+      AffixID,
+    },
   })
 }
 export function deletefile(AffixID) {
   return fetch({
     url: '/file/delete',
     method: 'get',
-    params:{
-      AffixID
-    }
+    params: {
+      AffixID,
+    },
   })
 }
 
@@ -34,11 +34,9 @@ export function GetFileList(MasterID) {
   return fetch({
     url: '/file/list',
     method: 'post',
-    
-    params:{
-      MasterID
-    }
+
+    params: {
+      MasterID,
+    },
   })
 }
-
-

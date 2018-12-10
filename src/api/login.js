@@ -6,25 +6,22 @@ export function login(username, password) {
     method: 'post',
     params: {
       username,
-      password
-    }
+      password,
+    },
   })
 }
 
-export function getInfo(token) {
+export function getInfo() {
   return fetch({
     url: '/login/userinfo',
     method: 'post',
-    // data: {
-    //   auth:token
-    // }
   })
 }
 
 export function logout() {
   return fetch({
     url: '/login/logout',
-    method: 'post'
+    method: 'post',
   })
 }
 
@@ -33,6 +30,6 @@ export function ChangePassword(data) {
   return fetch({
     url: '/login/changepassword',
     method: 'post',
-    params: data
+    params: data,
   })
 }
