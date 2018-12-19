@@ -60,8 +60,10 @@
                 title="删除"
                 style="bottom: -20px;"
                 class="widget-action-delete"
-                circle 
-plain type="danger" @click.stop="handleWidgetDelete(index)">
+                circle
+                plain
+                type="danger"
+                @click.stop="handleWidgetDelete(index)">
                 <icon
                   name="regular/trash-alt"
                   style="width: 12px;height: 12px;"/>

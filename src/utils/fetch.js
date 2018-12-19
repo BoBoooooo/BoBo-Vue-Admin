@@ -54,9 +54,7 @@ service.interceptors.response.use(
           type: 'error',
           duration: 1500,
         })
-      }
-
-      if (res.message !== '' && res.message !== null && res.message !== 'SUCCESS') {
+      } else if (res.message !== '' && res.message !== null && res.message !== 'SUCCESS') {
         Message({
           message: res.message,
           type: 'success',

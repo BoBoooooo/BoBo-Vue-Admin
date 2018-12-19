@@ -430,7 +430,7 @@
             v-model="data.options.readonly">完全只读</el-checkbox>
           <el-checkbox
             v-if="Object.keys(data.options).indexOf('disabled')>=0"
-            v-model="data.options.disabled">禁用	</el-checkbox>
+            v-model="data.options.disabled">禁用</el-checkbox>
           <el-checkbox
             v-if="Object.keys(data.options).indexOf('editable')>=0"
             v-model="data.options.editable">文本框可输入</el-checkbox>

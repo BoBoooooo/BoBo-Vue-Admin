@@ -4,7 +4,6 @@ import {
 } from '@/utils/auth'
 
 export default function (AffixID) {
-  console.log(AffixID)
   return new Promise((resolve, reject) => {
     axios.get(`${process.env.BASE_API}file/download`, {
       headers: {

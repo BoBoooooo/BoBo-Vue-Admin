@@ -1,23 +1,29 @@
 <template>
   <el-dialog
-    class="cus-dialog-container"
+    ref="elDialog"
     :title="title"
     :visible.sync="dialogVisible"
     :close-on-click-modal="false"
-    center
     :width="width"
-    ref="elDialog"
     :id="id"
-    >
+    class="cus-dialog-container"
+    center
+  >
     <span v-if="show">
-      <slot></slot>
+      <slot/>
     </span>
 
-    <span v-if="action" slot="footer" class="dialog-footer" v-loading="loading"
-      :element-loading-text="loadingText">
+    <span
+      v-loading="loading"
+      v-if="action"
+      slot="footer"
+      :element-loading-text="loadingText"
+      class="dialog-footer">
       <slot name="action">
         <el-button @click="close">取消</el-button>
-        <el-button type="primary" @click="submit" >确 定</el-button>
+        <el-button
+          type="primary"
+          @click="submit" >确 定</el-button>
       </slot>
     </span>
   </el-dialog>
@@ -29,59 +35,43 @@ export default {
     visible: Boolean,
     loadingText: {
       type: String,
-      default: ''
+      default: '',
     },
     title: {
       type: String,
-      default: ''
+      default: '',
     },
     width: {
       type: String,
-      default: '600px'
+      default: '600px',
     },
     form: {
       type: Boolean,
-      default: true
+      default: true,
     },
     action: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
-  computed: {
-    show () {
-      if (this.form) {
-        return this.showForm
-      } else {
-        return true
-      }
-    }
-  },
-  data () {
+  data() {
     return {
       loading: false,
       dialogVisible: this.visible,
-      id: 'dialog_' + new Date().getTime(),
-      showForm: false
+      id: `dialog_${new Date().getTime()}`,
+      showForm: false,
     }
   },
-  methods: {
-    close () {
-      this.dialogVisible = false
+  computed: {
+    show() {
+      if (this.form) {
+        return this.showForm
+      }
+      return true
     },
-    submit () {
-      this.loading = true
-
-      this.$emit('on-submit')
-    },
-    end () {
-      this.loading = false
-    }
-  },
-  mounted () {
   },
   watch: {
-    dialogVisible (val) {
+    dialogVisible(val) {
       if (!val) {
         this.loading = false
         this.$emit('on-close')
@@ -92,10 +82,25 @@ export default {
         this.showForm = true
       }
     },
-    visible (val) {
+    visible(val) {
       this.dialogVisible = val
-    }
-  }
+    },
+  },
+  mounted() {
+  },
+  methods: {
+    close() {
+      this.dialogVisible = false
+    },
+    submit() {
+      this.loading = true
+
+      this.$emit('on-submit')
+    },
+    end() {
+      this.loading = false
+    },
+  },
 }
 </script>
 
