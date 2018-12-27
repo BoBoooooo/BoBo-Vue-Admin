@@ -183,7 +183,7 @@ export default {
       this.dialogStatus = 'update';
       GetUsersDetail(id).then((response) => {
         this.temp_obj = response.data;
-        // this.id = id;
+        this.id = id;
         this.uploadParams.Param.MasterID = id;
         this.dialogFormVisible = true;
       });
@@ -212,7 +212,7 @@ export default {
         .getData()
         .then((data) => {
           this.temp_obj = data;
-          // this.temp_obj.id = this.id;
+          this.temp_obj.id = this.id;
           UpdateUsers(this.temp_obj).then(() => {
             this.dialogFormVisible = false;
             this.fetchData(this.listQuery);

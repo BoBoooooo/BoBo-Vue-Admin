@@ -68,7 +68,7 @@
 </template>
 <script>
 import { getToken } from '@/utils/auth';
-import { GetFileList, deletefile } from '@/api/public/file';
+import { GetFileList, deletefile } from '@/api/Public/file';
 import { timestampToTime } from '@/utils/index';
 import download from '@/utils/download';
 

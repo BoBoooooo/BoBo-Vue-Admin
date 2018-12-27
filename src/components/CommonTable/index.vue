@@ -1,14 +1,15 @@
 <template>
   <div class="app-container">
-    <el-table
+    <ElTable
       v-loading.body="listLoading"
       :default-sort="{prop: 'name', order: 'descending'}"
       :data="list"
       element-loading-text="拼命加载中"
       border
       fit
-      highlight-current-row>
-      <el-table-column
+      highlight-current-row
+    >
+      <ElTableColumn
         v-for="(item,index) in tableJson"
         :key="index"
         :label="item.label"
@@ -20,25 +21,28 @@
         :header-align="item.header_align"
         :show-overflow-tooltip="item.show_overflow_tooltip"
       />
-      <el-table-column
+      <ElTableColumn
         label="操作"
         align="center"
-        min-width="110px">
+        min-width="110px"
+      >
         <template slot-scope="scope">
-          <el-button
+          <ElButton
             type="primary"
             icon="el-icon-edit"
             circle
-            @click="Edit(scope.row.id)" />
-          <el-button
+            @click="Edit(scope.row.id)"
+          />
+          <ElButton
             type="danger"
             icon="el-icon-delete"
             circle
-            @click="Delete(scope.row.id)" />
+            @click="Delete(scope.row.id)"
+          />
         </template>
-      </el-table-column>
-    </el-table>
-    <el-pagination
+      </ElTableColumn>
+    </ElTable>
+    <ElPagination
       :current-page="listQuery.pageNumber"
       :page-size="listQuery.pageSize"
       :total="listQuery.totalCount"
@@ -48,10 +52,7 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
     />
-
-
   </div>
-
 </template>
 
 <script>
@@ -61,11 +62,11 @@ export default {
   props: {
     list: {
       type: Array, // 展示数据
-      default: () => ({}),
+      default: () => ([]),
     },
     tableJson: {
       type: Array, // 列表配置json
-      default: () => ({}),
+      default: () => ([]),
 
     },
     listLoading: { // 正在加载

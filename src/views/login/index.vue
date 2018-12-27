@@ -5,8 +5,11 @@
       :model="loginForm"
       class="login-form"
       auto-complete="on"
-      label-position="left">
-      <h3 class="title">Anshare Admin v2.0</h3>
+      label-position="left"
+    >
+      <h3 class="title">
+        Anshare Admin v2.0
+      </h3>
       <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="yonghuming" />
@@ -16,7 +19,8 @@
           name="username"
           type="text"
           auto-complete="on"
-          placeholder="请输入用户名" />
+          placeholder="请输入用户名"
+        />
       </el-form-item>
       <el-form-item prop="password">
         <span class="svg-container">
@@ -32,26 +36,27 @@
         />
         <span
           class="show-pwd"
-          @click="showPwd">
+          @click="showPwd"
+        >
           <svg-icon icon-class="eye" />
         </span>
       </el-form-item>
 
       <el-form-item>
-
         <el-button
           :loading="loading"
           type="default"
           style="width:100%;background:rbg(170,198,190)"
-          @click.native.prevent="handleLogin">
+          @click.native.prevent="handleLogin"
+        >
           <svg-icon
             icon-class="login"
-            style="font-size:24px" />
+            style="font-size:24px"
+          />
         </el-button>
       </el-form-item>
     </el-form>
   </div>
-
 </template>
 
 <script>

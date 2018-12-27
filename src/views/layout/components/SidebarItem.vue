@@ -1,44 +1,50 @@
 <template>
   <div class="menu-wrapper">
     <template v-for="item in routes">
-      <router-link
+      <RouterLink
         v-if="!item.hidden&&item.noDropdown&&item.children.length>0"
         :key="item.name"
-        :to="item.path+'/'+item.children[0].path">
-        <el-menu-item :index="item.path+'/'+item.children[0].path">
+        :to="item.path+'/'+item.children[0].path"
+      >
+        <ElMenuItem :index="item.path+'/'+item.children[0].path">
           <svg-icon
             v-if="item.icon"
-            :icon-class="item.icon" /> {{ item.children[0].meta.title }}
-        </el-menu-item>
-      </router-link>
-      <el-submenu
+            :icon-class="item.icon"
+          /> {{ item.children[0].meta.title }}
+        </ElMenuItem>
+      </RouterLink>
+      <ElSubmenu
         v-if="!item.noDropdown&&!item.hidden"
+        :key="item.name"
         :index="item.name"
-        :key="item.name">
+      >
         <template slot="title">
           <svg-icon
             v-if="item.icon"
-            :icon-class="item.icon" /> {{ item.title }}
+            :icon-class="item.icon"
+          /> {{ item.title }}
         </template>
         <template
-          v-for="child in item.children"
-          v-if="!child.hidden">
-          <sidebar-item
+          v-for="child in item.children.filter(k=>!k.hidden)"
+        >
+          <SidebarItem
             v-if="child.children&&child.children.length>0"
             :key="child.name"
             :routes="[child]"
-            class="menu-indent"/>
-          <router-link
+            class="menu-indent"
+          />
+          <RouterLink
             v-else
             :key="child.name"
             :to="item.path+'/'+child.path"
-            class="menu-indent">
-            <el-menu-item :index="item.path+'/'+child.path">
+            class="menu-indent"
+          >
+            <ElMenuItem :index="item.path+'/'+child.path">
               {{ child.meta.title }}
-            </el-menu-item>
-          </router-link>
+            </ElMenuItem>
+          </RouterLink>
         </template>
-      </el-submenu>
+      </ElSubmenu>
     </template>
   </div>
 </template>
@@ -53,6 +59,10 @@ export default {
     },
   },
 }
+/*
+ <i class="fontcontainer">
+              <span class="iconfont" v-if="onlyOneChild.meta&&onlyOneChild.meta.icon" :class="onlyOneChild.meta.icon"></span>
+          </i>* */
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>

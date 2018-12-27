@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
@@ -9,17 +9,3 @@ export default {
   name: 'App',
 }
 </script>
-
-<style>
-.app-container{
-  height:100%;
-  padding:15px;
-}
-
-
-.el-table{
-  height:calc(100% - 100px)!important;
-  overflow: auto;
-}
-
-</style>

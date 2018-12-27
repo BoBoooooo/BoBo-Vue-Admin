@@ -1,11 +1,5 @@
 export const basicComponents = [
   {
-    type: 'hidden',
-    name: 'ID隐藏域',
-    icon: 'regular/keyboard',
-
-  },
-  {
     type: 'input',
     name: '单行文本',
     icon: 'regular/keyboard',

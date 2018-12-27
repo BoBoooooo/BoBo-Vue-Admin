@@ -1,34 +1,27 @@
 <template>
-  <div class="app-container" ref="container" id="formdesigner" style="padding-top:0px">
-  
-
-<making-form ref="form">
-   
-</making-form>
-
-
-
-
+  <div
+    id="formdesigner"
+    ref="container"
+    class="app-container"
+    style="padding-top:0px"
+  >
+    <MakingForm ref="form" />
   </div>
-
-
-
- 
 </template>
 
 <script>
-import MakingForm from "@/components/FormDesigner/Container";
+import MakingForm from '@/components/FormDesigner/Container';
 
 export default {
-  name: "formdesigner",
-  data() {
-    return {
-      
-    }
-  },
+  name: 'Formdesigner',
 
   components: {
-    MakingForm
-  }
+    MakingForm,
+  },
+  data() {
+    return {
+
+    }
+  },
 };
 </script>

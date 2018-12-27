@@ -316,7 +316,7 @@ export default {
         list: [],
         config: {
           labelWidth: 100,
-          labelPosition: 'top',
+          labelPosition: 'left',
           columnList: [],
 
         },
@@ -444,7 +444,7 @@ export default {
             list: [],
             config: {
               labelWidth: 100,
-              labelPosition: 'top',
+              labelPosition: 'left',
               columnList: [],
 
             },
@@ -463,8 +463,12 @@ export default {
 @import './styles/cover.scss';
 @import './styles/index.scss';
 
+.el-container{
+  height:auto!important;
+}
+
 .widget-empty{
-  background: url('../../assets/form_bg.png') no-repeat;
+  background: url('~@/assets/form_bg.png') no-repeat;
   background-position: 50% 30%;
   background-size:80%;
   // background-size: 30% 30%;

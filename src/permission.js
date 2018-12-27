@@ -1,3 +1,9 @@
+/*
+ * @Author: BoBo
+ * @Date: 2018-12-23 10:58:07
+ * @Last Modified by:   BoBo
+ * @Last Modified time: 2018-12-23 10:58:07
+ */
 import router from './router';
 import store from './store';
 import NProgress from 'nprogress'; // Progress 进度条

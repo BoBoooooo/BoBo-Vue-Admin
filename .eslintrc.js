@@ -1,17 +1,11 @@
 module.exports = {
-  root: true,
-  
-    "env": {
-        "browser": true,
-        "es6": true,
-        "node": true
+    root: true,
+    env: {
+      node: true,
     },
-     "parserOptions": {
-         "parser": "babel-eslint"
-     },
-    "extends": [
-        "airbnb-base",
-        "plugin:vue/recommended"
+    extends: [
+      'plugin:vue/essential',
+      '@vue/airbnb',
     ],
     rules: {
       "semi": "off", //去掉分号检查
@@ -23,15 +17,16 @@ module.exports = {
       'no-restricted-syntax': 0, // 允许for-of，
 'vue/require-prop-types':0, //props允许不指定type
       'consistent-return':'off', //
-      'max-len':'off'
+      'max-len':'off',
+      'import/extensions':'off',
+      'vue/require-valid-default-prop':'off',
+      'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+      'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
     },
-    "settings": {
-        "import/resolver": {
-          "webpack":{
-            "config": "./build/webpack.base.conf.js"
-          }
-        }
-      }
+    parserOptions: {
+        parser: 'babel-eslint',
+      },
+   
 
 }
 

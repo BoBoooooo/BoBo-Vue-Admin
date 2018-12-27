@@ -12,13 +12,10 @@
 
 
 <script>
-import BackToTop from '@/components/BackToTop'
 
 export default {
   name: 'AppMain',
-  components: {
-    BackToTop,
-  },
+
   computed: {
     cachedViews() {
       return this.$store.state.tagsView.cachedViews

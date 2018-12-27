@@ -1,11 +1,21 @@
 .DS_Store
-node_modules/
-dist/
-static/ckeditor
-gifs/
-npm-debug.log
-test/unit/coverage
-test/e2e/reports
-selenium-debug.log
+node_modules
+/dist
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
 .idea
-package-lock.json
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw*

@@ -1,60 +1,41 @@
+/* eslint-disable camelcase */
 <template>
-  <div style="background:#f0f2f5;margin-top: -20px;">
-    <div class="wscn-http404">
-      <div class="pic-404">
-        <img
-          :src="img_404"
-          class="pic-404__parent"
-          alt="404">
-        <img
-          :src="img_404_cloud"
-          class="pic-404__child left"
-          alt="404">
-        <img
-          :src="img_404_cloud"
-          class="pic-404__child mid"
-          alt="404">
-        <img
-          :src="img_404_cloud"
-          class="pic-404__child right"
-          alt="404">
-      </div>
-      <div class="bullshit">
-        <a
-          href="/"
-          class="bullshit__return-home">返回首页</a>
-      </div>
-    </div>
-  </div>
+  <div class="wscn-http404-container" />
 </template>
 
 <script>
-import { img_404 as img404 } from '@/assets/404_images/404.png'
-import { img_404_cloud as img404cloud } from '@/assets/404_images/404_cloud.png'
 
 export default {
+  name: 'Page404',
   data() {
     return {
-      img404,
-      img404cloud,
+
     }
   },
-
+  computed: {
+    message() {
+      return '网管说这个页面你不能进......'
+    },
+  },
 }
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+.wscn-http404-container{
+  transform: translate(-50%,-50%);
+  position: absolute;
+  top: 40%;
+  left: 50%;
+}
 .wscn-http404 {
   position: relative;
   width: 1200px;
-  margin: 20px auto 60px;
-  padding: 0 100px;
+  padding: 0 50px;
   overflow: hidden;
   .pic-404 {
     position: relative;
     float: left;
     width: 600px;
-    padding: 150px 0;
     overflow: hidden;
     &__parent {
       width: 100%;
@@ -166,7 +147,7 @@ export default {
     position: relative;
     float: left;
     width: 300px;
-    padding: 150px 0;
+    padding: 30px 0;
     overflow: hidden;
     &__oops {
       font-size: 32px;
@@ -182,7 +163,8 @@ export default {
     &__headline {
       font-size: 20px;
       line-height: 24px;
-      color: #1482f0;
+      color: #222;
+      font-weight: bold;
       opacity: 0;
       margin-bottom: 10px;
       animation-name: slideUp;
@@ -231,5 +213,4 @@ export default {
     }
   }
 }
-
 </style>
