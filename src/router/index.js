@@ -107,6 +107,14 @@ export const asyncRouterMap = [{
       title: '热门书籍',
     },
   },
+  {
+    path: 'zhihu',
+    name: 'zhihu',
+    component: () => import('@/views/DouBan/zhihu'),
+    meta: {
+      title: '知乎日报',
+    },
+  },
 
   ],
 },

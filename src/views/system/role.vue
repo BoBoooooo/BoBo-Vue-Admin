@@ -139,6 +139,7 @@ export default {
         update: '编辑',
         create: '新增',
       },
+      asyncRouterMap,
       dialogFormVisible: false,
       dialogStatus: '',
       list: null,
