@@ -50,7 +50,7 @@
   .sidebar-container {
     transition: width 0.28s;
     width: 225px !important;
-    min-height: calc(70% - 120px);
+    min-height: 500px;
     background: #333;
     box-shadow: 0 8px 14.72px 1.28px  rgba(101,169,119,.3);
     position: absolute;
@@ -69,8 +69,14 @@
         height: 100%;
       }
     }
+    .el-submenu__title{
+      font-size:16px;
+    }
     .el-scrollbar__bar.is-vertical{
       right: 0px;
+    }
+    .el-submenu__icon-arrow{
+      color:$primary;
     }
     .is-horizontal {
       display: none;

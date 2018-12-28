@@ -129,8 +129,8 @@ export default {
       this.visible = true
       this.selectedTag = tag
       console.log(e)
-      if (!this.sidebar) { this.left = e.clientX - 40 } else { this.left = e.clientX - 180 }
-      this.top = e.clientY
+      if (!this.sidebar) { this.left = e.clientX - 40 } else { this.left = e.clientX - 275 }
+      this.top = e.clientY - 70
     },
     closeMenu() {
       this.visible = false
