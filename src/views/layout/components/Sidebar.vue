@@ -4,9 +4,9 @@
       :collapse="isCollapse"
       :default-active="$route.path"
       mode="vertical"
-     background-color="#324157"
+     background-color="#333"
       text-color="#fff"
-      active-text-color="#ffd04b"
+      active-text-color="#4ae387"
 
       style="border:none">
 
@@ -33,9 +33,3 @@ export default {
   },
 };
 </script>
-
-<style rel="stylesheet/scss" lang="scss" scoped>
-.el-menu {
-  min-height: 100%;
-}
-</style>

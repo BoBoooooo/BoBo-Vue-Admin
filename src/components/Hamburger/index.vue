@@ -4,7 +4,7 @@
       :class="{'is-active':isActive}"
       t="1492500959545"
       class="svg-icon hamburger"
-      style=""
+      style="fill:#4ae387"
       viewBox="0 0 1024 1024"
       version="1.1"
       xmlns="http://www.w3.org/2000/svg"

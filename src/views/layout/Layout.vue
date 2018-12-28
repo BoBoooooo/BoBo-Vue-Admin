@@ -2,15 +2,12 @@
   <div
     :class="classObj"
     class="app-wrapper">
-    <div class="sidebar-wrapper">
-      <sidebar class="sidebar-container"/>
-    </div>
-    <div class="main-container">
-      <navbar/>
-      <TagsView/>
-      <div class="content-container">
+        <navbar/>
+
+        <sidebar class="sidebar-container"/>
+        <div class="main-container">
+        <TagsView/>
         <app-main/>
-      </div>
     </div>
     <BackToTop/>
   </div>
@@ -63,27 +60,3 @@ export default {
 }
 
 </script>
-
-<style rel="stylesheet/scss" lang="scss" scoped>
-  @import "src/styles/mixin.scss";
-  .app-wrapper {
-    @include clearfix;
-    position: relative;
-    height: 100%;
-    width: 100%;
-    s
-    &.mobile.openSidebar{
-      position: fixed;
-      top: 0;
-    }
-  }
-  .drawer-bg {
-    background: #000;
-    opacity: 0.3;
-    width: 100%;
-    top: 0;
-    height: 100%;
-    position: absolute;
-    z-index: 999;
-  }
-</style>

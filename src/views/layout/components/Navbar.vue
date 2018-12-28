@@ -7,8 +7,10 @@
       :toggle-click="toggleSideBar"
       :is-active="sidebar.opened"
       class="hamburger-container"/>
-    <breadcrumb class="breadcrumb-container"/>
-    <Screenfull class="screenfull"/>
+    <!-- <breadcrumb class="breadcrumb-container"/> -->
+    <span style="display:inline-block;width:70%;margin:0 auto;text-align:center">Anshare Tech</span>
+        <Screenfull class="screenfull"/>
+
     <el-dropdown
       class="avatar-container"
       trigger="click">
@@ -47,12 +49,11 @@ import {
   mapGetters,
 } from 'vuex'
 import Hamburger from '@/components/Hamburger'
-import Breadcrumb from '@/components/Breadcrumb'
+// import Breadcrumb from '@/components/Breadcrumb'
 import Screenfull from '@/components/Screenfull'
 
 export default {
   components: {
-    Breadcrumb,
     Screenfull,
     Hamburger,
   },
@@ -88,14 +89,22 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-  .navbar {
 
-    height: 50px;
-    line-height: 50px;
+@import '~@/styles/index.scss';
+  .navbar {
+      padding-left:24px;
+      padding-right:44px;
+      background:#333;
+    height: 72px;
+    line-height: 72px;
+    color:white;
+    position:relative;
     border-radius: 0px !important;
     .hamburger-container {
-      line-height: 58px;
-      height: 50px;
+      line-height: 72px;
+      height: 72px;
+          color:white;
+
       float: left;
       outline:none;
       padding: 0 10px;
@@ -106,14 +115,14 @@ export default {
     .errLog-container {
       display: inline-block;
       position: absolute;
-      right: 150px;
+      right: 172px;
     }
     .screenfull {
       position: absolute;
       right: 120px;
       top: 14px;
+    color:white;
 
-      color: red;
 
       &:focus{
              outline: none;
@@ -122,10 +131,12 @@ export default {
     }
 
     .avatar-container {
-      height: 50px;
+      height: 72px;
       display: inline-block;
       position: absolute;
       right: 35px;
+          color:white;
+
       .avatar-wrapper {
         cursor: pointer;
         position: relative;
@@ -137,7 +148,8 @@ export default {
         .el-icon-caret-bottom {
           position: absolute;
           right: -20px;
-          top: 20px;
+          top: 28px;
+          color:$primary;
           font-size: 12px;
         }
       }

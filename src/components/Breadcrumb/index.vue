@@ -54,8 +54,9 @@ export default {
     font-size: 14px;
     line-height: 50px;
     margin-left: 10px;
+
     .no-redirect {
-      color: #97a8be;
+      color: #4ae387;
       cursor: text;
     }
   }

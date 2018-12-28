@@ -1,30 +1,62 @@
 #app {
-  // 主体区域
-  .main-container {
-    height: 100%;
-    transition: margin-left .28s;
-    margin-left: 180px;
+  @import "src/styles/mixin.scss";
+  .app-wrapper {
+    @include clearfix;
     position: relative;
+    min-height: 100%;
+    width: 100%;
+    background:#eee;
+   
+    .drawer-bg {
+      background: #000;
+      opacity: 0.3;
+      width: 100%;
+      top: 0;
+      min-height: 100%;
+      position: absolute;
+      z-index: 999;
+    }
+  
+    .main-container {
+      min-height: calc(100% - 72px);
+      transition: margin-left .28s;
+      overflow: auto;
+      margin-left:284px;
+      padding:24px 44px 24px 0 ;
+      position: relative;
+      .app-main {
+        margin-top:1.875rem;
+        width: 100%;
+        box-shadow: 0 4px 70px -18px #707070;
+
+        background: white;
+        height:100%;
+        position: relative;
+        overflow: auto;
+      }
+    }
+    
+    &.mobile.openSidebar{
+      position: fixed;
+      top: 0;
+    }
+
+
   }
+ 
 
   
-  .content-container{
-    position:absolute;
-    top:84px;
-    bottom:0px;
-    left:0px;
-    right:0px;
-  }
   // 侧边栏
   .sidebar-container {
     transition: width 0.28s;
-    width: 180px !important;
-    height: 100%;
-    position: fixed;
+    width: 225px !important;
+    min-height: calc(70% - 120px);
+    background: #333;
+    box-shadow: 0 8px 14.72px 1.28px  rgba(101,169,119,.3);
+    position: absolute;
     font-size: 0px;
-    top: 0;
-    bottom: 0;
-    left: 0;
+    top: 96px;
+    left: 24px;
     z-index: 1001;
     overflow: hidden;
     //reset element-ui css
@@ -50,6 +82,7 @@
     }
     .svg-icon {
       margin-right: 16px;
+      fill:$primary;
     }
     .el-menu {
       border: none;
@@ -103,7 +136,7 @@
   //   }
   // }
   .el-menu--collapse .el-menu .el-submenu {
-    min-width: 180px !important;
+    min-width: 225px !important;
   }
 
   //适配移动端
@@ -113,7 +146,7 @@
     }
     .sidebar-container {
       transition: transform .28s;
-      width: 180px !important;
+      width: 225px !important;
     }
     &.hideSidebar {
       .sidebar-container {
