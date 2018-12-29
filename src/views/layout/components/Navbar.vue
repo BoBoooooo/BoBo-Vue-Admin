@@ -7,8 +7,9 @@
       :toggle-click="toggleSideBar"
       :is-active="sidebar.opened"
       class="hamburger-container"/>
+
     <!-- <breadcrumb class="breadcrumb-container"/> -->
-    <span style="display:inline-block;width:70%;margin:0 auto;text-align:center">Anshare Tech <span style="color:#4ae867">©2019 BoBo</span> </span>
+    <div style="display:inline-block;width:70%;margin:0 auto;text-align:center">Anshare Tech <span style="color:#4ae867">©2019 BoBo</span>  </div>
         <Screenfull class="screenfull"/>
 
     <el-dropdown
@@ -17,6 +18,7 @@
       <div class="avatar-wrapper">
         {{ name }}
         <i class="el-icon-caret-bottom"/>
+
       </div>
       <el-dropdown-menu
         slot="dropdown"

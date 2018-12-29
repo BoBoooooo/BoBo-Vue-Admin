@@ -3,7 +3,7 @@
     id="formdesigner"
     ref="container"
     style="padding-top:0px"
-  >
+  class="widget-box">
     <MakingForm ref="form" />
   </div>
 </template>

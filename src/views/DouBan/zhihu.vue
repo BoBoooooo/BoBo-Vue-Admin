@@ -4,73 +4,12 @@
 
     <el-row>
       <el-col
-        :span="6"
-        :offset="1">
-        <el-card body-style="{ padding: '15px 0px',height:'250px'}">
-          <img
-            src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/100/h/100"
-            style="border-radius:80px">
-          <br><br>
-          <div class="dashboard-text">Anshare_Vue_Admin</div>
-          <div class="bottom clearfix">
-            <span style="display:block;">{{ currentDate }}</span>
-          </div>
-        </el-card>
-      </el-col>
-
-      <el-col
-        :span="6"
-        :offset="2">
-        <el-card :body-style="{ padding: '15px 0px',height:'250px'}">
-          <img
-            src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/100/h/100"
-            style="border-radius:80px">
-
-          <div class="dashboard-text">
-            <span style="display:block;">Author:BoBo</span>
-            <span style="display:block;">Follow me on GitHub</span>
-
-          </div>
-
-        </el-card>
-      </el-col>
-
-      <el-col
-        :span="6"
-        :offset="2">
-
-        <el-card
-          :body-style="{ padding: '15px 15px',height:'250px'}"
-          style="overflow:auto">
-          <span
-            v-for="(item,index) in history"
-            :key="index"
-            style="text-align:left;padding:5px;display:block;margin-top:2px">
-            {{ item }}
-          </span>
-        </el-card>
-        <el-input
-          v-model="request"
-          placeholder="快来和我聊天吧！"
-          style="padding-top:10px"
-          @keyup.enter.native="chat"
-        >
-          <i
-            slot="suffix"
-            class="el-input__icon el-icon-circle-check-outline" />
-        </el-input>
-      </el-col>
-    </el-row>
-
-    <el-row>
-      <h3>知乎日报</h3>
-      <el-col
         v-for="(item,index) in report"
         :key="index"
         :span="6"
         :offset="index%3===0?1:2"
         style="margin-top:5px">
-        <el-card :body-style="{ padding: '15px 0px',height:'250px'}">
+        <el-card shadow="none" :body-style="{ padding: '15px 0px',height:'250px'}">
 
           <div
             class="dashboard-text"
@@ -161,6 +100,10 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+.el-card{
+  border:none;
+}
+
 .dashboard {
   &-title {
     text-align: center;

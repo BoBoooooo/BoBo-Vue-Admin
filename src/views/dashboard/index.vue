@@ -1,19 +1,19 @@
 <template>
-  <div>
+  <div style="overflow:hidden">
 
     <el-row :gutter="32">
+        <el-col :xs="24" :sm="24" :lg="8">
+         <el-card  class="widget-box">
+          总是显示
+        </el-card>
+      </el-col>
       <el-col :xs="24" :sm="24" :lg="8">
-        <el-card shadow="always" class="widget-box">
+        <el-card  class="widget-box">
       总是显示
     </el-card>
       </el-col>
       <el-col :xs="24" :sm="24" :lg="8">
-        <el-card shadow="always" class="widget-box">
-      总是显示
-    </el-card>
-      </el-col>
-      <el-col :xs="24" :sm="24" :lg="8">
-        <el-card shadow="always" class="widget-box">
+        <el-card  class="widget-box">
       总是显示
     </el-card>
       </el-col>
@@ -25,6 +25,7 @@
 
 <script>
 
+import VueCharts from 'vue-chartjs'
 
 export default {
   name: 'dashboard',
