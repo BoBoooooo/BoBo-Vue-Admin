@@ -1,19 +1,20 @@
 <template>
   <div class="login-container">
-    <el-form
+
+    <el-row>
+      <el-col :span="12">
+        <el-form
       ref="loginForm"
       :model="loginForm"
       class="login-form"
       auto-complete="on"
       label-position="left"
     >
-      <h3 class="title">
-        Anshare Admin v2.0
-      </h3>
+      <h5 class="title">
+        Welcome!
+      </h5>
       <el-form-item prop="username">
-        <span class="svg-container">
-          <svg-icon icon-class="yonghuming" />
-        </span>
+
         <el-input
           v-model="loginForm.username"
           name="username"
@@ -23,9 +24,7 @@
         />
       </el-form-item>
       <el-form-item prop="password">
-        <span class="svg-container">
-          <svg-icon icon-class="mima" />
-        </span>
+
         <el-input
           v-model="loginForm.password"
           :type="pwdType"
@@ -46,16 +45,24 @@
         <el-button
           :loading="loading"
           type="default"
-          style="width:100%;background:rbg(170,198,190)"
           @click.native.prevent="handleLogin"
         >
-          <svg-icon
+          <!-- <svg-icon
             icon-class="login"
             style="font-size:24px"
-          />
+          /> -->
+          LOGIN
         </el-button>
       </el-form-item>
     </el-form>
+      </el-col>
+            <el-col :span="12" class="wallpaper">
+              <svg-icon icon-class="banner" class="banner"></svg-icon>
+<div class="line"></div>
+            </el-col>
+
+    </el-row>
+
   </div>
 </template>
 
@@ -103,38 +110,9 @@ export default {
 }
 </script>
 
-<style rel="stylesheet/scss" lang="scss">
-$bg:#2d3a4b;
-$light_gray:white;
-
-/* reset element-ui css */
-.login-container {
-  .el-input {
-    display: inline-block;
-    height: 20px;
-    width: 70%;
-    input {
-      background: transparent;
-      border: 0px;
-      -webkit-appearance: none;
-      border-radius: 0px;
-      padding: 12px 5px 12px 15px;
-      color: $light_gray;
-      height: 30px;
-
-    }
-  }
-  .el-form-item {
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    color: #454545;
-  }
-}
-
-</style>
-
 <style rel="stylesheet/scss" lang="scss" scoped>
+
+@import '~@/styles/variables';
 $bg:#2d3a4b;
 $dark_gray:#fff;
 $light_gray:#fff;
@@ -143,15 +121,53 @@ $light_gray:#fff;
   position: fixed;
   height: 100%;
   width: 100%;
-  background: url('~@/assets/loginbg.jpg') center center no-repeat;
-  background-size:100% 100%;
+  .el-button{
+    display: block;
+
+margin:0 auto;
+width:70%;
+border-radius:15px;
+background:$primary;
+box-shadow: 0 4px 9.6px 0.4px rgba(74,227,135,.5);
+color:#fff;
+  }
+  .el-row{
+      height: 100%;
+
+  };
+  .el-col{
+      height: 100%;
+
+  }
+
+    .wallpaper{
+    background: #333;
+    overflow: hidden;
+    position:relative;
+    .banner{
+      color:$primary;
+      width: 40%;
+      height: 2.625rem;
+      position: absolute;
+      transform: translate(-50%,-50%);
+      left:50%;
+      top:48%;
+    }
+    .line{
+      width:27%;
+            height: 100%;
+
+      margin:0 auto;
+      // transform: rotate(15deg);
+      background: #282828;
+    }
+  }
   // background-color: $bg;
   .login-form {
-    position: absolute;
-    top:15%;
-    right: 13%;
+    margin:0 auto;
     width: 300px;
     max-width: 100%;
+    margin-top:50px;
     padding: 20px 35px;
 
   }
@@ -175,12 +191,11 @@ $light_gray:#fff;
 
   }
   .title {
-    font-size: 26px;
-    font-weight: 400;
-    color: #f2f2f2;
-    margin: 0px auto 40px auto;
+    font-size: 2rem;
+    color: #34495e;
+    margin-bottom: 32px;
     text-align: center;
-    font-weight: bold;
+    font-weight: 500;
   }
   .show-pwd {
     position: absolute;

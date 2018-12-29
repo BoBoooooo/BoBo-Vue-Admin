@@ -140,6 +140,7 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
+@import '~@/styles/variables';
 .tags-view-container {
       padding:0px!important;
 
@@ -153,7 +154,7 @@ export default {
       height: 26px;
       line-height: 26px;
       border: 1px solid #d8dce5;
-      color: #495060;
+      color: #333;
       background: #fff;
       padding: 0 8px;
       font-size: 12px;
@@ -163,12 +164,12 @@ export default {
         margin-left: 15px;
       }
       &.active {
-        background-color: #42b983;
-        color: #fff;
-        border-color: #42b983;
+        background-color: $primary;
+        color: #333;
+        border-color: $primary;
         &::before {
           content: '';
-          background: #fff;
+          background: rgb(238, 83, 83);
           display: inline-block;
           width: 8px;
           height: 8px;
@@ -181,7 +182,7 @@ export default {
   }
   .contextmenu {
     margin: 0;
-    background: #fff;
+    background: #333;
     z-index: 2;
     position: absolute;
     list-style-type: none;
@@ -189,14 +190,14 @@ export default {
     border-radius: 4px;
     font-size: 12px;
     font-weight: 400;
-    color: #333;
+    color: #000;
     box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, .3);
     li {
       margin: 0;
       padding: 7px 16px;
       cursor: pointer;
       &:hover {
-        background: #eee;
+        background: #222;
       }
     }
   }
@@ -210,7 +211,7 @@ export default {
     .el-icon-close {
       width: 16px;
       height: 16px;
-      vertical-align: 2px;
+      vertical-align: 3px;
       border-radius: 50%;
       text-align: center;
       transition: all .3s cubic-bezier(.645, .045, .355, 1);
@@ -221,8 +222,8 @@ export default {
         vertical-align: -3px;
       }
       &:hover {
-        background-color: #b4bccc;
-        color: #fff;
+        background-color: #fff;
+        color: #222;
       }
     }
   }

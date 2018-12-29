@@ -30,13 +30,13 @@
             首页
           </el-dropdown-item>
         </router-link>
-        <el-dropdown-item divided>
+        <el-dropdown-item >
           <span
             style="display:block;"
             @click="changepassword">修改密码</span>
         </el-dropdown-item>
 
-        <el-dropdown-item divided>
+        <el-dropdown-item >
           <span
             style="display:block;"
             @click="logout">退出</span>
@@ -93,6 +93,24 @@ export default {
 <style rel="stylesheet/scss" lang="scss" scoped>
 
 @import '~@/styles/index.scss';
+
+ .user-dropdown{
+        background: #333;
+          margin-top:0px;
+          padding:0px;
+
+.popper__arrow{
+  display: none!important;
+}
+.el-dropdown-menu__item{
+  color:$primary;
+  &:hover{
+    background: #222;
+  }
+}
+
+
+      }
   .navbar {
       padding-left:24px;
       padding-right:44px;
@@ -123,7 +141,7 @@ export default {
       position: absolute;
       right: 120px;
       top: 14px;
-    color:white;
+      color:white;
 
 
       &:focus{

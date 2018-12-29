@@ -40,13 +40,13 @@ export default {
       type: Object,
       default() {
         return {
-          right: '50px',
-          bottom: '50px',
+          right: '2px',
+          bottom: '45px',
           width: '40px',
           height: '40px',
           'border-radius': '4px',
           'line-height': '45px',
-          background: '#e7eaf1',
+          background: '#d5e34a',
         }
       },
     },
@@ -121,7 +121,7 @@ export default {
   }
 
   .back-to-ceiling .Icon {
-    fill: #9aaabf;
+    fill: #000;
     background: none;
   }
 </style>
