@@ -131,14 +131,6 @@ code {
   padding: 20px;
 }
 
-.components-container {
-  margin: 30px 50px;
-  position: relative;
-}
-
-.pagination-container {
-  margin-top: 30px;
-}
 
 .text-center {
   text-align: center
@@ -174,20 +166,10 @@ code {
   }
 }
 
-.filter-container {
-  padding-bottom: 10px;
-  .filter-item {
-    display: inline-block;
-    vertical-align: middle;
-    margin-bottom: 10px;
-  }
-}
 
-//refine vue-multiselect plugin
-.multiselect {
-  line-height: 16px;
-}
-
-.multiselect--active {
-  z-index: 1000 !important;
+.widget-box{
+  background: #fff;
+  margin-bottom: 1.875rem;
+  padding:1.875rem;
+  box-shadow: 0 4px 70px -18px #707070;
 }

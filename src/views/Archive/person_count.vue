@@ -1,7 +1,7 @@
 <template>
   <div
     id="person_count"
-    style="width:100%">
+    style="width:100%" class="widget-box">
     <mix-chart
       id="chart1"
       width="100%"

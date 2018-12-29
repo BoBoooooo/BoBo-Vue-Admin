@@ -25,12 +25,11 @@
       padding:24px 44px 24px 0 ;
       position: relative;
       .app-main {
-        margin-top:1.875rem;
-        width: 100%;
-        box-shadow: 0 4px 70px -18px #707070;
+        // margin-top:1.875rem;
+        // box-shadow: 0 4px 70px -18px #707070;
 
-        background: white;
-        height:100%;
+        // background: white;
+        // height:100%;
         position: relative;
         overflow: auto;
       }
@@ -77,6 +76,9 @@
     }
     .el-submenu__icon-arrow{
       color:$primary;
+      &:hover{
+        color:white!important;
+      }
     }
     .is-horizontal {
       display: none;
@@ -89,6 +91,9 @@
     .svg-icon {
       margin-right: 16px;
       fill:$primary;
+      &:hover{
+        fill:white!important;
+      }
     }
     .el-menu {
       border: none;
@@ -99,9 +104,10 @@
   .hideSidebar {
     .sidebar-container {
       width: 36px !important;
+      left:0px!important;
     }
     .main-container {
-      margin-left: 36px;
+      margin-left: 60px;
     }
     .submenu-title-noDropdown {
       padding-left: 10px !important;
@@ -133,14 +139,15 @@
       }
     }
   }
-  // .sidebar-container .nest-menu .el-submenu>.el-submenu__title,
-  // .sidebar-container .el-submenu .el-menu-item {
-  //   min-width: 180px !important;
-  //   background-color: $subMenuBg !important;
-  //   &:hover {
-  //     background-color: $menuHover !important;
-  //   }
-  // }
+
+  .sidebar-container .nest-menu .el-submenu>.el-submenu__title,
+  .sidebar-container .el-submenu .el-menu-item {
+    // background-color: $subMenuBg !important;
+    &:hover {
+      background-color: $menuHover !important;
+    }
+   
+  }
   .el-menu--collapse .el-menu .el-submenu {
     min-width: 225px !important;
   }

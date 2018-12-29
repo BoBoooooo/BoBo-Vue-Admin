@@ -59,10 +59,6 @@ export default {
     },
   },
 }
-/*
- <i class="fontcontainer">
-              <span class="iconfont" v-if="onlyOneChild.meta&&onlyOneChild.meta.icon" :class="onlyOneChild.meta.icon"></span>
-          </i>* */
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>

@@ -8,7 +8,7 @@
       :is-active="sidebar.opened"
       class="hamburger-container"/>
     <!-- <breadcrumb class="breadcrumb-container"/> -->
-    <span style="display:inline-block;width:70%;margin:0 auto;text-align:center">Anshare Tech</span>
+    <span style="display:inline-block;width:70%;margin:0 auto;text-align:center">Anshare Tech <span style="color:#4ae867">©2019 BoBo</span> </span>
         <Screenfull class="screenfull"/>
 
     <el-dropdown
@@ -101,8 +101,8 @@ export default {
     position:relative;
     border-radius: 0px !important;
     .hamburger-container {
-      line-height: 72px;
-      height: 72px;
+      line-height: 80px;
+      height: 80px;
           color:white;
 
       float: left;

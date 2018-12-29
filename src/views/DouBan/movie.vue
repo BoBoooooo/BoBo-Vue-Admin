@@ -1,7 +1,7 @@
 <template>
   <div
     id="movie"
-    class="app-container">
+    class=" widget-box">
     <h2>近期热映电影</h2>
     <el-table
       v-loading.body="listLoading"

@@ -2,7 +2,6 @@
   <div
     id="formdesigner"
     ref="container"
-    class="app-container"
     style="padding-top:0px"
   >
     <MakingForm ref="form" />

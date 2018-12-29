@@ -1,7 +1,7 @@
 <template>
   <div
     id="users"
-    class="app-container">
+    class=" widget-box">
 
     <el-button
       type="primary"

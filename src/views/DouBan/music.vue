@@ -1,7 +1,7 @@
 <template>
   <div
     id="movie"
-    class="app-container">
+    class=" widget-box">
     <h2>音乐查询</h2>
     <el-input
       v-model="criteria"

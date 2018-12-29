@@ -1,7 +1,7 @@
 <template>
   <div
     id="role"
-    class="app-container">
+    class=" widget-box">
     <el-button
       type="primary"
       size="small"

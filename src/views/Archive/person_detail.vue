@@ -1,7 +1,7 @@
 <template>
   <div
     id="person"
-    class="app-container">
+    class="app-container  widget-box">
 
     <common-tool-bar
       :option-json ="jsonData.config.columnList"

@@ -1,5 +1,5 @@
 <template>
-  <div class="tags-view-container">
+  <div class="tags-view-container widget-box">
     <scroll-pane
       ref="scrollPane"
       class="tags-view-wrapper">
@@ -141,11 +141,12 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 .tags-view-container {
+      padding:0px!important;
+
   .tags-view-wrapper {
     background: #fff;
     height: 54px;
     border-bottom: 1px solid #d8dce5;
-      box-shadow: 0 4px 70px -18px #707070;
     .tags-view-item {
       display: inline-block;
       position: relative;

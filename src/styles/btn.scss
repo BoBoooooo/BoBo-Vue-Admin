@@ -38,6 +38,9 @@
 .yellow-btn {
   @include colorBtn($yellow)
 }
+.primary-btn {
+  @include colorBtn($primary)
+}
 
 .pan-btn {
   font-size: 14px;

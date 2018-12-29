@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard-container">
+  <div class="widget-box">
     <github-corner />
 
     <el-row>

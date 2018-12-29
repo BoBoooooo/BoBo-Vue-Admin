@@ -1,19 +1,19 @@
 <template>
-  <div class="dashboard-editor-container">
+  <div>
 
     <el-row :gutter="32">
       <el-col :xs="24" :sm="24" :lg="8">
-        <el-card shadow="always">
+        <el-card shadow="always" class="widget-box">
       总是显示
     </el-card>
       </el-col>
       <el-col :xs="24" :sm="24" :lg="8">
-        <el-card shadow="always">
+        <el-card shadow="always" class="widget-box">
       总是显示
     </el-card>
       </el-col>
       <el-col :xs="24" :sm="24" :lg="8">
-        <el-card shadow="always">
+        <el-card shadow="always" class="widget-box">
       总是显示
     </el-card>
       </el-col>
