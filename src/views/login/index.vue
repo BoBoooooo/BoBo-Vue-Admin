@@ -110,7 +110,7 @@ export default {
 }
 </script>
 
-<style rel="stylesheet/scss" lang="scss" >
+<style rel="stylesheet/scss" lang="scss" scoped>
 
 @import '~@/styles/variables';
 $bg:#2d3a4b;
@@ -121,12 +121,6 @@ $light_gray:#fff;
   position: fixed;
   height: 100%;
   width: 100%;
-  .el-input__inner{
-  border-top:none!important;
-  border-left:none!important;
-  border-right: none!important;
-  border-radius: 0;
-}
 
   .el-button{
     display: block;

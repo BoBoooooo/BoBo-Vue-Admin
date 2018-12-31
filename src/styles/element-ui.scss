@@ -1,5 +1,13 @@
  //覆盖一些element-ui样式
 
+ .login-container{
+  .el-input__inner{
+    border-top:none!important;
+    border-left:none!important;
+    border-right: none!important;
+    border-radius: 0;
+  }
+ }
  .el-input__inner{
   
   border-radius: 0;
