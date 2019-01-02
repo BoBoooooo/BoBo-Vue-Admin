@@ -150,14 +150,20 @@ color:#fff;
       width: 40%;
       height: 2.625rem;
       position: absolute;
+
       transform: translate(-50%,-50%);
       left:50%;
       top:48%;
+      z-index:20;
     }
     .line{
+      position: absolute;
       width:27%;
-            height: 100%;
-
+      left:36%;
+      z-index:10;
+            height: 120%;
+            transform: rotate(15deg);
+top:-10%;
       margin:0 auto;
       // transform: rotate(15deg);
       background: #282828;
