@@ -1,12 +1,11 @@
 <template>
   <div
     id="person"
-    class="app-container  widget-box">
+    class="widget-box">
 
     <common-tool-bar
       :option-json ="jsonData.config.columnList"
       :search-arr ="listQuery.searchArr"
-      @addEvent ="New"
       @searchEvent ="Refresh"
       @clearEvent ="Clear"
     />
@@ -17,9 +16,9 @@
       :table-json="jsonData.config.columnList"
       :list-query="listQuery"
       :list-loading="listLoading"
-      @Edit="Edit"
-      @Delete="Delete"
+      @Detail="Detail"
       @handleCurrentChange="Refresh"
+      readOnly
     />
 
 
@@ -61,7 +60,7 @@ import CommonToolBar from '@/components/CommonToolBar';
 
 
 export default {
-  name: 'PersonEdit',
+  name: 'PersonDetail',
   components: {
     GenerateForm,
     CommonTable,

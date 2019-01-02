@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <ElTable
+    <el-table
       v-loading.body="listLoading"
       :default-sort="{prop: 'name', order: 'descending'}"
       :data="list"
@@ -9,7 +9,7 @@
       fit
       highlight-current-row
     >
-      <ElTableColumn
+      <el-table-column
         v-for="(item,index) in tableJson"
         :key="index"
         :label="item.label"
@@ -21,28 +21,40 @@
         :header-align="item.header_align"
         :show-overflow-tooltip="item.show_overflow_tooltip"
       />
-      <ElTableColumn
+      <el-table-column
         label="操作"
         align="center"
         min-width="110px"
+        fixed="right"
       >
         <template slot-scope="scope">
-          <ElButton
+          <el-button
+           v-if="!readOnly"
             type="primary"
             icon="el-icon-edit"
             circle
             @click="Edit(scope.row.id)"
           />
-          <ElButton
+          <el-button
+                     v-if="!readOnly"
+
             type="danger"
             icon="el-icon-delete"
             circle
             @click="Delete(scope.row.id)"
           />
+           <el-button
+                      v-if="readOnly"
+
+            type="success"
+            icon="el-icon-view"
+            circle
+            @click="Detail(scope.row.id)"
+          />
         </template>
-      </ElTableColumn>
-    </ElTable>
-    <ElPagination
+      </el-table-column>
+    </el-table>
+    <el-pagination
       :current-page="listQuery.pageNumber"
       :page-size="listQuery.pageSize"
       :total="listQuery.totalCount"
@@ -77,6 +89,9 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    readOnly: {
+      type: Boolean,
+    },
 
   },
   methods: {
@@ -92,6 +107,9 @@ export default {
 
     Edit(id) {
       this.$emit('Edit', id)
+    },
+    Detail(id) {
+      this.$emit('Detail', id)
     },
     Delete(id) {
       this.$emit('Delete', id)
