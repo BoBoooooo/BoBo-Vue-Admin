@@ -9,6 +9,7 @@
       @addEvent ="New"
       @searchEvent ="Refresh"
       @clearEvent ="Clear"
+
     />
 
     <common-table

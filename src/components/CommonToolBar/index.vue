@@ -1,4 +1,3 @@
-/* eslint-disable vue/require-valid-default-prop */
 <template>
   <div id="toolbar">
     <div
@@ -16,7 +15,7 @@
             style="width:100%"
             placeholder="请选择查询项"
           >
-            <ElOption
+            <el-option
               v-for="(subitem,index_) in optionJson.filter(k => k.searchable)"
               :key="index_"
               :label="subitem.label"
@@ -30,17 +29,17 @@
             style="width:100%"
             placeholder="请选择查询条件"
           >
-            <ElOption
-              v-for="(subitem__,index__) in SearchType"
-              :key="index__"
-              :label="subitem__.label"
-              :value="subitem__.key"
+            <el-option
+              v-for="(subitem,index) in SearchType"
+              :key="index"
+              :label="subitem.label"
+              :value="subitem.key"
             />
           </el-select>
         </el-col>
 
-        <el-col :span="10">
-          <ElInput
+        <el-col :span="8">
+          <el-input
             v-model="item.SearchValue"
             style="width:100%"
             placeholder="请输入查询内容"
@@ -48,9 +47,18 @@
         </el-col>
 
         <el-col
-          :span="2"
+          :span="4"
           style="text-align:center"
         >
+
+      <el-button
+            style="margin:5px 0px 0px 10px;padding:10px"
+        type="primary"
+        size="mini"
+        circle
+        icon="el-icon-plus"
+        @click="addItem"
+      />
  <el-button
             style="margin:5px 0px 0px 10px;padding:10px"
             type="danger"
@@ -62,43 +70,40 @@
 
         </el-col>
       </el-row>
-                <el-tooltip class="item" effect="dark" content="添加查询项" placement="right">
 
-      <el-button
-        style="margin:0 auto;display:block;margin-top:10px"
-        type="primary"
-        size="mini"
-        circle
-        icon="el-icon-plus"
-        @click="addItem"
-      />
-                </el-tooltip>
+
+      <el-button size="mini" type="success" style="margin:10px auto 0 ;display:block"
+            @click="Refresh">搜索</el-button>
 
     </div>
 
     <el-row style="margin-bottom:10px">
       <el-col :span="24">
         <el-button-group style="float:right">
+
+
+          <template v-if="handleButton.includes('add')">
            <el-tooltip class="item" effect="light" content="新增" placement="top">
       <el-button  icon="el-icon-plus"
             @click="New()" ></el-button>
     </el-tooltip>
-
-             <el-tooltip class="item" effect="light" content="搜索" placement="top">
-      <el-button   icon="el-icon-search"
-            @click="Refresh"></el-button>
-    </el-tooltip>
+</template>
+          <template v-if="handleButton.includes('clear')">
 
 <el-tooltip class="item" effect="light" content="刷新" placement="top">
       <el-button    icon="el-icon-refresh"
             @click="ClearOption"></el-button>
     </el-tooltip>
+    </template>
+
+          <template v-if="handleButton.includes('search')">
 
 <el-tooltip class="item" effect="light" content="查询条件" placement="top">
       <el-button    :icon="buttonVisible"
             class="buttonVisible"
             @click="changeVisible"></el-button>
     </el-tooltip>
+</template>
 
 
         </el-button-group>
@@ -120,7 +125,10 @@ export default {
     searchArr: {
       type: Array, // 列表配置json
       default: () => ([]),
-
+    },
+    handleButton: {
+      type: String,
+      default: 'add,clear,search',
     },
   },
   data() {
@@ -131,6 +139,10 @@ export default {
         {
           label: '等于',
           key: '=',
+        },
+        {
+          label: '包含',
+          key: 'like',
         },
         {
           label: '不等于',
@@ -181,6 +193,7 @@ export default {
 
     Refresh() {
       this.$emit('searchEvent')
+      this.buttonVisible = 'el-icon-arrow-down'
     },
     ClearOption() {
       this.buttonVisible = 'el-icon-arrow-down'
@@ -195,12 +208,12 @@ export default {
 <style lang="scss" scoped>
 .searchContainer {
     position: absolute;
-    top: 62px;
+    top: 72px;
     left: 20px;
     padding: 15px;
     min-height: 100px;
     z-index: 10;
-    right: 20px;
+    right: 28px;
     background-color: white;
 ;    box-shadow: 0px 0px 10px gray;
 

@@ -8,6 +8,7 @@
       :search-arr ="listQuery.searchArr"
       @searchEvent ="Refresh"
       @clearEvent ="Clear"
+      handleButton = 'clear,search'
     />
 
 
