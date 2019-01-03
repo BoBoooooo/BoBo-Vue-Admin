@@ -25,12 +25,12 @@
         </el-col>
         <el-col :span="6">
           <el-select
-            v-model="item.SearchType"
+            v-model="item.SearchOperator"
             style="width:100%"
             placeholder="请选择查询条件"
           >
             <el-option
-              v-for="(subitem,index) in SearchType"
+              v-for="(subitem,index) in SearchOperator"
               :key="index"
               :label="subitem.label"
               :value="subitem.key"
@@ -72,7 +72,7 @@
       </el-row>
 
 
-      <el-button size="mini" type="success" style="margin:10px auto 0 ;display:block"
+      <el-button size="mini" icon="el-icon-search"   style="margin:10px auto 0 ;display:block"
             @click="Refresh">搜索</el-button>
 
     </div>
@@ -83,14 +83,14 @@
 
 
           <template v-if="handleButton.includes('add')">
-           <el-tooltip class="item" effect="light" content="新增" placement="top">
+           <el-tooltip class="item" effect="light" open-delay="700" content="新增" placement="top">
       <el-button  icon="el-icon-plus"
             @click="New()" ></el-button>
     </el-tooltip>
 </template>
           <template v-if="handleButton.includes('clear')">
 
-<el-tooltip class="item" effect="light" content="刷新" placement="top">
+<el-tooltip class="item" effect="light" content="刷新"  open-delay="700"  placement="top">
       <el-button    icon="el-icon-refresh"
             @click="ClearOption"></el-button>
     </el-tooltip>
@@ -98,7 +98,7 @@
 
           <template v-if="handleButton.includes('search')">
 
-<el-tooltip class="item" effect="light" content="查询条件" placement="top">
+<el-tooltip class="item" effect="light" content="查询条件"  open-delay="700"  placement="top">
       <el-button    :icon="buttonVisible"
             class="buttonVisible"
             @click="changeVisible"></el-button>
@@ -135,7 +135,7 @@ export default {
     return {
       buttonVisible: 'el-icon-arrow-down',
 
-      SearchType: [
+      SearchOperator: [
         {
           label: '等于',
           key: '=',
@@ -147,6 +147,10 @@ export default {
         {
           label: '不等于',
           key: '<>',
+        },
+        {
+          label: '不包含',
+          key: 'notlike',
         },
         {
           label: '大于',
@@ -184,7 +188,7 @@ export default {
       this.searchArr.push({
         SearchKey: '',
         SearchValue: '',
-        SearchType: '',
+        SearchOperator: '',
       })
     },
     changeVisible() {
