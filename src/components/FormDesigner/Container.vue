@@ -1,3 +1,4 @@
+/* eslint-disable */
 <template>
 
   <el-container class="widget-config-container">
@@ -282,7 +283,7 @@ import 'vue-awesome/icons/chalkboard'
 import 'vue-awesome/icons/upload'
 
 import GenerateForm from './GenerateForm'
-import JSONEditor from 'jsoneditor'
+// import JSONEditor from 'jsoneditor'
 import 'jsoneditor/dist/jsoneditor.min.css'
 import Clipboard from 'clipboard'
 import { basicComponents, layoutComponents, advanceComponents } from './componentsConfig.js'
@@ -388,9 +389,9 @@ export default {
     },
     handleTest() {
       this.$refs.generateForm.getData().then((data) => {
-        this.$alert(data, '').catch((e) => {})
+        this.$alert(data, '').catch(() => {})
         this.$refs.widgetPreview.end()
-      }).catch((e) => {
+      }).catch(() => {
         this.$refs.widgetPreview.end()
       })
     },
