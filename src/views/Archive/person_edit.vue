@@ -20,6 +20,7 @@
       @handleEdit="Edit"
       @handleDelete="Delete"
       @handleCurrentChange="Refresh"
+      @handleSizeChange="Refresh"
       handleButton="edit,delete"
     />
 

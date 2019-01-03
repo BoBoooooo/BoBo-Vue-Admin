@@ -19,6 +19,8 @@
       :list-loading="listLoading"
       @handleDetail="Detail"
       @handleCurrentChange="Refresh"
+      @handleSizeChange="Refresh"
+
       handleButton="detail"
     />
 

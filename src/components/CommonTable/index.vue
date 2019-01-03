@@ -1,3 +1,12 @@
+<!--
+ * @Author: BoBo
+ * @Date: 2019-01-03 14:06:28
+ * @Description:
+
+   基于el-table进行二次封装 , 待优化。
+   结合[表格设计]模块json,进行table动态渲染。
+
+ -->
 <template>
   <div class="app-container">
     <el-table
@@ -56,6 +65,7 @@
 </template>
 
 <script>
+import operation from './handleButton.js'
 
 export default {
   name: 'CommonTable',
@@ -77,7 +87,7 @@ export default {
       type: Object,
       default: () => ({}),
     },
-    handleButton: { //
+    handleButton: { // 操作列的默认按钮  (编辑 删除 查看)
       type: String,
       default: 'edit,delete,detail',
     },
@@ -85,37 +95,7 @@ export default {
   },
   data() {
     return {
-      operation: // 操作列按钮
-         [
-           {
-             size: 'mini',
-             classname: 'show',
-             name: 'edit',
-             label: '修改',
-             Fun: 'handleEdit',
-             type: 'primary',
-           },
-           {
-             size: 'mini',
-             classname: 'show',
-             name: 'detail',
-             label: '详情',
-             Fun: 'handleDetail',
-             type: 'success',
-
-           },
-           {
-             size: 'mini',
-             classname: 'show',
-             name: 'delete',
-             label: '删除',
-             Fun: 'handleDelete',
-             type: 'danger',
-
-           },
-         ],
-
-
+      operation,
     }
   },
   computed: {
@@ -127,22 +107,12 @@ export default {
 
     handleSizeChange(val) {
       this.listQuery.pageSize = val
-      this.$emit('Refresh', this.listQuery)
+      this.$emit('handleSizeChange', this.listQuery)
     },
     handleCurrentChange(val) {
       this.listQuery.pageNumber = val
       this.$emit('handleCurrentChange', this.listQuery)
     },
-
-    // Edit(id) {
-    //   this.$emit('Edit', id)
-    // },
-    // Detail(id) {
-    //   this.$emit('Detail', id)
-    // },
-    // Delete(id) {
-    //   this.$emit('Delete', id)
-    // },
     handleOperation(eventName, id) {
       console.log(eventName);
       console.log(id);

@@ -48,7 +48,7 @@
         min-width="110px">
         <template slot-scope="scope">
           <el-button
-            :disabled="false"
+          :disabled="false"
             type="success"
             size="small"
             @click="exportfile(scope.row.id)"
@@ -56,7 +56,8 @@
 
           <el-button
             v-if="!Params.IsDetail"
-            :disabled="false"
+                      :disabled="false"
+
             type="danger"
             size="small"
             @click="delete_file(scope.row.id)"
