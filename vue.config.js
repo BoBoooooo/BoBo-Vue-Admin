@@ -3,7 +3,7 @@
  * @Author: BoBo
  * @Date: 2018-12-23 10:59:19
  * @Last Modified by: BoBo
- * @Last Modified time: 2018-12-24 18:03:16
+ * @Last Modified time: 2019-01-03 17:48:05
  */
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const path = require('path');

@@ -15,7 +15,7 @@
     <table class="listconfig_table">
 
       <thead>
-        <th>字段</th><th>标题</th><th>列宽</th><th>最小宽度</th><th>排序</th><th>内容对齐</th><th>表头对齐</th><th>超出隐藏</th><th>作为查询条件</th><th/>
+        <th>字段</th><th>标题</th><th>列宽</th><th>最小宽度</th><th>排序</th><th>内容对齐</th><th>表头对齐</th><th>超出隐藏</th><th>作为查询条件</th><th>自定义列</th><th/>
       </thead>
       <draggable
         v-model="config.columnList"
@@ -131,6 +131,12 @@
             </el-select>
 
           </td>
+          <td>
+            <el-input type="textarea"
+              v-model="item.formatter"
+              placeholder="自定义列"></el-input>
+          </td>
+
           <td> <el-button
             type="danger"
             size="mini"
@@ -144,6 +150,8 @@
 
     </table>
 
+
+    <!-- <el-button @click="addOperationColumn()">添加操作列</el-button> -->
     <el-button
       style="margin:0 auto;display:block;margin-top:10px"
       size="mini"
@@ -169,7 +177,7 @@ export default {
     return {
       selectList: [],
       finalList: [],
-      configObj: {
+      configObj: { // 普通列初始对象
         label: '',
         prop: '',
         align: 'center',
@@ -178,8 +186,36 @@ export default {
         min_width: '100px',
         header_align: 'center',
         show_overflow_tooltip: false,
-        slot: '',
         searchable: true,
+        formatter: '',
+      },
+      operation: { // 操作列对象功能
+        label: '操作', // 操作列的行首文字
+        width: '200', // 操作列的宽度
+        className: '', // 操作列的class名
+        data: [ // 操作列数据
+          {
+            name: 'edit',
+            label: '修改', // 按钮文字
+            Fun: 'handleEdit', // 点击按钮后触发的父组件事件
+            size: 'mini', // 按钮大小
+            classname: 'show', // 按钮的类名
+          },
+          {
+            name: 'detail',
+            label: '详情', // 按钮文字
+            Fun: 'handleEdit', // 点击按钮后触发的父组件事件
+            size: 'mini', // 按钮大小
+            classname: 'show', // 按钮的类名
+          },
+          {
+            name: 'delete',
+            label: '删除', // 按钮文字
+            Fun: 'handleDelete', // 点击按钮后触发的父组件事件
+            size: 'mini', // 按钮大小
+            classname: 'show', // 按钮的类名
+          },
+        ],
       },
       true: true,
       false: false,
@@ -188,7 +224,7 @@ export default {
   watch: {
     tablename: {
       immediate: true,
-      handler(val) {
+      handler() {
         getKeyBytableName(this.tablename).then((response) => {
           this.selectList = response.data;
           this.selectList.forEach((item) => {
@@ -199,6 +235,10 @@ export default {
     },
   },
   methods: {
+
+    // addOperationColumn() {
+    //   this.config.columnList.push({ ...this.operation })
+    // },
     removeItem(item) {
       const index = this.config.columnList.indexOf(item);
       if (index != null) {

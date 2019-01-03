@@ -5,13 +5,13 @@
       v-show="buttonVisible=='el-icon-arrow-up'"
       class="searchContainer"
     >
-      <ElRow
+      <el-row
         v-for="(item,index) in searchArr"
         :key="index"
         style="margin-top:2px"
       >
-        <ElCol :span="6">
-          <ElSelect
+        <el-col :span="6">
+          <el-select
             v-model="item.SearchKey"
             style="width:100%"
             placeholder="请选择查询项"
@@ -22,10 +22,10 @@
               :label="subitem.label"
               :value="subitem.prop"
             />
-          </ElSelect>
-        </ElCol>
-        <ElCol :span="6">
-          <ElSelect
+          </el-select>
+        </el-col>
+        <el-col :span="6">
+          <el-select
             v-model="item.SearchType"
             style="width:100%"
             placeholder="请选择查询条件"
@@ -36,22 +36,22 @@
               :label="subitem__.label"
               :value="subitem__.key"
             />
-          </ElSelect>
-        </ElCol>
+          </el-select>
+        </el-col>
 
-        <ElCol :span="10">
+        <el-col :span="10">
           <ElInput
             v-model="item.SearchValue"
             style="width:100%"
             placeholder="请输入查询内容"
           />
-        </ElCol>
+        </el-col>
 
-        <ElCol
+        <el-col
           :span="2"
           style="text-align:center"
         >
- <ElButton
+ <el-button
             style="margin:5px 0px 0px 10px;padding:10px"
             type="danger"
             size="mini"
@@ -60,11 +60,11 @@
             @click="removeItem"
           />
 
-        </ElCol>
-      </ElRow>
+        </el-col>
+      </el-row>
                 <el-tooltip class="item" effect="dark" content="添加查询项" placement="right">
 
-      <ElButton
+      <el-button
         style="margin:0 auto;display:block;margin-top:10px"
         type="primary"
         size="mini"
@@ -76,9 +76,9 @@
 
     </div>
 
-    <ElRow style="margin-bottom:10px">
-      <ElCol :span="24">
-        <ElButtonGroup style="float:right">
+    <el-row style="margin-bottom:10px">
+      <el-col :span="24">
+        <el-button-group style="float:right">
            <el-tooltip class="item" effect="light" content="新增" placement="top">
       <el-button  icon="el-icon-plus"
             @click="New()" ></el-button>
@@ -101,9 +101,9 @@
     </el-tooltip>
 
 
-        </ElButtonGroup>
-      </ElCol>
-    </ElRow>
+        </el-button-group>
+      </el-col>
+    </el-row>
   </div>
 </template>
 

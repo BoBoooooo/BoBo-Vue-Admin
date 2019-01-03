@@ -16,9 +16,9 @@
       :table-json="jsonData.config.columnList"
       :list-query="listQuery"
       :list-loading="listLoading"
-      @Detail="Detail"
+      @handleDetail="Detail"
       @handleCurrentChange="Refresh"
-      readOnly
+      handleButton="detail"
     />
 
 

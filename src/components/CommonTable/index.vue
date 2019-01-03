@@ -20,6 +20,7 @@
         :min-width="item.min_width"
         :header-align="item.header_align"
         :show-overflow-tooltip="item.show_overflow_tooltip"
+
       />
       <el-table-column
         label="操作"
@@ -29,28 +30,15 @@
       >
         <template slot-scope="scope">
           <el-button
-           v-if="!readOnly"
-            type="primary"
-            icon="el-icon-edit"
-            circle
-            @click="Edit(scope.row.id)"
-          />
-          <el-button
-                     v-if="!readOnly"
+              v-for="(btn,index) in getShowButton"
+              :class="btn.classname ? btn.classname : ''"
+              :key="index"
+              :type="btn.type"
+              :size="btn.size"
+              :icon="btn.icon"
+              @click.stop="handleOperation(btn.Fun,scope.row.id)">{{ btn.label }}</el-button>
 
-            type="danger"
-            icon="el-icon-delete"
-            circle
-            @click="Delete(scope.row.id)"
-          />
-           <el-button
-                      v-if="readOnly"
 
-            type="success"
-            icon="el-icon-view"
-            circle
-            @click="Detail(scope.row.id)"
-          />
         </template>
       </el-table-column>
     </el-table>
@@ -85,14 +73,55 @@ export default {
       type: Boolean,
       default: true,
     },
-    listQuery: {
+    listQuery: { // 列表查询以及分页参数
       type: Object,
       default: () => ({}),
     },
-    readOnly: {
-      type: Boolean,
+    handleButton: { //
+      type: String,
+      default: 'edit,delete,detail',
     },
 
+  },
+  data() {
+    return {
+      operation: // 操作列按钮
+         [
+           {
+             size: 'mini',
+             classname: 'show',
+             name: 'edit',
+             label: '修改',
+             Fun: 'handleEdit',
+             type: 'primary',
+           },
+           {
+             size: 'mini',
+             classname: 'show',
+             name: 'detail',
+             label: '详情',
+             Fun: 'handleDetail',
+             type: 'success',
+
+           },
+           {
+             size: 'mini',
+             classname: 'show',
+             name: 'delete',
+             label: '删除',
+             Fun: 'handleDelete',
+             type: 'danger',
+
+           },
+         ],
+
+
+    }
+  },
+  computed: {
+    getShowButton() {
+      return this.operation.filter(element => this.handleButton.includes(element.name));
+    },
   },
   methods: {
 
@@ -105,14 +134,19 @@ export default {
       this.$emit('handleCurrentChange', this.listQuery)
     },
 
-    Edit(id) {
-      this.$emit('Edit', id)
-    },
-    Detail(id) {
-      this.$emit('Detail', id)
-    },
-    Delete(id) {
-      this.$emit('Delete', id)
+    // Edit(id) {
+    //   this.$emit('Edit', id)
+    // },
+    // Detail(id) {
+    //   this.$emit('Detail', id)
+    // },
+    // Delete(id) {
+    //   this.$emit('Delete', id)
+    // },
+    handleOperation(eventName, id) {
+      console.log(eventName);
+      console.log(id);
+      this.$emit(eventName, id)
     },
   },
 }

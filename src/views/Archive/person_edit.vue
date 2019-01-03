@@ -1,7 +1,7 @@
 <template>
   <div
     id="person"
-    class="app-container widget-box">
+    class="widget-box">
 
     <common-tool-bar
       :option-json ="jsonData.config.columnList"
@@ -11,16 +11,15 @@
       @clearEvent ="Clear"
     />
 
-
     <common-table
       :list="list"
       :table-json="jsonData.config.columnList"
       :list-query="listQuery"
       :list-loading="listLoading"
-      @Edit="Edit"
-      @Delete="Delete"
+      @handleEdit="Edit"
+      @handleDelete="Delete"
       @handleCurrentChange="Refresh"
-
+      handleButton="edit,delete"
     />
 
 
@@ -235,5 +234,5 @@ export default {
       console.log(selection);
     },
   },
-};
+}
 </script>
