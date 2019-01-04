@@ -59,7 +59,7 @@
         icon="el-icon-plus"
         @click="addItem"
       />
- <el-button
+    <el-button
             style="margin:5px 0px 0px 10px;padding:10px"
             type="danger"
             size="mini"
@@ -83,14 +83,14 @@
 
 
           <template v-if="handleButton.includes('add')">
-           <el-tooltip class="item" effect="light" open-delay="700" content="新增" placement="top">
+           <el-tooltip class="item" effect="light" :open-delay="700" content="新增" placement="top">
       <el-button  icon="el-icon-plus"
             @click="New()" ></el-button>
     </el-tooltip>
 </template>
           <template v-if="handleButton.includes('clear')">
 
-<el-tooltip class="item" effect="light" content="刷新"  open-delay="700"  placement="top">
+<el-tooltip class="item" effect="light" content="刷新"  :open-delay="700"  placement="top">
       <el-button    icon="el-icon-refresh"
             @click="ClearOption"></el-button>
     </el-tooltip>
@@ -98,7 +98,7 @@
 
           <template v-if="handleButton.includes('search')">
 
-<el-tooltip class="item" effect="light" content="查询条件"  open-delay="700"  placement="top">
+<el-tooltip class="item" effect="light" content="查询条件"  :open-delay="700"  placement="top">
       <el-button    :icon="buttonVisible"
             class="buttonVisible"
             @click="changeVisible"></el-button>
@@ -219,7 +219,13 @@ export default {
     z-index: 10;
     right: 28px;
     background-color: white;
-;    box-shadow: 0px 0px 10px gray;
+    box-shadow: 0px 0px 10px gray;
 
   }
+.el-button-group{
+  border:1px solid #f2f2f2;
+}
+  .el-button{
+  border:none;
+}
 </style>

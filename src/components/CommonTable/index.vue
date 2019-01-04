@@ -8,7 +8,7 @@
 
  -->
 <template>
-  <div class="app-container">
+  <div>
     <el-table
       v-loading.body="listLoading"
       :default-sort="{prop: 'name', order: 'descending'}"

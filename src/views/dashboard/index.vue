@@ -1,22 +1,13 @@
 <template>
   <div style="overflow:hidden">
 
-    <el-row :gutter="32">
-        <el-col :xs="24" :sm="24" :lg="8">
-         <el-card  class="widget-box">
-          总是显示
-        </el-card>
+    <el-row >
+        <el-col :xs="24" :sm="24" :lg="12">
+          <pieChart class="widget-box" width="100%" id="chart1"
+       />
       </el-col>
-      <el-col :xs="24" :sm="24" :lg="8">
-        <el-card  class="widget-box">
-      总是显示
-    </el-card>
-      </el-col>
-      <el-col :xs="24" :sm="24" :lg="8">
-        <el-card  class="widget-box">
-      总是显示
-    </el-card>
-      </el-col>
+
+
     </el-row>
 
 
@@ -25,7 +16,7 @@
 
 <script>
 
-import VueCharts from 'vue-chartjs'
+import pieChart from '@/components/Charts/pieChart'
 
 export default {
   name: 'dashboard',
@@ -36,6 +27,9 @@ export default {
   },
   methods: {
 
+  },
+  components: {
+    pieChart,
   },
 }
 </script>
