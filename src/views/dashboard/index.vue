@@ -1,9 +1,40 @@
 <template>
   <div style="overflow:hidden">
 
-    <el-row >
+
+<el-row  :gutter="32">
+        <el-col :xs="24" :sm="24" :lg="24">
+          <lineChart  :data="lineChartData" :date="chartData.Month" class="widget-box" width="100%" id="chart0"
+       />
+      </el-col>
+
+
+    </el-row>
+
+
+    <el-row  :gutter="32">
         <el-col :xs="24" :sm="24" :lg="12">
-          <pieChart class="widget-box" width="100%" id="chart1"
+          <pieChart title="线索来源"  :data="chartData.ClueSource" class="widget-box" width="100%" id="chart1"
+       />
+      </el-col>
+
+ <el-col :xs="24" :sm="24" :lg="12">
+          <pieChart class="widget-box" title="职务违法犯罪"   :data="chartData.FilingChartData" width="100%" id="chart2"
+       />
+      </el-col>
+
+
+    </el-row>
+
+
+     <el-row  :gutter="32">
+        <el-col :xs="24" :sm="24" :lg="12">
+          <pieChart title="违反六大纪律"  :data="chartData.six" class="widget-box" width="100%" id="chart3"
+       />
+      </el-col>
+
+ <el-col :xs="24" :sm="24" :lg="12">
+          <pieChart class="widget-box" title="党纪处分"   :data="chartData.PartyPunish" width="100%" id="chart4"
        />
       </el-col>
 
@@ -15,14 +46,19 @@
 </template>
 
 <script>
-
+import chartData from '@/components/Charts/Charts_Fake'
 import pieChart from '@/components/Charts/pieChart'
+import lineChart from '@/components/Charts/lineChart'
 
 export default {
   name: 'dashboard',
 
   data() {
+    const lineChartData = [chartData.ClueData, chartData.FilingData]
+
     return {
+      chartData,
+      lineChartData,
     }
   },
   methods: {
@@ -30,6 +66,7 @@ export default {
   },
   components: {
     pieChart,
+    lineChart,
   },
 }
 </script>

@@ -1,3 +1,20 @@
+<!--
+ * @Author: BoBo
+ * @Date: 2019-01-04 17:53:03
+ * @Description: 封装的一个基于echarts的饼图组件
+
+  porps{
+   className : 自定义容器css
+   id : 容器id(必填)
+   height : 容器高度
+   width : 容器宽度
+   data : 图表数据源 ，需要符合官方饼图的数据格式
+   title : 图表标题
+   subtitle : 子标题
+  }
+
+
+ -->
 <template>
   <div
     :class="className"
@@ -7,13 +24,12 @@
 
 <script>
 import echarts from 'echarts'
-import './wonderland.js'
+import 'echarts/theme/macarons'
 
 export default {
   props: {
     className: {
       type: String,
-      default: 'chart',
     },
     id: {
       type: String,
@@ -27,11 +43,32 @@ export default {
       type: String,
       default: '300px',
     },
+    data: {
+      type: Array,
+      default: () => ([]),
+    },
+    title: {
+      type: String,
+      default: '大标题',
+    },
+    subtitle: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
       chart: null,
     }
+  },
+  computed: {
+    legand() {
+      const arr = []
+      this.data.forEach((item) => {
+        arr.push(item.name)
+      })
+      return arr
+    },
   },
   mounted() {
     this.initChart()
@@ -48,11 +85,13 @@ export default {
     initChart() {
       this.chart = echarts.init(document.getElementById(this.id), 'macarons')
 
+
       this.chart.setOption({
         title: {
-          text: '测试',
+          text: this.title,
+          subtext: this.subtitle,
           left: '29%',
-          top: '40%',
+          top: '43%',
           textAlign: 'center',
           textStyle: {
             fontSize: 14,
@@ -74,22 +113,8 @@ export default {
           textStyle: {
             fontSize: 12,
           },
-          // formatter: function (name) {
-          //     let value = "";
-          //     for (let k in this.FilingChartData) {
-          //         let obj = this.FilingChartData[k];
-          //         if (obj.name == name) {
-          //             value = obj.value;
-          //             break;
-          //         }
-          //     }
-          //     if (name.length > 8) {
 
-          //         name = name.substring(0, 8) + "\n" + name.substring(8, name.length);
-          //     }
-          //     return name + " : " + value + "人";
-          // },
-          data: ['信访举报', '上级交办', '监督检查中发现', '审查调查中发现', '审计中发现', '巡视巡察中发现', '公检法机关移送', '其他行政执法机关移送', '其他'],
+          data: this.legand,
         },
 
 
@@ -99,7 +124,7 @@ export default {
             type: 'pie',
             radius: ['50%', '80%'],
             center: ['30%', '50%'],
-            data: JSON.parse('[{ "name": "信访举报", "value":"104"},{ "name": "上级交办", "value":"3"},{ "name": "监督检查中发现", "value":"7"},{ "name": "审查调查中发现", "value":"125"},{ "name": "审计中发现", "value":"24"},{ "name": "巡视巡察中发现", "value":"6"},{ "name": "公检法机关移送", "value":"6"},{ "name": "其他行政执法机关移送", "value":"6"},{ "name": "其他", "value":"1"}]'),
+            data: this.data,
             label: {
               normal: {
                 textStyle: {
@@ -127,6 +152,10 @@ export default {
           },
         ],
       })
+
+      window.onresize = function () {
+        this.chart.resize()
+      }
     },
   },
 }
