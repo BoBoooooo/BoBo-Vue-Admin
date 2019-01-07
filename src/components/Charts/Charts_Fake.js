@@ -670,6 +670,7 @@ export default {
   ClueData,
   FilingData,
   Month,
+  mapData,
 }
 
 

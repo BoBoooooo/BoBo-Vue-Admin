@@ -8,7 +8,8 @@
    id : 容器id(必填)
    height : 容器高度
    width : 容器宽度
-   data : 图表数据源 ，需要符合官方饼图的数据格式
+   data : 图表数据源 ，需要符合官方柱状图的数据格式
+   date : 柱状图横坐标时间
    title : 图表标题
    subtitle : 子标题
   }

@@ -18,8 +18,6 @@
 </template>
 
 <script>
-import mixChart from '@/components/Charts/mixChart'
-import lineMarker from '@/components/Charts/lineMarker'
 import keyboard from '@/components/Charts/keyboard'
 
 export default {

@@ -1,6 +1,12 @@
 <template>
   <div style="overflow:hidden">
 
+<el-container>
+  <el-aside width="400px">
+          <map-chart class="widget-box" width="100%" id="chart5" height="600px"></map-chart>
+
+  </el-aside>
+  <el-main>
 
 <el-row  :gutter="32">
         <el-col :xs="24" :sm="24" :lg="24">
@@ -41,6 +47,9 @@
 
     </el-row>
 
+  </el-main>
+</el-container>
+
 
   </div>
 </template>
@@ -49,6 +58,7 @@
 import chartData from '@/components/Charts/Charts_Fake'
 import pieChart from '@/components/Charts/pieChart'
 import lineChart from '@/components/Charts/lineChart'
+import mapChart from '@/components/Charts/mapChart'
 
 export default {
   name: 'dashboard',
@@ -67,6 +77,7 @@ export default {
   components: {
     pieChart,
     lineChart,
+    mapChart,
   },
 }
 </script>
@@ -81,5 +92,9 @@ export default {
     padding: 16px 16px 0;
     margin-bottom: 32px;
   }
+}
+
+.el-main{
+  padding:0px 0px 0px 30px;
 }
 </style>
