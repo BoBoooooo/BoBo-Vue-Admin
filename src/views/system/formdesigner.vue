@@ -2,20 +2,19 @@
   <div
     id="formdesigner"
     ref="container"
-    style="padding-top:0px"
   class="widget-box">
-    <MakingForm ref="form" />
+    <makingform ref="form" />
   </div>
 </template>
 
 <script>
-import MakingForm from '@/components/FormDesigner/Container';
+import makingform from '@/components/FormDesigner/Container';
 
 export default {
   name: 'Formdesigner',
 
   components: {
-    MakingForm,
+    makingform,
   },
   data() {
     return {
@@ -24,3 +23,6 @@ export default {
   },
 };
 </script>
+<style scoped>
+
+</style>

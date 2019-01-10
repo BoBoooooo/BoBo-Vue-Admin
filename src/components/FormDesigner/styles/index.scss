@@ -99,11 +99,11 @@ $primary-background-color: #ecf5ff;
 }
 
 .widget-form-container{
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  // position: absolute;
+  // top: 0;
+  // left: 0;
+  // right: 0;
+  // bottom: 0;
 
   .widget-form-list{
     height: 100%;
@@ -207,7 +207,7 @@ $primary-background-color: #ecf5ff;
 
 
 .widget-config-container{
-  position: relative;
+  // position: relative;
   
   .el-header{
     border-bottom: solid 2px #e4e7ed;

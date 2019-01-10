@@ -23,8 +23,6 @@ import keyboard from '@/components/Charts/keyboard'
 export default {
   name: 'PersonCount',
   components: {
-    mixChart,
-    lineMarker,
     keyboard,
   },
   data() {

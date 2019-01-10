@@ -171,5 +171,10 @@ code {
   background: #fff!important;
   margin-bottom: 1.875rem;
   padding:1.875rem;
-  box-shadow: 0 4px 70px -18px #707070;
+  // box-shadow: 0 4px 70px -18px #707070;
+  box-shadow: 0 12px 24px 0 rgba(7, 17, 27, 0.2);
+}
+
+.widget-border-top{
+  border-top:5px solid $primary;
 }

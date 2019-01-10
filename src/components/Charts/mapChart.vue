@@ -25,8 +25,8 @@
 <script>
 import echarts from 'echarts'
 import 'echarts/theme/macarons'
-import chartData from './Charts_Fake'
-import mapJson from './jiangsu.json'
+import chartData from './data/Charts_Fake'
+import mapJson from './data/jiangsu.json'
 
 export default {
   props: {

@@ -1,16 +1,25 @@
 <template>
   <div style="overflow:hidden">
 
-<el-container>
-  <el-aside width="400px">
-          <map-chart class="widget-box" width="100%" id="chart5" height="600px"></map-chart>
+<el-row :gutter="32">
 
-  </el-aside>
-  <el-main>
+        <el-col :xs="8" :sm="8" :lg="8">
+          <el-card class="box-card widget-box no-padding">
+  <div slot="header" class="clearfix">
+    <span>江苏省地图</span>
+  </div>
+  <map-chart  width="100%" id="chart5" height="800px"></map-chart>
+
+</el-card>
+
+
+  </el-col>
+
+        <el-col :xs="16" :sm="16" :lg="16">
 
 <el-row  :gutter="32">
         <el-col :xs="24" :sm="24" :lg="24">
-          <lineChart  :data="lineChartData" :date="chartData.Month" class="widget-box" width="100%" id="chart0"
+          <lineChart  :data="lineChartData" :date="chartData.Month" class="widget-box" height="400px" width="100%" id="chart0"
        />
       </el-col>
 
@@ -46,16 +55,15 @@
 
 
     </el-row>
-
-  </el-main>
-</el-container>
+  </el-col>
+</el-row>
 
 
   </div>
 </template>
 
 <script>
-import chartData from '@/components/Charts/Charts_Fake'
+import chartData from '@/components/Charts/data/Charts_Fake'
 import pieChart from '@/components/Charts/pieChart'
 import lineChart from '@/components/Charts/lineChart'
 import mapChart from '@/components/Charts/mapChart'
@@ -93,7 +101,9 @@ export default {
     margin-bottom: 32px;
   }
 }
-
+.widget-box{
+  border-radius: 8px!important;
+}
 .el-main{
   padding:0px 0px 0px 30px;
 }
