@@ -88,6 +88,9 @@
       width: 100%;
       overflow: hidden;
     }
+    .is-active{
+      background-color:#161616!important;
+    }
     .svg-icon {
       margin-right: 16px;
       fill:$primary;
@@ -145,7 +148,15 @@
     // background-color: $subMenuBg !important;
     &:hover {
       background-color: $menuHover !important;
+      .el-submenu__icon-arrow{
+      color:white!important;
+      }
+      .svg-icon{
+        fill:white!important;
+      }
+
     }
+   
    
   }
   .el-menu--collapse .el-menu .el-submenu {
