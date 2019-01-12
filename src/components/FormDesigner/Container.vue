@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-unused-vars */
 /* eslint-disable */
 <template>
 
@@ -399,9 +401,11 @@ export default {
       this.jsonVisible = true
       this.jsonTemplate = this.widgetForm
       this.$nextTick(() => {
+        // eslint-disable-next-line no-undef
         const editor = ace.edit('jsoneditor')
         editor.session.setMode('ace/mode/json')
 
+        // eslint-disable-next-line no-unused-vars
         const btnCopy = new Clipboard('#copybtn')
       })
     },
@@ -441,6 +445,7 @@ export default {
           this.IsNew = false;
           this.ID = res.data.id;
         } else {
+          // eslint-disable-next-line no-unused-expressions
           this.widgetForm = {
             list: [],
             config: {
@@ -450,7 +455,7 @@ export default {
 
             },
 
-          },
+          }
           this.IsNew = true;
           this.ID = '';
         }

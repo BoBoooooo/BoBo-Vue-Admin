@@ -72,12 +72,18 @@ export default {
   },
   mounted() {
     this.initChart()
-    this.chart = null
+    this.__resizeHanlder = () => {
+      if (this.chart) {
+        this.chart.resize()
+      }
+    }
+    window.addEventListener('resize', this.__resizeHanlder)
   },
   beforeDestroy() {
     if (!this.chart) {
       return
     }
+    window.removeEventListener('resize', this.__resizeHanlder)
     this.chart.dispose()
     this.chart = null
   },
