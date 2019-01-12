@@ -140,11 +140,6 @@ export default {
           },
         }, true,
       )
-
-
-      window.onresize = () => {
-        this.chart.resize()
-      }
     },
   },
 }

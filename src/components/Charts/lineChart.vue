@@ -166,10 +166,6 @@ export default {
           data: this.data[1],
         }],
       })
-
-      window.onresize = () => {
-        this.chart.resize()
-      }
     },
   },
 }
