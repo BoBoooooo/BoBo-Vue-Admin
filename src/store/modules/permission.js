@@ -1,3 +1,8 @@
+/*
+ * @Author: BoBo
+ * @Date: 2018-12-21 14:34:50
+ * @Description: 鉴权路由处理以及存储
+ */
 import {
   asyncRouterMap,
   constantRouterMap,

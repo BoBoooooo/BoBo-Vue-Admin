@@ -1,3 +1,8 @@
+/*
+ * @Author: BoBo
+ * @Date: 2018-12-21 14:34:50
+ * @Description: tab数组存储
+ */
 const tagsView = {
   state: {
     visitedViews: [],

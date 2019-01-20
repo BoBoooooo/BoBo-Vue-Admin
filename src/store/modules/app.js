@@ -1,3 +1,8 @@
+/*
+ * @Author: BoBo
+ * @Date: 2018-12-21 14:34:50
+ * @Description: 侧边栏收缩状态存储
+ */
 import Cookies from 'js-cookie'
 
 const app = {

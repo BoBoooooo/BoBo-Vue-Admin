@@ -1,3 +1,8 @@
+/*
+ * @Author: BoBo
+ * @Date: 2018-12-21 14:33:55
+ * @Description:全局token
+ */
 import Cookies from 'js-cookie'
 
 const TokenKey = 'Admin-Token'

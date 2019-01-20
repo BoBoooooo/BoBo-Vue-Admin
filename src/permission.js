@@ -3,6 +3,8 @@
  * @Date: 2018-12-23 10:58:07
  * @Last Modified by:   BoBo
  * @Last Modified time: 2018-12-23 10:58:07
+ * @Description
+ * 登录鉴权js,获取当前用户token身份信息以及所拥有的路由权限
  */
 import router from './router';
 import store from './store';

@@ -1,3 +1,9 @@
+/*
+ * @Author: BoBo
+ * @Date: 2018-12-21 14:33:55
+ * @Description: 工具函数
+ */
+
 
 export function parseTime(time, cFormat) {
   if (arguments.length === 0) {

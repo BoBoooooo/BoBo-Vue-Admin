@@ -1,3 +1,10 @@
+/*
+ * @Author: BoBo
+ * @Date: 2018-12-25 18:33:50
+ * @Description:
+ * 全局axios配置
+ * 配有req以及res两个拦截器
+ */
 import axios from 'axios'
 import {
   Message,

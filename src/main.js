@@ -3,6 +3,9 @@
  * @Date: 2018-12-22 16:25:54
  * @Last Modified by:   BoBo
  * @Last Modified time: 2018-12-22 16:25:54
+ * @Description
+ * 入口文件，初始化了全局Vue实例
+ * 全局插件以及组件的注册需写在main.js中
  */
 
 /* eslint-disable no-new */

@@ -1,3 +1,9 @@
+/*
+ * @Author: BoBo
+ * @Date: 2018-12-21 14:34:50
+ * @Description: 登录，登出，修改密码，获取用户信息
+ * 存储的变量有当前用户token,用户名以及昵称
+ */
 import {
   login,
   logout,

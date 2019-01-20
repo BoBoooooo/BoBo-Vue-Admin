@@ -1,3 +1,15 @@
+/*
+ * @Author: BoBo
+ * @Date: 2018-12-21 14:35:39
+ * @Description:
+ * 前端路由，均为路由懒加载
+ *
+ * noDropDown 表示只渲染一级菜单，无下拉效果
+ * hidden 隐藏指定路由，不渲染在菜单列表中
+ * icon 配置父级菜单图标
+ * noCache 不开启页面缓存
+ *
+ */
 import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '../views/layout/Layout'

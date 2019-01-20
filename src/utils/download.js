@@ -1,3 +1,8 @@
+/*
+ * @Author: BoBo
+ * @Date: 2018-12-21 14:33:55
+ * @Description: 文件下载函数
+ */
 import axios from 'axios'
 import {
   getToken,

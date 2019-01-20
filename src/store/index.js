@@ -1,3 +1,8 @@
+/*
+ * @Author: BoBo
+ * @Date: 2018-12-21 14:34:50
+ * @Description: 全局vuex
+ */
 import Vue from 'vue'
 import Vuex from 'vuex'
 import app from './modules/app'
@@ -10,13 +15,13 @@ import getters from './getters'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
-   modules: {
-           app,
+  modules: {
+    app,
     user,
     permission,
-    tagsView
+    tagsView,
   },
-  getters
+  getters,
 })
 
 export default store
