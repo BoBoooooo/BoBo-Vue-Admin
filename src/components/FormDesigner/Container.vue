@@ -124,7 +124,7 @@
     </el-header>
 
     <el-container v-show="configTab=='formcontainer'||configTab=='form'||configTab=='widget'">
-      <el-aside style="width: 20%;max-width:250px">
+      <el-aside style="width:150px">
 
         <div class="components-list">
           <div class="widget-cate">基础字段</div>
@@ -290,7 +290,6 @@ import 'jsoneditor/dist/jsoneditor.min.css'
 import Clipboard from 'clipboard'
 import { basicComponents, layoutComponents, advanceComponents } from './componentsConfig.js'
 
-import generateCode from './generateCode.js'
 import {
   getTables,
   GetFormDetail,
@@ -408,17 +407,6 @@ export default {
         // eslint-disable-next-line no-unused-vars
         const btnCopy = new Clipboard('#copybtn')
       })
-    },
-    handleGenerateCode() {
-      this.codeVisible = true
-      this.htmlTemplate = generateCode(JSON.stringify(this.widgetForm))
-      this.$nextTick(() => {
-        // const editor = ace.edit('codeeditor')
-        // editor.session.setMode("ace/mode/html")
-      })
-    },
-    changetab() {
-      console.log(1)
     },
     save() {
       const json = this.widgetForm

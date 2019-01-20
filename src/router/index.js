@@ -20,13 +20,15 @@ export const constantRouterMap = [{
   component: Layout,
   redirect: '/dashboard',
   noDropdown: true,
-  hidden: true,
+  hidden: false,
+  icon: 'dashboard',
+
   children: [{
     path: 'dashboard',
     component: () => import('@/views/dashboard/index'),
     name: 'dashboard',
     meta: {
-      title: '首页',
+      title: 'Dashboard',
       icon: 'dashboard',
       noCache: true,
     },
@@ -126,6 +128,8 @@ export const asyncRouterMap = [{
   name: 'system',
   title: '系统设置',
   icon: 'zujian',
+  noDropdown: false,
+  hidden: false,
   children: [{
     path: 'users',
     name: 'users',
@@ -153,6 +157,8 @@ export const asyncRouterMap = [{
   {
     path: 'formdesigner',
     name: 'formdesigner',
+    noDropdown: false,
+    hidden: false,
     component: () => import('@/views/system/formdesigner'),
     meta: {
       title: '表单设计',

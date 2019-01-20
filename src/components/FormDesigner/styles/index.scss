@@ -55,7 +55,7 @@ $primary-background-color: #ecf5ff;
   .form-edit-widget-label{
     font-size: 12px;
     display: block;
-    width: 100px;
+    width: 120px;
 
     line-height: 26px;
     position: relative;
@@ -76,6 +76,7 @@ $primary-background-color: #ecf5ff;
     &>a{
       display: block;
       cursor: move;
+      padding:0px 5px;
       background: #F4F6FC;
       border: 1px solid #F4F6FC;
 

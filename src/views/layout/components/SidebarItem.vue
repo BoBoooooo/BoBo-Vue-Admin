@@ -1,6 +1,6 @@
 <template>
   <div class="menu-wrapper">
-
+<!--
 <router-link
         to="/dashboard"
       >
@@ -9,14 +9,14 @@
             icon-class="dashboard"
           /> Dashboard
         </el-menu-item>
-      </router-link>
+      </router-link> -->
 
 
     <template v-for="item in routes">
       <router-link
-        v-if="!item.hidden&&item.noDropdown&&item.children.length>0"
+        v-if="!item.hidden&&item.noDropdown&&item.children.length>0&&item.noDropdown!==null"
         :key="item.name"
-        :to="item.path==='/'?'':item.path+'/'+item.children[0].path"
+        :to="item.path==='/'?item.path+item.children[0].path:item.path+'/'+item.children[0].path"
       >
         <el-menu-item :index="item.path==='/'?'':item.path+'/'+item.children[0].path">
           <svg-icon
