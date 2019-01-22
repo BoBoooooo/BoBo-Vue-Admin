@@ -173,10 +173,13 @@ top:-10%;
   .login-form {
     margin:0 auto;
     width: 300px;
-    max-width: 100%;
-    margin-top:50px;
+    // max-width: 100%;
+    // margin-top:50px;
     padding: 20px 35px;
-
+    position:absolute;
+  transform: translate(-50%,-50%);
+      left:25%;
+      top:42%;
   }
 
   .tips {
