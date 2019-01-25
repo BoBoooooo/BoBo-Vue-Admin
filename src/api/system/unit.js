@@ -1,48 +1,48 @@
 import fetch from '@/utils/fetch'
 
-export function DeptList(params) {
+export function UnitList(params) {
   return fetch({
-    url: '/dept/list',
+    url: '/unit/list',
     method: 'post',
     params,
   })
 }
 
-export function DeleteDept(id) {
+export function DeleteUnit(id) {
   return fetch({
-    url: '/dept/delete',
+    url: '/unit/delete',
     method: 'post',
     params: { id },
   })
 }
 
-export function GetDeptDetail(id) {
+export function GetUnitDetail(id) {
   return fetch({
-    url: '/dept/detail',
+    url: '/unit/detail',
     method: 'post',
     params: { id },
   })
 }
 
-export function AddDept(data) {
+export function AddUnit(data) {
   return fetch({
-    url: '/dept/add',
+    url: '/unit/add',
     method: 'post',
     data,
   })
 }
 
-export function UpdateDept(data) {
+export function UpdateUnit(data) {
   return fetch({
-    url: '/dept/update',
+    url: '/unit/update',
     method: 'post',
     data,
   })
 }
 
-export function GetDeptTree() {
+export function GetUnitTree() {
   return fetch({
-    url: '/dept/treelist',
+    url: '/unit/treelist',
     method: 'post',
   })
 }
