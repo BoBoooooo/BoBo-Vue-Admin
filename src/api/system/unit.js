@@ -46,3 +46,9 @@ export function GetUnitTree() {
     method: 'post',
   })
 }
+export function getObj() {
+  return fetch({
+    url: '/unit/getObj',
+    method: 'post',
+  })
+}

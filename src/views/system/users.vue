@@ -128,10 +128,12 @@
         <el-form-item label="部门">
           <el-select
             v-model="temp.deptid"
-            placeholder="请选择">
+            placeholder="请选择"
+            filterable>
             <el-option
               v-for="item in deptoptions"
               :key="item.id"
+
               :label="item.deptname"
               :value="item.id"/>
           </el-select>

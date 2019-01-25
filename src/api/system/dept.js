@@ -46,3 +46,19 @@ export function GetDeptTree() {
     method: 'post',
   })
 }
+
+
+export function getObj() {
+  return fetch({
+    url: '/dept/getObj',
+    method: 'post',
+  })
+}
+
+export function save(data) {
+  return fetch({
+    url: '/dept/saveOrUpdate',
+    method: 'post',
+    data,
+  })
+}
