@@ -19,12 +19,15 @@ import store from './store'
 import '@/icons/index' // icon
 import '@/permission' // 权限import axios from 'axios';
 import '@/styles/index.scss' // global css
+import {
+  asyncRouterMap,
+} from '@/router/index'
 
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false
 Vue.prototype.axios = axios
-
+console.log(asyncRouterMap)
 new Vue({
   el: '#app',
   router,

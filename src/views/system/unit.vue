@@ -105,7 +105,6 @@ export default {
       this.unitoptions = res.data.list;
     })
     this.fetchUnit()
-    this.fetchUnit()
   },
   methods: {
 

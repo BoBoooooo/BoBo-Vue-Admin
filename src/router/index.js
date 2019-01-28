@@ -161,8 +161,6 @@ export const asyncRouterMap = [{
   {
     path: 'unit',
     name: 'unit',
-    noDropdown: false,
-    hidden: false,
     component: () => import('@/views/system/unit'),
     meta: {
       title: '单位设置',
@@ -179,8 +177,6 @@ export const asyncRouterMap = [{
   {
     path: 'formdesigner',
     name: 'formdesigner',
-    noDropdown: false,
-    hidden: false,
     component: () => import('@/views/system/formdesigner'),
     meta: {
       title: '表单设计',
@@ -195,3 +191,6 @@ export const asyncRouterMap = [{
   hidden: true,
 },
 ]
+
+
+console.log(asyncRouterMap)
