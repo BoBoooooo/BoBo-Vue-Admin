@@ -54,11 +54,3 @@ export function getObj() {
     method: 'post',
   })
 }
-
-export function save(data) {
-  return fetch({
-    url: '/dept/saveOrUpdate',
-    method: 'post',
-    data,
-  })
-}

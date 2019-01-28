@@ -159,6 +159,16 @@ export const asyncRouterMap = [{
     },
   },
   {
+    path: 'unit',
+    name: 'unit',
+    noDropdown: false,
+    hidden: false,
+    component: () => import('@/views/system/unit'),
+    meta: {
+      title: '单位设置',
+    },
+  },
+  {
     path: 'role',
     name: 'role',
     component: () => import('@/views/system/role'),
