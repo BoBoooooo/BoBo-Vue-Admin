@@ -182,6 +182,14 @@ export const asyncRouterMap = [{
       title: '表单设计',
     },
   },
+  {
+    path: 'dict',
+    name: 'Dict',
+    component: () => import('@/views/system/dict'),
+    meta: {
+      title: '数据字典',
+    },
+  },
 
   ],
 },
@@ -191,6 +199,3 @@ export const asyncRouterMap = [{
   hidden: true,
 },
 ]
-
-
-console.log(asyncRouterMap)

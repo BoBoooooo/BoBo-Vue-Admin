@@ -7,7 +7,7 @@ import {
   asyncRouterMap,
   constantRouterMap,
 } from '@/router/index'
-
+import { deepClone } from '@/utils/index'
 /**
  * 判断是否有路由权限
  * @param roles
@@ -57,8 +57,10 @@ const permission = {
         const {
           roleauthname,
         } = data
+        const routermap = deepClone(asyncRouterMap)
 
-        const accessedRouters = filterAsyncRouter(asyncRouterMap, roleauthname)
+        console.log(routermap);
+        const accessedRouters = filterAsyncRouter(routermap, roleauthname)
 
         commit('SET_ROUTERS', accessedRouters)
         resolve()
