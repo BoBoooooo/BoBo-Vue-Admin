@@ -12,7 +12,7 @@
             :props="defaultProps"
             node-key="id"
             highlight-current
-              :default-expanded-keys="['00000000-0000-0000-0000-000000000000']"
+            :default-expanded-keys="['00000000-0000-0000-0000-000000000000']"
             @node-click="dicttypeTreeClick"
             />
   </el-col>
