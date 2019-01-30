@@ -110,7 +110,8 @@
         title="选择表单" >
         <el-select
           v-model="selectform"
-          placeholder="请选择">
+          placeholder="请选择"
+          filterable style="display:inline-block;width:85%!important;margin-right:5px;">
           <el-option
             v-for="(item, index) in tablelist"
             :key="index"
