@@ -82,13 +82,13 @@
         <el-button-group style="float:right">
 
 
-          <template v-if="handleButton.includes('add')">
+          <template v-if="toolbarButton.includes('add')">
            <el-tooltip class="item" effect="light" :open-delay="700" content="新增" placement="top">
       <el-button  icon="el-icon-plus"
             @click="New()" ></el-button>
     </el-tooltip>
 </template>
-          <template v-if="handleButton.includes('clear')">
+          <template v-if="toolbarButton.includes('clear')">
 
 <el-tooltip class="item" effect="light" content="刷新"  :open-delay="700"  placement="top">
       <el-button    icon="el-icon-refresh"
@@ -96,7 +96,7 @@
     </el-tooltip>
     </template>
 
-          <template v-if="handleButton.includes('search')">
+          <template v-if="toolbarButton.includes('search')">
 
 <el-tooltip class="item" effect="light" content="查询条件"  :open-delay="700"  placement="top">
       <el-button    :icon="buttonVisible"
@@ -126,7 +126,7 @@ export default {
       type: Array, // 列表配置json
       default: () => ([]),
     },
-    handleButton: {
+    toolbarButton: {
       type: String,
       default: 'add,clear,search',
     },

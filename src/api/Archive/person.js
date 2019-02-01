@@ -41,14 +41,6 @@ export function UpdateUsers(data) {
 }
 
 
-export function getKey() {
-  return fetch({
-    url: '/person/Getkey',
-    method: 'post',
-  })
-}
-
-
 export function getObj() {
   return fetch({
     url: '/person/getObj',

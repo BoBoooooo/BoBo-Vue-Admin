@@ -6,7 +6,8 @@
 
 <el-row>
   <el-col :span="8">
-     <el-tree
+
+  <el-tree
             ref="depttree"
             :data="deptList"
             :props="defaultProps"
@@ -15,6 +16,7 @@
               :default-expanded-keys="['00000000-0000-0001-0000-000000000000']"
             @node-click="deptTreeClick"
             />
+
   </el-col>
     <el-col :span="16">
          <el-form
