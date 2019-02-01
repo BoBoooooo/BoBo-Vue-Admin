@@ -1,17 +1,5 @@
 <template>
   <div class="menu-wrapper">
-<!--
-<router-link
-        to="/dashboard"
-      >
-        <el-menu-item index="/dashboard">
-          <svg-icon
-            icon-class="dashboard"
-          /> Dashboard
-        </el-menu-item>
-      </router-link> -->
-
-
     <template v-for="item in routes">
       <router-link
         v-if="!item.hidden&&item.noDropdown&&item.children.length>0&&item.noDropdown!==null"

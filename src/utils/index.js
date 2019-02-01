@@ -1,7 +1,7 @@
 /*
  * @Author: BoBo
  * @Date: 2018-12-21 14:33:55
- * @Description: 工具函数
+ * @Description: 工具函数  （深拷贝, 新建一个guid, 时间转换函数）
  */
 
 

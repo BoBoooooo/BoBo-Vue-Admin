@@ -45,7 +45,7 @@
       top: 0;
     }
 
-
+ 
   }
  
 
@@ -135,9 +135,11 @@
         }
       }
     }
+  
     .el-menu-item>span{
       margin-left:-10px;
     }
+    
     .el-menu--collapse {
       .el-submenu {
         &>.el-submenu__title {

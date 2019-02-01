@@ -2,8 +2,8 @@
  * @Author: BoBo
  * @Date: 2018-12-25 18:33:50
  * @Description:
- * 全局axios配置
- * 配有req以及res两个拦截器
+ * 全局axios配置，已在main.js，项目中通过 this.axios() 形式即可调用
+ * 该文件配有req以及res两个拦截器
  */
 import axios from 'axios'
 import {
