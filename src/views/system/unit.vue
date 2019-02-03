@@ -21,6 +21,8 @@
             highlight-current
               :default-expanded-keys="['00000000-0000-0001-0000-000000000000']"
             @node-click="unitTreeClick"
+                          :filter-node-method="filterNode"
+
             />
   </el-col>
     <el-col :span="16">
@@ -119,7 +121,7 @@ export default {
   watch: {
     filterText(val) {
       this.$nextTick(() => {
-        this.$refs.depttree.filter(val);
+        this.$refs.unittree.filter(val);
       })
     },
   },
