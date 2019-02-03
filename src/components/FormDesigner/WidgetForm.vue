@@ -206,7 +206,11 @@ export default {
         ...row.columns[colIndex].list[newIndex],
         options: {
           ...row.columns[colIndex].list[newIndex].options,
-          remoteFunc: `func_${key}`,
+          remoteFunc: '',
+          props: {
+            label: '',
+            value: '',
+          },
         },
         key,
         // 绑定键值

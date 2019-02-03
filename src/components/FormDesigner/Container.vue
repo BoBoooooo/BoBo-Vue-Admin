@@ -282,7 +282,8 @@ import 'vue-awesome/icons/chalkboard'
 import 'vue-awesome/icons/upload'
 
 import GenerateForm from './GenerateForm'
-// import JSONEditor from 'jsoneditor'
+// eslint-disable-next-line no-unused-vars
+import JSONEditor from 'jsoneditor'
 import 'jsoneditor/dist/jsoneditor.min.css'
 import Clipboard from 'clipboard'
 import { basicComponents, layoutComponents, advanceComponents } from './componentsConfig.js'
