@@ -6,13 +6,20 @@
 
 <el-row>
   <el-col :span="8">
+<el-input
+  placeholder="输入关键字进行过滤"
+  v-model="filterText" style="width:80%;">
+</el-input>
 
   <el-tree
+  class="filter-tree"
             ref="depttree"
             :data="deptList"
             :props="defaultProps"
             node-key="id"
             highlight-current
+              :filter-node-method="filterNode"
+
               :default-expanded-keys="['00000000-0000-0001-0000-000000000000']"
             @node-click="deptTreeClick"
             />
@@ -23,7 +30,7 @@
         :model="temp"
         class="small-space"
         label-position="left"
-        label-width="70px">
+        label-width="70px" v-if="temp">
              <el-form-item label="部门名称">
           <el-input
             v-model="temp.deptname"
@@ -99,10 +106,12 @@ import {
   GetUnitTree,
 } from '@/api/system/unit';
 
+
 export default {
   name: 'Dept',
   data() {
     return {
+      filterText: '',
       deptoptions: [],
       status: 'create',
       deptList: null,
@@ -115,6 +124,15 @@ export default {
     }
   },
 
+  watch: {
+    filterText(val) {
+      this.$nextTick(() => {
+        this.$refs.depttree.filter(val);
+      })
+    },
+  },
+
+
   created() {
     getObj().then((res) => {
       this.temp = res.data
@@ -122,16 +140,23 @@ export default {
     DeptList().then((res) => {
       this.deptoptions = res.data.list;
     })
+
     this.fetchDept()
     this.fetchUnit()
   },
   methods: {
-
+    filterNode(value, data) {
+      if (!value) return true;
+      return data.nodeName.includes(value) !== false;
+    },
     clearObj() {
       Object.keys(this.temp).forEach((key) => {
         this.temp[key] = ''
       })
       this.status = 'create'
+      this.$nextTick(() => {
+        this.$refs.unittree.setCheckedKeys([]);
+      });
     },
     fetchDept() {
       GetDeptTree().then((response) => {
@@ -163,16 +188,23 @@ export default {
     },
     Edit(id) {
       GetDeptDetail(id).then((response) => {
-        this.temp = response.data;
+        this.temp = response.data.obj;
+
+        this.$refs.unittree.setCheckedKeys(response.data.unitlist);
       });
     },
     save() {
+      const obj = {}
+      obj.obj = JSON.parse(JSON.stringify(this.temp))
+      obj.unitlist = this.$refs.unittree.getCheckedKeys()
+
       if (this.status === 'create') {
-        AddDept(this.temp).then(() => {
+        obj.obj.id = this.Guid()
+        AddDept(obj).then(() => {
           this.fetchDept();
         })
       } else {
-        UpdateDept(this.temp).then(() => {
+        UpdateDept(obj).then(() => {
           this.fetchDept();
         })
       }

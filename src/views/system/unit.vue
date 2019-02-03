@@ -6,6 +6,13 @@
 
 <el-row>
   <el-col :span="8">
+
+    <el-input
+  placeholder="输入关键字进行过滤"
+  v-model="filterText" style="width:80%;">
+</el-input>
+
+
      <el-tree
             ref="unittree"
             :data="unitList"
@@ -21,7 +28,7 @@
         :model="temp"
         class="small-space"
         label-position="left"
-        label-width="70px">
+        label-width="70px" v-if="temp">
              <el-form-item label="单位名称">
           <el-input
             v-model="temp.unitname"
@@ -87,6 +94,8 @@ export default {
   data() {
     return {
       unitoptions: [],
+      filterText: '',
+
       status: 'create',
       unitList: null,
       temp: null,
@@ -106,8 +115,21 @@ export default {
     })
     this.fetchUnit()
   },
-  methods: {
 
+  watch: {
+    filterText(val) {
+      this.$nextTick(() => {
+        this.$refs.depttree.filter(val);
+      })
+    },
+  },
+
+
+  methods: {
+    filterNode(value, data) {
+      if (!value) return true;
+      return data.nodeName.includes(value) !== false;
+    },
     clearObj() {
       Object.keys(this.temp).forEach((key) => {
         this.temp[key] = ''

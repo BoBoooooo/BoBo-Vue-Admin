@@ -183,3 +183,16 @@ code {
 .widget-border-top{
   border-top:5px solid $primary;
 }
+
+.no-boxshadow{
+  box-shadow:none;
+}
+
+.no-padding-top{
+  padding-top:0px;
+}
+
+
+.no-margin-top{
+  margin-top:0px;
+}

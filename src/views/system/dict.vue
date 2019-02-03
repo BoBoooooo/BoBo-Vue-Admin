@@ -15,7 +15,7 @@
             />
   </el-col>
     <el-col :span="16">
-<crud-table tableName="dict" toolbarButton="add,clear,search" handleButton="edit,delete"></crud-table>
+<crud-table tableName="dict" class="no-boxshadow no-padding-top" toolbarButton="add,clear" handleButton="edit,delete"></crud-table>
 
     </el-col>
 

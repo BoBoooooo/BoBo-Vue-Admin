@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-unused-vars */
-/* eslint-disable */
 <template>
 
   <el-container class="widget-config-container">
@@ -23,8 +20,7 @@
           style="border:none"
           type="text"
           size="medium"
-          icon="el-icon-star-on
-"
+          icon="el-icon-star-on"
           @click="save">保存</el-button>
         <el-button
           style="border:none;"
