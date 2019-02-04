@@ -196,9 +196,20 @@ export default {
     },
   },
   created() {
-    if (this.widget.options.remote && this.remote[this.widget.options.remoteFunc]) {
-      this.remote[this.widget.options.remoteFunc]((data) => {
-        this.widget.options.remoteOptions = data.map(item => ({
+    // if (this.widget.options.remote && this.remote[this.widget.options.remoteFunc]) {
+    //   this.remote[this.widget.options.remoteFunc]((data) => {
+    //     this.widget.options.remoteOptions = data.map(item => ({
+    //       value: item[this.widget.options.props.value],
+    //       label: item[this.widget.options.props.label],
+    //     }))
+    //   })
+    // }
+    if (this.widget.options.remote && this.widget.options.remoteOptions) {
+      this.axios({
+        url: this.widget.options.remoteFunc,
+        method: 'post',
+      }).then((res) => {
+        this.widget.options.remoteOptions = res.data.list.map(item => ({
           value: item[this.widget.options.props.value],
           label: item[this.widget.options.props.label],
         }))
