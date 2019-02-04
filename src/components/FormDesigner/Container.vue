@@ -105,7 +105,7 @@
         :visible.sync="dialogFormVisible"
         title="选择表单" >
         <el-select
-          v-model="selectform"
+          v-model="selectOption"
           placeholder="请选择"
           filterable style="display:inline-block;width:85%!important;margin-right:5px;">
           <el-option
@@ -243,7 +243,8 @@
 
       <list-config
         :config="widgetForm.config"
-        :tablename="selectform"/>
+        :tablename="selectform"
+        />
 
     </el-container>
 
@@ -349,6 +350,7 @@ export default {
       IsNew: true,
       tablelist: null,
       selectform: '',
+      selectOption: '',
       ID: '',
       dialogFormVisible: false,
     }
@@ -408,14 +410,16 @@ export default {
     },
     save() {
       const json = this.widgetForm
-      console.log(json);
       const obj = {
         id: this.ID,
         tableName: this.selectform,
         formJson: json,
       };
-      if (this.IsNew) AddForm(obj);
-      else UpdateForm(obj);
+      if (this.IsNew) {
+        AddForm().then(() => {
+          this.IsNew = false;
+        })
+      } else UpdateForm(obj);
 
       this.dialogFormVisible = false;
     },
@@ -423,9 +427,8 @@ export default {
       this.dialogFormVisible = true;
     },
     select() {
-      GetFormDetail(this.selectform).then((res) => {
+      GetFormDetail(this.selectOption).then((res) => {
         this.dialogFormVisible = false;
-        console.log(res);
         if (res.data !== null) {
           this.widgetForm = JSON.parse(res.data.formJson);
           this.IsNew = false;
@@ -438,13 +441,13 @@ export default {
               labelWidth: 100,
               labelPosition: 'left',
               columnList: [],
-
             },
-
           }
           this.IsNew = true;
           this.ID = '';
         }
+
+        this.selectform = this.selectOption
       });
     },
   },

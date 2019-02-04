@@ -225,11 +225,30 @@ export default {
     tablename: {
       immediate: true,
       handler() {
+        console.log(this.tablename);
+
+        console.log(this.config.columnList.length);
+
+
         getKeyBytableName(this.tablename).then((response) => {
           this.selectList = response.data;
           this.selectList.forEach((item) => {
             item.COLUMN_NAME = item.COLUMN_NAME.toLowerCase();
           });
+
+          /*  如果是初次制作，默认显示所有列
+         *  label为数据库字段注释
+         *  value为数据库字段名
+         */
+          if (this.config.columnList.length === 0 || !this.config.columnList) {
+            console.log(666)
+            this.selectList.forEach((item) => {
+              const obj = { ...this.configObj }
+              obj.label = item.COLUMN_COMMENT
+              obj.prop = item.COLUMN_NAME.toLowerCase()
+              this.config.columnList.push({ ...obj });
+            })
+          }
         });
       },
     },
@@ -248,6 +267,7 @@ export default {
     addItem() {
       this.config.columnList.push({ ...this.configObj });
     },
+
   },
 };
 </script>

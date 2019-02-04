@@ -1,6 +1,14 @@
 <template>
   <div v-if="show">
     <el-form label-position="top">
+
+      <el-form-item
+        v-if="Object.keys(data.options).includes('uploadParams')"
+        label="附件类型">
+        <el-input v-model="data.options.uploadParams.Param.Type"/>
+      </el-form-item>
+
+
       <el-form-item
         v-if="data.type!='grid'"
         label="标题">

@@ -87,6 +87,10 @@ export default {
       type: String,
       default: 'add,clear,search',
     },
+    asyncCondition: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {

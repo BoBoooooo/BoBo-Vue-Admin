@@ -5,14 +5,9 @@
     :label="element.name"
     class="widget-view "
     @click.native="handleSelectWidget(index)"
-  >
+            :label-width="element.name===''?'0px':''"
 
-    <template v-if="element.type == 'hidden'">
-      <input
-        :name="element.options.key"
-        type="hidden"
-      >
-    </template>
+  >
 
     <template v-if="element.type == 'input'">
       <el-input
@@ -29,6 +24,7 @@
         :style="{width: element.options.width}"
         :placeholder="element.options.placeholder"
         type="textarea"
+
       />
     </template>
 

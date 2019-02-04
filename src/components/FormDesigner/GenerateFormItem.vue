@@ -1,6 +1,7 @@
 <template>
   <el-form-item
     :label="widget.name"
+    :label-width="widget.name===''?'0px':''"
     :prop="widget.model">
     <template v-if="widget.type == 'input'" >
       <el-input

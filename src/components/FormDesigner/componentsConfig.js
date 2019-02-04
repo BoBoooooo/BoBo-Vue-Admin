@@ -29,7 +29,7 @@ export const basicComponents = [
     name: '计数器',
     icon: 'sort-numeric-up',
     options: {
-      width: '',
+      width: '100%',
       required: false,
       defaultValue: 0,
       min: '',
@@ -56,13 +56,9 @@ export const basicComponents = [
           value: '选项2',
           label: '选项2',
         },
-        {
-          value: '选项3',
-          label: '选项3',
-        },
       ],
       required: false,
-      width: '',
+      width: '100%',
       remote: false,
       remoteOptions: [],
       props: {
@@ -87,12 +83,9 @@ export const basicComponents = [
         {
           value: '选项2',
         },
-        {
-          value: '选项3',
-        },
       ],
       required: false,
-      width: '',
+      width: '100%',
       remote: false,
       remoteOptions: [],
       props: {
@@ -119,7 +112,7 @@ export const basicComponents = [
       arrowControl: true,
       format: 'HH:mm:ss',
       required: false,
-      width: '',
+      width: '100%',
     },
   },
   {
@@ -139,7 +132,7 @@ export const basicComponents = [
       format: 'yyyy-MM-dd',
       timestamp: false,
       required: false,
-      width: '',
+      width: '100%',
     },
   },
   {
@@ -177,15 +170,13 @@ export const basicComponents = [
       placeholder: '',
       required: false,
       showLabel: false,
-      width: '',
+      width: '100%',
       options: [
         {
           value: '下拉框1',
         },
         {
           value: '下拉框2',
-        }, {
-          value: '下拉框3',
         },
       ],
       remote: false,
@@ -220,7 +211,7 @@ export const basicComponents = [
       step: 1,
       showInput: false,
       range: false,
-      width: '',
+      width: '100%',
     },
   },
 ]
@@ -235,6 +226,7 @@ export const advanceComponents = [
       uploadParams: {
         Param: {
           MasterID: '',
+          Type: '',
         },
         IsDetail: false,
       },
