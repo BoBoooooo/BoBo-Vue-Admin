@@ -5,7 +5,7 @@
     :label="element.name"
     class="widget-view "
     @click.native="handleSelectWidget(index)"
-            :label-width="element.name===''?'0px':''"
+    :label-width="element.name===''?'0px':''"
 
   >
 
