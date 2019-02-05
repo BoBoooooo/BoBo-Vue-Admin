@@ -153,7 +153,7 @@ export default {
         ...this.data.list[newIndex],
         options: {
           ...this.data.list[newIndex].options,
-          remoteFunc: `func_${key}`,
+          remoteFunc: '',
         },
         key,
         // 绑定键值

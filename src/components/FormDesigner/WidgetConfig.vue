@@ -136,6 +136,17 @@
               style="">
               <template slot="prepend">标签</template>
             </el-input>
+
+            <el-select
+              v-model="data.options.dictID"
+              filterable>
+                <el-option
+                v-for="item in options"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id">
+                </el-option>
+            </el-select>
           </div>
         </template>
         <template v-else>
@@ -334,22 +345,6 @@
         </el-form-item>
       </template>
 
-      <template v-if="data.type=='blank'">
-        <el-form-item label="绑定数据类型">
-          <el-select v-model="data.options.defaultType">
-            <el-option
-              value="String"
-              label="字符"/>
-            <el-option
-              value="Object"
-              label="对象"/>
-            <el-option
-              value="Array"
-              label="数组"/>
-          </el-select>
-        </el-form-item>
-      </template>
-
       <template v-if="data.type == 'grid'">
         <el-form-item label="栅格间隔">
           <el-input
@@ -516,6 +511,7 @@ import 'vue-awesome/icons/toggle-off'
 import 'vue-awesome/icons/sliders-h'
 import 'vue-awesome/icons/regular/image'
 import 'vue-awesome/icons/chalkboard'
+import { DictTypeList } from '@/api/system/dicttype'
 
 export default {
   components: {
@@ -532,7 +528,13 @@ export default {
         range: null,
         length: null,
       },
+      options: [],
     }
+  },
+  created() {
+    DictTypeList().then((res) => {
+      this.options = res.data.filter(item => item.name !== '数据字典')
+    })
   },
   computed: {
     show() {

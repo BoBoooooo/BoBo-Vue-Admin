@@ -205,15 +205,30 @@ export default {
     //   })
     // }
     if (this.widget.options.remote && this.widget.options.remoteOptions) {
-      this.axios({
-        url: this.widget.options.remoteFunc,
-        method: 'post',
-      }).then((res) => {
-        this.widget.options.remoteOptions = res.data.list.map(item => ({
-          value: item[this.widget.options.props.value],
-          label: item[this.widget.options.props.label],
-        }))
-      })
+      if (this.widget.options.remoteFunc !== '') {
+        this.axios({
+          url: this.widget.options.remoteFunc,
+          method: 'post',
+        }).then((res) => {
+          this.widget.options.remoteOptions = res.data.list.map(item => ({
+            value: item[this.widget.options.props.value],
+            label: item[this.widget.options.props.label],
+          }))
+        })
+      } else {
+        this.axios({
+          url: '/dict/getDictByKey',
+          method: 'post',
+          params: {
+            DictID: this.widget.options.dictID,
+          },
+        }).then((res) => {
+          this.widget.options.remoteOptions = res.data.map(item => ({
+            value: item.value,
+            label: item.title,
+          }))
+        })
+      }
     }
   },
 }

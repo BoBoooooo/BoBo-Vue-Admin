@@ -1,10 +1,9 @@
 import fetch from '@/utils/fetch'
 
-export function DictTypeList(params) {
+export function DictTypeList() {
   return fetch({
     url: '/dicttype/list',
     method: 'post',
-    params,
   })
 }
 

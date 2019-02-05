@@ -186,6 +186,7 @@ export const basicComponents = [
         label: 'label',
       },
       remoteFunc: '',
+      dictID: '',
     },
   },
   {
