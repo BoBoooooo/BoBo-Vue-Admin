@@ -40,7 +40,6 @@
         ref="generateForm"
         :data="jsonData"
         :value="entity"
-        :upload_params="uploadParams"
       />
 
       <div
@@ -114,17 +113,10 @@ export default {
           },
         ],
       },
-      uploadParams: {
-        Param: {
-          MasterID: '',
-        },
-        IsDetail: false,
-      },
       dialogFormVisible: false,
       dialogStatus: '',
       list: null,
       listLoading: true,
-      filelist: null,
       id: '',
     };
   },
@@ -134,7 +126,6 @@ export default {
     this.getObj();
     GetFormDetail(this.tableName).then((res) => {
       this.jsonData = JSON.parse(res.data.formJson);
-      console.log(this.jsonData);
     });
   },
 
@@ -168,8 +159,6 @@ export default {
 
     New() {
       this.dialogStatus = 'create';
-      this.uploadParams.Param.MasterID = '';
-      this.filelist = null;
       this.dialogFormVisible = true;
       Object.keys(this.entity).forEach((k) => {
         this.entity[k] = ''
@@ -209,8 +198,6 @@ export default {
       }).then((response) => {
         this.fetchData(this.listQuery);
         this.entity = response.data;
-        this.id = id;
-        this.uploadParams.Param.MasterID = id;
         this.dialogFormVisible = true;
       });
     },
@@ -242,7 +229,7 @@ export default {
         .getData()
         .then((data) => {
           this.entity = data;
-          this.entity.id = this.id;
+          // this.entity.id = this.id;
           this.axios({
             url: `/${this.tableName}/update`,
             method: 'post',

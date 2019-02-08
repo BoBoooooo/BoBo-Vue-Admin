@@ -114,8 +114,6 @@ export default {
       this.$emit('handleCurrentChange', this.listQuery)
     },
     handleOperation(eventName, id) {
-      console.log(eventName);
-      console.log(id);
       this.$emit(eventName, id)
     },
   },

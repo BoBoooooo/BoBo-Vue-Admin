@@ -166,6 +166,10 @@
                 <Tinymce  :height="400"  v-model="dataModel"></Tinymce>
 
     </template>
+      <template v-if="widget.type == 'upload'">
+          <upload-affix
+            :params="widget.options.uploadParams"/>
+        </template>
 
 
   </el-form-item>
@@ -173,12 +177,14 @@
 
 <script>
 import Tinymce from '@/components/Tinymce' // 富文本编辑器
+import UploadAffix from '@/components/UploadAffix'; // 上传模块
 
 export default {
   components: {
     Tinymce,
+    UploadAffix,
   },
-  props: ['widget', 'models', 'rules', 'remote'],
+  props: ['widget', 'models', 'rules'],
   data() {
     return {
       dataModel: this.models[this.widget.model],
@@ -197,20 +203,16 @@ export default {
     },
     models: {
       deep: true,
+      immediate: true,
       handler(val) {
         this.dataModel = val[this.widget.model]
+        if (this.widget.options.uploadParams) {
+          this.widget.options.uploadParams.Param.MasterID = this.models.id
+        }
       },
     },
   },
   created() {
-    // if (this.widget.options.remote && this.remote[this.widget.options.remoteFunc]) {
-    //   this.remote[this.widget.options.remoteFunc]((data) => {
-    //     this.widget.options.remoteOptions = data.map(item => ({
-    //       value: item[this.widget.options.props.value],
-    //       label: item[this.widget.options.props.label],
-    //     }))
-    //   })
-    // }
     if (this.widget.options.remote && this.widget.options.remoteOptions) {
       if (this.widget.options.remoteFunc !== '') {
         this.axios({

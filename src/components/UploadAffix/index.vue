@@ -89,14 +89,14 @@ export default {
         auth: getToken(),
       },
       listLoading: false,
-      baseUrl: `${process.env.BASE_API}file/upload`,
+      baseUrl: `${process.env.VUE_APP_BASE_URL}file/upload`,
     };
   },
   watch: {
     'Params.Param.MasterID': {
-      handler(id) {
+      handler() {
         this.$nextTick(() => {
-          this.fetchData_File(id);
+          this.fetchData_File(this.Params.Param);
         });
       },
       immediate: true,
@@ -113,18 +113,18 @@ export default {
         type: 'warning',
       }).then(() => {
         deletefile(id).then(() => {
-          this.fetchData_File(id);
+          this.fetchData_File(this.Params.Param);
         });
       });
     },
     uploadSuccess() {
-      this.fetchData_File(this.Params.Param.MasterID);
+      this.fetchData_File(this.Params.Param);
       this.$refs.upload.clearFiles();
     },
-    fetchData_File(id) {
+    fetchData_File(param) {
       this.listLoading = true;
 
-      GetFileList(id).then((response) => {
+      GetFileList(param).then((response) => {
         this.filelist = response.data.list;
         this.listLoading = false;
       });

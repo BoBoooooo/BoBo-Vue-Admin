@@ -1,12 +1,13 @@
 import fetch from '@/utils/fetch'
 
-export function upload(MasterID) {
+export function upload(data) {
   return fetch({
     url: '/file/Upload',
     method: 'post',
     contentType: false,
     params: {
-      MasterID,
+      MasterID: data.MasterID,
+      Type: data.Type,
     },
   })
 }
@@ -30,13 +31,13 @@ export function deletefile(AffixID) {
   })
 }
 
-export function GetFileList(MasterID) {
+export function GetFileList(data) {
   return fetch({
     url: '/file/list',
     method: 'post',
-
     params: {
-      MasterID,
+      MasterID: data.MasterID,
+      Type: data.Type,
     },
   })
 }

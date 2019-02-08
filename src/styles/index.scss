@@ -21,6 +21,7 @@ body {
 label {
   font-weight: 700;
 }
+html,body{margin:0}
 
 html {
   height: 100%;
@@ -49,6 +50,7 @@ a:focus,
 a:active {
   outline: none;
 }
+a{text-decoration: none;color:black}
 
 a,
 a:focus,
@@ -170,6 +172,7 @@ code {
     color: rgb(32, 160, 255);
   }
 }
+
 
 
 .widget-box{

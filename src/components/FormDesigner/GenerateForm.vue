@@ -26,27 +26,19 @@
                 <genetate-form-item
                   :key="citem.key"
                   :models.sync="models"
-                  :remote="remote"
                   :rules="rules"
                   :widget="citem"/>
               </template>
             </el-col>
           </el-row>
         </template>
-
-        <template v-else-if="item.type == 'upload'">
-          <upload-affix
-            :key="item.key"
-            :params="upload_params||item.options.uploadParams"/>
-        </template>
-
         <template v-else>
           <genetate-form-item
             :key="item.key"
             :models.sync="models"
             :rules="rules"
             :widget="item"
-            :remote="remote"/>
+            />
         </template>
 
       </template>
@@ -58,22 +50,16 @@
 // 常规组件
 import GenetateFormItem from './GenerateFormItem';
 
-// /自定义组件
-import UploadAffix from '@/components/UploadAffix'; // 上传模块
-
 export default {
   name: 'FmGenerateForm',
   components: {
     GenetateFormItem,
-    UploadAffix,
   },
-  props: ['data', 'remote', 'value', 'disabled', 'upload_params'],
+  props: ['data', 'value', 'disabled', 'clear'],
   // data 初始化表单
-  // remote 异步远程请求方法
   // value 表单赋值
   // clear 清空表单
   // disabled 表单只读
-  // upload_params 自定义 文件上传模块的参数
   data() {
     return {
       models: {},
@@ -94,6 +80,19 @@ export default {
   },
   methods: {
     generateModle(genList) {
+      // 添加一个ID隐藏域
+      const obj = {
+        model: 'id',
+        type: 'hidden',
+        options: {
+          defaultValue: '',
+          remote: false,
+        },
+        rules: [],
+      }
+
+      genList.push({ ...obj })
+      console.log(genList)
       for (let i = 0; i < genList.length; i++) {
         if (genList[i].type === 'grid') {
           genList[i].columns.forEach((item) => {
@@ -102,15 +101,10 @@ export default {
         } else {
           if (Object.keys(this.value).indexOf(genList[i].model) >= 0) {
             this.models[genList[i].model] = this.value[genList[i].model];
-          } else if (genList[i].type === 'blank') {
-            this.models[genList[i].model] = genList[i].options.defaultType === 'String'
-              ? ''
-              : genList[i].options.defaultType === 'Object'
-                ? {}
-                : [];
           } else {
             this.models[genList[i].model] = genList[i].options.defaultValue;
           }
+
 
           if (this.rules[genList[i].model]) {
             this.rules[genList[i].model] = [
