@@ -147,11 +147,7 @@
           </td>
         </tr>
       </draggable>
-
     </table>
-
-
-    <!-- <el-button @click="addOperationColumn()">添加操作列</el-button> -->
     <el-button
       style="margin:0 auto;display:block;margin-top:10px"
       size="mini"
@@ -232,9 +228,9 @@ export default {
 
 
             /*  如果是初次制作，默认显示所有列
-         *  label为数据库字段注释
-         *  value为数据库字段名
-         */
+            *  label为数据库字段注释
+            *  value为数据库字段名
+            */
             if (this.config.columnList.length === 0 || !this.config.columnList) {
               const obj = { ...this.configObj }
               obj.label = item.COLUMN_COMMENT
@@ -247,10 +243,6 @@ export default {
     },
   },
   methods: {
-
-    // addOperationColumn() {
-    //   this.config.columnList.push({ ...this.operation })
-    // },
     removeItem(item) {
       const index = this.config.columnList.indexOf(item);
       if (index != null) {

@@ -11,8 +11,31 @@
             node-key="id"
             highlight-current
             :default-expanded-keys="['00000000-0000-0000-0000-000000000001']"
-            @node-click="dicttypeTreeClick"
-            />
+            >
+             <span class="custom-tree-node" slot-scope="{ node, data }">
+        <span>{{ node.label }}</span>
+        <span style="margin-left:8px">
+          <el-button
+            type="text"
+            size="mini"
+            @click="() => append(data)">
+            添加
+          </el-button>
+            <el-button
+            type="text"
+            size="mini"
+            @click="() => Edit(data.id)">
+            修改
+          </el-button>
+          <el-button
+            type="text"
+            size="mini"
+            @click="() => remove(data)">
+            删除
+          </el-button>
+        </span>
+      </span>
+            </el-tree>
   </el-col>
     <el-col :span="16">
 <crud-table tableName="dict" class="no-boxshadow no-padding-top" toolbarButton="add,clear" handleButton="edit,delete"></crud-table>
@@ -20,6 +43,38 @@
     </el-col>
 
 </el-row>
+
+ <el-dialog
+      :title="textMap[dialogStatus]"
+      :visible.sync="dialogFormVisible"
+      width="80%">
+
+   <el-form ref="form" :model="entity" label-width="80px">
+  <el-form-item label="类目名">
+    <el-input v-model="entity.name"></el-input>
+  </el-form-item>
+
+<el-form-item label="排序码">
+    <el-input-number v-model="entity.sort"></el-input-number>
+  </el-form-item>
+
+
+</el-form>
+
+      <div
+        slot="footer"
+        class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button
+          v-if="dialogStatus=='create'"
+          type="primary"
+          @click="save">新 增</el-button>
+        <el-button
+          v-else
+          type="primary"
+          @click="save">修 改</el-button>
+      </div>
+    </el-dialog>
 
   </div>
 </template>
@@ -40,9 +95,20 @@ export default {
   data() {
     return {
       dicttypeoptions: [],
+      dialogFormVisible: false,
+      textMap: {
+        update: '编辑',
+        create: '新增',
+      },
       status: 'create',
       dicttypeList: null,
-      temp: null,
+      entity: {
+        id: '',
+        name: '',
+        sort: '',
+        pid: '',
+      },
+      dialogStatus: '',
       defaultProps: {
         children: 'children',
         label: 'nodeName',
@@ -59,9 +125,29 @@ export default {
   },
   methods: {
 
+    append(data) {
+      this.dialogStatus = 'create'
+      this.clearObj()
+      this.entity.pid = data.id
+      this.dialogFormVisible = true
+    },
+    remove(data) {
+      this.$confirm('确认删除?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      })
+        .then(() => {
+          DeleteDictType(data.id).then(() => {
+            this.dialogFormVisible = false
+            this.fetchDictType()
+          })
+        })
+    },
+
     clearObj() {
-      Object.keys(this.temp).forEach((key) => {
-        this.temp[key] = ''
+      Object.keys(this.entity).forEach((key) => {
+        this.entity[key] = ''
       })
       this.status = 'create'
     },
@@ -70,36 +156,25 @@ export default {
         this.dicttypeList = response.data;
       });
     },
-    dicttypeTreeClick(obj) {
-      this.status = 'update'
-      this.Edit(obj.id)
-    },
 
-    Delete() {
-      this.$confirm('确认删除?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      })
-        .then(() => {
-          DeleteDictType(this.temp.id).then(() => {
-            this.fetchDictType()
-          })
-        })
-    },
+
     Edit(id) {
       GetDictTypeDetail(id).then((response) => {
-        this.temp = response.data;
+        this.entity = response.data;
+        this.status = 'update'
+        this.dialogFormVisible = true
       });
     },
     save() {
       if (this.status === 'create') {
-        AddDictType(this.temp).then(() => {
+        AddDictType(this.entity).then(() => {
           this.fetchDictType();
+          this.dialogFormVisible = false
         })
       } else {
-        UpdateDictType(this.temp).then(() => {
+        UpdateDictType(this.entity).then(() => {
           this.fetchDictType();
+          this.dialogFormVisible = false
         })
       }
     },

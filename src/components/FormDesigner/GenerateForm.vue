@@ -92,7 +92,6 @@ export default {
       }
 
       genList.push({ ...obj })
-      console.log(genList)
       for (let i = 0; i < genList.length; i++) {
         if (genList[i].type === 'grid') {
           genList[i].columns.forEach((item) => {

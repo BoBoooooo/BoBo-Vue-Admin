@@ -161,10 +161,6 @@
     <template v-if="element.type=='upload'">
       <upload-affix :params="element.options.uploadParams"/>
     </template>
-    <!-- <template v-if="element.type=='blank'">
-          <div style="height: 50px;color: #999;background: #eee;line-height:50px;text-align:center;">自定义区域</div>
-        </template> -->
-
     <el-button
       v-if="selectWidget.key == element.key"
       title="删除"
