@@ -233,6 +233,16 @@ export const advanceComponents = [
       },
     },
   },
+
+  {
+    type: 'richtext',
+    name: '富文本',
+    icon: 'text-height',
+    options: {
+      defaultValue: '',
+
+    },
+  },
 ]
 
 export const layoutComponents = [

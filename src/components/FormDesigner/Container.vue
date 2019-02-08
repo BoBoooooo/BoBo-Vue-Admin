@@ -281,6 +281,7 @@ import 'vue-awesome/icons/sliders-h'
 import 'vue-awesome/icons/regular/image'
 import 'vue-awesome/icons/chalkboard'
 import 'vue-awesome/icons/upload'
+import 'vue-awesome/icons/text-height'
 
 import GenerateForm from './GenerateForm'
 // eslint-disable-next-line no-unused-vars

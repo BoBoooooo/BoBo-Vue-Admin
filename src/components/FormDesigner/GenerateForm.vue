@@ -21,20 +21,9 @@
               v-for="(col, colIndex) in item.columns"
               :key="colIndex"
               :span="col.span">
-
-
               <template v-for="citem in col.list" >
-                <el-form-item
-                  v-if="citem.type=='blank'"
-                  :label="citem.name"
-                  :prop="citem.model"
-                  :key="citem.key">
-                  <slot
-                    :name="citem.model"
-                    :model="models"/>
-                </el-form-item>
+
                 <genetate-form-item
-                  v-else
                   :key="citem.key"
                   :models.sync="models"
                   :remote="remote"

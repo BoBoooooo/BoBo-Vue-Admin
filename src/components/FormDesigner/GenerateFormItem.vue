@@ -162,14 +162,21 @@
       />
     </template>
 
+    <template v-if="widget.type=='richtext'">
+                <Tinymce  :height="400"  v-model="dataModel"></Tinymce>
+
+    </template>
+
 
   </el-form-item>
 </template>
 
 <script>
+import Tinymce from '@/components/Tinymce' // 富文本编辑器
 
 export default {
   components: {
+    Tinymce,
   },
   props: ['widget', 'models', 'rules', 'remote'],
   data() {

@@ -8,6 +8,10 @@
     :label-width="element.name===''?'0px':''"
 
   >
+  <template v-if="element.type == 'richtext'">
+              <Tinymce  :height="400"          v-model="element.options.defaultValue"
+ />
+    </template>
 
     <template v-if="element.type == 'input'">
       <el-input
@@ -209,11 +213,13 @@ import 'vue-awesome/icons/sliders-h'
 import 'vue-awesome/icons/regular/image'
 import 'vue-awesome/icons/chalkboard'
 import UploadAffix from '@/components/UploadAffix' // 上传模块
+import Tinymce from '@/components/Tinymce' // 富文本编辑器
 
 export default {
   components: {
     icon,
     UploadAffix,
+    Tinymce,
   },
   props: ['element', 'select', 'index', 'data'],
   data() {
