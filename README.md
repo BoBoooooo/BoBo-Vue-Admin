@@ -8,13 +8,7 @@
  2、使用vue ui命令就可以呼唤出vue的图形化界面，可以直接在页面上操控项目的配置，这逼格一下上了天。<br>
  ![Image text](https://randy168.com/屏幕快照%202018-08-15%20下午11.04.14.png)  <br><br>
  
- <h3><a target="_blank" href="http://www.vueadmin.cn">线上预览地址</a></h3>
- 
- 注意事项：<br><br>
- 1、由于个人风格原因，该项目去掉了eslint限制，需要的同学可以自己增加；<br><br>
- 2、项目里没有使用到原作者的svg组件，因为配置问题导致一直报错，所以改用了iconfont;<br><br>
- 3、为了跑通整个项目，这里我使用nodejs写了几个接口进行验证，包括token、userinfo、list，并且使用cors开放了跨域，需要的同学可以直接使用，无需代理；<br><br>
- 
+
  <strong>如果这个项目对你工作和学习有帮助，别忘了右上角的star哦😊</strong>
  
  
