@@ -19,6 +19,8 @@ export const basicComponents = [
     options: {
       width: '100%',
       defaultValue: '',
+      disabled: false,
+
       required: false,
       pattern: '',
       placeholder: '',

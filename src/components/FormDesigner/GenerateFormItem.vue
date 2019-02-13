@@ -25,6 +25,7 @@
         :rows="5"
         v-model="dataModel"
         :placeholder="widget.options.placeholder"
+        :disabled="widget.options.disabled"
         :style="{width: widget.options.width}"
         type="textarea"
       />

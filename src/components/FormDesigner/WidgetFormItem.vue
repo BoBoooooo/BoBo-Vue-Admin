@@ -27,6 +27,7 @@
         v-model="element.options.defaultValue"
         :style="{width: element.options.width}"
         :placeholder="element.options.placeholder"
+        :disabled="element.options.disabled"
         type="textarea"
 
       />
