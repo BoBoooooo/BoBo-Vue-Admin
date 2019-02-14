@@ -88,8 +88,8 @@ export default {
       default: 'add,clear,search',
     },
     asyncCondition: {
-      type: String,
-      default: '',
+      type: Object,
+      default: () => ({}),
     },
   },
   data() {
@@ -121,7 +121,18 @@ export default {
       id: '',
     };
   },
+  watch: {
+    asyncCondition: {
+      deep: true,
+      handler(val) {
+        console.log(val)
+        this.listQuery.searchArr[0].SearchKey = val.searchKey
+        this.listQuery.searchArr[0].SearchValue = val.searchValue
 
+        this.fetchData(this.listQuery);
+      },
+    },
+  },
   created() {
     this.fetchData(this.listQuery);
     this.getObj();

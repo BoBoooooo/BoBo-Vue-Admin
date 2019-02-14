@@ -11,6 +11,7 @@
             node-key="id"
             highlight-current
             :default-expanded-keys="['00000000-0000-0000-0000-000000000001']"
+            @node-click="treeClick"
             >
              <span class="custom-tree-node" slot-scope="{ node, data }">
         <span>{{ node.label }}</span>
@@ -38,7 +39,7 @@
             </el-tree>
   </el-col>
     <el-col :span="16">
-<crud-table tableName="dict" class="no-boxshadow no-padding-top" toolbarButton="add,clear" handleButton="edit,delete"></crud-table>
+<crud-table tableName="dict" :asyncCondition="asyncCondition" class="no-boxshadow no-padding-top" toolbarButton="add,clear" handleButton="edit,delete"></crud-table>
 
     </el-col>
 
@@ -108,6 +109,10 @@ export default {
         sort: '',
         pid: '',
       },
+      asyncCondition: {
+        searchKey: '',
+        searchValue: '',
+      },
       dialogStatus: '',
       defaultProps: {
         children: 'children',
@@ -157,7 +162,11 @@ export default {
       });
     },
 
-
+    treeClick(data) {
+      console.log(data)
+      this.asyncCondition.searchKey = 'dictid'
+      this.asyncCondition.searchValue = data.id
+    },
     Edit(id) {
       GetDictTypeDetail(id).then((response) => {
         this.entity = response.data;
