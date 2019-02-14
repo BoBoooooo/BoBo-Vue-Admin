@@ -14,12 +14,12 @@
             >
              <span class="custom-tree-node" slot-scope="{ node, data }">
         <span>{{ node.label }}</span>
-        <span style="margin-left:8px">
+        <span style="margin-left:8 px">
           <el-button
             type="text"
             size="mini"
-            @click="() => append(data)">
-            添加
+               @click="() => append(data)">
+                  添加
           </el-button>
             <el-button
             type="text"
@@ -114,22 +114,22 @@ export default {
         label: 'nodeName',
       },
 
-    }
+    };
   },
 
   created() {
     DictTypeList().then((res) => {
       this.dicttypeoptions = res.data.list;
-    })
-    this.fetchDictType()
+    });
+    this.fetchDictType();
   },
   methods: {
 
     append(data) {
-      this.dialogStatus = 'create'
-      this.clearObj()
-      this.entity.pid = data.id
-      this.dialogFormVisible = true
+      this.dialogStatus = 'create';
+      this.clearObj();
+      this.entity.pid = data.id;
+      this.dialogFormVisible = true;
     },
     remove(data) {
       this.$confirm('确认删除?', '提示', {
@@ -139,17 +139,17 @@ export default {
       })
         .then(() => {
           DeleteDictType(data.id).then(() => {
-            this.dialogFormVisible = false
+            this.dialogFormVisible = false;
             this.fetchDictType()
-          })
-        })
+          });
+        });
     },
 
     clearObj() {
       Object.keys(this.entity).forEach((key) => {
-        this.entity[key] = ''
-      })
-      this.status = 'create'
+        this.entity[key] = '';
+      });
+      this.status = 'create';
     },
     fetchDictType() {
       GetDictTypeTree().then((response) => {
@@ -161,21 +161,21 @@ export default {
     Edit(id) {
       GetDictTypeDetail(id).then((response) => {
         this.entity = response.data;
-        this.status = 'update'
-        this.dialogFormVisible = true
+        this.status = 'update';
+        this.dialogFormVisible = true;
       });
     },
     save() {
       if (this.status === 'create') {
         AddDictType(this.entity).then(() => {
           this.fetchDictType();
-          this.dialogFormVisible = false
-        })
+          this.dialogFormVisible = false;
+        });
       } else {
         UpdateDictType(this.entity).then(() => {
           this.fetchDictType();
-          this.dialogFormVisible = false
-        })
+          this.dialogFormVisible = false;
+        });
       }
     },
   },

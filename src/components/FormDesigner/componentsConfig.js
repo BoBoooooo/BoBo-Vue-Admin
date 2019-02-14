@@ -217,7 +217,7 @@ export const basicComponents = [
       width: '100%',
     },
   },
-]
+];
 
 export const advanceComponents = [
 
@@ -245,7 +245,7 @@ export const advanceComponents = [
 
     },
   },
-]
+];
 
 export const layoutComponents = [
   {
@@ -268,4 +268,4 @@ export const layoutComponents = [
       align: 'top',
     },
   },
-]
+];

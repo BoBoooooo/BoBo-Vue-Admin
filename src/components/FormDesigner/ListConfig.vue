@@ -15,7 +15,7 @@
     <table class="listconfig_table">
 
       <thead>
-        <th>字段</th><th>标题</th><th>列宽</th><th>最小宽度</th><th>排序</th><th>内容对齐</th><th>表头对齐</th><th>超出隐藏</th><th>作为查询条件</th><th>自定义列</th><th/>
+        <th>字段</th><th>自定义字段</th><th>标题</th><th>列宽</th><th>最小宽度</th><th>排序</th><th>内容对齐</th><th>表头对齐</th><th>超出隐藏</th><th>作为查询条件</th><th>自定义列</th><th/>
       </thead>
       <draggable
         v-model="config.columnList"
@@ -35,6 +35,11 @@
                 :value="subitem.COLUMN_NAME"
               />
             </el-select>
+          </td>
+           <td>
+            <el-input
+              v-model="item.prop_more"
+              placeholder="自定义字段名"/>
           </td>
           <td>
             <el-input
@@ -176,6 +181,7 @@ export default {
       configObj: { // 普通列初始对象
         label: '',
         prop: '',
+        prop_more: '',
         align: 'center',
         sortable: true,
         width: '',

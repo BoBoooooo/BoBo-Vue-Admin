@@ -22,7 +22,7 @@
         v-for="(item,index) in tableJson"
         :key="index"
         :label="item.label"
-        :prop="item.prop"
+        :prop="item.prop||item.prop_more"
         :align="item.align"
         :sortable="item.sortable"
         :width="item.width"
