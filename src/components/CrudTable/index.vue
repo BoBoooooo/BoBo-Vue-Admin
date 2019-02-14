@@ -34,6 +34,7 @@
     <el-dialog
       :title="textMap[dialogStatus]"
       :visible.sync="dialogFormVisible"
+      v-if="dialogFormVisible"
       width="80%">
 
       <generate-form
@@ -159,10 +160,10 @@ export default {
 
     New() {
       this.dialogStatus = 'create';
-      this.dialogFormVisible = true;
       Object.keys(this.entity).forEach((k) => {
         this.entity[k] = ''
       })
+      this.dialogFormVisible = true;
     },
     Delete(id) {
       this.$confirm('确认删除?', '提示', {

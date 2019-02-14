@@ -26,7 +26,7 @@ Vue.use(ElementUI)
 Vue.component('crud-table', CrudTable) // 注册全局增删改查table组件
 Vue.config.productionTip = false
 Vue.prototype.axios = fetch // 全局基于拦截器配置后的ajax  拦截器在 utils/fetch
-Vue.prototype.Guid = newGuid // 全局基于拦截器配置后的ajax  拦截器在 utils/fetch
+Vue.prototype.Guid = newGuid // 全局调用this.Guid()方法即可
 
 new Vue({
   el: '#app',

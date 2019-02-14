@@ -43,7 +43,7 @@
                       @add="handleWidgetColAdd($event, element, colIndex)"
                     >
                       <widget-form-item
-                        v-for="(el, i) in col.list.filter(item=>item.key===true)"
+                        v-for="(el, i) in col.list"
                         :key="el.key"
                         :element="el"
                         :select.sync="selectWidget"
