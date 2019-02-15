@@ -5,7 +5,8 @@ const buttonArr = [
     name: 'edit',
     label: '修改',
     Fun: 'handleEdit',
-    type: 'primary',
+    color: 'blue',
+    icon: '',
   },
   {
     size: 'mini',
@@ -13,8 +14,8 @@ const buttonArr = [
     name: 'detail',
     label: '详情',
     Fun: 'handleDetail',
-    type: 'success',
-
+    color: 'green',
+    icon: '',
   },
   {
     size: 'mini',
@@ -22,7 +23,9 @@ const buttonArr = [
     name: 'delete',
     label: '删除',
     Fun: 'handleDelete',
-    type: 'danger',
+    color: 'red',
+    icon: '',
+
 
   },
 ];

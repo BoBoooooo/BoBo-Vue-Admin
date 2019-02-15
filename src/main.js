@@ -10,6 +10,8 @@
 
 /* eslint-disable no-new */
 import Vue from 'vue'
+import Vuetify from 'vuetify/lib'
+import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import App from './App.vue'
@@ -22,6 +24,17 @@ import '@/styles/index.scss' // global css
 import CrudTable from '@/components/CrudTable';
 import { newGuid } from '@/utils/index'
 
+Vue.use(Vuetify, {
+  theme: {
+    primary: '#1976D2',
+    secondary: '#424242',
+    accent: '#82B1FF',
+    error: '#FF5252',
+    info: '#2196F3',
+    success: '#4CAF50',
+    warning: '#FFC107',
+  },
+})
 Vue.use(ElementUI)
 Vue.component('crud-table', CrudTable) // 注册全局增删改查table组件
 Vue.config.productionTip = false

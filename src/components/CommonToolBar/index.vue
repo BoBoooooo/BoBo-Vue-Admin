@@ -51,29 +51,26 @@
           style="text-align:center"
         >
 
-      <el-button
-            style="margin:5px 0px 0px 10px;padding:10px"
-        type="primary"
-        size="mini"
-        circle
-        icon="el-icon-plus"
-        @click="addItem"
-      />
-    <el-button
-            style="margin:5px 0px 0px 10px;padding:10px"
-            type="danger"
-            size="mini"
-            circle
-            icon="el-icon-minus"
-            @click="removeItem"
-          />
+
+      <v-btn  fab dark small color="indigo"  @click="addItem"
+>
+        <v-icon dark>add</v-icon>
+      </v-btn>
+
+
+         <v-btn fab dark small color="pink"  @click="removeItem"
+>
+        <v-icon dark>remove</v-icon>
+      </v-btn>
+
 
         </el-col>
       </el-row>
 
 
-      <el-button size="mini" icon="el-icon-search"   style="margin:10px auto 0 ;display:block"
-            @click="Refresh">搜索</el-button>
+ <v-btn color="orange" @click="Refresh" dark>搜索
+          <v-icon dark right>search</v-icon>
+        </v-btn>
 
     </div>
 
@@ -83,30 +80,38 @@
 
 
           <template v-if="toolbarButton.includes('add')">
-           <el-tooltip class="item" effect="light" :open-delay="700" content="新增" placement="top">
-      <el-button  icon="el-icon-plus"
-            @click="New()" ></el-button>
-    </el-tooltip>
+
+             <v-btn fab dark small color="indigo">
+        <v-icon dark  @click="New()" >add</v-icon>
+      </v-btn>
+
 </template>
           <template v-if="toolbarButton.includes('clear')">
 
-<el-tooltip class="item" effect="light" content="刷新"  :open-delay="700"  placement="top">
-      <el-button    icon="el-icon-refresh"
-            @click="ClearOption"></el-button>
-    </el-tooltip>
+
+  <v-btn fab dark small color="pink"  @click="ClearOption"
+>
+        <v-icon dark>refresh</v-icon>
+      </v-btn>
+
+
     </template>
 
           <template v-if="toolbarButton.includes('search')">
 
-<el-tooltip class="item" effect="light" content="查询条件"  :open-delay="700"  placement="top">
-      <el-button    :icon="buttonVisible"
-            class="buttonVisible"
-            @click="changeVisible"></el-button>
-    </el-tooltip>
+ <v-btn fab dark small color="green"   class="buttonVisible"
+            @click="changeVisible"
+>
+        <v-icon dark>search</v-icon>
+      </v-btn>
+
+
 </template>
 
 
         </el-button-group>
+
+
       </el-col>
     </el-row>
   </div>
@@ -222,10 +227,6 @@ export default {
     box-shadow: 0px 0px 10px gray;
 
   }
-.el-button-group{
-  border:1px solid #f2f2f2;
-}
-  .el-button{
-  border:none;
-}
+
+
 </style>

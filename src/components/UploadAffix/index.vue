@@ -10,10 +10,12 @@
       :on-success="uploadSuccess"
       class="upload-demo"
     >
-      <el-button
-        size="small"
-        style="float:left;margin-top:10px 0"
-        type="primary">点击上传</el-button>
+
+
+         <v-btn color="indigo"         style="float:left;margin-top:10px 0"
+ dark>
+          <v-icon dark>backup</v-icon>
+        </v-btn>
     </el-upload>
 
     <el-table

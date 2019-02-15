@@ -38,14 +38,14 @@
         fixed="right"
       >
         <template slot-scope="scope">
-          <el-button
-              v-for="(btn,index) in getShowButton"
-              :class="btn.classname ? btn.classname : ''"
-              :key="index"
-              :type="btn.type"
-              :size="btn.size"
-              :icon="btn.icon"
-              @click.stop="handleOperation(btn.Fun,scope.row.id)">{{ btn.label }}</el-button>
+
+   <v-btn
+       :key="index"
+       :color="btn.color"
+
+ v-for="(btn,index) in getShowButton" small dark  @click.stop="handleOperation(btn.Fun,scope.row.id)">{{btn.label}}
+<v-icon>{{btn.icon}}</v-icon>
+        </v-btn>
 
 
         </template>
