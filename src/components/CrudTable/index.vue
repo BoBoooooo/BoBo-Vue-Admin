@@ -111,6 +111,7 @@ export default {
           {
             SearchKey: '',
             SearchValue: '',
+            SearchOperator: '',
           },
         ],
       },
@@ -128,8 +129,8 @@ export default {
         console.log(val)
         this.listQuery.searchArr[0].SearchKey = val.searchKey
         this.listQuery.searchArr[0].SearchValue = val.searchValue
-
-        this.fetchData(this.listQuery);
+        this.listQuery.searchArr[0].SearchOperator = '='
+        this.Refresh()
       },
     },
   },
