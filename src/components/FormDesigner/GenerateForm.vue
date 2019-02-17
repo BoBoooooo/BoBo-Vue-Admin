@@ -27,7 +27,8 @@
                   :key="citem.key"
                   :models.sync="models"
                   :rules="rules"
-                  :widget="citem"/>
+                  :widget="citem"
+                  :disabled="disabled"/>
               </template>
             </el-col>
           </el-row>
@@ -38,6 +39,7 @@
             :models.sync="models"
             :rules="rules"
             :widget="item"
+            :disabled="disabled"
             />
         </template>
 

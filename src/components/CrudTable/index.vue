@@ -24,6 +24,7 @@
       :list-query="listQuery"
       :list-loading="listLoading"
       @handleEdit="Edit"
+      @handleDetail="Detail"
       @handleDelete="Delete"
       @handleCurrentChange="Refresh"
       @handleSizeChange="Refresh"
@@ -36,25 +37,33 @@
       :visible.sync="dialogFormVisible"
       v-if="dialogFormVisible"
       width="80%">
-
       <generate-form
         ref="generateForm"
         :data="jsonData"
         :value="entity"
+        :disabled="handleButton.includes('detail')"
       />
 
       <div
         slot="footer"
         class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button
+        <template v-if="dialogStatus === 'detail'">
+ <v-btn @click="dialogFormVisible = false" color="white">关 闭</v-btn>
+
+        </template>
+
+        <template v-else>
+ <v-btn @click="dialogFormVisible = false" color="white">取 消</v-btn>
+        <v-btn
           v-if="dialogStatus=='create'"
-          type="primary"
-          @click="create">新 增</el-button>
-        <el-button
+          color="blue"
+          @click="create">新 增</v-btn>
+        <v-btn
           v-else
-          type="primary"
-          @click="update">修 改</el-button>
+          color="blue"
+          @click="update">修 改</v-btn>
+        </template>
+
       </div>
     </el-dialog>
 
@@ -188,7 +197,7 @@ export default {
           method: 'post',
           params: { id },
         }).then(() => {
-          this.fetchData(this.listQuery);
+          this.Refresh()
         });
       });
     },
@@ -209,7 +218,19 @@ export default {
         method: 'post',
         params: { id },
       }).then((response) => {
-        this.fetchData(this.listQuery);
+        this.entity = response.data;
+        this.dialogFormVisible = true;
+      });
+    },
+
+    Detail(id) {
+      this.dialogStatus = 'detail';
+
+      this.axios({
+        url: `/${this.tableName}/detail`,
+        method: 'post',
+        params: { id },
+      }).then((response) => {
         this.entity = response.data;
         this.dialogFormVisible = true;
       });
@@ -227,7 +248,7 @@ export default {
             data: this.entity,
           }).then(() => {
             this.dialogFormVisible = false;
-            this.fetchData(this.listQuery);
+            this.Refresh()
           });
         })
         .catch(() => {
@@ -249,7 +270,7 @@ export default {
             data: this.entity,
           }).then(() => {
             this.dialogFormVisible = false;
-            this.fetchData(this.listQuery);
+            this.Refresh()
           });
         })
         .catch(() => {

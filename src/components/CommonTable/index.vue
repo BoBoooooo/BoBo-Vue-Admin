@@ -125,4 +125,10 @@ export default {
 .el-table tr.table-header-row {
   background: #e5c5d2; /* 示例， 对表格样式上的修饰 */
 }
+.v-btn{
+  min-width:unset!important;
+  width:50px!important;
+}
+
+
 </style>

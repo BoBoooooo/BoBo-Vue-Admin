@@ -185,12 +185,13 @@ export default {
     Tinymce,
     UploadAffix,
   },
-  props: ['widget', 'models', 'rules'],
+  props: ['widget', 'models', 'rules', 'disabled'],
   data() {
     return {
       dataModel: this.models[this.widget.model],
     }
   },
+
   watch: {
     dataModel: {
       deep: true,
@@ -200,6 +201,16 @@ export default {
           ...this.models,
           [this.widget.model]: val,
         })
+      },
+    },
+    disabled: {
+      deep: true,
+      immediate: true,
+      handler(val) {
+        this.dataModel = val[this.widget.model]
+        if (this.widget.options.uploadParams) {
+          this.widget.options.uploadParams.IsDetail = this.disabled
+        }
       },
     },
     models: {

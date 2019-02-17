@@ -12,8 +12,7 @@
     >
 
 
-         <v-btn color="indigo"         style="float:left;margin-top:10px 0"
- dark>
+         <v-btn color="indigo" style="float:left;margin-top:10px 0" dark>
           <v-icon dark>backup</v-icon>
         </v-btn>
     </el-upload>
