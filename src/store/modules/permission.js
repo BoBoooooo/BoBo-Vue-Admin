@@ -7,6 +7,7 @@ import {
   asyncRouterMap,
   constantRouterMap,
 } from '@/router/index'
+import store from '@/store/index'
 import { deepClone } from '@/utils/index'
 /**
  * 判断是否有路由权限
@@ -57,10 +58,17 @@ const permission = {
         const {
           roleauthname,
         } = data
-        const routermap = deepClone(asyncRouterMap)
+        let accessedRouters = []
+        const username = store.getters.name
+        // /如果是admin账号的话 跳过路由校验
+        if (username === 'admin') {
+          accessedRouters = asyncRouterMap
+        } else {
+          const routermap = deepClone(asyncRouterMap)
 
-        console.log(routermap);
-        const accessedRouters = filterAsyncRouter(routermap, roleauthname)
+          accessedRouters = filterAsyncRouter(routermap, roleauthname)
+        }
+
 
         commit('SET_ROUTERS', accessedRouters)
         resolve()

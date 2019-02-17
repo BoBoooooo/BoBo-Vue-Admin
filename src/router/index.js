@@ -131,6 +131,14 @@ export const asyncRouterMap = [
         title: '廉政档案统计',
       },
     },
+    {
+      path: 'person_count2',
+      name: 'person_count2',
+      component: () => import('@/views/Archive/person_count2'),
+      meta: {
+        title: '统计分析',
+      },
+    },
 
     ],
   },
