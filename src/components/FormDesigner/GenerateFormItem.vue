@@ -231,7 +231,7 @@ export default {
           url: this.widget.options.remoteFunc,
           method: 'post',
         }).then((res) => {
-          this.widget.options.remoteOptions = res.data.list.map(item => ({
+          this.widget.options.remoteOptions = res.data.map(item => ({
             value: item[this.widget.options.props.value],
             label: item[this.widget.options.props.label],
           }))
