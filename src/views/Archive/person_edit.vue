@@ -6,7 +6,7 @@
 <script>
 
 export default {
-  name: 'PersonEdit',
+  name: 'person_edit',
 
 }
 </script>
