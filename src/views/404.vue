@@ -1,27 +1,24 @@
 <template>
-  <div class="wscn-http404-container" />
+  <div class="wscn-http404-container"/>
 </template>
 
 <script>
-
 export default {
   name: 'Page404',
   data() {
-    return {
-
-    }
+    return {};
   },
   computed: {
     message() {
-      return '网管说这个页面你不能进......'
+      return '网管说这个页面你不能进......';
     },
   },
-}
+};
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-.wscn-http404-container{
-  transform: translate(-50%,-50%);
+.wscn-http404-container {
+  transform: translate(-50%, -50%);
   position: absolute;
   top: 40%;
   left: 50%;

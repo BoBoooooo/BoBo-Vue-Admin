@@ -4,11 +4,10 @@
     separator="/">
     <transition-group name="breadcrumb">
       <el-breadcrumb-item
-        v-for="(item,index) in levelList"
-        v-if="item.meta.title"
+        v-for="(item,index) in levelList.filter(item=>item.meta.title)"
         :key="item.path">
         <span
-          v-if="!item.meta.parent||index==levelList.length-1"
+          v-if="!item.meta.parent||index===levelList.length-1"
           class="no-redirect">{{ item.meta.title }}</span>
         <router-link
           v-else

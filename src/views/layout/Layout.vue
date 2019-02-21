@@ -43,15 +43,7 @@ export default {
       }
     },
   },
-  created() {
-    this.$notify({
-      title: '欢迎回来',
-      type: 'success',
-      duration: 2000,
-      customClass: '.notify',
-      message: this.$store.getters.name,
-    });
-  },
+
   mounted() {
     window.addEventListener('scroll', () => {
     })

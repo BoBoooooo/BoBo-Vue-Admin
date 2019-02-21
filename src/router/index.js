@@ -42,7 +42,6 @@ export const constantRouterMap = [{
     meta: {
       title: 'Dashboard',
       icon: 'dashboard',
-      noCache: true,
     },
   }],
 },

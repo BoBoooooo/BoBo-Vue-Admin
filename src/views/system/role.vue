@@ -1,14 +1,6 @@
 <template>
-  <div
-    id="role"
-    class=" widget-box"
-  >
-    <el-button
-      type="primary"
-      size="small"
-      style="margin:10px 0px"
-      @click="New()"
-    >新增</el-button>
+  <div id="role" class="widget-box">
+    <el-button type="primary" size="small" style="margin:10px 0px" @click="New()">新增</el-button>
 
     <el-table
       v-loading.body="listLoading"
@@ -18,43 +10,21 @@
       fit
       highlight-current-row
     >
-      <el-table-column
-        align="center"
-        label="序号"
-        width="95"
-      >
-        <template slot-scope="scope">
-          {{ scope.$index+1 }}
-        </template>
+      <el-table-column align="center" label="序号" width="95">
+        <template slot-scope="scope">{{ scope.$index+1 }}</template>
       </el-table-column>
       <el-table-column label="角色名">
-        <template slot-scope="scope">
-          {{ scope.row.rolename }}
-        </template>
+        <template slot-scope="scope">{{ scope.row.rolename }}</template>
       </el-table-column>
       <el-table-column label="排序码">
-        <template slot-scope="scope">
-          {{ scope.row.rank }}
-        </template>
+        <template slot-scope="scope">{{ scope.row.rank }}</template>
       </el-table-column>
 
-      <el-table-column
-        label="操作"
-        align="center"
-        min-width="110px"
-      >
+      <el-table-column label="操作" align="center" min-width="110px">
         <template slot-scope="scope">
-          <el-button
-            type="success"
-            size="small"
-            @click="Edit(scope.row.id)"
-          >编辑</el-button>
+          <el-button type="success" size="small" @click="Edit(scope.row.id)">编辑</el-button>
 
-          <el-button
-            type="danger"
-            size="small"
-            @click="Delete(scope.row.id)"
-          >删除</el-button>
+          <el-button type="danger" size="small" @click="Delete(scope.row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -75,26 +45,12 @@
       :modal-append-to-body="false"
       width="50%"
     >
-      <el-form
-        :model="temp"
-        class="small-space"
-        label-position="left"
-        label-width="70px"
-      >
-
+      <el-form :model="temp" class="small-space" label-position="left" label-width="70px">
         <el-form-item label="角色名">
-          <el-input
-            v-model="temp.rolename"
-            class="filter-item"
-            placeholder="请输入角色名"
-          />
+          <el-input v-model="temp.rolename" class="filter-item" placeholder="请输入角色名"/>
         </el-form-item>
         <el-form-item label="排序码">
-          <el-input
-            v-model="temp.rank"
-            class="filter-item"
-            placeholder="请输入排序码"
-          />
+          <el-input v-model="temp.rank" class="filter-item" placeholder="请输入排序码"/>
         </el-form-item>
         <el-form-item label="菜单">
           <el-tree
@@ -109,27 +65,14 @@
             check-strictly
           />
         </el-form-item>
-
       </el-form>
 
-      <div
-        slot="footer"
-        class="dialog-footer"
-      >
+      <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button
-          v-if="dialogStatus=='create'"
-          type="primary"
-          @click="create"
-        >确 定</el-button>
-        <el-button
-          v-else
-          type="primary"
-          @click="update"
-        >确 定</el-button>
+        <el-button v-if="dialogStatus=='create'" type="primary" @click="create">确 定</el-button>
+        <el-button v-else type="primary" @click="update">确 定</el-button>
       </div>
     </el-dialog>
-
   </div>
 </template>
 
@@ -182,7 +125,7 @@ export default {
     const arr = asyncRouterMap.filter((item) => {
       if (item.children) {
         const obj = item.children;
-        obj.map((k) => {
+        obj.foreach((k) => {
           k.title = k.meta.title;
         });
       }

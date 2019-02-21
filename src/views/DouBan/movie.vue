@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
 
 export default {
   name: 'Movie',
@@ -105,10 +105,10 @@ export default {
       // 默认数据总数
       totalCount: 1000,
       listLoading: true,
-    }
+    };
   },
   created() {
-    this.loadData(this.currentPage, this.pagesize)
+    this.loadData(this.currentPage, this.pagesize);
   },
   methods: {
     // 从服务器读取数据
@@ -117,23 +117,23 @@ export default {
         .get(this.url)
         .then(
           (response) => {
-            this.tableData = response.data.subjects
-            this.listLoading = false
-            this.totalCount = response.data.total
+            this.tableData = response.data.subjects;
+            this.listLoading = false;
+            this.totalCount = response.data.total;
           },
           () => {
-            console.log('failed')
+            console.log('failed');
           },
-        )
+        );
     },
     getImage(url) {
       if (url !== undefined) {
         // eslint-disable-next-line no-useless-escape
-        return url.replace('http:\/\/', 'https://images.weserv.nl/?url=')
+        return url.replace('http:\/\/', 'https://images.weserv.nl/?url=');
       }
     },
 
   },
-}
+};
 
 </script>

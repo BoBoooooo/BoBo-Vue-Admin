@@ -1,10 +1,6 @@
 <template>
-  <div
-    id="formdesigner"
-    ref="container"
-    class="widget-box"
-  >
-    <makingform ref="form" />
+  <div id="formdesigner" ref="container" class="widget-box">
+    <makingform ref="form"/>
   </div>
 </template>
 

@@ -9,7 +9,7 @@
       :label-width="data.config.labelWidth + 'px'">
       <template v-for="item in data.list">
 
-        <template v-if="item.type == 'grid'">
+        <template v-if="item.type === 'grid'">
           <el-row
             :key="item.key"
             :gutter="item.options.gutter ? item.options.gutter : 0"

@@ -29,25 +29,20 @@
         :min-width="item.min_width"
         :header-align="item.header_align"
         :show-overflow-tooltip="item.show_overflow_tooltip"
-
       />
-      <el-table-column
-        label="操作"
-        align="center"
-        min-width="110px"
-        fixed="right"
-      >
+      <el-table-column label="操作" align="center" min-width="110px" fixed="right">
         <template slot-scope="scope">
-
-   <v-btn
-       :key="index"
-       :color="btn.color"
-
- v-for="(btn,index) in getShowButton" small dark  @click.stop="handleOperation(btn.Fun,scope.row.id)">{{btn.label}}
-<v-icon>{{btn.icon}}</v-icon>
-        </v-btn>
-
-
+          <v-btn
+            :key="index"
+            :color="btn.color"
+            v-for="(btn,index) in getShowButton"
+            small
+            dark
+            @click.stop="handleOperation(btn.Fun,scope.row.id)"
+          >
+            {{btn.label}}
+            <v-icon>{{btn.icon}}</v-icon>
+          </v-btn>
         </template>
       </el-table-column>
     </el-table>
@@ -65,38 +60,39 @@
 </template>
 
 <script>
-import operation from './handleButton.js'
+import operation from './handleButton.js';
 
 export default {
   name: 'CommonTable',
   props: {
     list: {
       type: Array, // 展示数据
-      default: () => ([]),
+      default: () => [],
     },
     tableJson: {
       type: Array, // 列表配置json
-      default: () => ([]),
-
+      default: () => [],
     },
-    listLoading: { // 正在加载
+    listLoading: {
+      // 正在加载
       type: Boolean,
       default: true,
     },
-    listQuery: { // 列表查询以及分页参数
+    listQuery: {
+      // 列表查询以及分页参数
       type: Object,
       default: () => ({}),
     },
-    handleButton: { // 操作列的默认按钮  (编辑 删除 查看)
+    handleButton: {
+      // 操作列的默认按钮  (编辑 删除 查看)
       type: String,
       default: 'edit,delete,detail',
     },
-
   },
   data() {
     return {
       operation,
-    }
+    };
   },
   computed: {
     getShowButton() {
@@ -104,20 +100,19 @@ export default {
     },
   },
   methods: {
-
     handleSizeChange(val) {
-      this.listQuery.pageSize = val
-      this.$emit('handleSizeChange', this.listQuery)
+      this.listQuery.pageSize = val;
+      this.$emit('handleSizeChange', this.listQuery);
     },
     handleCurrentChange(val) {
-      this.listQuery.pageNumber = val
-      this.$emit('handleCurrentChange', this.listQuery)
+      this.listQuery.pageNumber = val;
+      this.$emit('handleCurrentChange', this.listQuery);
     },
     handleOperation(eventName, id) {
-      this.$emit(eventName, id)
+      this.$emit(eventName, id);
     },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -125,10 +120,8 @@ export default {
 .el-table tr.table-header-row {
   background: #e5c5d2; /* 示例， 对表格样式上的修饰 */
 }
-.v-btn{
-  min-width:unset!important;
-  width:50px!important;
+.v-btn {
+  min-width: unset !important;
+  width: 50px !important;
 }
-
-
 </style>
