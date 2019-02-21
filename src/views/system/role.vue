@@ -1,12 +1,14 @@
 <template>
   <div
     id="role"
-    class=" widget-box">
+    class=" widget-box"
+  >
     <el-button
       type="primary"
       size="small"
       style="margin:10px 0px"
-      @click="New()">新增</el-button>
+      @click="New()"
+    >新增</el-button>
 
     <el-table
       v-loading.body="listLoading"
@@ -14,11 +16,13 @@
       element-loading-text="拼命加载中"
       border
       fit
-      highlight-current-row >
+      highlight-current-row
+    >
       <el-table-column
         align="center"
         label="序号"
-        width="95">
+        width="95"
+      >
         <template slot-scope="scope">
           {{ scope.$index+1 }}
         </template>
@@ -37,17 +41,20 @@
       <el-table-column
         label="操作"
         align="center"
-        min-width="110px">
+        min-width="110px"
+      >
         <template slot-scope="scope">
           <el-button
             type="success"
             size="small"
-            @click="Edit(scope.row.id)">编辑</el-button>
+            @click="Edit(scope.row.id)"
+          >编辑</el-button>
 
           <el-button
             type="danger"
             size="small"
-            @click="Delete(scope.row.id)">删除</el-button>
+            @click="Delete(scope.row.id)"
+          >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -55,35 +62,39 @@
       :current-page="listQuery.pageNumber"
       :page-sizes="[10, 20, 30]"
       :page-size="listQuery.pageSize"
-
       :total="listQuery.totalCount"
       layout="total,sizes, prev, pager, next"
       style="margin-top:5px"
       @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"/>
+      @current-change="handleCurrentChange"
+    />
 
     <el-dialog
       :title="textMap[dialogStatus]"
       :visible.sync="dialogFormVisible"
       :modal-append-to-body="false"
-      width="50%">
+      width="50%"
+    >
       <el-form
         :model="temp"
         class="small-space"
         label-position="left"
-        label-width="70px">
+        label-width="70px"
+      >
 
         <el-form-item label="角色名">
           <el-input
             v-model="temp.rolename"
             class="filter-item"
-            placeholder="请输入角色名"/>
+            placeholder="请输入角色名"
+          />
         </el-form-item>
         <el-form-item label="排序码">
           <el-input
             v-model="temp.rank"
             class="filter-item"
-            placeholder="请输入排序码"/>
+            placeholder="请输入排序码"
+          />
         </el-form-item>
         <el-form-item label="菜单">
           <el-tree
@@ -95,23 +106,27 @@
             default-expand-all
             node-key="name"
             highlight-current
-            check-strictly/>
+            check-strictly
+          />
         </el-form-item>
 
       </el-form>
 
       <div
         slot="footer"
-        class="dialog-footer">
+        class="dialog-footer"
+      >
         <el-button @click="dialogFormVisible = false">取 消</el-button>
         <el-button
           v-if="dialogStatus=='create'"
           type="primary"
-          @click="create">确 定</el-button>
+          @click="create"
+        >确 定</el-button>
         <el-button
           v-else
           type="primary"
-          @click="update">确 定</el-button>
+          @click="update"
+        >确 定</el-button>
       </div>
     </el-dialog>
 
@@ -125,10 +140,9 @@ import {
   GetRoleDetail,
   AddRole,
   UpdateRole,
-} from '@/api/system/role'
+} from '@/api/system/role';
 
-
-import { asyncRouterMap } from '@/router/index'
+import { asyncRouterMap } from '@/router/index';
 
 export default {
   name: 'Role',
@@ -160,59 +174,56 @@ export default {
         children: 'children',
         label: 'title',
       },
-    }
+    };
   },
 
   created() {
-    this.fetchData(this.listQuery)
-
-    console.log(asyncRouterMap)
+    this.fetchData(this.listQuery);
     const arr = asyncRouterMap.filter((item) => {
       if (item.children) {
-        const obj = item.children
+        const obj = item.children;
         obj.map((k) => {
-          k.title = k.meta.title
-        })
+          k.title = k.meta.title;
+        });
       }
 
-
-      if (item.hidden) { return false }
-      return true
-    })
-    this.menu = arr
+      if (item.hidden) {
+        return false;
+      }
+      return true;
+    });
+    this.menu = arr;
   },
   methods: {
     handleSizeChange(val) {
-      this.listQuery.pageSize = val
-      this.fetchData(this.listQuery)
+      this.listQuery.pageSize = val;
+      this.fetchData(this.listQuery);
     },
     handleCurrentChange(val) {
-      this.listQuery.pageNumber = val
-      this.fetchData(this.listQuery)
+      this.listQuery.pageNumber = val;
+      this.fetchData(this.listQuery);
     },
 
     fetchData(params) {
-      this.listLoading = true
+      this.listLoading = true;
       RoleList(params).then((response) => {
-        this.list = response.data.list
-        console.log(this.list)
-        this.listQuery.totalCount = parseInt(response.data.total, 10)
-        this.listLoading = false
-      })
+        this.list = response.data.list;
+        this.listQuery.totalCount = parseInt(response.data.total, 10);
+        this.listLoading = false;
+      });
     },
     New() {
-      this.temp.rolename = ''
-      this.temp.rank = ''
-      this.menulist = ''
-      this.temp.id = ''
-      this.dialogStatus = 'create'
+      this.temp.rolename = '';
+      this.temp.rank = '';
+      this.menulist = '';
+      this.temp.id = '';
+      this.dialogStatus = 'create';
 
-      this.dialogFormVisible = true
-
+      this.dialogFormVisible = true;
 
       this.$nextTick(() => {
-        this.$refs.tree.setCheckedKeys([])
-      })
+        this.$refs.tree.setCheckedKeys([]);
+      });
     },
     Delete(id) {
       this.$confirm('确认删除?', '提示', {
@@ -221,39 +232,39 @@ export default {
         type: 'warning',
       }).then(() => {
         DeleteRole(id).then(() => {
-          this.fetchData(this.listQuery)
-        })
-      })
+          this.fetchData(this.listQuery);
+        });
+      });
     },
     Edit(id) {
-      this.dialogStatus = 'update'
+      this.dialogStatus = 'update';
 
       GetRoleDetail(id).then((response) => {
-        this.dialogStatus = 'update'
-        this.temp = response.data
+        this.dialogStatus = 'update';
+        this.temp = response.data;
         this.$nextTick(() => {
-          this.$refs.tree.setCheckedKeys(this.temp.roleauthname.split(','))
-        })
-        this.dialogFormVisible = true
-      })
+          this.$refs.tree.setCheckedKeys(this.temp.roleauthname.split(','));
+        });
+        this.dialogFormVisible = true;
+      });
     },
 
     create() {
-      this.temp.roleauthname = this.$refs.tree.getCheckedKeys().join(',')
+      this.temp.roleauthname = this.$refs.tree.getCheckedKeys().join(',');
 
       AddRole(this.temp).then(() => {
-        this.dialogFormVisible = false
-        this.fetchData(this.listQuery)
-      })
+        this.dialogFormVisible = false;
+        this.fetchData(this.listQuery);
+      });
     },
     update() {
-      this.temp.roleauthname = this.$refs.tree.getCheckedKeys().join(',')
+      this.temp.roleauthname = this.$refs.tree.getCheckedKeys().join(',');
       UpdateRole(this.temp).then(() => {
-        this.dialogFormVisible = false
+        this.dialogFormVisible = false;
 
-        this.fetchData(this.listQuery)
-      })
+        this.fetchData(this.listQuery);
+      });
     },
   },
-}
+};
 </script>

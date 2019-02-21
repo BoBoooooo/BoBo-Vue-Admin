@@ -7,6 +7,11 @@ module.exports = {
       'plugin:vue/essential',
       '@vue/airbnb',
     ],
+    plugins: [
+      'html',
+      'vue'
+    ],
+  
     rules: {
       "semi": "off", //去掉分号检查
       'linebreak-style':'off',

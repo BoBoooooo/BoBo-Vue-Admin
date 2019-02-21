@@ -1,14 +1,15 @@
 <template>
   <div
     id="users"
-    class=" widget-box">
+    class=" widget-box"
+  >
 
     <el-button
       type="primary"
       size="small"
       style="margin:10px 0px"
-      @click="New()">新增</el-button>
-
+      @click="New()"
+    >新增</el-button>
 
     <el-table
       v-loading.body="listLoading"
@@ -16,11 +17,13 @@
       element-loading-text="拼命加载中"
       border
       fit
-      highlight-current-row>
+      highlight-current-row
+    >
       <el-table-column
         align="center"
         label="ID"
-        width="95">
+        width="95"
+      >
         <template slot-scope="scope">
           {{ scope.$index+1 }}
         </template>
@@ -32,28 +35,32 @@
       </el-table-column>
       <el-table-column
         label="用户名"
-        align="center">
+        align="center"
+      >
         <template slot-scope="scope">
           <span>{{ scope.row.UserName }}</span>
         </template>
       </el-table-column>
       <el-table-column
         label="密码"
-        align="center">
+        align="center"
+      >
         <template slot-scope="scope">
           {{ scope.row.Password }}
         </template>
       </el-table-column>
       <el-table-column
         label="角色"
-        align="center">
+        align="center"
+      >
         <template slot-scope="scope">
           {{ scope.row.RoleName }}
         </template>
       </el-table-column>
       <el-table-column
         label="部门"
-        align="center">
+        align="center"
+      >
         <template slot-scope="scope">
           {{ scope.row.DeptName }}
         </template>
@@ -62,17 +69,20 @@
       <el-table-column
         label="操作"
         align="center"
-        min-width="110px">
+        min-width="110px"
+      >
         <template slot-scope="scope">
           <el-button
             type="success"
             size="small"
-            @click="Edit(scope.row.ID)">编辑</el-button>
+            @click="Edit(scope.row.ID)"
+          >编辑</el-button>
 
           <el-button
             type="danger"
             size="small"
-            @click="Delete(scope.row.ID)">删除</el-button>
+            @click="Delete(scope.row.ID)"
+          >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -80,62 +90,68 @@
       :current-page="listQuery.pageNumber"
       :page-sizes="[10, 20, 30]"
       :page-size="listQuery.pageSize"
-
       :total="listQuery.totalCount"
       layout="total,sizes, prev, pager, next"
       style="margin-top:5px"
       @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"/>
+      @current-change="handleCurrentChange"
+    />
 
     <el-dialog
       :title="textMap[dialogStatus]"
       :visible.sync="dialogFormVisible"
       :modal-append-to-body="false"
-      width="50%">
+      width="50%"
+    >
       <el-form
         :model="temp"
         class="small-space"
         label-position="left"
-        label-width="70px">
-
+        label-width="70px"
+      >
 
         <el-form-item label="昵称">
           <el-input
             v-model="temp.realname"
             class="filter-item"
-            placeholder="请输入昵称"/>
+            placeholder="请输入昵称"
+          />
         </el-form-item>
         <el-form-item label="用户名">
           <el-input
             v-model="temp.username"
             class="filter-item"
-            placeholder="请输入用户名"/>
+            placeholder="请输入用户名"
+          />
         </el-form-item>
         <el-form-item label="密码">
           <el-input
             v-model="temp.password"
             class="filter-item"
             type="password"
-            placeholder="请输入密码"/>
+            placeholder="请输入密码"
+          />
         </el-form-item>
         <el-form-item label="排序码">
           <el-input
             v-model="temp.rank"
             class="filter-item"
-            placeholder="请输入排序码"/>
+            placeholder="请输入排序码"
+          />
         </el-form-item>
 
         <el-form-item label="部门">
           <el-select
             v-model="temp.deptid"
             placeholder="请选择"
-            filterable>
+            filterable
+          >
             <el-option
               v-for="item in deptoptions"
               :key="item.id"
-
               :label="item.deptname"
-              :value="item.id"/>
+              :value="item.id"
+            />
           </el-select>
 
         </el-form-item>
@@ -143,28 +159,33 @@
         <el-form-item label="角色">
           <el-select
             v-model="temp.roleid"
-            placeholder="请选择">
+            placeholder="请选择"
+          >
             <el-option
               v-for="item in roleoptions"
               :key="item.id"
               :label="item.rolename"
-              :value="item.id"/>
+              :value="item.id"
+            />
           </el-select>
 
         </el-form-item>
       </el-form>
       <div
         slot="footer"
-        class="dialog-footer">
+        class="dialog-footer"
+      >
         <el-button @click="dialogFormVisible = false">取 消</el-button>
         <el-button
           v-if="dialogStatus=='create'"
           type="primary"
-          @click="create">确 定</el-button>
+          @click="create"
+        >确 定</el-button>
         <el-button
           v-else
           type="primary"
-          @click="update">确 定</el-button>
+          @click="update"
+        >确 定</el-button>
       </div>
     </el-dialog>
 
@@ -181,7 +202,6 @@ import {
 } from '@/api/system/users';
 import { DeptList } from '@/api/system/dept';
 import { RoleList } from '@/api/system/role';
-
 
 export default {
   name: 'Users',
@@ -223,7 +243,6 @@ export default {
     };
   },
 
-
   created() {
     this.fetchData(this.listQuery);
 
@@ -260,10 +279,10 @@ export default {
         realname: '',
         roleid: '',
         deptid: '',
-      }
-      this.dialogFormVisible = true
+      };
+      this.dialogFormVisible = true;
 
-      this.dialogStatus = 'create'
+      this.dialogStatus = 'create';
     },
     Delete(ID) {
       this.$confirm('确认删除?', '提示', {

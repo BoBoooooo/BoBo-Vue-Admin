@@ -1,79 +1,99 @@
 <template>
   <div
     id="dicttype"
-    class="widget-box">
-<el-row>
-  <el-col :span="8">
-     <el-tree
-            ref="dicttypetree"
-            :data="dicttypeList"
-            :props="defaultProps"
-            node-key="id"
-            highlight-current
-            :default-expanded-keys="['00000000-0000-0000-0000-000000000001']"
-            @node-click="treeClick"
-            >
-             <span class="custom-tree-node" slot-scope="{ node, data }">
-        <span>{{ node.label }}</span>
-        <span style="margin-left:8 px">
-          <el-button
-            type="text"
-            size="mini"
-               @click="() => append(data)">
-                  添加
-          </el-button>
-            <el-button
-            type="text"
-            size="mini"
-            @click="() => Edit(data.id)">
-            修改
-          </el-button>
-          <el-button
-            type="text"
-            size="mini"
-            @click="() => remove(data)">
-            删除
-          </el-button>
-        </span>
-      </span>
-            </el-tree>
-  </el-col>
-    <el-col :span="16">
-<crud-table tableName="dict" :asyncCondition="asyncCondition" class="no-boxshadow no-padding-top" toolbarButton="add,clear" handleButton="edit,delete"></crud-table>
+    class="widget-box"
+  >
+    <el-row>
+      <el-col :span="8">
+        <el-tree
+          ref="dicttypetree"
+          :data="dicttypeList"
+          :props="defaultProps"
+          node-key="id"
+          highlight-current
+          :default-expanded-keys="['00000000-0000-0000-0000-000000000001']"
+          @node-click="treeClick"
+        >
+          <span
+            class="custom-tree-node"
+            slot-scope="{ node, data }"
+          >
+            <span>{{ node.label }}</span>
+            <span style="margin-left:8 px">
+              <el-button
+                type="text"
+                size="mini"
+                @click="() => append(data)"
+              >
+                添加
+              </el-button>
+              <el-button
+                type="text"
+                size="mini"
+                @click="() => Edit(data.id)"
+              >
+                修改
+              </el-button>
+              <el-button
+                type="text"
+                size="mini"
+                @click="() => remove(data)"
+              >
+                删除
+              </el-button>
+            </span>
+          </span>
+        </el-tree>
+      </el-col>
+      <el-col :span="16">
+        <crud-table
+          tableName="dict"
+          :asyncCondition="asyncCondition"
+          class="no-boxshadow no-padding-top"
+          toolbarButton="add,clear"
+          handleButton="edit,delete"
+        ></crud-table>
 
-    </el-col>
+      </el-col>
 
-</el-row>
+    </el-row>
 
- <el-dialog
+    <el-dialog
       :title="textMap[dialogStatus]"
       :visible.sync="dialogFormVisible"
-      width="80%">
+      width="80%"
+    >
 
-   <el-form ref="form" :model="entity" label-width="80px">
-  <el-form-item label="类目名">
-    <el-input v-model="entity.name"></el-input>
-  </el-form-item>
+      <el-form
+        ref="form"
+        :model="entity"
+        label-width="80px"
+      >
+        <el-form-item label="类目名">
+          <el-input v-model="entity.name"></el-input>
+        </el-form-item>
 
-<el-form-item label="排序码">
-    <el-input-number v-model="entity.sort"></el-input-number>
-  </el-form-item>
+        <el-form-item label="排序码">
+          <el-input-number v-model="entity.sort"></el-input-number>
+        </el-form-item>
 
-
-</el-form>
+      </el-form>
 
       <div
         slot="footer"
-        class="dialog-footer">
+        class="dialog-footer"
+      >
         <el-button @click="dialogFormVisible = false">取 消</el-button>
         <el-button
           v-if="dialogStatus=='create'"
           type="primary"
-          @click="save">新 增</el-button>
+          @click="save"
+        >新 增</el-button>
         <el-button
           v-else
           type="primary"
-          @click="save">修 改</el-button>
+          @click="save"
+        >修 改</el-button>
       </div>
     </el-dialog>
 
@@ -89,7 +109,6 @@ import {
   AddDictType,
   UpdateDictType,
 } from '@/api/system/dicttype';
-
 
 export default {
   name: 'Dict',
@@ -118,7 +137,6 @@ export default {
         children: 'children',
         label: 'nodeName',
       },
-
     };
   },
 
@@ -129,7 +147,6 @@ export default {
     this.fetchDictType();
   },
   methods: {
-
     append(data) {
       this.dialogStatus = 'create';
       this.clearObj();
@@ -141,13 +158,12 @@ export default {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
-      })
-        .then(() => {
-          DeleteDictType(data.id).then(() => {
-            this.dialogFormVisible = false;
-            this.fetchDictType()
-          });
+      }).then(() => {
+        DeleteDictType(data.id).then(() => {
+          this.dialogFormVisible = false;
+          this.fetchDictType();
         });
+      });
     },
 
     clearObj() {
@@ -163,9 +179,9 @@ export default {
     },
 
     treeClick(data) {
-      console.log(data)
-      this.asyncCondition.searchKey = 'dictid'
-      this.asyncCondition.searchValue = data.id
+      console.log(data);
+      this.asyncCondition.searchKey = 'dictid';
+      this.asyncCondition.searchValue = data.id;
     },
     Edit(id) {
       GetDictTypeDetail(id).then((response) => {
@@ -189,15 +205,14 @@ export default {
     },
   },
 };
-
 </script>
 
 <style scope>
-.tree{
-  max-height:400px;
+.tree {
+  max-height: 400px;
   overflow: auto;
 }
-.dialog-footer{
+.dialog-footer {
   text-align: center;
 }
 </style>

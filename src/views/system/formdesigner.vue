@@ -2,7 +2,8 @@
   <div
     id="formdesigner"
     ref="container"
-  class="widget-box">
+    class="widget-box"
+  >
     <makingform ref="form" />
   </div>
 </template>
@@ -17,12 +18,9 @@ export default {
     makingform,
   },
   data() {
-    return {
-
-    }
+    return {};
   },
 };
 </script>
 <style scoped>
-
 </style>

@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 <template>
   <div class="wscn-http404-container" />
 </template>

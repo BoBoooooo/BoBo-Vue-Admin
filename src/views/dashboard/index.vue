@@ -11,7 +11,7 @@
           <v-toolbar color="purple" dark>
             <v-toolbar-side-icon></v-toolbar-side-icon>
             <v-toolbar-title>系统公告</v-toolbar-title>
-            <v-spacer></v-spacer>
+             <v-spacer></v-spacer>
             <!-- <v-btn icon>
               <v-icon>calendar</v-icon>
             </v-btn>

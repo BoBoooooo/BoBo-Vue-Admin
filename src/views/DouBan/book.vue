@@ -35,7 +35,7 @@
 
       <el-table-column
         label="作者"
-        align="center">
+             align="center">
         <template slot-scope="scope">
           <el-tag
             type="danger"
