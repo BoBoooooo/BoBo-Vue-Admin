@@ -67,7 +67,7 @@ module.exports = {
   // 配置 webpack-dev-server 行为。
   devServer: {
     open: process.platform === 'bobo',
-    host: '127.0.0.1',
+    host: 'localhost',
     port: 8088,
     hot: true,
     hotOnly: true,
