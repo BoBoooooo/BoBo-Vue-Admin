@@ -122,7 +122,8 @@ export default {
 
   created() {
     this.fetchData(this.listQuery);
-    const arr = asyncRouterMap.filter((item) => {
+
+    asyncRouterMap.filter((item) => {
       if (item.children) {
         const obj = item.children;
         obj.foreach((k) => {
@@ -135,7 +136,7 @@ export default {
       }
       return true;
     });
-    this.menu = arr;
+    this.menu = asyncRouterMap;
   },
   methods: {
     handleSizeChange(val) {

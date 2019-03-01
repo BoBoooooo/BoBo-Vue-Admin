@@ -96,6 +96,13 @@
     .is-active{
       background-color:#161616!important;
     }
+
+    .el-submenu{
+      .el-menu-item{
+      padding-left:61px!important;
+     }
+    }
+    
     .svg-icon {
       margin-right: 16px;
       fill:$primary;

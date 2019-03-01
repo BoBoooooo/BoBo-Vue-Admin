@@ -68,7 +68,7 @@
       </el-row>
 
 
- <v-btn color="orange" @click="Refresh" dark>搜索
+ <v-btn color="orange" @click="Refresh" style="display:block;margin:0 auto" dark>搜索
           <v-icon dark right>search</v-icon>
         </v-btn>
 
