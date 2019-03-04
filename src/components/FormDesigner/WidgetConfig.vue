@@ -1,7 +1,10 @@
 <template>
   <div v-if="show">
     <el-form label-position="top">
-
+      <el-form-item
+        label="是否隐藏">
+        <el-switch v-model="data.hidden" />
+      </el-form-item>
       <el-form-item
         v-if="Object.keys(data.options).includes('uploadParams')"
         label="附件类型">

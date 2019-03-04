@@ -3,6 +3,7 @@ export const basicComponents = [
     type: 'input',
     name: '单行文本',
     icon: 'regular/keyboard',
+    hidden: false,
     options: {
       width: '100%',
       defaultValue: '',
@@ -16,6 +17,7 @@ export const basicComponents = [
     type: 'textarea',
     name: '多行文本',
     icon: 'regular/keyboard',
+    hidden: false,
     options: {
       width: '100%',
       defaultValue: '',
@@ -30,6 +32,7 @@ export const basicComponents = [
     type: 'number',
     name: '计数器',
     icon: 'sort-numeric-up',
+    hidden: false,
     options: {
       width: '100%',
       required: false,
@@ -45,6 +48,7 @@ export const basicComponents = [
     type: 'radio',
     name: '单选框组',
     icon: 'regular/dot-circle',
+    hidden: false,
     options: {
       inline: false,
       defaultValue: '',
@@ -74,6 +78,7 @@ export const basicComponents = [
     type: 'checkbox',
     name: '多选框组',
     icon: 'regular/check-square',
+    hidden: false,
     options: {
       inline: false,
       defaultValue: [],
@@ -101,6 +106,7 @@ export const basicComponents = [
     type: 'time',
     name: '时间选择器',
     icon: 'regular/clock',
+    hidden: false,
     options: {
       defaultValue: '21:19:56',
       readonly: false,
@@ -121,6 +127,7 @@ export const basicComponents = [
     type: 'date',
     name: '日期选择器',
     icon: 'regular/calendar-alt',
+    hidden: false,
     options: {
       defaultValue: '',
       readonly: false,
@@ -141,6 +148,7 @@ export const basicComponents = [
     type: 'rate',
     name: '评分',
     icon: 'regular/star',
+    hidden: false,
     options: {
       defaultValue: null,
       max: 5,
@@ -153,6 +161,7 @@ export const basicComponents = [
     type: 'color',
     name: '颜色选择器',
     icon: 'palette',
+    hidden: false,
     options: {
       defaultValue: '',
       disabled: false,
@@ -164,6 +173,7 @@ export const basicComponents = [
     type: 'select',
     name: '下拉选择框',
     icon: 'regular/caret-square-down',
+    hidden: false,
     options: {
       defaultValue: '',
       multiple: false,
@@ -195,6 +205,7 @@ export const basicComponents = [
     type: 'switch',
     name: '开关',
     icon: 'toggle-off',
+    hidden: false,
     options: {
       defaultValue: false,
       required: false,
@@ -205,6 +216,7 @@ export const basicComponents = [
     type: 'slider',
     name: '滑块',
     icon: 'sliders-h',
+    hidden: false,
     options: {
       defaultValue: 0,
       disabled: false,
@@ -225,6 +237,7 @@ export const advanceComponents = [
     type: 'upload',
     name: '文件上传',
     icon: 'upload',
+    hidden: false,
     options: {
       uploadParams: {
         Param: {
@@ -240,6 +253,7 @@ export const advanceComponents = [
     type: 'richtext',
     name: '富文本',
     icon: 'text-height',
+    hidden: false,
     options: {
       defaultValue: '',
 

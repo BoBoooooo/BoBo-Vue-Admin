@@ -5,16 +5,13 @@
  * 基于CommonTable以及CommonToolbar二次封装一个增删改查table
  -->
 <template>
-  <div
-    id="crud_table"
-    class="widget-box">
-
+  <div id="crud_table" class="widget-box">
     <common-tool-bar
-      :option-json ="jsonData.config.columnList"
-      :search-arr ="listQuery.searchArr"
-      @addEvent ="New"
-      @searchEvent ="Refresh"
-      @clearEvent ="Clear"
+      :option-json="jsonData.config.columnList"
+      :search-arr="listQuery.searchArr"
+      @addEvent="New"
+      @searchEvent="Refresh"
+      @clearEvent="Clear"
       :toolbarButton="toolbarButton"
     />
 
@@ -31,48 +28,36 @@
       :handleButton="handleButton"
     />
 
-
     <el-dialog
       :title="textMap[dialogStatus]"
       :visible.sync="dialogFormVisible"
       v-if="dialogFormVisible"
-      width="80%">
+      width="80%"
+    >
       <generate-form
         ref="generateForm"
         :data="jsonData"
         :value="entity"
+        :entity.sync="models"
         :disabled="handleButton.includes('detail')"
       />
 
-      <div
-        slot="footer"
-        class="dialog-footer">
+      <div slot="footer" class="dialog-footer">
         <template v-if="dialogStatus === 'detail'">
- <v-btn @click="dialogFormVisible = false" color="white">关 闭</v-btn>
-
+          <v-btn @click="dialogFormVisible = false" color="white">关 闭</v-btn>
         </template>
 
         <template v-else>
- <v-btn @click="dialogFormVisible = false" color="white">取 消</v-btn>
-        <v-btn
-          v-if="dialogStatus=='create'"
-          color="blue"
-          @click="create">新 增</v-btn>
-        <v-btn
-          v-else
-          color="blue"
-          @click="update">修 改</v-btn>
+          <v-btn @click="dialogFormVisible = false" color="white">取 消</v-btn>
+          <v-btn v-if="dialogStatus=='create'" color="blue" @click="create">新 增</v-btn>
+          <v-btn v-else color="blue" @click="update">修 改</v-btn>
         </template>
-
       </div>
     </el-dialog>
-
   </div>
-
 </template>
 
 <script>
-
 import { GetFormDetail } from '@/api/system/form';
 import { newGuid } from '@/utils/index';
 import GenerateForm from '@/components/FormDesigner/GenerateForm';
@@ -103,6 +88,7 @@ export default {
   },
   data() {
     return {
+      models: {}, // 表单内部实体
       entity: {}, // 当前表单实体model
       jsonData: {
         list: [],
@@ -135,11 +121,11 @@ export default {
     asyncCondition: {
       deep: true,
       handler(val) {
-        console.log(val)
-        this.listQuery.searchArr[0].SearchKey = val.searchKey
-        this.listQuery.searchArr[0].SearchValue = val.searchValue
-        this.listQuery.searchArr[0].SearchOperator = '='
-        this.Refresh()
+        console.log(val);
+        this.listQuery.searchArr[0].SearchKey = val.searchKey;
+        this.listQuery.searchArr[0].SearchValue = val.searchValue;
+        this.listQuery.searchArr[0].SearchOperator = '=';
+        this.Refresh();
       },
     },
   },
@@ -152,7 +138,6 @@ export default {
   },
 
   methods: {
-
     newGuid,
     getObj() {
       this.axios({
@@ -160,7 +145,7 @@ export default {
         method: 'post',
       }).then((res) => {
         this.entity = res.data;
-      })
+      });
     },
 
     Refresh() {
@@ -176,14 +161,14 @@ export default {
         this.list = response.data.list;
         this.listQuery.totalCount = response.total;
         this.listLoading = false;
-      })
+      });
     },
 
     New() {
       this.dialogStatus = 'create';
       Object.keys(this.entity).forEach((k) => {
-        this.entity[k] = ''
-      })
+        this.entity[k] = '';
+      });
       this.dialogFormVisible = true;
     },
     Delete(id) {
@@ -197,7 +182,7 @@ export default {
           method: 'post',
           params: { id },
         }).then(() => {
-          this.Refresh()
+          this.Refresh();
         });
       });
     },
@@ -248,7 +233,7 @@ export default {
             data: this.entity,
           }).then(() => {
             this.dialogFormVisible = false;
-            this.Refresh()
+            this.Refresh();
           });
         })
         .catch(() => {
@@ -270,7 +255,7 @@ export default {
             data: this.entity,
           }).then(() => {
             this.dialogFormVisible = false;
-            this.Refresh()
+            this.Refresh();
           });
         })
         .catch(() => {
@@ -282,5 +267,5 @@ export default {
         });
     },
   },
-}
+};
 </script>

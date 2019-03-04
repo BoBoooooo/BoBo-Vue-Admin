@@ -76,6 +76,12 @@ export default {
         this.models = { ...this.models, ...val };
       },
     },
+    models: {
+      deep: true,
+      handler(val) {
+        this.$emit('update:entity', val)
+      },
+    },
   },
   created() {
     this.generateModle(this.data.list);
@@ -129,6 +135,7 @@ export default {
         });
       });
     },
+
   },
 };
 </script>
