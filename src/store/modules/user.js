@@ -68,21 +68,18 @@ const user = {
     },
 
     // 获取用户信息
-    GetInfo({
+    async  GetInfo({
       commit,
       state,
     }) {
-      return new Promise((resolve, reject) => {
-        getInfo(state.token).then((response) => {
-          const { data } = response
-          console.log(data);
-          commit('SET_NAME', data.RealName)
-          commit('SET_REALNAME', data.UserName)
-          resolve(data)
-        }).catch((error) => {
-          reject(error)
-        })
-      })
+      const promise = await getInfo(state.token).then((response) => {
+        const { data } = response
+        console.log(data);
+        commit('SET_NAME', data.RealName)
+        commit('SET_REALNAME', data.UserName)
+        return data
+      }).catch(error => error)
+      return promise
     },
 
 
