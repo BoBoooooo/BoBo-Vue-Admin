@@ -84,17 +84,13 @@ const user = {
 
 
     //  登出
-    FedLogOut({
+    async  FedLogOut({
       commit,
     }) {
-      return new Promise((resolve) => {
-        logout().then(() => {
-          commit('SET_TOKEN', '')
-          removeToken()
-          window.location.reload()
-          resolve()
-        })
-      })
+      await logout()
+      commit('SET_TOKEN', '')
+      removeToken()
+      window.location.reload()
     },
 
     async  ChangePassword({

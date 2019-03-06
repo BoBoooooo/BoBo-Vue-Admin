@@ -51,28 +51,25 @@ const permission = {
     },
   },
   actions: {
-    GenerateRoutes({
+    async  GenerateRoutes({
       commit,
     }, data) {
-      return new Promise((resolve) => {
-        const {
-          roleauthname,
-        } = data
-        let accessedRouters = []
-        const username = store.getters.name
-        // /如果是admin账号的话 跳过路由校验
-        if (username === 'admin') {
-          accessedRouters = asyncRouterMap
-        } else {
-          const routermap = deepClone(asyncRouterMap)
+      const {
+        roleauthname,
+      } = data
+      let accessedRouters = []
+      const username = store.getters.name
+      // /如果是admin账号的话 跳过路由校验
+      if (username === 'admin') {
+        accessedRouters = asyncRouterMap
+      } else {
+        const routermap = deepClone(asyncRouterMap)
 
-          accessedRouters = filterAsyncRouter(routermap, roleauthname)
-        }
+        accessedRouters = filterAsyncRouter(routermap, roleauthname)
+      }
 
 
-        commit('SET_ROUTERS', accessedRouters)
-        resolve()
-      })
+      commit('SET_ROUTERS', accessedRouters)
     },
   },
 }

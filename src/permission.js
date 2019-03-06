@@ -15,7 +15,7 @@ import {
 } from '@/utils/auth'; // 验权
 
 const whiteList = ['/login'];
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, next) => {
   NProgress.start();
   if (getToken()) {
     if (to.path === '/login') {
@@ -23,23 +23,21 @@ router.beforeEach((to, from, next) => {
         path: '/',
       });
     } else if (store.getters.addRouters.length === 0) {
-      store.dispatch('GetInfo').then((res) => { // 拉取user_info
-        const roleauthname = res.RoleAuthName.split(',')
-        store.dispatch('GenerateRoutes', {
-          roleauthname,
-        }).then(() => { // 根据roles权限生成可访问的路由表
-          router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
-          next({
-            ...to,
-            replace: true,
-          })
-          // hack方法 确保addRoutes已完成
-        })
+      const res = await store.dispatch('GetInfo') // 拉取user_info
+      const roleauthname = res.RoleAuthName.split(',')
+      await store.dispatch('GenerateRoutes', {
+        roleauthname,
+      })
+      // 根据roles权限生成可访问的路由表
+      router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
+      next({
+        ...to,
+        replace: true,
       })
     } else {
       next()
     }
-  } else if (whiteList.indexOf(to.path) !== -1) {
+  } else if (whiteList.includes(to.path)) {
     next()
   } else {
     next('/login')
