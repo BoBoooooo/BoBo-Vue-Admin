@@ -42,29 +42,28 @@ const user = {
 
   actions: {
     // 登录
-    Login({
+    async Login({
       commit,
     }, userInfo) {
       const username = userInfo.username.trim()
-      return new Promise((resolve, reject) => {
-        login(username, userInfo.password).then((response) => {
-          const data = response
-          if (data.code === 200) {
-            console.log(data.data);
-            setToken(data.data)
 
+      try {
+        const response = await login(username, userInfo.password)
 
-            commit('SET_TOKEN', data.data)
-            resolve(data)
-          } else {
-            commit('SET_TOKEN', '')
-            removeToken()
-            reject(data.message)
-          }
-        }).catch((error) => {
-          reject(error)
-        })
-      })
+        const data = response
+        if (data.code === 200) {
+          setToken(data.data)
+          commit('SET_TOKEN', data.data)
+          return data
+        }
+
+        commit('SET_TOKEN', '')
+        removeToken()
+
+        return Promise.reject(data.message)
+      } catch (err) {
+        return Promise.reject(err)
+      }
     },
 
     // 获取用户信息
@@ -72,14 +71,15 @@ const user = {
       commit,
       state,
     }) {
-      const promise = await getInfo(state.token).then((response) => {
+      try {
+        const response = await getInfo(state.token)
         const { data } = response
-        console.log(data);
         commit('SET_NAME', data.RealName)
         commit('SET_REALNAME', data.UserName)
         return data
-      }).catch(error => error)
-      return promise
+      } catch (error) {
+        return Promise.reject(error)
+      }
     },
 
 
@@ -97,28 +97,15 @@ const user = {
       })
     },
 
-    ChangePassword({
+    async  ChangePassword({
       commit,
       state,
     }, NewPassword) {
-      return new Promise((resolve, reject) => {
-        ChangePassword({
-          username: state.realname,
-          password: NewPassword,
-        }).then((response) => {
-          const data = response
-          resolve(data)
-          logout().then(() => {
-            commit('SET_TOKEN', '')
-            removeToken()
-            resolve()
-          }).catch((err) => {
-            reject(err)
-          })
-        }).catch((error) => {
-          reject(error)
-        })
+      await ChangePassword({
+        username: state.realname,
+        password: NewPassword,
       })
+      await this.FedLogOut({ commit })
     },
   },
 }
