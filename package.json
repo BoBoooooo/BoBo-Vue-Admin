@@ -44,7 +44,6 @@
     "vuetify-loader": "1.2.1",
     "eslint": "^5.12.0",
     "eslint-plugin-vue": "^5.1.0",
- 
     "lint-staged": "^7.2.2",
     "node-sass": "^4.9.2",
     "sass-loader": "^7.0.3",
@@ -53,7 +52,6 @@
     "vue-cli-plugin-axios": "0.0.4",
     "vue-cli-plugin-element": "^1.0.0",
     "vue-cli-plugin-vuetify": "0.4.6",
-
     "vue-template-compiler": "^2.5.21"
   }
 }

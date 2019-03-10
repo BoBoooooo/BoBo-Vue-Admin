@@ -9,20 +9,12 @@
                 <v-toolbar-side-icon></v-toolbar-side-icon>
                 <v-toolbar-title>系统公告</v-toolbar-title>
                 <v-spacer></v-spacer>
-                <!-- <v-btn icon>
-              <v-icon>calendar</v-icon>
-            </v-btn>
-            <v-btn icon>
-              <v-icon>notice</v-icon>
-                </v-btn>-->
               </v-toolbar>
               <v-list two-line>
                 <template v-for="(item, index) in items">
                   <v-list-tile :key="index" avatar ripple @click="Detail(item.id)">
                     <v-list-tile-content>
                       <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                      <!-- <v-list-tile-sub-title class="text--primary">{{ item.headline }}</v-list-tile-sub-title> -->
-                      <!-- <v-list-tile-sub-title style="margin-top:10px">{{item.content}}</v-list-tile-sub-title> -->
                     </v-list-tile-content>
                     <v-list-tile-action>
                       <v-list-tile-action-text>{{ item.date }}</v-list-tile-action-text>
