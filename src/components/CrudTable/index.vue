@@ -225,8 +225,10 @@ export default {
       this.$refs.generateForm
         .getData()
         .then((data) => {
-          this.entity = data;
-          this.entity.id = newGuid(); // 赋值主键
+          this.entity = {
+            ...data,
+            id: newGuid(),
+          };
           this.axios({
             url: `/${this.tableName}/add`,
             method: 'post',
@@ -248,7 +250,6 @@ export default {
         .getData()
         .then((data) => {
           this.entity = data;
-          // this.entity.id = this.id;
           this.axios({
             url: `/${this.tableName}/update`,
             method: 'post',

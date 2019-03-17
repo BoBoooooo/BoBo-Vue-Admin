@@ -21,26 +21,41 @@
               v-for="(col, colIndex) in item.columns"
               :key="colIndex"
               :span="col.span">
-              <template v-for="citem in col.list" >
-
-                <genetate-form-item
-                  :key="citem.key"
-                  :models.sync="models"
-                  :rules="rules"
-                  :widget="citem"
-                  :disabled="disabled"/>
+               <template v-for="citem in col.list">
+                <el-form-item v-if="citem.type=='blank'"
+                              :label="citem.name"
+                              :prop="citem.model"
+                              :key="citem.key">
+                  <slot :name="citem.model"
+                        :model="models"></slot>
+                </el-form-item>
+                <GenerateFormItem v-else
+                                  :key="citem.key"
+                                  :models.sync="models"
+                                  :remote="remote"
+                                  :rules="rules"
+                                  :widget="citem"
+                                  v-show="!item.hidden"></GenerateFormItem>
               </template>
             </el-col>
           </el-row>
         </template>
+        <template v-else-if="item.type === 'blank'">
+            <el-form-item :label="item.name"
+                          :prop="item.model"
+                          :key="item.key">
+              <slot :name="item.model"
+                        :model="models"></slot>
+            </el-form-item>
+        </template>
+        <!-- 普通行布局方式 -->
         <template v-else>
-          <genetate-form-item
-            :key="item.key"
-            :models.sync="models"
-            :rules="rules"
-            :widget="item"
-            :disabled="disabled"
-            />
+          <GenerateFormItem :key="item.key"
+                            :models.sync="models"
+                            :rules="rules"
+                            :widget="item"
+                            :remote="remote"
+                            v-show="!item.hidden"></GenerateFormItem>
         </template>
 
       </template>
