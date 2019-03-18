@@ -29,10 +29,19 @@
         :min-width="item.min_width"
         :header-align="item.header_align"
         :show-overflow-tooltip="item.show_overflow_tooltip"
-      />
-      <el-table-column label="操作" align="center" min-width="110px" fixed="right">
+      >
         <template slot-scope="scope">
-          <v-btn
+            <template v-if="item.slotName">
+            <slot :name="item.slotName"
+                  :row="scope.row"
+                  :prop="item.prop"
+                  :$index="scope.$index" />
+          </template>
+          <template  v-else>
+            <span>
+            {{ scope.row[item.prop] }}
+          </span>
+      <!-- <v-btn
             :key="index"
             :color="btn.color"
             v-for="(btn,index) in getShowButton"
@@ -42,7 +51,9 @@
           >
             {{btn.label}}
             <v-icon>{{btn.icon}}</v-icon>
-          </v-btn>
+          </v-btn> -->
+          </template>
+
         </template>
       </el-table-column>
     </el-table>

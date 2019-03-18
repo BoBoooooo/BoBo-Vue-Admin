@@ -181,11 +181,12 @@ import Tinymce from '@/components/Tinymce' // 富文本编辑器
 import UploadAffix from '@/components/UploadAffix'; // 上传模块
 
 export default {
+  name: 'GenerateFormItem',
   components: {
     Tinymce,
     UploadAffix,
   },
-  props: ['widget', 'models', 'rules', 'disabled'],
+  props: ['widget', 'models', 'rules', 'disabled', 'remote'],
   data() {
     return {
       dataModel: this.models[this.widget.model],
@@ -206,8 +207,7 @@ export default {
     disabled: {
       deep: true,
       immediate: true,
-      handler(val) {
-        this.dataModel = val[this.widget.model]
+      handler() {
         if (this.widget.options.uploadParams) {
           this.widget.options.uploadParams.IsDetail = this.disabled
         }

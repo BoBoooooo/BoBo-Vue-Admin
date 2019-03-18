@@ -65,14 +65,14 @@
 
 <script>
 // 常规组件
-import GenetateFormItem from './GenerateFormItem';
+import GenerateFormItem from './GenerateFormItem';
 
 export default {
   name: 'FmGenerateForm',
   components: {
-    GenetateFormItem,
+    GenerateFormItem,
   },
-  props: ['data', 'value', 'disabled', 'clear'],
+  props: ['data', 'value', 'disabled', 'clear', 'remote'],
   // data 初始化表单
   // value 表单赋值
   // clear 清空表单

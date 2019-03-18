@@ -138,7 +138,7 @@
           </td>
           <td>
             <el-input type="textarea"
-              v-model="item.formatter"
+              v-model="item.slotName"
               placeholder="自定义列"></el-input>
           </td>
 

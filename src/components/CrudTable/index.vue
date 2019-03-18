@@ -20,13 +20,27 @@
       :table-json="jsonData.config.columnList"
       :list-query="listQuery"
       :list-loading="listLoading"
-      @handleEdit="Edit"
-      @handleDetail="Detail"
-      @handleDelete="Delete"
       @handleCurrentChange="Refresh"
       @handleSizeChange="Refresh"
       :handleButton="handleButton"
-    />
+    >
+      <template slot="handleButton" slot-scope="scope">
+          <v-btn size color="blue" small dark @click.stop="Edit(scope.row.id)">
+            修改
+          </v-btn>
+           <v-btn color="green" small dark @click.stop="Detail(scope.row.id)">
+            详情
+          </v-btn>
+           <v-btn color="red" small dark @click.stop="Delete(scope.row.id)">
+            删除
+          </v-btn>
+          <slot name="customButton" :row="scope.row"></slot>
+      </template>
+      <template slot="formatter" slot-scope="scope">
+        <slot name="formatter"
+        :row="scope.row"></slot>
+      </template>
+    </common-table>
 
     <el-dialog
       :title="textMap[dialogStatus]"
