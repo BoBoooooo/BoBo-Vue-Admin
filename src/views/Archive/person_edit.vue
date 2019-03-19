@@ -3,6 +3,7 @@
 <crud-table
  :IsMultiple="true"
  tableName="person"
+ :entity.sync="entity"
  toolbarButton="add,clear,search"
  handleButton="edit,delete"
  @selection-change="getChange"
@@ -14,7 +15,9 @@
 export default {
   name: 'person_edit',
   data() {
-    return {}
+    return {
+      entity: {}, // 当前表单内实体对象
+    }
   },
   methods: {
     getChange(selection) {

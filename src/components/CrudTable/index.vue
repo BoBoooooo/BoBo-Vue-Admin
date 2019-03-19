@@ -21,6 +21,7 @@
       :list-query="listQuery"
       :list-loading="listLoading"
       :IsMultiple="IsMultiple"
+      :showPagination="showPagination"
       @handleCurrentChange="Refresh"
       @handleSizeChange="Refresh"
       :handleButton="handleButton"
@@ -56,7 +57,7 @@
       <generate-form
         ref="generateForm"
         :data="jsonData"
-        :value="entity"
+        :value="formValue"
         :entity.sync="models"
         :disabled="handleButton.includes('detail')"
       />
@@ -78,7 +79,7 @@
 
 <script>
 import operation from './handleButton.js';
-
+// eslint-disable-next-line import/named
 import { GetFormDetail } from '@/api/system/form';
 import { newGuid } from '@/utils/index';
 import GenerateForm from '@/components/FormDesigner/GenerateForm';
@@ -94,6 +95,10 @@ export default {
   },
   props: {
     tableName: String,
+    showPagination: {
+      type: Boolean,
+      default: true,
+    },
     handleButton: {
       type: String,
       default: '',
@@ -110,12 +115,18 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    // 当前表单实体model
+    entity: {
+      type: Object,
+      default: () => ({}),
+    },
+
   },
   data() {
     return {
       operation,
       models: {}, // 表单内部实体
-      entity: {}, // 当前表单实体model
+      formValue: {}, // 当前表单实体model
       jsonData: {
         list: [],
         config: {},
@@ -140,18 +151,23 @@ export default {
       dialogStatus: '',
       list: null,
       listLoading: true,
-      id: '',
     };
   },
   watch: {
     asyncCondition: {
       deep: true,
       handler(val) {
-        console.log(val);
         this.listQuery.searchArr[0].SearchKey = val.searchKey;
         this.listQuery.searchArr[0].SearchValue = val.searchValue;
         this.listQuery.searchArr[0].SearchOperator = '=';
         this.Refresh();
+      },
+    },
+    models: {
+      immediate: true,
+      deep: true,
+      handler(val) {
+        this.$emit('update:entity', val)
       },
     },
   },
@@ -162,7 +178,7 @@ export default {
   },
   created() {
     this.fetchData(this.listQuery);
-    this.getObj();
+    // this.getObj();
     GetFormDetail(this.tableName).then((res) => {
       this.jsonData = JSON.parse(res.data.formJson);
     });
@@ -173,29 +189,24 @@ export default {
       this.$emit(args[0], ...Array.from(args).slice(1));
     },
     newGuid,
-    getObj() {
-      this.axios({
-        url: `/${this.tableName}/getObj`,
-        method: 'post',
-      }).then((res) => {
-        this.entity = res.data;
-      });
-    },
+    // getObj() {
+    //   this.axios({
+    //     url: `/${this.tableName}/getObj`,
+    //     method: 'post',
+    //   }).then((res) => {
+    //     this.formValue = res.data;
+    //   });
+    // },
 
     Refresh() {
       this.fetchData(this.listQuery);
     },
 
-    fetchData(params) {
-      this.axios({
-        url: `/${this.tableName}/list`,
-        method: 'post',
-        data: params,
-      }).then((response) => {
-        this.list = response.data.list;
-        this.listQuery.totalCount = response.total;
-        this.listLoading = false;
-      });
+    async fetchData(params) {
+      const response = await this.crud('list', this.tableName, params)
+      this.list = response.data.list;
+      this.listQuery.totalCount = response.total;
+      this.listLoading = false;
     },
     handleOperation(funcName, id) {
       this[funcName](id)
@@ -203,8 +214,8 @@ export default {
 
     New() {
       this.dialogStatus = 'create';
-      Object.keys(this.entity).forEach((k) => {
-        this.entity[k] = '';
+      Object.keys(this.formValue).forEach((k) => {
+        this.formValue[k] = '';
       });
       this.dialogFormVisible = true;
     },
@@ -213,14 +224,9 @@ export default {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
-      }).then(() => {
-        this.axios({
-          url: `/${this.tableName}/delete`,
-          method: 'post',
-          params: { id },
-        }).then(() => {
-          this.Refresh();
-        });
+      }).then(async () => {
+        await this.crud('delete', this.tableName, { id })
+        this.Refresh();
       });
     },
     Clear() {
@@ -232,48 +238,31 @@ export default {
       ];
       this.Refresh();
     },
-    Edit(id) {
+    async Edit(id) {
       this.dialogStatus = 'update';
-
-      this.axios({
-        url: `/${this.tableName}/detail`,
-        method: 'post',
-        params: { id },
-      }).then((response) => {
-        this.entity = response.data;
-        this.dialogFormVisible = true;
-      });
+      const response = await this.crud('detail', this.tableName, { id })
+      this.formValue = response.data;
+      this.dialogFormVisible = true;
     },
 
-    Detail(id) {
-      this.dialogStatus = 'detail';
-
-      this.axios({
-        url: `/${this.tableName}/detail`,
-        method: 'post',
-        params: { id },
-      }).then((response) => {
-        this.entity = response.data;
-        this.dialogFormVisible = true;
-      });
+    async Detail(id) {
+      this.dialogStatus = 'update';
+      const response = await this.crud('detail', this.tableName, { id })
+      this.formValue = response.data;
+      this.dialogFormVisible = true;
     },
 
     create() {
       this.$refs.generateForm
         .getData()
-        .then((data) => {
-          this.entity = {
+        .then(async (data) => {
+          this.formValue = {
             ...data,
             id: newGuid(),
           };
-          this.axios({
-            url: `/${this.tableName}/add`,
-            method: 'post',
-            data: this.entity,
-          }).then(() => {
-            this.dialogFormVisible = false;
-            this.Refresh();
-          });
+          await this.crud('add', this.tableName, this.formValue)
+          this.dialogFormVisible = false;
+          this.Refresh();
         })
         .catch(() => {
           this.$message({
@@ -285,16 +274,10 @@ export default {
     update() {
       this.$refs.generateForm
         .getData()
-        .then((data) => {
-          this.entity = data;
-          this.axios({
-            url: `/${this.tableName}/update`,
-            method: 'post',
-            data: this.entity,
-          }).then(() => {
-            this.dialogFormVisible = false;
-            this.Refresh();
-          });
+        .then(async (data) => {
+          await this.crud('update', this.tableName, data)
+          this.dialogFormVisible = false;
+          this.Refresh();
         })
         .catch(() => {
           // 数据校验失败

@@ -72,7 +72,7 @@ export default {
   components: {
     GenerateFormItem,
   },
-  props: ['data', 'value', 'disabled', 'clear', 'remote'],
+  props: ['data', 'value', 'disabled', 'clear', 'remote', 'entity'],
   // data 初始化表单
   // value 表单赋值
   // clear 清空表单
@@ -93,8 +93,9 @@ export default {
     },
     models: {
       deep: true,
+      immediate: true,
       handler(val) {
-        this.$emit('update:entity', val)
+        this.$emit('update:entity', val);
       },
     },
   },
