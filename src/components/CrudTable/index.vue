@@ -25,7 +25,18 @@
       :handleButton="handleButton"
     >
       <template slot="handleButton" slot-scope="scope">
-          <v-btn size color="blue" small dark @click.stop="Edit(scope.row.id)">
+  <v-btn
+            :key="index"
+            :color="btn.color"
+            v-for="(btn,index) in getShowButton"
+            small
+            dark
+            @click.stop="handleOperation(btn.Fun,scope.row.id)"
+          >
+            {{btn.label}}
+            <v-icon>{{btn.icon}}</v-icon>
+          </v-btn>
+          <!-- <v-btn size color="blue" small dark @click.stop="Edit(scope.row.id)">
             修改
           </v-btn>
            <v-btn color="green" small dark @click.stop="Detail(scope.row.id)">
@@ -33,7 +44,7 @@
           </v-btn>
            <v-btn color="red" small dark @click.stop="Delete(scope.row.id)">
             删除
-          </v-btn>
+          </v-btn> -->
           <slot name="customButton" :row="scope.row"></slot>
       </template>
       <template slot="formatter" slot-scope="scope">
@@ -72,6 +83,8 @@
 </template>
 
 <script>
+import operation from './handleButton.js';
+
 import { GetFormDetail } from '@/api/system/form';
 import { newGuid } from '@/utils/index';
 import GenerateForm from '@/components/FormDesigner/GenerateForm';
@@ -89,11 +102,11 @@ export default {
     tableName: String,
     handleButton: {
       type: String,
-      default: 'edit,detail,delete',
+      default: '',
     },
     toolbarButton: {
       type: String,
-      default: 'add,clear,search',
+      default: 'clear,search',
     },
     asyncCondition: {
       type: Object,
@@ -102,6 +115,7 @@ export default {
   },
   data() {
     return {
+      operation,
       models: {}, // 表单内部实体
       entity: {}, // 当前表单实体model
       jsonData: {
@@ -143,6 +157,11 @@ export default {
       },
     },
   },
+  computed: {
+    getShowButton() {
+      return this.operation.filter(element => this.handleButton.includes(element.name));
+    },
+  },
   created() {
     this.fetchData(this.listQuery);
     this.getObj();
@@ -176,6 +195,9 @@ export default {
         this.listQuery.totalCount = response.total;
         this.listLoading = false;
       });
+    },
+    handleOperation(funcName, id) {
+      this[funcName](id)
     },
 
     New() {

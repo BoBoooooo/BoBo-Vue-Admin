@@ -41,17 +41,7 @@
             <span>
             {{ scope.row[item.prop] }}
           </span>
-      <!-- <v-btn
-            :key="index"
-            :color="btn.color"
-            v-for="(btn,index) in getShowButton"
-            small
-            dark
-            @click.stop="handleOperation(btn.Fun,scope.row.id)"
-          >
-            {{btn.label}}
-            <v-icon>{{btn.icon}}</v-icon>
-          </v-btn> -->
+
           </template>
 
         </template>
@@ -71,8 +61,6 @@
 </template>
 
 <script>
-import operation from './handleButton.js';
-
 export default {
   name: 'CommonTable',
   props: {
@@ -94,21 +82,10 @@ export default {
       type: Object,
       default: () => ({}),
     },
-    handleButton: {
-      // 操作列的默认按钮  (编辑 删除 查看)
-      type: String,
-      default: 'edit,delete,detail',
-    },
   },
   data() {
     return {
-      operation,
     };
-  },
-  computed: {
-    getShowButton() {
-      return this.operation.filter(element => this.handleButton.includes(element.name));
-    },
   },
   methods: {
     handleSizeChange(val) {
@@ -119,9 +96,7 @@ export default {
       this.listQuery.pageNumber = val;
       this.$emit('handleCurrentChange', this.listQuery);
     },
-    handleOperation(eventName, id) {
-      this.$emit(eventName, id);
-    },
+
   },
 };
 </script>
