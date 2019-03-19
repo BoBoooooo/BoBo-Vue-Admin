@@ -17,7 +17,14 @@
       border
       fit
       highlight-current-row
+      @selection-change="selection => emitEvent('selection-change', selection)"
+      @row-click="(row, event, column) => emitEventHandler('row-click', row, event, column)"
     >
+     <el-table-column
+        v-if="IsMultiple"
+        type="selection"
+        width="55">
+      </el-table-column>
       <el-table-column
         v-for="(item,index) in tableJson"
         :key="index"
@@ -48,6 +55,7 @@
       </el-table-column>
     </el-table>
     <el-pagination
+      v-if="showPagination"
       :current-page="listQuery.pageNumber"
       :page-size="listQuery.pageSize"
       :total="listQuery.totalCount"
@@ -67,6 +75,14 @@ export default {
     list: {
       type: Array, // 展示数据
       default: () => [],
+    },
+    showPagination: {
+      type: Boolean,
+      default: true,
+    },
+    IsMultiple: {
+      type: Boolean,
+      default: false,
     },
     tableJson: {
       type: Array, // 列表配置json
@@ -88,6 +104,9 @@ export default {
     };
   },
   methods: {
+    emitEvent(...args) {
+      this.$emit(args[0], ...Array.from(args).slice(1));
+    },
     handleSizeChange(val) {
       this.listQuery.pageSize = val;
       this.$emit('handleSizeChange', this.listQuery);

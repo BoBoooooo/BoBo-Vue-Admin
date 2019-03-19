@@ -20,9 +20,12 @@
       :table-json="jsonData.config.columnList"
       :list-query="listQuery"
       :list-loading="listLoading"
+      :IsMultiple="IsMultiple"
       @handleCurrentChange="Refresh"
       @handleSizeChange="Refresh"
       :handleButton="handleButton"
+      @selection-change="selection => emitEvent('selection-change', selection)"
+      @row-click="(row, event, column) => emitEventHandler('row-click', row, event, column)"
     >
       <template slot="handleButton" slot-scope="scope">
   <v-btn
@@ -36,15 +39,6 @@
             {{btn.label}}
             <v-icon>{{btn.icon}}</v-icon>
           </v-btn>
-          <!-- <v-btn size color="blue" small dark @click.stop="Edit(scope.row.id)">
-            修改
-          </v-btn>
-           <v-btn color="green" small dark @click.stop="Detail(scope.row.id)">
-            详情
-          </v-btn>
-           <v-btn color="red" small dark @click.stop="Delete(scope.row.id)">
-            删除
-          </v-btn> -->
           <slot name="customButton" :row="scope.row"></slot>
       </template>
       <template slot="formatter" slot-scope="scope">
@@ -103,6 +97,10 @@ export default {
     handleButton: {
       type: String,
       default: '',
+    },
+    IsMultiple: {
+      type: Boolean,
+      default: false,
     },
     toolbarButton: {
       type: String,
@@ -171,6 +169,9 @@ export default {
   },
 
   methods: {
+    emitEvent(...args) {
+      this.$emit(args[0], ...Array.from(args).slice(1));
+    },
     newGuid,
     getObj() {
       this.axios({
