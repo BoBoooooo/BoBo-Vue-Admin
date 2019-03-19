@@ -8,7 +8,9 @@ import axios from '@/utils/fetch';
 
 export default function (dml, tableName, data) {
   const options = {
-    url: `/${tableName.replace(/_/g, '/')}/${dml}`,
+    // url: `/${tableName.replace(/_/g, '/')}/${dml}`,
+    url: `/${tableName}/${dml}`,
+
     method: 'post',
   };
   // 以下请求通过包体传参
