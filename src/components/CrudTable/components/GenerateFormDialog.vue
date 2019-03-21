@@ -17,7 +17,7 @@
       <generate-form
         ref="generateForm"
         :data="jsonData"
-        :value="formValue"
+        :value="formValues"
         :entity.sync="models"
         :disabled="disabled"
       />
@@ -75,7 +75,7 @@ export default {
     },
     tableName: String,
     dialogStatus: String,
-    formValue: {
+    formValues: {
       type: Object,
       default: () => ({}),
     },
@@ -110,32 +110,37 @@ export default {
         });
     },
   },
-  created() {
-    // 如果select,radio,checkbox等组件为多选情况  后台返回逗号分隔字符串 => 数组
-    for (const row of this.jsonData.list) {
-      if (row.columns) {
-        for (const column of row.columns) {
-          const { list } = column;
-          if (Array.isArray(list)) {
-            list.forEach((citem) => {
-              if (citem.options.multiple) {
-                if (!Array.isArray(this.formValues[citem.model])
-                   && this.formValues[citem.model]) {
-                  this.formValues[citem.model] = this.formValues[citem.model].split(',');
-                }
+
+  watch: {
+    formValues: {
+      deep: true,
+      immediate: true,
+      handler() {
+        // 如果select,radio,checkbox等组件为多选情况  后台返回逗号分隔字符串 => 数组
+        for (const row of this.jsonData.list) {
+          if (row.columns) {
+            for (const column of row.columns) {
+              const { list } = column;
+              if (Array.isArray(list)) {
+                list.forEach((citem) => {
+                  if (citem.options.multiple) {
+                    if (!Array.isArray(this.formValues[citem.model])
+                      && this.formValues[citem.model]) {
+                      this.formValues[citem.model] = this.formValues[citem.model].split(',');
+                    }
+                  }
+                });
               }
-            });
+            }
+          } else if (row.options.multiple) {
+            if (!Array.isArray(this.formValues[row.model])
+                      && this.formValues[row.model]) {
+              this.formValues[row.model] = this.formValues[row.model].split(',');
+            }
           }
         }
-      } else if (row.options.multiple) {
-        if (!Array.isArray(this.formValues[row.model])
-                   && this.formValues[row.model]) {
-          this.formValues[row.model] = this.formValues[row.model].split(',');
-        }
-      }
-    }
-  },
-  watch: {
+      },
+    },
     dialogFormVisible(val) {
       this.visible = val;
     },
@@ -148,6 +153,7 @@ export default {
     },
   },
 }
+
 </script>
 <style lang="scss" scoped>
 

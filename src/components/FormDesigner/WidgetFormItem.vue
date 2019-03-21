@@ -4,7 +4,7 @@
     :class="{active: selectWidget.key == element.key, 'is_req': element.options.required}"
     :label="element.name"
     class="widget-view "
-    @click.native="handleSelectWidget(index)"
+    @click.native.stop="handleSelectWidget(index)"
     :label-width="element.name===''?'0px':''"
 
   >

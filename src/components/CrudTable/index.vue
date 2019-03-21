@@ -52,7 +52,7 @@
     :disabled="disabled"
     :tableName="tableName"
     :dialogStatus="dialogStatus"
-    :formValue="formValue"
+    :formValues="formValues"
     @afterSave="Refresh"
     :jsonData="jsonData"
     :entity.sync="models"
@@ -82,7 +82,7 @@ export default {
     return {
       operation,
       models: {}, // 表单内部实体
-      formValue: {}, // 当前表单实体model
+      formValues: {}, // 当前表单实体model
       listQuery: {
         totalCount: null,
         pageSize: 10,
@@ -158,8 +158,8 @@ export default {
 
     New() {
       this.dialogStatus = 'create';
-      Object.keys(this.formValue).forEach((k) => {
-        this.formValue[k] = '';
+      Object.keys(this.formValues).forEach((k) => {
+        this.formValues[k] = '';
       });
       this.dialogFormVisible = true;
     },
@@ -185,13 +185,13 @@ export default {
     async Edit(id) {
       this.dialogStatus = 'update';
       const response = await this.crud('detail', this.tableName, { id });
-      this.formValue = response.data;
+      this.formValues = response.data;
       this.dialogFormVisible = true;
     },
     async Detail(id) {
       this.dialogStatus = 'update';
       const response = await this.crud('detail', this.tableName, { id });
-      this.formValue = response.data;
+      this.formValues = response.data;
       this.dialogFormVisible = true;
     },
   },
