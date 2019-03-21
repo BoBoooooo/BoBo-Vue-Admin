@@ -5,7 +5,7 @@
         <v-layout row wrap>
           <v-flex d-flex xs12 sm6 md8>
             <v-card>
-              <v-toolbar color="purple" dark>
+              <v-toolbar color="primary" dark>
                 <v-toolbar-side-icon></v-toolbar-side-icon>
                 <v-toolbar-title>系统公告</v-toolbar-title>
                 <v-spacer></v-spacer>
@@ -28,16 +28,16 @@
           </v-flex>
 
           <v-flex d-flex xs12 sm6 md4 child-flex>
-            <v-card class="mx-auto" max-width="400">
+            <v-card>
               <v-card dark flat>
                 <v-btn absolute bottom color="pink" right fab>
                   <v-icon>face</v-icon>
                 </v-btn>
 
-                <v-toolbar color="purple" dark>
-                  <v-toolbar-side-icon></v-toolbar-side-icon>
+                <v-toolbar color="lime" dark>
+                  <v-toolbar-side-icon style="color:balck"></v-toolbar-side-icon>
 
-                  <h3 class="title font-weight-light text-xs-center grow">简介</h3>
+                  <h3 class="title font-weight-light text-xs-center grow" style="color:black">简介</h3>
                   <v-avatar>
                     <v-img
                       src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"
