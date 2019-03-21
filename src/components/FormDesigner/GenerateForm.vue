@@ -35,6 +35,7 @@
                                   :remote="remote"
                                   :rules="rules"
                                   :widget="citem"
+                                  :disabled="disabled"
                                   v-show="!item.hidden"></GenerateFormItem>
               </template>
             </el-col>
@@ -55,6 +56,7 @@
                             :rules="rules"
                             :widget="item"
                             :remote="remote"
+                            :disabled="disabled"
                             v-show="!item.hidden"></GenerateFormItem>
         </template>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="upload-container">
     <el-upload
-      v-if="!Params.IsDetail"
+      v-if="!disabled"
       ref="upload"
       :action="baseUrl"
       :data="Params['Param']"
@@ -10,8 +10,6 @@
       :on-success="uploadSuccess"
       class="upload-demo"
     >
-
-
          <v-btn color="indigo" style="float:left;margin-top:10px 0" dark>
           <v-icon dark>backup</v-icon>
         </v-btn>
@@ -48,21 +46,16 @@
         align="center"
         min-width="110px">
         <template slot-scope="scope">
-          <el-button
-          :disabled="false"
-            type="success"
-            size="small"
+          <v-btn
+            color="blue"
             @click="exportfile(scope.row.id)"
-          >下载</el-button>
+          >下载</v-btn>
 
-          <el-button
-            v-if="!Params.IsDetail"
-                      :disabled="false"
-
-            type="danger"
-            size="small"
+          <v-btn
+      v-if="!disabled"
+            color="red"
             @click="delete_file(scope.row.id)"
-          >删除</el-button>
+          >删除</v-btn>
         </template>
       </el-table-column>
     </el-table>
@@ -81,6 +74,10 @@ export default {
     Params: {
       type: Object, //  IsDetail true则   只显示文件list以及download button
       default: () => ({}),
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
   data() {

@@ -169,7 +169,7 @@
     </template>
       <template v-if="widget.type == 'upload'">
           <upload-affix
-            :params="widget.options.uploadParams"/>
+            :params="widget.options.uploadParams" :disabled="disabled"/>
         </template>
 
 
@@ -204,15 +204,7 @@ export default {
         })
       },
     },
-    disabled: {
-      deep: true,
-      immediate: true,
-      handler() {
-        if (this.widget.options.uploadParams) {
-          this.widget.options.uploadParams.IsDetail = this.disabled
-        }
-      },
-    },
+
     models: {
       deep: true,
       immediate: true,

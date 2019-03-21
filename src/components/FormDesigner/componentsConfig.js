@@ -244,7 +244,6 @@ export const advanceComponents = [
           MasterID: '',
           Type: '',
         },
-        IsDetail: false,
       },
     },
   },
