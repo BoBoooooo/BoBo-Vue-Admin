@@ -197,3 +197,8 @@ export default {
   },
 }
 </script>
+<style lang="scss" scoped>
+  .v-btn{
+    min-width:60px!important;
+  }
+</style>
