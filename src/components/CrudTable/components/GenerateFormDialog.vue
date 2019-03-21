@@ -7,7 +7,7 @@
 
 <template>
 
-         <el-dialog
+    <el-dialog
       :title="textMap[dialogStatus]"
       :visible.sync="visible"
       v-if="visible"
@@ -21,16 +21,13 @@
         :entity.sync="models"
         :disabled="disabled"
       />
-
       <div slot="footer" class="dialog-footer">
         <template v-if="dialogStatus === 'detail'">
           <v-btn @click="visible = false;$emit('update:dialogFormVisible', false)" color="white">关 闭</v-btn>
         </template>
-
         <template v-else>
           <v-btn @click="visible = false;$emit('update:dialogFormVisible', false)" color="white">取 消</v-btn>
-          <v-btn v-if="dialogStatus=='create'" color="blue" @click="create" style="color:white">新 增</v-btn>
-          <v-btn v-else color="blue" @click="update"  style="color:white">修 改</v-btn>
+          <v-btn color="blue" @click="save" style="color:white">保 存</v-btn>
         </template>
       </div>
     </el-dialog>
@@ -86,12 +83,20 @@ export default {
 
   methods: {
     newGuid,
-    create() {
+    save() {
       this.$refs.generateForm
         .getData()
         .then((data) => {
-          data = { ...data, id: newGuid() }
-          this.crud('add', this.tableName, data).then(() => {
+          if (this.dialogStatus === 'create') {
+            data = { ...data, id: newGuid() }
+          }
+          // 如果select,radio,checkbox等多选情况返回数组的话，默认拼接成逗号分隔的字符串传给后台
+          Object.keys(data).forEach((k) => {
+            if (Array.isArray(data[k])) {
+              data[k] = data[k].toString();
+            }
+          });
+          this.crud(this.dialogStatus === 'create' ? 'add' : 'update', this.tableName, data).then(() => {
             this.visible = false;
             this.$emit('afterSave');
             this.$emit('update:dialogFormVisible', false)
@@ -104,24 +109,31 @@ export default {
           });
         });
     },
-    update() {
-      this.$refs.generateForm
-        .getData()
-        .then((data) => {
-          this.crud('update', this.tableName, data).then(() => {
-            this.visible = false;
-            this.$emit('afterSave');
-            this.$emit('update:dialogFormVisible', false)
-          });
-        })
-        .catch(() => {
-          // 数据校验失败
-          this.$message({
-            message: '请检查必填项',
-            type: 'warning',
-          });
-        });
-    },
+  },
+  created() {
+    // 如果select,radio,checkbox等组件为多选情况  后台返回逗号分隔字符串 => 数组
+    for (const row of this.jsonData.list) {
+      if (row.columns) {
+        for (const column of row.columns) {
+          const { list } = column;
+          if (Array.isArray(list)) {
+            list.forEach((citem) => {
+              if (citem.options.multiple) {
+                if (!Array.isArray(this.formValues[citem.model])
+                   && this.formValues[citem.model]) {
+                  this.formValues[citem.model] = this.formValues[citem.model].split(',');
+                }
+              }
+            });
+          }
+        }
+      } else if (row.options.multiple) {
+        if (!Array.isArray(this.formValues[row.model])
+                   && this.formValues[row.model]) {
+          this.formValues[row.model] = this.formValues[row.model].split(',');
+        }
+      }
+    }
   },
   watch: {
     dialogFormVisible(val) {
