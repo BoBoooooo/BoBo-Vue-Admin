@@ -106,18 +106,6 @@ export default {
   },
   methods: {
     generateModle(genList) {
-      // 添加一个ID隐藏域
-      const obj = {
-        model: 'id',
-        type: 'hidden',
-        options: {
-          defaultValue: '',
-          remote: false,
-        },
-        rules: [],
-      }
-
-      genList.push({ ...obj })
       for (let i = 0; i < genList.length; i++) {
         if (genList[i].type === 'grid') {
           genList[i].columns.forEach((item) => {
