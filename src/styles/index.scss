@@ -203,3 +203,13 @@ code {
 .no-bg{
   background: unset!important;
 }
+
+//覆盖disbaled样式为只读效果
+.el-input.is-disabled .el-input__inner{
+  background-color: white!important;
+  color: unset!important;
+}
+.el-textarea.is-disabled .el-textarea__inner{
+  background-color: white!important;
+  color: unset!important;
+}
