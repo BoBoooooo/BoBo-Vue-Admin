@@ -65,10 +65,10 @@
                   <v-timeline-item color="pink" small>
                     <v-layout pt-3>
                       <v-flex xs3>
-                        <strong>毕设题目</strong>
+                        <strong>Author</strong>
                       </v-flex>
                       <v-flex>
-                        <strong>企业员工工资管理系统</strong>
+                        <strong>BoBo</strong>
                       </v-flex>
                     </v-layout>
                   </v-timeline-item>
@@ -76,10 +76,10 @@
                   <v-timeline-item color="indigo lighten-3" small>
                     <v-layout wrap pt-3>
                       <v-flex xs3>
-                        <strong>姓名</strong>
+                        <strong>Position</strong>
                       </v-flex>
                       <v-flex>
-                        <strong>刘元</strong>
+                        <strong>NanJing</strong>
                       </v-flex>
                     </v-layout>
                   </v-timeline-item>
@@ -87,10 +87,10 @@
                   <v-timeline-item color="cyan" small>
                     <v-layout pt-3>
                       <v-flex xs3>
-                        <strong>学号</strong>
+                        <strong>Blog</strong>
                       </v-flex>
                       <v-flex>
-                        <strong>2015023208</strong>
+                        <strong><a href="http://blog.boboooooo.top" target="_blank" style="color:#5CACEE">Welcome to my Blog</a></strong>
                       </v-flex>
                     </v-layout>
                   </v-timeline-item>
@@ -98,10 +98,10 @@
                   <v-timeline-item color="amber lighten-3" small>
                     <v-layout pt-3>
                       <v-flex xs3>
-                        <strong>班级</strong>
+                        <strong>GitHub</strong>
                       </v-flex>
                       <v-flex>
-                        <strong>软件二班</strong>
+                        <strong><a href="https://github.com/BoBoooooo" target="_blank">Star me !</a></strong>
                       </v-flex>
                     </v-layout>
                   </v-timeline-item>
