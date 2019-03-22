@@ -142,7 +142,6 @@ export default {
       this.$emit(args[0], ...Array.from(args).slice(1));
     },
     Refresh() {
-      console.log(111)
       this.fetchData(this.listQuery);
     },
 
@@ -189,10 +188,11 @@ export default {
       this.dialogFormVisible = true;
     },
     async Detail(id) {
-      this.dialogStatus = 'update';
+      this.dialogStatus = 'detail';
       const response = await this.crud('detail', this.tableName, { id });
       this.formValues = response.data;
       this.dialogFormVisible = true;
+      this.disabled = true
     },
   },
 }
