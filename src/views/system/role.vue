@@ -124,14 +124,12 @@ export default {
     this.fetchData(this.listQuery);
     const arr = [...asyncRouterMap]
     arr.filter((item) => {
-      console.log(item)
       if (item.children) {
         const obj = item.children;
         obj.forEach((k) => {
           k.title = k.meta.title;
         });
       }
-
       if (item.hidden) {
         return false;
       }

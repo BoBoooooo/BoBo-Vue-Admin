@@ -219,15 +219,16 @@ export default {
   created() {
     if (this.widget.options.remote && this.widget.options.remoteOptions) {
       if (this.widget.options.remoteFunc !== '') {
-        this.axios({
-          url: this.widget.options.remoteFunc,
-          method: 'post',
-        }).then((res) => {
-          this.widget.options.remoteOptions = res.data.map(item => ({
-            value: item[this.widget.options.props.value],
-            label: item[this.widget.options.props.label],
-          }))
-        })
+        const remoteReq = this.remote[this.widget.options.remoteFunc]
+        if (remoteReq) {
+          remoteReq().then((res) => {
+            const response = res.data.list === null ? res.data : res.data.list
+            this.widget.options.remoteOptions = response.map(item => ({
+              value: item[this.widget.options.props.value],
+              label: item[this.widget.options.props.label],
+            }))
+          })
+        }
       } else {
         this.axios({
           url: '/dict/getDictByKey',

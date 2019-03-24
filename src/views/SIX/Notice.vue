@@ -1,10 +1,10 @@
 <template>
   <div>
-    <crud-table
+    <CrudTable
       tableName="six_notice"
       toolbarButton="add,clear,search"
       handleButton="edit,delete"
-    ></crud-table>
+    ></CrudTable>
   </div>
 </template>
 <script>

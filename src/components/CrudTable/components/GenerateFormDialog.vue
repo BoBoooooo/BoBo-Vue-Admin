@@ -20,6 +20,7 @@
         :value="formValues"
         :entity.sync="models"
         :disabled="disabled"
+        :remote="remoteFunctions"
       />
       <div slot="footer" class="dialog-footer">
         <template v-if="dialogStatus === 'detail'">
@@ -82,7 +83,10 @@ export default {
       type: Object,
       default: () => ({}),
     },
-
+    remoteFunctions: {
+      type: Object,
+      default: () => ({}),
+    },
   },
 
   methods: {

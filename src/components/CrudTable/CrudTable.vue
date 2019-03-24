@@ -56,6 +56,7 @@
     @afterSave="Refresh"
     :jsonData="jsonData"
     :entity.sync="models"
+    :remoteFunctions="remoteFunctions"
     >
     </GenerateFormDialog>
   </div>

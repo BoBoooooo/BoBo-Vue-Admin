@@ -41,4 +41,8 @@ export default {
     type: Object,
     default: () => ({}),
   },
+  remoteFunctions: {
+    type: Object,
+    default: () => ({}),
+  },
 };

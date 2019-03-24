@@ -116,10 +116,11 @@
           v-model="data.options.remote"
           size="mini"
           style="margin-bottom:10px;">
-          <el-radio-button :label="false">静态数据</el-radio-button>
-          <el-radio-button :label="true">远端数据</el-radio-button>
+          <el-radio-button label="dict">数据字典</el-radio-button>
+          <el-radio-button label="static">静态数据</el-radio-button>
+          <el-radio-button label="custom">自定义方法</el-radio-button>
         </el-radio-group>
-        <template v-if="data.options.remote">
+        <template v-if="data.options.remote=='custom'">
           <div>
             <el-input
               v-model="data.options.remoteFunc"
@@ -139,8 +140,10 @@
               style="">
               <template slot="prepend">标签</template>
             </el-input>
-
-            <el-select
+          </div>
+        </template>
+        <template v-else-if="data.options.remote=='dict'">
+           <el-select
               v-model="data.options.dictID"
               filterable>
                 <el-option
@@ -150,7 +153,6 @@
                 :value="item.id">
                 </el-option>
             </el-select>
-          </div>
         </template>
         <template v-else>
           <template v-if="data.type=='radio' || (data.type=='select'&&!data.options.multiple)">
