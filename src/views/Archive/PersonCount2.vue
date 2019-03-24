@@ -79,7 +79,7 @@ import lineChart from '@/components/Charts/lineChart';
 import mapChart from '@/components/Charts/mapChart';
 
 export default {
-  name: 'person_count2',
+  name: 'PersonCount2',
 
   data() {
     const lineChartData = [chartData.ClueData, chartData.FilingData];

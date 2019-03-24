@@ -102,38 +102,38 @@ export const asyncRouterMap = [
   {
     path: '/Archive',
     component: Layout,
-    redirect: '/Archive/person_edit',
+    redirect: '/Archive/PersonEdit',
     name: 'Archive',
     title: '廉政档案',
     icon: 'yonghuming',
     children: [{
-      path: 'person_edit',
-      name: 'person_edit',
-      component: () => import('@/views/Archive/person_edit'),
+      path: 'PersonEdit',
+      name: 'PersonEdit',
+      component: () => import('@/views/Archive/PersonEdit'),
       meta: {
         title: '廉政档案编辑',
       },
     },
     {
-      path: 'person_detail',
-      name: 'person_detail',
-      component: () => import('@/views/Archive/person_detail'),
+      path: 'PersonDetail',
+      name: 'PersonDetail',
+      component: () => import('@/views/Archive/PersonDetail'),
       meta: {
         title: '廉政档案查看',
       },
     },
     {
-      path: 'person_count',
-      name: 'person_count',
-      component: () => import('@/views/Archive/person_count'),
+      path: 'PersonCount',
+      name: 'PersonCount',
+      component: () => import('@/views/Archive/PersonCount'),
       meta: {
         title: '廉政档案统计',
       },
     },
     {
-      path: 'person_count2',
-      name: 'person_count2',
-      component: () => import('@/views/Archive/person_count2'),
+      path: 'PersonCount2',
+      name: 'PersonCount2',
+      component: () => import('@/views/Archive/PersonCount2'),
       meta: {
         title: '统计分析',
       },

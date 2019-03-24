@@ -1,19 +1,19 @@
 <template>
  <div>
-<crud-table
+<CrudTable
  :IsMultiple="true"
  tableName="person"
  :entity.sync="entity"
  toolbarButton="add,clear,search"
  handleButton="edit,delete"
  @selection-change="getChange"
- ></crud-table>
+ ></CrudTable>
  </div>
 </template>
 <script>
 
 export default {
-  name: 'person_edit',
+  name: 'PersonEdit',
   data() {
     return {
       entity: {}, // 当前表单内实体对象

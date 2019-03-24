@@ -21,7 +21,7 @@
 import keyboard from '@/components/Charts/keyboard'
 
 export default {
-  name: 'person_count',
+  name: 'PersonCount',
   components: {
     keyboard,
   },
