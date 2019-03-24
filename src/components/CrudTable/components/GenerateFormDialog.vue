@@ -53,6 +53,9 @@ export default {
       visible: this.dialogFormVisible,
     }
   },
+  created() {
+
+  },
   props: {
     entity: {
       type: Object,
@@ -79,6 +82,7 @@ export default {
       type: Object,
       default: () => ({}),
     },
+
   },
 
   methods: {
@@ -112,35 +116,6 @@ export default {
   },
 
   watch: {
-    formValues: {
-      deep: true,
-      immediate: true,
-      handler() {
-        // 如果select,radio,checkbox等组件为多选情况  后台返回逗号分隔字符串 => 数组
-        for (const row of this.jsonData.list) {
-          if (row.columns) {
-            for (const column of row.columns) {
-              const { list } = column;
-              if (Array.isArray(list)) {
-                list.forEach((citem) => {
-                  if (citem.options.multiple) {
-                    if (!Array.isArray(this.formValues[citem.model])
-                      && this.formValues[citem.model]) {
-                      this.formValues[citem.model] = this.formValues[citem.model].split(',');
-                    }
-                  }
-                });
-              }
-            }
-          } else if (row.options.multiple) {
-            if (!Array.isArray(this.formValues[row.model])
-                      && this.formValues[row.model]) {
-              this.formValues[row.model] = this.formValues[row.model].split(',');
-            }
-          }
-        }
-      },
-    },
     dialogFormVisible(val) {
       this.visible = val;
     },

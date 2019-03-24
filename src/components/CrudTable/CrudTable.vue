@@ -6,19 +6,19 @@
  -->
 <template>
   <div id="crud_table" class="widget-box">
-    <common-tool-bar
-      :option-json="jsonData.config.columnList"
-      :search-arr="listQuery.searchArr"
+    <CommonToolBar
+      :optionJson="jsonData.config.columnList"
+      :searchArr="listQuery.searchArr.filter(item=>item.hidden===false)"
       @addEvent="New"
       @searchEvent="Refresh"
       @clearEvent="Clear"
       :toolbarButton="toolbarButton"
     />
 
-    <common-table
+    <CommonTable
       :list="list"
-      :table-json="jsonData.config.columnList"
-      :list-query="listQuery"
+      :tableJson="jsonData.config.columnList"
+      :listQuery="listQuery"
       :list-loading="listLoading"
       :IsMultiple="IsMultiple"
       :showPagination="showPagination"
@@ -45,7 +45,7 @@
       <template slot="formatter" slot-scope="scope">
         <slot name="formatter" :row="scope.row" :prop="scope.prop"></slot>
       </template>
-    </common-table>
+    </CommonTable>
 
     <GenerateFormDialog
     :dialogFormVisible.sync="dialogFormVisible"
@@ -92,6 +92,7 @@ export default {
             SearchKey: '',
             SearchValue: '',
             SearchOperator: '',
+            hidden: false,
           },
         ],
       },
@@ -106,12 +107,25 @@ export default {
     };
   },
   watch: {
-    asyncCondition: {
+    tableParams: {
       deep: true,
       handler(val) {
-        this.listQuery.searchArr[0].SearchKey = val.searchKey;
-        this.listQuery.searchArr[0].SearchValue = val.searchValue;
-        this.listQuery.searchArr[0].SearchOperator = '=';
+        this.listQuery.searchArr = [
+          {
+            SearchKey: '',
+            SearchValue: '',
+            SearchOperator: '',
+            hidden: false,
+          },
+        ]
+        Object.keys(val).forEach((k) => {
+          this.listQuery.searchArr.push({
+            SearchKey: k,
+            SearchValue: val[k],
+            SearchOperator: '=',
+            hidden: true,
+          })
+        })
         this.Refresh();
       },
     },
@@ -133,6 +147,17 @@ export default {
     GetFormDetail(this.tableName).then((res) => {
       this.jsonData = JSON.parse(res.data.formJson);
     });
+
+    if (this.tableParams) {
+      Object.keys(this.tableParams).forEach((k) => {
+        this.listQuery.searchArr.push({
+          SearchKey: k,
+          SearchValue: this.tableParams[k],
+          SearchOperator: '=',
+          hidden: true,
+        })
+      })
+    }
     this.fetchData(this.listQuery);
   },
 
@@ -144,7 +169,31 @@ export default {
     Refresh() {
       this.fetchData(this.listQuery);
     },
-
+    formValueToArray() {
+      // 如果select,radio,checkbox等组件为多选情况  后台返回逗号分隔字符串 => 数组
+      for (const row of this.jsonData.list) {
+        if (row.columns) {
+          for (const column of row.columns) {
+            const { list } = column;
+            if (Array.isArray(list)) {
+              list.forEach((citem) => {
+                if (citem.options.multiple) {
+                  if (!Array.isArray(this.formValues[citem.model])
+                      && this.formValues[citem.model]) {
+                    this.formValues[citem.model] = this.formValues[citem.model].split(',');
+                  }
+                }
+              });
+            }
+          }
+        } else if (row.options.multiple) {
+          if (!Array.isArray(this.formValues[row.model])
+                      && this.formValues[row.model]) {
+            this.formValues[row.model] = this.formValues[row.model].split(',');
+          }
+        }
+      }
+    },
     async fetchData(params) {
       const response = await this.crud('list', this.tableName, params);
       this.list = response.data.list;
@@ -160,6 +209,7 @@ export default {
       Object.keys(this.formValues).forEach((k) => {
         this.formValues[k] = '';
       });
+      this.formValues = { ...this.formValues, ...this.formDefaultValue }
       this.dialogFormVisible = true;
     },
     Delete(id) {
@@ -177,6 +227,8 @@ export default {
         {
           SearchKey: '',
           SearchValue: '',
+          SearchOperator: '',
+          hidden: false,
         },
       ];
       this.Refresh();
@@ -185,12 +237,14 @@ export default {
       this.dialogStatus = 'update';
       const response = await this.crud('detail', this.tableName, { id });
       this.formValues = response.data;
+      this.formValueToArray()
       this.dialogFormVisible = true;
     },
     async Detail(id) {
       this.dialogStatus = 'detail';
       const response = await this.crud('detail', this.tableName, { id });
       this.formValues = response.data;
+      this.formValueToArray()
       this.dialogFormVisible = true;
       this.disabled = true
     },

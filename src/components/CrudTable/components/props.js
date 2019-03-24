@@ -27,12 +27,17 @@ export default {
     type: String,
     default: 'clear,search',
   },
-  asyncCondition: {
+  tableParams: {
     type: Object,
     default: () => ({}),
   },
   // 当前表单实体model
   entity: {
+    type: Object,
+    default: () => ({}),
+  },
+  // 表单预设值
+  formDefaultValue: {
     type: Object,
     default: () => ({}),
   },

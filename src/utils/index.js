@@ -69,7 +69,6 @@ export function timestampToTime(timestamp) {
   const h = `${date.getHours() + 1 < 10 ? `0${date.getHours() + 1}` : date.getHours() + 1}:`;
   const m = `${date.getMinutes() + 1 < 10 ? `0${date.getMinutes() + 1}` : date.getMinutes() + 1}:`;
   const s = (date.getSeconds() + 1 < 10 ? `0${date.getSeconds() + 1}` : date.getSeconds() + 1);
-  console.log(Y + M + D + h + m + s)
   return Y + M + D + h + m + s;
 }
 

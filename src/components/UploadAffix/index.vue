@@ -4,7 +4,7 @@
       v-if="!disabled"
       ref="upload"
       :action="baseUrl"
-      :data="Params['Param']"
+      :data="params['Param']"
       :headers="token"
       :show-file-list="false"
       :on-success="uploadSuccess"
@@ -71,7 +71,7 @@ export default {
   name: 'UploadAffix',
 
   props: {
-    Params: {
+    params: {
       type: Object, //  IsDetail true则   只显示文件list以及download button
       default: () => ({}),
     },
@@ -91,10 +91,10 @@ export default {
     };
   },
   watch: {
-    'Params.Param.MasterID': {
+    'params.Param.MasterID': {
       handler() {
         this.$nextTick(() => {
-          this.fetchData_File(this.Params.Param);
+          this.fetchData_File(this.params.Param);
         });
       },
       immediate: true,
@@ -111,12 +111,12 @@ export default {
         type: 'warning',
       }).then(() => {
         deletefile(id).then(() => {
-          this.fetchData_File(this.Params.Param);
+          this.fetchData_File(this.params.Param);
         });
       });
     },
     uploadSuccess() {
-      this.fetchData_File(this.Params.Param);
+      this.fetchData_File(this.params.Param);
       this.$refs.upload.clearFiles();
     },
     fetchData_File(param) {

@@ -99,10 +99,6 @@ export default {
       default: () => ({}),
     },
   },
-  data() {
-    return {
-    };
-  },
   methods: {
     emitEvent(...args) {
       this.$emit(args[0], ...Array.from(args).slice(1));
@@ -115,7 +111,6 @@ export default {
       this.listQuery.pageNumber = val;
       this.$emit('handleCurrentChange', this.listQuery);
     },
-
   },
 };
 </script>

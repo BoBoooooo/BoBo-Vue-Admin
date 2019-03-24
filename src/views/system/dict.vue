@@ -48,7 +48,7 @@
       <el-col :span="16">
         <crud-table
           tableName="dict"
-          :asyncCondition="asyncCondition"
+          :tableParams="tableParams"
           class="no-boxshadow no-padding-top"
           toolbarButton="add,clear"
           handleButton="edit,delete"
@@ -128,9 +128,7 @@ export default {
         sort: '',
         pid: '',
       },
-      asyncCondition: {
-        searchKey: '',
-        searchValue: '',
+      tableParams: {
       },
       dialogStatus: '',
       defaultProps: {
@@ -179,9 +177,9 @@ export default {
     },
 
     treeClick(data) {
-      console.log(data);
-      this.asyncCondition.searchKey = 'dictid';
-      this.asyncCondition.searchValue = data.id;
+      this.tableParams = {
+        dictid: data.id,
+      };
     },
     Edit(id) {
       GetDictTypeDetail(id).then((response) => {
