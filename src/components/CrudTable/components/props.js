@@ -45,4 +45,9 @@ export default {
     type: Object,
     default: () => ({}),
   },
+  // 表单元素只读控制
+  setReadOnly: {
+    type: Object,
+    default: null,
+  },
 };

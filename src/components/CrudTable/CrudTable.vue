@@ -49,7 +49,7 @@
 
     <GenerateFormDialog
     :dialogFormVisible.sync="dialogFormVisible"
-    :disabled="disabled"
+    :setReadOnly="setReadOnly"
     :tableName="tableName"
     :dialogStatus="dialogStatus"
     :formValues="formValues"

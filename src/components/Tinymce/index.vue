@@ -37,6 +37,10 @@ export default {
       type: String,
       default: 'file edit insert view format table',
     },
+    readonly: {
+      type: Boolean,
+      default: false,
+    },
     height: {
       type: Number,
       required: false,
@@ -95,6 +99,7 @@ export default {
         toolbar: this.toolbar.length > 0 ? this.toolbar : toolbar,
         menubar: this.menubar,
         plugins,
+        readonly: this.readonly,
         end_container_on_empty_block: true,
         powerpaste_word_import: 'clean',
         code_dialog_height: 450,

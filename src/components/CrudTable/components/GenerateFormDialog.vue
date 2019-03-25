@@ -19,7 +19,7 @@
         :data="jsonData"
         :value="formValues"
         :entity.sync="models"
-        :disabled="disabled"
+        :setReadOnly="setReadOnly"
         :remote="remoteFunctions"
       />
       <div slot="footer" class="dialog-footer">
@@ -73,10 +73,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
     tableName: String,
     dialogStatus: String,
     formValues: {
@@ -86,6 +82,11 @@ export default {
     remoteFunctions: {
       type: Object,
       default: () => ({}),
+    },
+    // 表单元素只读控制
+    setReadOnly: {
+      type: Object,
+      default: null,
     },
   },
 

@@ -74,7 +74,7 @@ export default {
   components: {
     GenerateFormItem,
   },
-  props: ['data', 'value', 'disabled', 'clear', 'remote', 'entity'],
+  props: ['data', 'value', 'setReadOnly', 'clear', 'remote', 'entity'],
   // data 初始化表单
   // value 表单赋值
   // clear 清空表单
@@ -103,8 +103,30 @@ export default {
   },
   created() {
     this.generateModle(this.data.list);
+    this.setReadonly(this.data.list);
   },
   methods: {
+    setReadonly(genList) {
+      // 遍历设计的结构
+      for (let i = 0; i < genList.length; i += 1) {
+        if (genList[i].type === 'grid') {
+          genList[i].columns.forEach((item) => {
+            this.setReadonly(item.list);
+          });
+        } else {
+          const { whiteList, blackList } = this.setReadOnly;
+          const row = genList[i];
+          // 默认空对象 代表全部只读
+          if (whiteList === undefined && blackList === undefined) {
+            row.options.disabled = true;
+          } else if (blackList && !blackList.includes(row.model)) {
+            row.options.disabled = true;
+          } else if (whiteList && whiteList.includes(row.model)) {
+            row.options.disabled = true;
+          }
+        }
+      }
+    },
     generateModle(genList) {
       for (let i = 0; i < genList.length; i++) {
         if (genList[i].type === 'grid') {

@@ -1,6 +1,6 @@
 <template>
  <div>
-<CrudTable tableName="person" toolbarButton="clear,search" handleButton="detail" disabled></CrudTable>
+<CrudTable tableName="person" toolbarButton="clear,search" handleButton="detail" :setReadOnly="{}"></CrudTable>
  </div>
 </template>
 <script>

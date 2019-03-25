@@ -8,6 +8,8 @@ export const basicComponents = [
       width: '100%',
       defaultValue: '',
       required: false,
+      disabled: false,
+
       dataType: 'string',
       pattern: '',
       placeholder: '',
@@ -50,6 +52,7 @@ export const basicComponents = [
     icon: 'regular/dot-circle',
     hidden: false,
     options: {
+      disabled: false,
       inline: false,
       defaultValue: '',
       showLabel: false,
@@ -82,6 +85,8 @@ export const basicComponents = [
     options: {
       inline: false,
       defaultValue: [],
+      disabled: false,
+
       showLabel: false,
       options: [
         {
@@ -255,6 +260,7 @@ export const advanceComponents = [
     hidden: false,
     options: {
       defaultValue: '',
+      readonly: false,
 
     },
   },
