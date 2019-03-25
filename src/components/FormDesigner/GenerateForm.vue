@@ -67,6 +67,7 @@
 
 <script>
 // 常规组件
+
 import GenerateFormItem from './GenerateFormItem';
 
 export default {
@@ -108,21 +109,23 @@ export default {
   methods: {
     setReadonly(genList) {
       // 遍历设计的结构
-      for (let i = 0; i < genList.length; i += 1) {
-        if (genList[i].type === 'grid') {
-          genList[i].columns.forEach((item) => {
-            this.setReadonly(item.list);
-          });
-        } else {
-          const { whiteList, blackList } = this.setReadOnly;
-          const row = genList[i];
-          // 默认空对象 代表全部只读
-          if (whiteList === undefined && blackList === undefined) {
-            row.options.disabled = true;
-          } else if (blackList && !blackList.includes(row.model)) {
-            row.options.disabled = true;
-          } else if (whiteList && whiteList.includes(row.model)) {
-            row.options.disabled = true;
+      if (this.setReadonly) {
+        for (let i = 0; i < genList.length; i += 1) {
+          if (genList[i].type === 'grid') {
+            genList[i].columns.forEach((item) => {
+              this.setReadonly(item.list);
+            });
+          } else {
+            const { whiteList, blackList } = this.setReadOnly;
+            const row = genList[i];
+            // 默认空对象 代表全部只读
+            if (whiteList === undefined && blackList === undefined) {
+              row.options.disabled = true;
+            } else if (blackList && !blackList.includes(row.model)) {
+              row.options.disabled = true;
+            } else if (whiteList && whiteList.includes(row.model)) {
+              row.options.disabled = true;
+            }
           }
         }
       }
