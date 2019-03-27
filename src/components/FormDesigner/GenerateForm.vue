@@ -104,27 +104,48 @@ export default {
   },
   created() {
     this.generateModle(this.data.list);
-    this.setReadonly(this.data.list);
+    this.setFormReadOnly(this.data.list);
+    this.setHidden(this.data.list);
   },
   methods: {
-    setReadonly(genList) {
+    // 设置只读
+    setFormReadOnly(genList) {
       // 遍历设计的结构
-      if (this.setReadonly) {
+      if (this.setReadOnly) {
         for (let i = 0; i < genList.length; i += 1) {
           if (genList[i].type === 'grid') {
             genList[i].columns.forEach((item) => {
-              this.setReadonly(item.list);
+              this.setFormReadOnly(item.list);
             });
           } else {
             const { whiteList, blackList } = this.setReadOnly;
             const row = genList[i];
             // 默认空对象 代表全部只读
-            if (whiteList === undefined && blackList === undefined) {
+            if (whiteList == null && blackList == null) {
               row.options.disabled = true;
             } else if (blackList && !blackList.includes(row.model)) {
               row.options.disabled = true;
             } else if (whiteList && whiteList.includes(row.model)) {
               row.options.disabled = true;
+            }
+          }
+        }
+      }
+    },
+    // 设置隐藏
+    setFormHidden(genList) {
+      // 遍历设计的结构
+      if (this.setHidden) {
+        for (let i = 0; i < genList.length; i += 1) {
+          if (genList[i].type === 'grid') {
+            genList[i].columns.forEach((item) => {
+              this.setFormHidden(item.list);
+            });
+          } else {
+            const row = genList[i];
+            // 默认空对象 代表全部只读
+            if (this.setHidden.includes(row.model)) {
+              row.hidden = true;
             }
           }
         }
@@ -142,8 +163,6 @@ export default {
           } else {
             this.models[genList[i].model] = genList[i].options.defaultValue;
           }
-
-
           if (this.rules[genList[i].model]) {
             this.rules[genList[i].model] = [
               ...this.rules[genList[i].model],
@@ -166,7 +185,6 @@ export default {
         });
       });
     },
-
   },
 };
 </script>
