@@ -25,7 +25,8 @@
                 <el-form-item v-if="citem.type=='blank'"
                               :label="citem.name"
                               :prop="citem.model"
-                              :key="citem.key">
+                              :key="citem.key"
+                               v-show="!citem.hidden">>
                   <slot :name="citem.model"
                         :model="models"></slot>
                 </el-form-item>
@@ -44,7 +45,8 @@
         <template v-else-if="item.type === 'blank'">
             <el-form-item :label="item.name"
                           :prop="item.model"
-                          :key="item.key">
+                          :key="item.key"
+                           v-show="!item.hidden">>
               <slot :name="item.model"
                         :model="models"></slot>
             </el-form-item>
@@ -75,7 +77,7 @@ export default {
   components: {
     GenerateFormItem,
   },
-  props: ['data', 'value', 'setReadOnly', 'clear', 'remote', 'entity'],
+  props: ['data', 'value', 'setReadOnly', 'clear', 'remote', 'setHidden', 'entity'],
   // data 初始化表单
   // value 表单赋值
   // clear 清空表单
