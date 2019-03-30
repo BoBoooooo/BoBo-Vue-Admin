@@ -172,24 +172,15 @@ export default {
     },
     formValueToArray() {
       // 如果select,radio,checkbox等组件为多选情况  后台返回逗号分隔字符串 => 数组
-      for (const row of this.jsonData.list) {
-        if (row.columns) {
-          for (const column of row.columns) {
-            const { list } = column;
-            if (Array.isArray(list)) {
-              list.forEach((citem) => {
-                if (citem.options.multiple) {
-                  if (!Array.isArray(this.formValues[citem.model])
-                      && this.formValues[citem.model]) {
-                    this.formValues[citem.model] = this.formValues[citem.model].split(',');
-                  }
-                }
-              });
-            }
-          }
-        } else if (row.options.multiple) {
-          if (!Array.isArray(this.formValues[row.model])
-                      && this.formValues[row.model]) {
+      const genList = this.jsondata.list
+      for (let i = 0; i < genList.length; i += 1) {
+        if (genList[i].type === 'grid') {
+          genList[i].columns.forEach((item) => {
+            this.formValueToArray(item.list);
+          });
+        } else {
+          const row = genList[i]
+          if (!Array.isArray(this.formValues[row.model])) {
             this.formValues[row.model] = this.formValues[row.model].split(',');
           }
         }
