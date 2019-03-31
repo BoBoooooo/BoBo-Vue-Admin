@@ -32,11 +32,11 @@
     "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.1.1",
-    "@vue/cli-plugin-e2e-cypress": "^3.1.1",
-    "@vue/cli-plugin-eslint": "^3.1.1",
-    "@vue/cli-plugin-unit-mocha": "^3.1.1",
-    "@vue/cli-service": "^3.1.1",
+    "@vue/cli-plugin-babel": "^3.3.0",
+    "@vue/cli-plugin-e2e-cypress": "^3.3.0",
+    "@vue/cli-plugin-eslint": "^3.3.0",
+    "@vue/cli-plugin-unit-mocha": "^3.3.0",
+    "@vue/cli-service": "^3.3.0",
     "@vue/eslint-config-airbnb": "^4.0.0",
     "@vue/test-utils": "^1.0.0-beta.20",
     "babel-eslint": "^10.0.1",
