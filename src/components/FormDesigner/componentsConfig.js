@@ -250,6 +250,7 @@ export const advanceComponents = [
           Type: '',
         },
       },
+      readonly: false,
     },
   },
 

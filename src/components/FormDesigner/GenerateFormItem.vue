@@ -30,15 +30,13 @@
       <el-input-number v-model="widget.options.defaultValue"
                        :style="{width: widget.options.width}"
                        :step="widget.options.step"
-                                              :disabled="widget.options.disabled"
-
+                       :disabled="widget.options.disabled"
                        controls-position="right" />
     </template>
 
     <template v-if="widget.type == 'radio'">
       <el-radio-group v-model="dataModel"
-                             :disabled="widget.options.disabled"
-
+                      :disabled="widget.options.disabled"
                       :style="{width: widget.options.width}">
         <el-radio v-for="(item, index) in (widget.options.remote ? widget.options.remoteOptions : widget.options.options)"
                   :style="{display: widget.options.inline ? 'inline-block' : 'block'}"
@@ -52,8 +50,7 @@
 
     <template v-if="widget.type == 'checkbox'">
       <el-checkbox-group v-model="dataModel"
-                             :disabled="widget.options.disabled"
-
+                         :disabled="widget.options.disabled"
                          :style="{width: widget.options.width}">
         <el-checkbox v-for="(item, index) in (widget.options.remote ? widget.options.remoteOptions : widget.options.options)"
                      :style="{display: widget.options.inline ? 'inline-block' : 'block'}"
@@ -146,7 +143,7 @@
     </template>
     <template v-if="widget.type == 'upload'">
       <upload-affix :params="widget.options.uploadParams"
-                    :disabled="disabled" />
+                    :readonly="widget.options.readonly" />
     </template>
 
   </el-form-item>

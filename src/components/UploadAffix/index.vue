@@ -1,7 +1,7 @@
 <template>
   <div class="upload-container">
     <el-upload
-      v-if="!disabled"
+      v-if="!readonly"
       ref="upload"
       :action="baseUrl"
       :data="params['Param']"
@@ -52,7 +52,7 @@
           >下载</v-btn>
 
           <v-btn
-      v-if="!disabled"
+      v-if="!readonly"
             color="red"
             @click="delete_file(scope.row.id)"
           >删除</v-btn>
@@ -75,7 +75,7 @@ export default {
       type: Object, //  IsDetail true则   只显示文件list以及download button
       default: () => ({}),
     },
-    disabled: {
+    readonly: {
       type: Boolean,
       default: false,
     },

@@ -154,12 +154,11 @@ export default {
             const { whiteList, blackList } = this.setReadOnly;
             const row = genList[i];
             // 默认空对象 代表全部只读
-            if (whiteList == null && blackList == null) {
+            if ((whiteList == null && blackList == null)
+            || (blackList && !blackList.includes(row.model))
+            || (whiteList && whiteList.includes(row.model))) {
               row.options.disabled = true;
-            } else if (blackList && !blackList.includes(row.model)) {
-              row.options.disabled = true;
-            } else if (whiteList && whiteList.includes(row.model)) {
-              row.options.disabled = true;
+              row.options.readonly = true;
             }
           }
         }
