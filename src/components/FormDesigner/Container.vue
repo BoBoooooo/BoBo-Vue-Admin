@@ -320,9 +320,7 @@ export default {
           labelWidth: 100,
           labelPosition: 'left',
           columnList: [],
-
         },
-
       },
       tabVisible: false,
       configTab: 'formcontainer',
@@ -369,9 +367,6 @@ export default {
       this.tablelist = res.data;
     });
   },
-  mounted() {
-
-  },
   methods: {
 
     handleConfigSelect(value) {
@@ -409,7 +404,7 @@ export default {
         const btnCopy = new Clipboard('#copybtn')
       })
     },
-    save() {
+    async save() {
       const json = this.widgetForm
       const obj = {
         id: this.ID,
@@ -417,10 +412,9 @@ export default {
         formJson: json,
       };
       if (this.IsNew) {
-        AddForm().then(() => {
-          this.IsNew = false;
-        })
-      } else UpdateForm(obj);
+        await AddForm()
+        this.IsNew = false;
+      } else { await UpdateForm(obj); }
 
       this.dialogFormVisible = false;
     },
