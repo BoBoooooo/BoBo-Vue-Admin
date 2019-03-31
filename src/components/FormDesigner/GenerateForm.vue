@@ -74,10 +74,45 @@ export default {
   components: {
     GenerateFormItem,
   },
-  props: ['data', 'value', 'setReadOnly', 'clear', 'remote', 'setHidden', 'entity'],
-  // data 初始化表单
-  // value 表单赋值
-  // clear 清空表单
+  props: {
+    // 表单配置Json
+    data: {
+      type: Object,
+      default: () => ({}),
+    },
+    // 表单初始值
+    value: {
+      type: Object,
+      default: () => ({}),
+    },
+    // 表单当前实时对象
+    entity: {
+      type: Object,
+      default: () => ({}),
+    },
+    /**
+     * 设置只读,默认Null为全部不只读,传{}为全部只读
+     * 以下是分别设置黑白名单
+     * {
+     *  whiteList:[],  //设置需要只读的
+     *  blackList:[]   //设置不需要只读的
+     * }
+     */
+    setReadOnly: {
+      type: Object,
+      default: null,
+    },
+    // 设置隐藏区域
+    setHidden: {
+      type: Array,
+      default: () => ([]),
+    },
+    // 远端数据
+    remote: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
   data() {
     return {
       models: {},
