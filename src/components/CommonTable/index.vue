@@ -18,7 +18,7 @@
       fit
       highlight-current-row
       @selection-change="selection => emitEvent('selection-change', selection)"
-      @row-click="(row, event, column) => emitEventHandler('row-click', row, event, column)"
+      @row-click="(row, event, column) => emitEvent('row-click', row, event, column)"
     >
      <el-table-column
         v-if="IsMultiple"

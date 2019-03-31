@@ -550,49 +550,46 @@ export default {
     },
   },
   watch: {
-    'data.options.isRange': function (val) {
+    'data.options.isRange': function watchIsRange(val) {
       if (typeof val !== 'undefined') {
         if (val) {
-          this.data.options.defaultValue = null
-        } else if (Object.keys(this.data.options).indexOf('defaultValue') >= 0) { this.data.options.defaultValue = '' }
+          this.data.options.defaultValue = null;
+        } else if (Object.keys(this.data.options).includes('defaultValue')) { this.data.options.defaultValue = ''; }
       }
     },
-    'data.options.required': function (val) {
+    'data.options.required': function watchRequired(val) {
       if (val) {
-        this.validator.required = { required: true, message: `${this.data.name}必须填写` }
+        this.validator.required = { required: true, message: `${this.data.name}必须填写` };
       } else {
-        this.validator.required = null
+        this.validator.required = null;
       }
-
       this.$nextTick(() => {
-        this.generateRule()
-      })
+        this.generateRule();
+      });
     },
-    'data.options.dataType': function (val) {
+    'data.options.dataType': function watchDataType(val) {
       if (!this.show) {
-        return false
+        return false;
       }
-
       if (val) {
-        this.validator.type = { type: val, message: `${this.data.name}格式不正确` }
+        this.validator.type = { type: val, message: `${this.data.name}格式不正确` };
       } else {
-        this.validator.type = null
+        this.validator.type = null;
       }
-
-      this.generateRule()
+      this.generateRule();
+      return null;
     },
-    'data.options.pattern': function (val) {
+    'data.options.pattern': function watchPattern(val) {
       if (!this.show) {
-        return false
+        return false;
       }
-
       if (val) {
-        this.validator.pattern = { pattern: eval(val), message: `${this.data.name}格式不匹配` }
+        this.validator.pattern = { pattern: val, message: `${this.data.name}格式不匹配` };
       } else {
-        this.validator.pattern = null
+        this.validator.pattern = null;
       }
-
-      this.generateRule()
+      this.generateRule();
+      return null;
     },
   },
   methods: {
@@ -637,7 +634,7 @@ export default {
           this.data.options.defaultValue = []
         }
       } else if (this.data.options.defaultValue.length > 0) {
-        this.data.options.defaultValue = this.data.options.defaultValue[0]
+        [this.data.options.defaultValue] = this.data.options.defaultValue;
       } else {
         this.data.options.defaultValue = ''
       }

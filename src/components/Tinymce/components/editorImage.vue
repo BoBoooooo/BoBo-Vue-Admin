@@ -55,7 +55,7 @@ export default {
       this.dialogVisible = false
     },
     handleSuccess(response, file) {
-      const uid = file.uid
+      const { uid } = file
       const objKeyArr = Object.keys(this.listObj)
       for (let i = 0, len = objKeyArr.length; i < len; i++) {
         if (this.listObj[objKeyArr[i]].uid === uid) {
@@ -66,7 +66,7 @@ export default {
       }
     },
     handleRemove(file) {
-      const uid = file.uid
+      const { uid } = file
       const objKeyArr = Object.keys(this.listObj)
       for (let i = 0, len = objKeyArr.length; i < len; i++) {
         if (this.listObj[objKeyArr[i]].uid === uid) {
@@ -80,10 +80,10 @@ export default {
       const _URL = window.URL || window.webkitURL
       const fileName = file.uid
       this.listObj[fileName] = {}
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         const img = new Image()
         img.src = _URL.createObjectURL(file)
-        img.onload = function () {
+        img.onload = function onload() {
           _self.listObj[fileName] = {
             hasSuccess: false, uid: file.uid, width: this.width, height: this.height,
           }

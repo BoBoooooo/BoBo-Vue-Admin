@@ -26,7 +26,7 @@
       @handleSizeChange="Refresh"
       :handleButton="handleButton"
       @selection-change="selection => emitEvent('selection-change', selection)"
-      @row-click="(row, event, column) => emitEventHandler('row-click', row, event, column)"
+      @row-click="(row, event, column) => emitEvent('row-click', row, event, column)"
     >
       <template slot="handleButton" slot-scope="scope">
         <v-btn
@@ -170,9 +170,8 @@ export default {
     Refresh() {
       this.fetchData(this.listQuery);
     },
-    formValueToArray() {
+    formValueToArray(genList) {
       // 如果select,radio,checkbox等组件为多选情况  后台返回逗号分隔字符串 => 数组
-      const genList = this.jsondata.list
       for (let i = 0; i < genList.length; i += 1) {
         if (genList[i].type === 'grid') {
           genList[i].columns.forEach((item) => {
@@ -180,7 +179,7 @@ export default {
           });
         } else {
           const row = genList[i]
-          if (!Array.isArray(this.formValues[row.model])) {
+          if (row.options.multiple && this.formValues[row.model]) {
             this.formValues[row.model] = this.formValues[row.model].split(',');
           }
         }
@@ -229,16 +228,15 @@ export default {
       this.dialogStatus = 'update';
       const response = await this.crud('detail', this.tableName, { id });
       this.formValues = response.data;
-      this.formValueToArray()
+      this.formValueToArray(this.jsonData.list)
       this.dialogFormVisible = true;
     },
     async Detail(id) {
       this.dialogStatus = 'detail';
       const response = await this.crud('detail', this.tableName, { id });
       this.formValues = response.data;
-      this.formValueToArray()
+      this.formValueToArray(this.jsonData.list)
       this.dialogFormVisible = true;
-      this.disabled = true
     },
   },
 }

@@ -2,7 +2,6 @@
   <div>
     <el-form
       ref="generateForm"
-      :disabled="disabled"
       :model="models"
       :rules="rules"
       :label-position="data.config.labelPosition"
@@ -36,7 +35,6 @@
                                   :remote="remote"
                                   :rules="rules"
                                   :widget="citem"
-                                  :disabled="disabled"
                                   v-show="!item.hidden"></GenerateFormItem>
               </template>
             </el-col>
@@ -58,7 +56,6 @@
                             :rules="rules"
                             :widget="item"
                             :remote="remote"
-                            :disabled="disabled"
                             v-show="!item.hidden"></GenerateFormItem>
         </template>
 
@@ -81,7 +78,6 @@ export default {
   // data 初始化表单
   // value 表单赋值
   // clear 清空表单
-  // disabled 表单只读
   data() {
     return {
       models: {},
@@ -107,7 +103,7 @@ export default {
   created() {
     this.generateModle(this.data.list);
     this.setFormReadOnly(this.data.list);
-    this.setHidden(this.data.list);
+    this.setFormHidden(this.data.list);
   },
   methods: {
     // 设置只读

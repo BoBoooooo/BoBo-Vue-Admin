@@ -6,10 +6,7 @@
  */
 
 export default {
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
+
   tableName: String,
   showPagination: {
     type: Boolean,
@@ -49,5 +46,10 @@ export default {
   setReadOnly: {
     type: Object,
     default: null,
+  },
+  // 表单元素隐藏控制
+  setHidden: {
+    type: Array,
+    default: () => ([]),
   },
 };
