@@ -5,59 +5,57 @@
  * 基于CommonTable以及CommonToolbar二次封装一个增删改查table
  -->
 <template>
-  <div id="crud_table" class="widget-box">
-    <CommonToolBar
-      :optionJson="jsonData.config.columnList"
-      :searchArr="listQuery.searchArr.filter(item=>item.hidden===false)"
-      @addEvent="New"
-      @searchEvent="Refresh"
-      @clearEvent="Clear"
-      :toolbarButton="toolbarButton"
-    />
+  <div id="crud_table"
+       class="widget-box">
+    <CommonToolBar :optionJson="jsonData.config.columnList"
+                   :searchArr="listQuery.searchArr.filter(item=>item.hidden===false)"
+                   @addEvent="New"
+                   @searchEvent="Refresh"
+                   @clearEvent="Clear"
+                   :toolbarButton="toolbarButton" />
 
-    <CommonTable
-      :list="list"
-      :tableJson="jsonData.config.columnList"
-      :listQuery="listQuery"
-      :list-loading="listLoading"
-      :IsMultiple="IsMultiple"
-      :showPagination="showPagination"
-      @handleCurrentChange="Refresh"
-      @handleSizeChange="Refresh"
-      :handleButton="handleButton"
-      @selection-change="selection => emitEvent('selection-change', selection)"
-      @row-click="(row, event, column) => emitEvent('row-click', row, event, column)"
-    >
-      <template slot="handleButton" slot-scope="scope">
-        <v-btn
-          :key="index"
-          :color="btn.color"
-          v-for="(btn,index) in getShowButton"
-          small
-          dark
-          @click.stop="handleOperation(btn.Fun,scope.row.id)"
-        >
+    <CommonTable :list="list"
+                 :tableJson="jsonData.config.columnList"
+                 :listQuery="listQuery"
+                 :list-loading="listLoading"
+                 :IsMultiple="IsMultiple"
+                 :showPagination="showPagination"
+                 @handleCurrentChange="Refresh"
+                 @handleSizeChange="Refresh"
+                 :handleButton="handleButton"
+                 @selection-change="selection => emitEvent('selection-change', selection)"
+                 @row-click="(row, event, column) => emitEvent('row-click', row, event, column)">
+      <template slot="handleButton"
+                slot-scope="scope">
+        <v-btn :key="index"
+               :color="btn.color"
+               v-for="(btn,index) in getShowButton"
+               small
+               dark
+               @click.stop="handleOperation(btn.Fun,scope.row.id)">
           {{btn.label}}
           <v-icon>{{btn.icon}}</v-icon>
         </v-btn>
-        <slot name="customButton" :row="scope.row"></slot>
+        <slot name="customButton"
+              :row="scope.row"></slot>
       </template>
-      <template slot="formatter" slot-scope="scope">
-        <slot name="formatter" :row="scope.row" :prop="scope.prop"></slot>
+      <template slot="formatter"
+                slot-scope="scope">
+        <slot name="formatter"
+              :row="scope.row"
+              :prop="scope.prop"></slot>
       </template>
     </CommonTable>
 
-    <GenerateFormDialog
-    :dialogFormVisible.sync="dialogFormVisible"
-    :setReadOnly="setReadOnly"
-    :tableName="tableName"
-    :dialogStatus="dialogStatus"
-    :formValues="formValues"
-    @afterSave="Refresh"
-    :jsonData="jsonData"
-    :entity.sync="models"
-    :remoteFunctions="remoteFunctions"
-    >
+    <GenerateFormDialog :dialogFormVisible.sync="dialogFormVisible"
+                        :setReadOnly="setReadOnly"
+                        :tableName="tableName"
+                        :dialogStatus="dialogStatus"
+                        :formValues="formValues"
+                        @afterSave="Refresh"
+                        :jsonData="jsonData"
+                        :entity.sync="models"
+                        :remoteFunctions="remoteFunctions">
     </GenerateFormDialog>
   </div>
 </template>
@@ -65,7 +63,7 @@
 <script>
 import operation from './components/handleButton.js';
 import props from './components/props.js';
-import GenerateFormDialog from './components/GenerateFormDialog.vue'
+import GenerateFormDialog from './components/GenerateFormDialog.vue';
 import CommonTable from '@/components/CommonTable';
 import CommonToolBar from '@/components/CommonToolBar';
 // eslint-disable-next-line import/named
@@ -118,15 +116,15 @@ export default {
             SearchOperator: '',
             hidden: false,
           },
-        ]
+        ];
         Object.keys(val).forEach((k) => {
           this.listQuery.searchArr.push({
             SearchKey: k,
             SearchValue: val[k],
             SearchOperator: '=',
             hidden: true,
-          })
-        })
+          });
+        });
         this.Refresh();
       },
     },
@@ -156,14 +154,13 @@ export default {
           SearchValue: this.tableParams[k],
           SearchOperator: '=',
           hidden: true,
-        })
-      })
+        });
+      });
     }
     this.fetchData(this.listQuery);
   },
 
   methods: {
-
     emitEvent(...args) {
       this.$emit(args[0], ...Array.from(args).slice(1));
     },
@@ -178,7 +175,7 @@ export default {
             this.formValueToArray(item.list);
           });
         } else {
-          const row = genList[i]
+          const row = genList[i];
           if (row.options.multiple && this.formValues[row.model]) {
             this.formValues[row.model] = this.formValues[row.model].split(',');
           }
@@ -186,7 +183,9 @@ export default {
       }
     },
     async fetchData(params) {
-      const response = await this.crud('list', this.tableName, params);
+      const response = this.customForFetchData === null
+        ? await this.crud('list', this.tableName, params)
+        : await this.customForFetchData();
       this.list = response.data.list;
       this.listQuery.totalCount = response.total;
       this.listLoading = false;
@@ -194,13 +193,12 @@ export default {
     handleOperation(funcName, id) {
       this[funcName](id);
     },
-
     New() {
       this.dialogStatus = 'create';
       Object.keys(this.formValues).forEach((k) => {
         this.formValues[k] = '';
       });
-      this.formValues = { ...this.formValues, ...this.formDefaultValue }
+      this.formValues = { ...this.formValues, ...this.formDefaultValue };
       this.dialogFormVisible = true;
     },
     Delete(id) {
@@ -228,21 +226,21 @@ export default {
       this.dialogStatus = 'update';
       const response = await this.crud('detail', this.tableName, { id });
       this.formValues = response.data;
-      this.formValueToArray(this.jsonData.list)
+      this.formValueToArray(this.jsonData.list);
       this.dialogFormVisible = true;
     },
     async Detail(id) {
       this.dialogStatus = 'detail';
       const response = await this.crud('detail', this.tableName, { id });
       this.formValues = response.data;
-      this.formValueToArray(this.jsonData.list)
+      this.formValueToArray(this.jsonData.list);
       this.dialogFormVisible = true;
     },
   },
-}
+};
 </script>
 <style lang="scss" scoped>
-  .v-btn{
-    min-width:60px!important;
-  }
+.v-btn {
+  min-width: 60px !important;
+}
 </style>

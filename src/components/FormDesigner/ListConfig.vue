@@ -12,6 +12,7 @@
 
     <table class="listconfig_table">
       <thead>
+        <th>排序</th>
         <th>字段</th>
         <th>标题</th>
         <th>列宽</th>
@@ -29,6 +30,7 @@
                  element="tbody">
         <tr v-for="(item, index) in config.columnList"
             :key="index">
+            <td><i class="el-icon-sort"></i></td>
           <td>
             <el-select v-model="item.prop"
                        filterable

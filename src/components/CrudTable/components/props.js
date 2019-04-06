@@ -52,4 +52,19 @@ export default {
     type: Array,
     default: () => ([]),
   },
+  // 代理table请求方法
+  customForFetchData: {
+    type: Function,
+    default: null,
+  },
+  // 表格设计json
+  tableDesignerName: {
+    type: String,
+    default: null,
+  },
+  // Dialog内表单设计json
+  dialogFormDesignerName: {
+    type: String,
+    default: null,
+  },
 };
