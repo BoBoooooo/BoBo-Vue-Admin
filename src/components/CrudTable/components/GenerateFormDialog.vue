@@ -7,31 +7,32 @@
 
 <template>
 
-    <el-dialog
-      :title="textMap[dialogStatus]"
-      :visible.sync="visible"
-      v-if="visible"
-      width="80%"
-      @close="$emit('update:dialogFormVisible', false)"
-    >
-      <generate-form
-        ref="generateForm"
-        :data="jsonData"
-        :value="formValues"
-        :entity.sync="models"
-        :setReadOnly="setReadOnly"
-        :remote="remoteFunctions"
-      />
-      <div slot="footer" class="dialog-footer">
-        <template v-if="dialogStatus === 'detail'">
-          <v-btn @click="visible = false;$emit('update:dialogFormVisible', false)" color="white">关 闭</v-btn>
-        </template>
-        <template v-else>
-          <v-btn @click="visible = false;$emit('update:dialogFormVisible', false)" color="white">取 消</v-btn>
-          <v-btn color="blue" @click="save" style="color:white">保 存</v-btn>
-        </template>
-      </div>
-    </el-dialog>
+  <el-dialog :title="textMap[dialogStatus]"
+             :visible.sync="visible"
+             v-if="visible"
+             width="80%"
+             @close="$emit('update:dialogFormVisible', false)">
+    <generate-form ref="generateForm"
+                   :data="jsonData"
+                   :value="formValues"
+                   :entity.sync="models"
+                   :setReadOnly="setReadOnly"
+                   :remote="remoteFunctions" />
+    <div slot="footer"
+         class="dialog-footer">
+      <template v-if="dialogStatus === 'detail'">
+        <v-btn @click="visible = false;$emit('update:dialogFormVisible', false)"
+               color="white">关 闭</v-btn>
+      </template>
+      <template v-else>
+        <v-btn @click="visible = false;$emit('update:dialogFormVisible', false)"
+               color="white">取 消</v-btn>
+        <v-btn color="blue"
+               @click="save"
+               style="color:white">保 存</v-btn>
+      </template>
+    </div>
+  </el-dialog>
 </template>
 
 <script>
@@ -52,11 +53,9 @@ export default {
         create: '新增',
       },
       visible: this.dialogFormVisible,
-    }
+    };
   },
-  created() {
-
-  },
+  created() {},
   props: {
     entity: {
       type: Object,
@@ -97,7 +96,9 @@ export default {
         .getData()
         .then((data) => {
           if (this.dialogStatus === 'create') {
-            data = { ...data, id: newGuid() }
+            data = { ...data, id: newGuid() };
+          } else {
+            data = { ...this.formValues, ...data };
           }
           // 如果select,radio,checkbox等多选情况返回数组的话，默认拼接成逗号分隔的字符串传给后台
           Object.keys(data).forEach((k) => {
@@ -105,10 +106,14 @@ export default {
               data[k] = data[k].toString();
             }
           });
-          this.crud(this.dialogStatus === 'create' ? 'add' : 'update', this.tableName, data).then(() => {
+          this.crud(
+            this.dialogStatus === 'create' ? 'add' : 'update',
+            this.tableName,
+            data,
+          ).then(() => {
             this.visible = false;
             this.$emit('afterSave');
-            this.$emit('update:dialogFormVisible', false)
+            this.$emit('update:dialogFormVisible', false);
           });
         })
         .catch(() => {
@@ -128,13 +133,11 @@ export default {
       deep: true,
       immediate: true,
       handler(val) {
-        this.$emit('update:entity', val)
+        this.$emit('update:entity', val);
       },
     },
   },
-}
-
+};
 </script>
 <style lang="scss" scoped>
-
 </style>
