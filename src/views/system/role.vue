@@ -122,19 +122,16 @@ export default {
 
   created() {
     this.fetchData(this.listQuery);
-    const arr = [...asyncRouterMap]
-    arr.filter((item) => {
+    const arr = asyncRouterMap.map((item) => {
       if (item.children) {
         const obj = item.children;
-        obj.forEach((k) => {
-          k.title = k.meta.title;
-        });
+        for (const row of obj) {
+          row.title = row.meta.title;
+        }
       }
-      if (item.hidden) {
-        return false;
-      }
-      return true;
-    });
+      return item
+    }).filter(item => !item.hidden);
+
     this.menu = arr;
   },
   methods: {
