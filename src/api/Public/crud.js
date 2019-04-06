@@ -18,8 +18,8 @@ export default function (dml, tableName, data) {
     // 所有list接口后端使用实体类接收，需要保证结构
     options.data = {
       totalCount: null,
-      pageSize: 10,
-      pageNumber: 1,
+      pageSize: 0,
+      pageNumber: 0,
       searchArr: [
         {
           SearchKey: '',
