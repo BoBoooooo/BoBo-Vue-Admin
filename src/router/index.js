@@ -89,6 +89,14 @@ export const asyncRouterMap = [
       },
     },
     {
+      path: 'Count',
+      name: 'Count',
+      component: () => import('@/views/SIX/Count'),
+      meta: {
+        title: '工资统计',
+      },
+    },
+    {
       path: 'Notice',
       name: 'Notice',
       component: () => import('@/views/SIX/Notice'),
