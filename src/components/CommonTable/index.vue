@@ -9,62 +9,75 @@
  -->
 <template>
   <div>
-    <el-table
-      v-loading.body="listLoading"
-      :default-sort="{prop: 'name', order: 'descending'}"
-      :data="list"
-      element-loading-text="拼命加载中"
-      border
-      fit
-      highlight-current-row
-      @selection-change="selection => emitEvent('selection-change', selection)"
-      @row-click="(row, event, column) => emitEvent('row-click', row, event, column)"
-    >
-     <el-table-column
-        v-if="IsMultiple"
-        type="selection"
-        width="55">
+    <el-table v-loading.body="listLoading"
+              :default-sort="{prop: 'name', order: 'descending'}"
+              :data="list"
+              element-loading-text="拼命加载中"
+              border
+              fit
+              highlight-current-row
+              @select="(selection, row) => emitEventHandler('select', selection, row)"
+              @select-all="selection => emitEventHandler('select-all', selection)"
+              @selection-change="selection => emitEventHandler('selection-change', selection)"
+              @cell-mouse-enter="(row, column, cell, event) =>
+              emitEventHandler('cell-mouse-enter', row, column, cell, event)"
+              @cell-mouse-leave="(row, column, cell, event) =>
+              emitEventHandler('cell-mouse-leave', row, column, cell, event)"
+              @cell-click="(row, column, cell, event) =>
+              emitEventHandler('cell-click', row, column, cell, event)"
+              @cell-dblclick="(row, column, cell, event) =>
+              emitEventHandler('cell-dblclick', row, column, cell, event)"
+              @row-click="(row, event, column) => emitEventHandler('row-click', row, event, column)"
+              @row-dblclick="(row, event) => emitEventHandler('row-dblclick', row, event)"
+              @row-contextmenu="(row, event) => emitEventHandler('row-contextmenu', row, event)"
+              @header-click="(column, event) => emitEventHandler('header-click', column, event)"
+              @sort-change="args => sortChange(args)"
+              @filter-change="filters => emitEventHandler('filter-change', filters)"
+              @current-change="(currentRow, oldCurrentRow) =>
+              emitEventHandler('current-change', currentRow, oldCurrentRow)"
+              @header-dragend="(newWidth, oldWidth, column, event) =>
+              emitEventHandler('header-dragend', newWidth, oldWidth, column, event)"
+              @expand-change="(row, expanded) => emitEventHandler('expand-change', row, expanded)">
+      <el-table-column v-if="IsMultiple"
+                       type="selection"
+                       width="55">
       </el-table-column>
-      <el-table-column
-        v-for="(item,index) in tableJson"
-        :key="index"
-        :label="item.label"
-        :prop="item.prop||item.prop_more"
-        :align="item.align"
-        :sortable="item.sortable"
-        :width="item.width"
-        :min-width="item.min_width"
-        :header-align="item.header_align"
-        :show-overflow-tooltip="item.show_overflow_tooltip"
-      >
+      <el-table-column v-for="(item,index) in tableJson"
+                       :key="index"
+                       :label="item.label"
+                       :prop="item.prop||item.prop_more"
+                       :align="item.align"
+                       :sortable="item.sortable"
+                       :width="item.width"
+                       :min-width="item.min_width"
+                       :header-align="item.header_align"
+                       :show-overflow-tooltip="item.show_overflow_tooltip">
         <template slot-scope="scope">
-            <template v-if="item.slotName">
+          <template v-if="item.slotName">
             <slot :name="item.slotName"
                   :row="scope.row"
                   :prop="item.prop"
                   :$index="scope.$index" />
           </template>
-          <template  v-else>
+          <template v-else>
             <span>
-            {{ scope.row[item.prop] }}
-          </span>
+              {{ scope.row[item.prop] }}
+            </span>
 
           </template>
 
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination
-      v-if="showPagination"
-      :current-page="listQuery.pageNumber"
-      :page-size="listQuery.pageSize"
-      :total="listQuery.totalCount"
-      :page-sizes="[10, 20, 30]"
-      style="margin-top:5px"
-      layout="total,sizes, prev, pager, next"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-    />
+    <el-pagination v-if="showPagination"
+                   :current-page="listQuery.pageNumber"
+                   :page-size="listQuery.pageSize"
+                   :total="listQuery.totalCount"
+                   :page-sizes="[10, 20, 30]"
+                   style="margin-top:5px"
+                   layout="total,sizes, prev, pager, next"
+                   @size-change="handleSizeChange"
+                   @current-change="handleCurrentChange" />
   </div>
 </template>
 
