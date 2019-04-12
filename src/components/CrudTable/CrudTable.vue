@@ -106,6 +106,13 @@ export default {
     };
   },
   watch: {
+    list: {
+      immediate: true,
+      deep: true,
+      handler(val) {
+        this.$emit('update:tableList', val)
+      },
+    },
     tableParams: {
       deep: true,
       handler(val) {

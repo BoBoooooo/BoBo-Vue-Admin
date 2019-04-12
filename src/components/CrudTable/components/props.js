@@ -67,4 +67,8 @@ export default {
     type: String,
     default: null,
   },
+  tableList: {
+    type: Array,
+    default: () => [],
+  },
 };
