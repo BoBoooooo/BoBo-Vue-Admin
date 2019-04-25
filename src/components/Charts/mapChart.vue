@@ -1,7 +1,7 @@
 <!--
  * @Author: BoBo
  * @Date: 2019-01-04 17:53:03
- * @Description: 封装的一个基于echarts的饼图组件
+ * @Description: 封装的一个基于echarts的地图组件
 
   porps{
    className : 自定义容器css
@@ -23,10 +23,10 @@
 </template>
 
 <script>
-import echarts from 'echarts'
-import 'echarts/theme/macarons'
-import chartData from './data/Charts_Fake'
-import mapJson from './data/jiangsu.json'
+import echarts from 'echarts';
+import 'echarts/theme/macarons';
+import chartData from './data/Charts_Fake';
+import mapJson from './data/jiangsu.json';
 
 export default {
   props: {
@@ -63,39 +63,39 @@ export default {
       chart: null,
       chartData,
       mapJson,
-    }
+    };
   },
   computed: {
     legand() {
-      const arr = []
+      const arr = [];
       this.data.forEach((item) => {
-        arr.push(item.name)
-      })
-      return arr
+        arr.push(item.name);
+      });
+      return arr;
     },
   },
   mounted() {
-    this.initChart()
-    this.__resizeHanlder = () => {
+    this.initChart();
+    this.resizeHanlder = () => {
       if (this.chart) {
-        this.chart.resize()
+        this.chart.resize();
       }
-    }
-    window.addEventListener('resize', this.__resizeHanlder)
+    };
+    window.addEventListener('resize', this.resizeHanlder);
   },
   beforeDestroy() {
     if (!this.chart) {
-      return
+      return;
     }
-    window.removeEventListener('resize', this.__resizeHanlder)
-    this.chart.dispose()
-    this.chart = null
+    window.removeEventListener('resize', this.resizeHanlder);
+    this.chart.dispose();
+    this.chart = null;
   },
   methods: {
     initChart() {
       echarts.registerMap('jiangsu', this.mapJson);
 
-      this.chart = echarts.init(document.getElementById(this.id), 'macarons')
+      this.chart = echarts.init(document.getElementById(this.id), 'macarons');
 
 
       this.chart.setOption(
@@ -139,8 +139,8 @@ export default {
             top: 'top',
           },
         }, true,
-      )
+      );
     },
   },
-}
+};
 </script>

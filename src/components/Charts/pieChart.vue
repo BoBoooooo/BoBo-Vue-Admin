@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import echarts from 'echarts'
-import 'echarts/theme/macarons'
+import echarts from 'echarts';
+import 'echarts/theme/macarons';
 
 export default {
   props: {
@@ -59,40 +59,53 @@ export default {
   data() {
     return {
       chart: null,
-    }
+    };
   },
   computed: {
     legand() {
-      const arr = []
+      const arr = [];
       this.data.forEach((item) => {
-        arr.push(item.name)
-      })
-      return arr
+        arr.push(item.name);
+      });
+      return arr;
     },
   },
   mounted() {
-    this.initChart()
-    this.__resizeHanlder = () => {
+    this.initChart();
+    this.resizeHanlder = () => {
       if (this.chart) {
-        this.chart.resize()
+        this.chart.resize();
       }
-    }
-    window.addEventListener('resize', this.__resizeHanlder)
+    };
+    window.addEventListener('resize', this.resizeHanlder);
   },
   beforeDestroy() {
     if (!this.chart) {
-      return
+      return;
     }
-    window.removeEventListener('resize', this.__resizeHanlder)
-    this.chart.dispose()
-    this.chart = null
+    window.removeEventListener('resize', this.resizeHanlder);
+    this.chart.dispose();
+    this.chart = null;
   },
   methods: {
     initChart() {
-      this.chart = echarts.init(document.getElementById(this.id), 'macarons')
+      this.chart = echarts.init(document.getElementById(this.id));
 
 
       this.chart.setOption({
+        color: [
+          '#1890FF',
+          '#13C2C2',
+          '#2FC25B',
+          '#FACC14',
+          '#F04864',
+          '#8543E0',
+          '#CA8622',
+          '#CBB6B0',
+          '#6E7074',
+          '#C4CCD3',
+
+        ],
         title: {
           text: this.title,
           subtext: this.subtitle,
@@ -157,8 +170,8 @@ export default {
             },
           },
         ],
-      })
+      });
     },
   },
-}
+};
 </script>

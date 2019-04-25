@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import echarts from 'echarts'
-import 'echarts/theme/macarons'
+import echarts from 'echarts';
+import 'echarts/theme/macarons';
 
 export default {
   props: {
@@ -64,30 +64,30 @@ export default {
   data() {
     return {
       chart: null,
-    }
+    };
   },
 
   mounted() {
-    this.initChart()
-    this.__resizeHanlder = () => {
+    this.initChart();
+    this.resizeHanlder = () => {
       if (this.chart) {
-        this.chart.resize()
+        this.chart.resize();
       }
-    }
-    window.addEventListener('resize', this.__resizeHanlder)
+    };
+    window.addEventListener('resize', this.resizeHanlder);
   },
   beforeDestroy() {
     if (!this.chart) {
-      return
+      return;
     }
-    window.removeEventListener('resize', this.__resizeHanlder)
-    this.chart.dispose()
-    this.chart = null
+    window.removeEventListener('resize', this.resizeHanlder);
+    this.chart.dispose();
+    this.chart = null;
   },
 
   methods: {
     initChart() {
-      this.chart = echarts.init(document.getElementById(this.id), 'macarons')
+      this.chart = echarts.init(document.getElementById(this.id));
 
 
       this.chart.setOption({
@@ -165,8 +165,8 @@ export default {
           },
           data: this.data[1],
         }],
-      })
+      });
     },
   },
-}
+};
 </script>
