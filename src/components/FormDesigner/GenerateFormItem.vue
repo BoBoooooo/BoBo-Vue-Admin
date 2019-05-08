@@ -145,7 +145,16 @@
       <upload-affix :params="widget.options.uploadParams"
                     :readonly="widget.options.readonly" />
     </template>
+ <template v-if="widget.type == 'cascader'">
+      <el-cascader v-model="dataModel"
+                   :disabled="widget.options.disabled"
+                   :clearable="widget.options.clearable"
+                   :placeholder="widget.options.placeholder"
+                   :style="{width: widget.options.width}"
+                   :options="widget.options.remoteOptions">
 
+      </el-cascader>
+    </template>
   </el-form-item>
 </template>
 

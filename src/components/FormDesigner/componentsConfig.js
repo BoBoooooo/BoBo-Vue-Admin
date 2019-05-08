@@ -234,6 +234,27 @@ export const basicComponents = [
       width: '100%',
     },
   },
+  {
+    type: 'cascader',
+    name: '级联选择器',
+    icon: 'regular/caret-square-down',
+    hidden: false,
+    options: {
+      defaultValue: [],
+      width: '',
+      placeholder: '',
+      disabled: false,
+      clearable: false,
+      remote: 'dict',
+      remoteOptions: [],
+      props: {
+        value: 'value',
+        label: 'label',
+        children: 'children',
+      },
+      remoteFunc: '',
+    },
+  },
 ];
 
 export const advanceComponents = [
