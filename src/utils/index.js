@@ -97,3 +97,41 @@ export function deepClone(obj) {
   }
   return result;
 }
+
+/**
+ * 获取当前日期  2019年1月1日
+ */
+export function DateTimeNow() {
+  const date = new Date();
+  const Y = `${date.getFullYear()}年`;
+  const M = `${date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1}月`;
+  const D = `${date.getDate()}日`;
+  return Y + M + D;
+}
+
+/**
+ * yyyy-MM-dd HH:mm:ss 转 2019年1月1日
+ */
+export function DateTimeFormat(time) {
+  let date = time.split(' ')[0];
+  date = date.replace('-', '年');
+  date = date.replace('-', '月');
+  date += '日';
+  return date;
+}
+
+/**
+ * 时间戳转标准时间格式
+ * @param {String} timestamp 
+ */
+export function timestampToTime(timestamp) {
+  const date = new Date(timestamp); // 时间戳为10位需*1000，时间戳为13位的话不需乘1000
+  const Y = `${date.getFullYear()}-`;
+  const M = `${date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1}-`;
+  const D = `${date.getDate() + 1 < 10 ? `0${date.getDate() + 1}` : date.getDate() + 1}-`;
+  const h = `${date.getHours() + 1 < 10 ? `0${date.getHours() + 1}` : date.getHours() + 1}:`;
+  const m = `${date.getMinutes() + 1 < 10 ? `0${date.getMinutes() + 1}` : date.getMinutes() + 1}:`;
+  const s = date.getSeconds() + 1 < 10 ? `0${date.getSeconds() + 1}` : date.getSeconds() + 1;
+  console.log(Y + M + D + h + m + s);
+  return Y + M + D + h + m + s;
+}
