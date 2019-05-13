@@ -19,7 +19,6 @@
               class="widget-box"
               height="400px"
               width="100%"
-              id="chart0"
             />
           </el-col>
         </el-row>
@@ -31,7 +30,6 @@
               :data="chartData.ClueSource"
               class="widget-box"
               width="100%"
-              id="chart1"
             />
           </el-col>
 
@@ -41,7 +39,6 @@
               title="职务违法犯罪"
               :data="chartData.FilingChartData"
               width="100%"
-              id="chart2"
             />
           </el-col>
         </el-row>
@@ -53,7 +50,6 @@
               :data="chartData.six"
               class="widget-box"
               width="100%"
-              id="chart3"
             />
           </el-col>
 
@@ -63,7 +59,6 @@
               title="党纪处分"
               :data="chartData.PartyPunish"
               width="100%"
-              id="chart4"
             />
           </el-col>
         </el-row>

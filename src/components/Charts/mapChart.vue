@@ -18,7 +18,7 @@
 <template>
   <div
     :class="className"
-    :id="id"
+    ref="chart"
     :style="{height:height,width:width}"/>
 </template>
 
@@ -94,10 +94,7 @@ export default {
   methods: {
     initChart() {
       echarts.registerMap('jiangsu', this.mapJson);
-
-      this.chart = echarts.init(document.getElementById(this.id), 'macarons');
-
-
+      this.chart = echarts.init(this.$refs.chart);
       this.chart.setOption(
         {
           series: [{

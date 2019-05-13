@@ -18,7 +18,7 @@
 <template>
   <div
     :class="className"
-    :id="id"
+    ref="chart"
     :style="{height:height,width:width}"/>
 </template>
 
@@ -89,9 +89,7 @@ export default {
   },
   methods: {
     initChart() {
-      this.chart = echarts.init(document.getElementById(this.id));
-
-
+      this.chart = echarts.init(this.$refs.chart);
       this.chart.setOption({
         color: [
           '#1890FF',
