@@ -35,7 +35,7 @@
                                   :remote="remote"
                                   :rules="rules"
                                   :widget="citem"
-                                  v-show="!item.hidden"></GenerateFormItem>
+                                  v-show="!citem.hidden"></GenerateFormItem>
               </template>
             </el-col>
           </el-row>
