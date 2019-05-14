@@ -183,7 +183,7 @@ export default {
           });
         } else {
           const row = genList[i];
-          if (row.options.multiple && this.formValues[row.model]) {
+          if ((row.options.multiple || row.type === 'cascader') && this.formValues[row.model]) {
             this.formValues[row.model] = this.formValues[row.model].split(',');
           }
         }
