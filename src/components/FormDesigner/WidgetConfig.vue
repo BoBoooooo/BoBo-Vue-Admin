@@ -110,7 +110,8 @@
         />
       </el-form-item>
       <el-form-item
-        v-if="Object.keys(data.options).indexOf('options')>=0"
+        v-if="Object.keys(data.options).indexOf('options')>=0 ||
+          Object.keys(data.options).indexOf('remoteOptions')>=0"
         label="选项">
         <el-radio-group
           v-model="data.options.remote"

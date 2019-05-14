@@ -205,10 +205,14 @@ export default {
         if (remoteReq) {
           remoteReq().then((res) => {
             const response = res.data.list === null ? res.data : res.data.list;
-            this.widget.options.remoteOptions = response.map(item => ({
-              value: item[this.widget.options.props.value],
-              label: item[this.widget.options.props.label],
-            }));
+            if (this.widget.type === 'cascader') {
+              this.widget.options.remoteOptions = response;
+            } else {
+              this.widget.options.remoteOptions = response.map(item => ({
+                value: item[this.widget.options.props.value],
+                label: item[this.widget.options.props.label],
+              }));
+            }
           });
         }
       } else {
