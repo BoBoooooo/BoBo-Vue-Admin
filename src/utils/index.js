@@ -135,3 +135,37 @@ export function timestampToTime(timestamp) {
   console.log(Y + M + D + h + m + s);
   return Y + M + D + h + m + s;
 }
+
+
+/**
+ * 获取当前日期  2019年01月01日
+ */
+export function DateTimeNow() {
+  const date = new Date();
+  const Y = `${date.getFullYear()}年`;
+  const M = `${date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1}月`;
+  const D = `${date.getDate()}日`;
+  return Y + M + D;
+}
+
+/**
+ * 获取当前日期  2019-01-11
+ */
+export function DateTimeNowSplit() {
+  const date = new Date();
+  const Y = `${date.getFullYear()}-`;
+  const M = `${date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1}-`;
+  const D = `${date.getDate()}`;
+  return Y + M + D;
+}
+
+/**
+ * yyyy-MM-dd HH:mm:ss 转 2019年1月1日
+ */
+export function DateTimeFormat(time) {
+  let date = time.split(' ')[0];
+  date = date.replace('-', '年');
+  date = date.replace('-', '月');
+  date += '日';
+  return date;
+}
