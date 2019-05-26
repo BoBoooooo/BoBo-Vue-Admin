@@ -134,7 +134,7 @@ export const basicComponents = [
     icon: 'regular/calendar-alt',
     hidden: false,
     options: {
-      defaultValue: '',
+      defaultValue: false,
       readonly: false,
       disabled: false,
       editable: true,

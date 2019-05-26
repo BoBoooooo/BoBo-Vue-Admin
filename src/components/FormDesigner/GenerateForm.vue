@@ -68,6 +68,7 @@
 // 常规组件
 
 import GenerateFormItem from './GenerateFormItem';
+import { DateTimeNowSplit } from '@/utils/index';
 
 export default {
   name: 'FmGenerateForm',
@@ -201,7 +202,11 @@ export default {
               ...genList[i].rules,
             ];
           } else {
-            this.rules[genList[i].model] = [...genList[i].rules];
+            const config = genList[i];
+            // 如果时间选择器需要默认值,默认回填当前日期
+            if (config.type === 'date' && config.options.defaultValue) {
+              this.models[genList[i].model] = DateTimeNowSplit();
+            } else { this.models[genList[i].model] = genList[i].options.defaultValue; }
           }
         }
       }

@@ -276,9 +276,8 @@
           v-model="data.options.defaultValue"
           :show-alpha="data.options.showAlpha"
         />
-        <el-switch
-          v-if="data.type=='switch'"
-          v-model="data.options.defaultValue"/>
+        <el-switch v-if="data.type=='switch' || data.type == 'date'"
+                   v-model="data.options.defaultValue"></el-switch>
       </el-form-item>
 
       <template v-if="data.type == 'time' || data.type == 'date'">
