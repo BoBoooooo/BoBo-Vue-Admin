@@ -206,7 +206,15 @@ export default {
             // 如果时间选择器需要默认值,默认回填当前日期
             if (config.type === 'date' && config.options.defaultValue) {
               this.models[genList[i].model] = DateTimeNowSplit();
-            } else { this.models[genList[i].model] = genList[i].options.defaultValue; }
+            } else {
+              let { defaultValue } = genList[i].options;
+              // 如果默认值设置为$开头,则表示要读取vuex中的全局变量
+              // 如设置为 $deptname 则读取 this.$store.getters.deptname
+              if (defaultValue.includes('$')) {
+                defaultValue = this.$store.getters[defaultValue.replace('$', '')];
+              }
+              this.models[genList[i].model] = defaultValue;
+            }
           }
         }
       }
