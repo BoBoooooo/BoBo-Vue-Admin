@@ -82,7 +82,7 @@
           :step="1"/>
       </el-form-item>
       <el-form-item
-        v-if="data.type=='select'"
+        v-if="data.type=='select' || data.type === 'cascader'"
         label="是否多选">
         <el-switch
           v-model="data.options.multiple"

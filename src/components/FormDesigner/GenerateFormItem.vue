@@ -151,7 +151,9 @@
                    :clearable="widget.options.clearable"
                    :placeholder="widget.options.placeholder"
                    :style="{width: widget.options.width}"
-                   :options="widget.options.remoteOptions">
+                   :options="widget.options.remoteOptions"
+                  :props="{ multiple: widget.options.multiple }"
+>
 
       </el-cascader>
     </template>

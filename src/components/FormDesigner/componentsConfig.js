@@ -245,6 +245,7 @@ export const basicComponents = [
       placeholder: '',
       disabled: false,
       clearable: false,
+      multiple: false,
       remote: 'dict',
       remoteOptions: [],
       props: {
