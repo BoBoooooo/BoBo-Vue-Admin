@@ -210,7 +210,7 @@ export default {
               let { defaultValue } = genList[i].options;
               // 如果默认值设置为$开头,则表示要读取vuex中的全局变量
               // 如设置为 $deptname 则读取 this.$store.getters.deptname
-              if (defaultValue instanceof String && defaultValue.includes('$')) {
+              if (typeof (defaultValue) === 'string' && defaultValue.includes('$')) {
                 defaultValue = this.$store.getters[defaultValue.replace('$', '')];
               }
               this.models[genList[i].model] = defaultValue;
