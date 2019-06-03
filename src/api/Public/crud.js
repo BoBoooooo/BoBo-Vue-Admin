@@ -6,7 +6,7 @@
  */
 import axios from '@/utils/fetch';
 
-export default function (dml, tableName, data) {
+export default function (dml, tableName, data, params) {
   const options = {
     // url: `/${tableName.replace(/_/g, '/')}/${dml}`,
     url: `/${tableName}/${dml}`,
@@ -29,6 +29,7 @@ export default function (dml, tableName, data) {
       ],
       ...data,
     };
+    options.params = params;
   } else if ('add,update'.includes(dml)) {
     options.data = data;
   } else {
