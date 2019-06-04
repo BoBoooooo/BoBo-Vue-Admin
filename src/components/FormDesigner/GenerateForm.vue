@@ -185,22 +185,16 @@ export default {
       }
     },
     generateModle(genList) {
-      for (let i = 0; i < genList.length; i++) {
+      // 遍历设计的结构
+      for (let i = 0; i < genList.length; i += 1) {
         if (genList[i].type === 'grid') {
           genList[i].columns.forEach((item) => {
             this.generateModle(item.list);
           });
         } else {
-          if (Object.keys(this.value).indexOf(genList[i].model) >= 0) {
-            this.models[genList[i].model] = this.value[genList[i].model];
-          } else {
-            this.models[genList[i].model] = genList[i].options.defaultValue;
-          }
-          if (this.rules[genList[i].model]) {
-            this.rules[genList[i].model] = [
-              ...this.rules[genList[i].model],
-              ...genList[i].rules,
-            ];
+          // 如果是自定义组件,model值为slotName,不在model中赋属性值
+          if (Object.keys(this.value).indexOf(genList[i].model) >= 0 && genList[i].type !== 'blank') {
+            this.formValueToArray(genList[i]);
           } else {
             const config = genList[i];
             // 如果时间选择器需要默认值,默认回填当前日期
@@ -216,14 +210,44 @@ export default {
               this.models[genList[i].model] = defaultValue;
             }
           }
+          if (this.rules[genList[i].model]) {
+            this.rules[genList[i].model] = [
+              ...this.rules[genList[i].model],
+              ...genList[i].rules,
+            ];
+          } else {
+            this.rules[genList[i].model] = [...genList[i].rules];
+          }
         }
       }
     },
-    getData() {
+    /**
+     * 如果select,radio,checkbox等组件为多选情况  后台返回逗号分隔字符串 => 数组
+     * @param {String} 当前表单json.list
+     */
+    formValueToArray(row) {
+      if (row.options.multiple || row.type === 'cascader') {
+        this.models[row.model] = this.value[row.model].split(',');
+      } else {
+        this.models[row.model] = this.value[row.model];
+      }
+    },
+    // 多选情况下数组转字符串
+    formValueToString() {
+      const model = { ...this.models };
+      Object.keys(model).forEach((k) => {
+        if (Array.isArray(model[k])) {
+          model[k] = model[k].toString();
+        }
+      });
+      return model;
+    },
+    // 先验证再获取表单内容
+    getData(args) {
       return new Promise((resolve, reject) => {
         this.$refs.generateForm.validate((valid) => {
           if (valid) {
-            resolve(this.models);
+            resolve(this.formValueToString(), args);
           } else {
             reject(new Error('表单数据校验失败').message);
           }
