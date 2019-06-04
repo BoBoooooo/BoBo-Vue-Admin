@@ -174,21 +174,6 @@ export default {
     Refresh() {
       this.fetchData(this.listQuery);
     },
-    formValueToArray(genList) {
-      // 如果select,radio,checkbox等组件为多选情况  后台返回逗号分隔字符串 => 数组
-      for (let i = 0; i < genList.length; i += 1) {
-        if (genList[i].type === 'grid') {
-          genList[i].columns.forEach((item) => {
-            this.formValueToArray(item.list);
-          });
-        } else {
-          const row = genList[i];
-          if ((row.options.multiple || row.type === 'cascader') && this.formValues[row.model]) {
-            this.formValues[row.model] = this.formValues[row.model].split(',');
-          }
-        }
-      }
-    },
     async fetchData(params) {
       const response = this.customForFetchData === null
         ? await this.crud('list', this.tableName, params)
@@ -233,14 +218,12 @@ export default {
       this.dialogStatus = 'update';
       const response = await this.crud('detail', this.tableName, { id });
       this.formValues = response.data;
-      this.formValueToArray(this.jsonData.list);
       this.dialogFormVisible = true;
     },
     async Detail(id) {
       this.dialogStatus = 'detail';
       const response = await this.crud('detail', this.tableName, { id });
       this.formValues = response.data;
-      this.formValueToArray(this.jsonData.list);
       this.dialogFormVisible = true;
     },
   },

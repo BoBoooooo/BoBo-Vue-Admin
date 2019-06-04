@@ -100,12 +100,6 @@ export default {
           } else {
             data = { ...this.formValues, ...data };
           }
-          // 如果select,radio,checkbox等多选情况返回数组的话，默认拼接成逗号分隔的字符串传给后台
-          Object.keys(data).forEach((k) => {
-            if (Array.isArray(data[k])) {
-              data[k] = data[k].toString();
-            }
-          });
           this.crud(
             this.dialogStatus === 'create' ? 'add' : 'update',
             this.tableName,
