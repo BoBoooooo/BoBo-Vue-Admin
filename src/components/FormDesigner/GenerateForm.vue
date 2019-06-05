@@ -227,7 +227,9 @@ export default {
      */
     formValueToArray(row) {
       if (row.options.multiple || row.type === 'cascader') {
-        this.models[row.model] = this.value[row.model].split(',');
+        if (Array.isArray(this.value[row.model])) {
+          this.models[row.model] = this.value[row.model].split(',');
+        }
       } else {
         this.models[row.model] = this.value[row.model];
       }
