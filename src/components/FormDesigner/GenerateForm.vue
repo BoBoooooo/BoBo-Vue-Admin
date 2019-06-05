@@ -194,6 +194,11 @@ export default {
         } else {
           // 如果是自定义组件,model值为slotName,不在model中赋属性值
           if (Object.keys(this.value).indexOf(genList[i].model) >= 0 && genList[i].type !== 'blank') {
+            // 3.后端要求下拉列表传值时要同时给key和value，为了实现此需求的另外两处赋值在GenerateFormItem.vue中
+            if (genList[i].type === 'select') {
+              const dict = `${genList[i].model}dict`;
+              this.models[dict] = this.value[dict];
+            }
             this.formValueToArray(genList[i]);
           } else {
             const config = genList[i];
@@ -209,6 +214,10 @@ export default {
               }
               this.models[genList[i].model] = defaultValue;
             }
+            // 多选下拉框初始化需要为Array,故此处单独处理
+            if (genList[i].type === 'checkbox') {
+              this.models[genList[i].model] = [];
+            }
           }
           if (this.rules[genList[i].model]) {
             this.rules[genList[i].model] = [
@@ -221,13 +230,14 @@ export default {
         }
       }
     },
+
     /**
      * 如果select,radio,checkbox等组件为多选情况  后台返回逗号分隔字符串 => 数组
      * @param {String} 当前表单json.list
      */
     formValueToArray(row) {
-      if (row.options.multiple || row.type === 'cascader') {
-        if (Array.isArray(this.value[row.model])) {
+      if (row.options.multiple || row.type === 'cascader' || row.type === 'checkbox') {
+        if (this.value[row.model] != null && this.value[row.model] !== '') {
           this.models[row.model] = this.value[row.model].split(',');
         }
       } else {
