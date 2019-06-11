@@ -212,7 +212,7 @@ export default {
               if (typeof (defaultValue) === 'string' && defaultValue.includes('$')) {
                 defaultValue = this.$store.getters[defaultValue.replace('$', '')];
               }
-              this.models[genList[i].model] = defaultValue;
+              this.models[genList[i].model] = typeof (defaultValue) === 'boolean' ? '' : defaultValue;
             }
             // 多选下拉框初始化需要为Array,故此处单独处理
             if (genList[i].type === 'checkbox') {
