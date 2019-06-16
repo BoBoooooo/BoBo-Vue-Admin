@@ -261,6 +261,10 @@ export default {
           if (valid) {
             resolve(this.formValueToString(), args);
           } else {
+            setTimeout(() => {
+              const isError = document.getElementsByClassName('is-error');
+              isError[0].querySelector('input').focus();
+            }, 100);
             reject(new Error('表单数据校验失败').message);
           }
         });
