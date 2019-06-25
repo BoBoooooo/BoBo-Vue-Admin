@@ -199,25 +199,9 @@ export default {
               const dict = `${genList[i].model}dict`;
               this.models[dict] = this.value[dict];
             }
-            this.formValueToArray(genList[i]);
+            this.initFormValue(genList[i]);
           } else {
-            const config = genList[i];
-            // 如果时间选择器需要默认值,默认回填当前日期
-            if (config.type === 'date' && config.options.defaultValue) {
-              this.models[genList[i].model] = DateTimeNowSplit();
-            } else {
-              let { defaultValue } = genList[i].options;
-              // 如果默认值设置为$开头,则表示要读取vuex中的全局变量
-              // 如设置为 $deptname 则读取 this.$store.getters.deptname
-              if (typeof (defaultValue) === 'string' && defaultValue.includes('$')) {
-                defaultValue = this.$store.getters[defaultValue.replace('$', '')];
-              }
-              this.models[genList[i].model] = typeof (defaultValue) === 'boolean' ? '' : defaultValue;
-            }
-            // 多选下拉框初始化需要为Array,故此处单独处理
-            if (genList[i].type === 'checkbox') {
-              this.models[genList[i].model] = [];
-            }
+            this.setDefaultValue(genList[i]);
           }
           if (this.rules[genList[i].model]) {
             this.rules[genList[i].model] = [
@@ -233,13 +217,16 @@ export default {
 
     /**
      * 如果select,radio,checkbox等组件为多选情况  后台返回逗号分隔字符串 => 数组
+     * 如果 this.value为null 则会按默认值赋值相应字段
      * @param {String} 当前表单json.list
      */
-    formValueToArray(row) {
-      if (row.options.multiple || row.type === 'cascader' || row.type === 'checkbox') {
+    initFormValue(row) {
+      if (row.options.multiple || row.type === 'cascader') {
         if (this.value[row.model] != null && this.value[row.model] !== '') {
           this.models[row.model] = this.value[row.model].split(',');
         }
+      } else if (this.value[row.model] == null) {
+        this.setDefaultValue(row);
       } else {
         this.models[row.model] = this.value[row.model];
       }
@@ -254,6 +241,21 @@ export default {
       });
       return model;
     },
+    // 表单默认值回填单独拉出来封装
+    setDefaultValue(config) {
+      // 如果时间选择器需要默认值,默认回填当前日期
+      if (config.type === 'date' && config.options.defaultValue) {
+        this.models[config.model] = DateTimeNowSplit();
+      } else {
+        let { defaultValue } = config.options;
+        // 如果默认值设置为$开头,则表示要读取vuex中的全局变量
+        // 如设置为 $deptname 则读取 this.$store.getters.deptname
+        if (typeof (defaultValue) === 'string' && defaultValue.includes('$')) {
+          defaultValue = this.$store.getters[defaultValue.replace('$', '')];
+        }
+        this.models[config.model] = typeof (defaultValue) === 'boolean' ? '' : defaultValue;
+      }
+    },
     // 先验证再获取表单内容
     getData(args) {
       return new Promise((resolve, reject) => {
@@ -261,6 +263,8 @@ export default {
           if (valid) {
             resolve(this.formValueToString(), args);
           } else {
+            // 校验失败时focus到文本框
+            // 注意此处没有考虑textarea的情况,多行文本会失败
             setTimeout(() => {
               const isError = document.getElementsByClassName('is-error');
               isError[0].querySelector('input').focus();
