@@ -19,6 +19,7 @@
 
     <template v-if="widget.type == 'textarea'">
       <el-input :rows="5"
+                autosize
                 v-model="dataModel"
                 :placeholder="widget.options.placeholder"
                 :disabled="widget.options.disabled"
