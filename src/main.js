@@ -21,7 +21,7 @@ import store from './store'
 import '@/icons/index' // icon
 import '@/permission' // 权限import axios from 'axios';
 import '@/styles/index.scss' // global css
-import CrudTable from '@/components/CrudTable/CrudTable.vue';
+import CrudTable from '@/components/CrudTable/CrudTable.vue'
 import { newGuid } from '@/utils/index'
 import crud from '@/api/Public/crud'
 

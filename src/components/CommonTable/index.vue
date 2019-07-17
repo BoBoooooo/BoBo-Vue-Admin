@@ -63,9 +63,7 @@
             <span>
               {{ scope.row[item.prop] }}
             </span>
-
           </template>
-
         </template>
       </el-table-column>
     </el-table>

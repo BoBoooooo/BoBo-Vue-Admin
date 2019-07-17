@@ -61,17 +61,6 @@ export function formatTime(time, option) {
   }
   return `${d.getMonth() + 1}月${d.getDate()}日${d.getHours()}时${d.getMinutes()}分`
 }
-export function timestampToTime(timestamp) {
-  const date = new Date(timestamp); // 时间戳为10位需*1000，时间戳为13位的话不需乘1000
-  const Y = `${date.getFullYear()}-`;
-  const M = `${date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1}-`;
-  const D = `${date.getDate() + 1 < 10 ? `0${date.getDate() + 1}` : date.getDate() + 1}-`;
-  const h = `${date.getHours() + 1 < 10 ? `0${date.getHours() + 1}` : date.getHours() + 1}:`;
-  const m = `${date.getMinutes() + 1 < 10 ? `0${date.getMinutes() + 1}` : date.getMinutes() + 1}:`;
-  const s = (date.getSeconds() + 1 < 10 ? `0${date.getSeconds() + 1}` : date.getSeconds() + 1);
-  return Y + M + D + h + m + s;
-}
-
 
 export function newGuid() {
   let guid = '';
