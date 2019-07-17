@@ -154,8 +154,7 @@
                    :style="{width: widget.options.width}"
                    :options="widget.options.remoteOptions"
                   :props="{ multiple: widget.options.multiple }"
->
-
+                  change-on-select>
       </el-cascader>
     </template>
   </el-form-item>
