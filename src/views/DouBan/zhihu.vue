@@ -27,10 +27,10 @@
 </template>
 
 <script>
-import GithubCorner from '@/components/GithubCorner'
 import { mapGetters } from 'vuex'
-import { parseTime } from '@/utils/index'
 import axios from 'axios'
+import GithubCorner from '@/components/GithubCorner'
+import { parseTime } from '@/utils/index'
 
 export default {
   name: 'DashBoard',
