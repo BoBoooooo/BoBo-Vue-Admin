@@ -83,7 +83,7 @@ export default {
         })
     },
     GetReport() {
-      axios.get('/report/hot').then((response) => {
+      axios.get('/report').then((response) => {
         console.log(response)
         this.report = response.data.recent
       })

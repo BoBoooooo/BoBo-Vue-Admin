@@ -97,7 +97,7 @@ export default {
       };
       axios({
         method: 'post',
-        url: `${this.url}/detail`,
+        url: `${this.url}`,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
         },
