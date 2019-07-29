@@ -225,7 +225,7 @@ export default {
         if (this.value[row.model] != null && this.value[row.model] !== '') {
           this.models[row.model] = this.value[row.model].split(',');
         }
-      } else if (this.value[row.model] == null) {
+      } else if (this.value[row.model] == null || this.value[row.model] === '') {
         this.setDefaultValue(row);
       } else {
         this.models[row.model] = this.value[row.model];
