@@ -153,8 +153,8 @@
                    :placeholder="widget.options.placeholder"
                    :style="{width: widget.options.width}"
                    :options="widget.options.remoteOptions"
-                  :props="{ multiple: widget.options.multiple }"
-                  change-on-select>
+                   filterable
+                   :props="{ checkStrictly: true }">
       </el-cascader>
     </template>
   </el-form-item>
