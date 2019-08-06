@@ -94,7 +94,7 @@ export function DateTimeNow() {
   const date = new Date();
   const Y = `${date.getFullYear()}年`;
   const M = `${date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1}月`;
-  const D = `${date.getDate() + 1 < 10 ? `0${date.getDate() + 1}` : date.getDate() + 1}日`;
+  const D = `${date.getDate() + 1 < 10 ? `0${date.getDate()}` : date.getDate()}日`;
   return Y + M + D;
 }
 
