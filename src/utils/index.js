@@ -88,15 +88,16 @@ export function deepClone(obj) {
 }
 
 /**
- * 获取当前日期  2019年1月1日
+ * 获取当前日期  2019年01月01日
  */
 export function DateTimeNow() {
   const date = new Date();
   const Y = `${date.getFullYear()}年`;
   const M = `${date.getMonth() + 1 < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1}月`;
-  const D = `${date.getDate()}日`;
+  const D = `${date.getDate() + 1 < 10 ? `0${date.getDate() + 1}` : date.getDate() + 1}日`;
   return Y + M + D;
 }
+
 
 /**
  * yyyy-MM-dd HH:mm:ss 转 2019年1月1日
