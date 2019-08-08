@@ -2,12 +2,12 @@
   <div
     :class="classObj"
     class="app-wrapper">
-        <navbar/>
+        <Navbar/>
 
-        <sidebar class="sidebar-container"/>
+        <Sidebar class="sidebar-container"/>
         <div class="main-container">
         <TagsView/>
-        <app-main/>
+        <AppMain/>
     </div>
     <BackToTop/>
   </div>
