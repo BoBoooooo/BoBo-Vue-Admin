@@ -1,3 +1,9 @@
+<!--
+ * @file: 表单设计器右侧配置项区域
+ * @copyright: NanJing Anshare Tech .Com
+ * @author: BoBo
+ * @Date: 2019-03-21 16:47:49
+ -->
 <template>
   <div v-if="show">
     <el-form label-position="top">
@@ -489,6 +495,10 @@
               size="mini"
               style=" width: 240px;"
               placeholder="填写正则表达式"/>
+                      <el-input size="mini"
+                      v-model.lazy="data.options.message"
+                      style=" width: 240px;"
+                      placeholder="自定义错误提示语"></el-input>
           </div>
         </el-form-item>
       </template>
@@ -568,11 +578,17 @@ export default {
       });
     },
     'data.options.dataType': function watchDataType(val) {
+      let message = `${this.data.name}格式不正确`;
+      // 如果自定义了错误提示语则赋值
+      if (this.data.options.message != null && this.data.options.message !== '') {
+        // eslint-disable-next-line prefer-destructuring
+        message = this.data.options.message;
+      }
       if (!this.show) {
         return false;
       }
       if (val) {
-        this.validator.type = { type: val, message: `${this.data.name}格式不正确` };
+        this.validator.type = { type: val, message };
       } else {
         this.validator.type = null;
       }
@@ -580,11 +596,18 @@ export default {
       return null;
     },
     'data.options.pattern': function watchPattern(val) {
+      let message = `${this.data.name}格式不正确`;
+      // 如果自定义了错误提示语则赋值
+      if (this.data.options.message != null && this.data.options.message !== '') {
+        // eslint-disable-next-line prefer-destructuring
+        message = this.data.options.message;
+      }
+
       if (!this.show) {
         return false;
       }
       if (val) {
-        this.validator.pattern = { pattern: val, message: `${this.data.name}格式不匹配` };
+        this.validator.pattern = { pattern: val, message };
       } else {
         this.validator.pattern = null;
       }
