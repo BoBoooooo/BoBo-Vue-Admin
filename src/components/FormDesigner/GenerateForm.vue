@@ -1,3 +1,9 @@
+<!--
+ * @file:
+ * @copyright: NanJing Anshare Tech .Com
+ * @author: BoBo
+ * @Date: 2019-03-21 16:47:49
+ -->
 <template>
   <div>
     <el-form
@@ -203,13 +209,23 @@ export default {
           } else {
             this.setDefaultValue(genList[i]);
           }
+
           if (this.rules[genList[i].model]) {
-            this.rules[genList[i].model] = [
-              ...this.rules[genList[i].model],
-              ...genList[i].rules,
-            ];
+            this.rules[genList[i].model] = [...this.rules[genList[i].model], ...genList[i].rules.map((item) => {
+              if (item.pattern) {
+                // eslint-disable-next-line no-eval
+                return { ...item, pattern: eval(item.pattern) };
+              }
+              return { ...item };
+            })];
           } else {
-            this.rules[genList[i].model] = [...genList[i].rules];
+            this.rules[genList[i].model] = [...genList[i].rules.map((item) => {
+              if (item.pattern) {
+                // eslint-disable-next-line no-eval
+                return { ...item, pattern: eval(item.pattern) };
+              }
+              return { ...item };
+            })];
           }
         }
       }
