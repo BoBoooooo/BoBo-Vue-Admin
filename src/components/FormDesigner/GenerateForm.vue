@@ -240,6 +240,8 @@ export default {
       if (row.options.multiple || row.type === 'cascader') {
         if (this.value[row.model] != null && this.value[row.model] !== '') {
           this.models[row.model] = this.value[row.model].split(',');
+        } else {
+          this.models[row.model] = [];
         }
       } else if (this.value[row.model] == null || this.value[row.model] === '') {
         this.setDefaultValue(row);
