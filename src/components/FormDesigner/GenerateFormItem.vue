@@ -1,3 +1,9 @@
+<!--
+ * @file: 动态表单设计
+ * @copyright: NanJing Anshare Tech .Com
+ * @author: BoBo
+ * @Date: 2019-03-21 16:47:49
+ -->
 <template>
   <el-form-item :label="widget.name"
                 :label-width="widget.name===''?'0px':''"

@@ -466,6 +466,9 @@
             <el-option
               value="string"
               label="字符串"/>
+              <el-option
+              value="password"
+              label="密码"/>
             <el-option
               value="number"
               label="数字"/>
