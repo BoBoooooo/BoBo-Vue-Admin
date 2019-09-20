@@ -210,11 +210,14 @@ export default {
             this.setDefaultValue(genList[i]);
           }
 
+
           if (this.rules[genList[i].model]) {
             this.rules[genList[i].model] = [...this.rules[genList[i].model], ...genList[i].rules.map((item) => {
               if (item.pattern) {
                 // eslint-disable-next-line no-eval
-                return { ...item, pattern: eval(item.pattern) };
+                const rule = { ...item, pattern: eval(item.pattern) };
+                rule.trigger = 'blur';
+                return rule;
               }
               return { ...item };
             })];
@@ -222,7 +225,9 @@ export default {
             this.rules[genList[i].model] = [...genList[i].rules.map((item) => {
               if (item.pattern) {
                 // eslint-disable-next-line no-eval
-                return { ...item, pattern: eval(item.pattern) };
+                const rule = { ...item, pattern: eval(item.pattern) };
+                rule.trigger = 'blur';
+                return rule;
               }
               return { ...item };
             })];
