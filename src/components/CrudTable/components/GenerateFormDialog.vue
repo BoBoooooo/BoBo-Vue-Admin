@@ -87,6 +87,10 @@ export default {
       type: Object,
       default: null,
     },
+    fullscreen: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   methods: {
