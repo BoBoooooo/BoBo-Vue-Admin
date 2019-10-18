@@ -38,6 +38,11 @@
               @header-dragend="(newWidth, oldWidth, column, event) =>
               emitEventHandler('header-dragend', newWidth, oldWidth, column, event)"
               @expand-change="(row, expanded) => emitEventHandler('expand-change', row, expanded)">
+      <el-table-column
+        v-if="showColumnIndex"
+        type="index"
+        width="50">
+      </el-table-column>
       <el-table-column v-if="IsMultiple"
                        type="selection"
                        width="55">
@@ -108,6 +113,11 @@ export default {
       // 列表查询以及分页参数
       type: Object,
       default: () => ({}),
+    },
+    // 是否显示序号列
+    showColumnIndex: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {

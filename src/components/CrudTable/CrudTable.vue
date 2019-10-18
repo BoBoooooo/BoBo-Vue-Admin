@@ -24,7 +24,8 @@
                  @handleSizeChange="Refresh"
                  :handleButton="handleButton"
                  @selection-change="selection => emitEvent('selection-change', selection)"
-                 @row-click="(row, event, column) => emitEvent('row-click', row, event, column)">
+                 @row-click="(row, event, column) => emitEvent('row-click', row, event, column)"
+                 :showColumnIndex="showColumnIndex">
       <template slot="handleButton"
                 slot-scope="scope">
         <v-btn :key="index"

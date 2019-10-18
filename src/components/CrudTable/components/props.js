@@ -71,4 +71,8 @@ export default {
     type: Array,
     default: () => [],
   },
+  showColumnIndex: {
+    type: Boolean,
+    default: false,
+  },
 };
