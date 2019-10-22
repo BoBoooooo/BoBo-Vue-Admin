@@ -137,3 +137,42 @@ export function DateTimeNowSplit() {
   const D = `${date.getDate()}`;
   return Y + M + D;
 }
+
+
+/**
+ * 通过身份证获取性别年龄出生年月
+ * @param {String} card
+ */
+export function getAnalysisIdCard(card) {
+  const person = {};
+  // 获取出生日期
+  person.birth = `${card.substring(6, 10)}年${card.substring(10, 12)}月${card.substring(12, 14)}日`;
+
+  // 获取性别
+  // eslint-disable-next-line radix
+  if (parseInt(card.substr(16, 1)) % 2 === 1) {
+    // 男
+    person.sex = '男';
+  } else {
+    // 女
+    person.sex = '女';
+  }
+
+
+  // 获取年龄
+
+  const myDate = new Date();
+
+  const month = myDate.getMonth() + 1;
+
+  const day = myDate.getDate();
+
+  let age = myDate.getFullYear() - card.substring(6, 10) - 1;
+
+  if (card.substring(10, 12) < month || (card.substring(10, 12) === month && card.substring(12, 14) <= day)) {
+    age += 1;
+  }
+
+  person.age = age;
+  return person;
+}
