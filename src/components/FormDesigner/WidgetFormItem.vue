@@ -1,7 +1,7 @@
 <template>
   <el-form-item v-if="element && element.key"
                 :class="{active: selectWidget.key == element.key, 'is_req': element.options.required}"
-                :label="element.name"
+                :label="element.type === 'text'?'':element.name"
                 class="widget-view "
                 @click.native.stop="handleSelectWidget(index)"
                 :label-width="element.name===''?'0px':''">
@@ -15,7 +15,11 @@
                 :style="{width: element.options.width}"
                 :placeholder="element.options.placeholder" />
     </template>
-
+     <template v-if="element.type == 'text'">
+       <h4 style="text-align:center;margin:10px auto">
+         {{element.name}}
+       </h4>
+    </template>
     <template v-if="element.type == 'textarea'">
       <el-input :rows="5"
                 v-model="element.options.defaultValue"

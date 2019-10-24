@@ -5,7 +5,7 @@
  * @Date: 2019-03-21 16:47:49
  -->
 <template>
-  <el-form-item :label="widget.name"
+  <el-form-item :label="widget.type === 'text'?'':widget.name"
                 :label-width="widget.name===''?'0px':''"
                 :prop="widget.model">
     <template v-if="widget.type == 'input'">
@@ -22,7 +22,11 @@
                 :style="{width: widget.options.width}"
                 :disabled="widget.options.disabled" />
     </template>
-
+     <template v-if="widget.type == 'text'">
+       <h4 style="text-align:center;margin:10px auto">
+        {{widget.name}}
+      </h4>
+    </template>
     <template v-if="widget.type == 'textarea'">
       <el-input :rows="5"
                 autosize

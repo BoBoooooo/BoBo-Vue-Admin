@@ -16,6 +16,11 @@ export const basicComponents = [
     },
   },
   {
+    type: 'text',
+    name: '文本',
+    icon: 'language',
+  },
+  {
     type: 'textarea',
     name: '多行文本',
     icon: 'regular/keyboard',
