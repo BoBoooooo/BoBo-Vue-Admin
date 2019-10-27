@@ -100,7 +100,8 @@
                       :clearable="widget.options.clearable"
                       :value-format="widget.options.timestamp ? 'timestamp' : widget.options.format"
                       :format="widget.options.format"
-                      :style="{width: widget.options.width}" />
+                      :style="{width: widget.options.width}"
+                      :picker-options="pickerOptions"/>
     </template>
 
     <template v-if="widget.type =='rate'">
@@ -186,7 +187,23 @@ export default {
       dataModel: this.models[this.widget.model],
     };
   },
-
+  computed: {
+    // 日期选择器pickOptions
+    pickerOptions() {
+      const { range } = this.widget.options;
+      if (range != null && range !== '') {
+        return {
+          disabledDate(time) {
+            if (range === 'smaller') {
+              return time.getTime() <= Date.now();
+            }
+            return time.getTime() >= Date.now();
+          },
+        };
+      }
+      return {};
+    },
+  },
   watch: {
     dataModel: {
       deep: true,

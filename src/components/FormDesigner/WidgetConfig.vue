@@ -308,6 +308,14 @@
             v-model="data.options.isRange"
           />
         </el-form-item>
+           <!-- 日期选择器选择范围 暂时只提供大于当前时间 小于当前时间 -->
+           <el-form-item label="选择范围"
+                      v-if="data.type == 'date'">
+          <el-select v-model="data.options.range" clearable placeholder="暂时只支持跟当前时间比对">
+            <el-option label="小于等于当前日期" value="smaller"></el-option>
+            <el-option label="大于等于当前日期" value="greater"></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item
           v-if="data.type == 'date'"
           label="是否获取时间戳">
