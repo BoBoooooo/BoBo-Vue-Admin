@@ -195,9 +195,12 @@ export default {
         return {
           disabledDate(time) {
             if (range === 'smaller') {
-              return time.getTime() <= Date.now();
+              return time.getTime() >= Date.now();
             }
-            return time.getTime() >= Date.now();
+            if (range === 'greater') {
+              return time.getTime() <= Date.now() - 24 * 3600 * 1000;
+            }
+            return true;
           },
         };
       }
