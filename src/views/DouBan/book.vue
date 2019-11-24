@@ -2,7 +2,7 @@
   <div
     id="movie"
     class=" widget-box">
-    <h2>图书查询</h2>
+    <h2 style="margin-bottom:10px">图书查询</h2>
     <el-input
       v-model="criteria"
       placeholder="请输入图书名"
@@ -120,7 +120,7 @@ export default {
     // 从服务器读取数据
     loadData(criteria) {
       axios
-        .get(`${this.url}?q=${criteria}&count=20`)
+        .get(`${this.url}?q=${criteria}&count=20&&apikey=0df993c66c0c636e29ecbb5344252a4a`)
         .then(
           (response) => {
             console.log(response.data)
@@ -136,7 +136,7 @@ export default {
     getImage(url) {
       if (url !== undefined) {
         // eslint-disable-next-line no-useless-escape
-        return url.replace('http:\/\/', 'https://images.weserv.nl/?url=')
+        return url.replace('https:\/\/', 'https://images.weserv.nl/?url=')
       }
     },
     search() {

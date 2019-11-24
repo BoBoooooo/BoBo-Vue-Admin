@@ -68,7 +68,7 @@ export default {
       // 表格当前页数据
       tableData: null,
       // 请求的URL
-      url: '/music/weapi/v3/playlist/detail',
+      url: '/music',
       // 下拉菜单选项
       select: '',
       // 默认每页数据量

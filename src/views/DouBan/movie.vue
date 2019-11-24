@@ -25,17 +25,14 @@
             id="name"
             :href="scope.row.alt"
             target="_blank">{{ scope.row.title }}</a>
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="类型"
-        align="center">
-        <template slot-scope="scope">
+            <div>
           <el-tag
             v-for="(item,index) in scope.row.genres"
             :key="index"
             type="primary"
             style="margin-right:5px;margin-top:5px">{{ item }}</el-tag>
+
+            </div>
 
         </template>
       </el-table-column>
@@ -56,13 +53,11 @@
       <el-table-column
         label="豆瓣评分"
         align="center">
-
         <template slot-scope="scope">
-
           <el-rate
             v-model="scope.row.rating.average"
             disabled
-            show-score
+            :max="10"
             text-color="#ff9900"
             score-template="{value}" />
         </template>
@@ -93,7 +88,7 @@ export default {
       // 表格当前页数据
       tableData: null,
       // 请求的URL
-      url: '/douban/movie/in_theaters?city=南京&count=100',
+      url: '/douban/movie/in_theaters?city=南京&count=100&&apikey=0df993c66c0c636e29ecbb5344252a4a',
       // 下拉菜单选项
       select: '',
       // 默认每页数据量
@@ -129,7 +124,7 @@ export default {
     getImage(url) {
       if (url !== undefined) {
         // eslint-disable-next-line no-useless-escape
-        return url.replace('http:\/\/', 'https://images.weserv.nl/?url=');
+        return url.replace('https:\/\/', 'https://images.weserv.nl/?url=');
       }
     },
 
