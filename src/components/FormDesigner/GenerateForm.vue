@@ -74,7 +74,6 @@
 // 常规组件
 
 import GenerateFormItem from './GenerateFormItem';
-import { DateTimeNowSplit } from '@/utils/index';
 
 export default {
   name: 'FmGenerateForm',
@@ -268,7 +267,10 @@ export default {
     setDefaultValue(config) {
       // 如果时间选择器需要默认值,默认回填当前日期
       if (config.type === 'date' && config.options.defaultValue) {
-        this.models[config.model] = DateTimeNowSplit();
+        const { format } = config.options;
+        if (format && format !== '') {
+          this.models[config.model] = this.dayjs().format(format.toUpperCase());
+        }
       } else {
         let { defaultValue } = config.options;
         // 如果默认值设置为$开头,则表示要读取vuex中的全局变量
