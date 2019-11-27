@@ -280,7 +280,6 @@ export const advanceComponents = [
       readonly: false,
     },
   },
-
   {
     type: 'richtext',
     name: '富文本',
@@ -289,7 +288,38 @@ export const advanceComponents = [
     options: {
       defaultValue: '',
       readonly: false,
-
+    },
+  },
+  // 目前暂时提供了几个常用props,有更多需要自行拓展
+  // 官网:https://vue-treeselect.js.org
+  {
+    type: 'treeselect',
+    name: '树形下拉框',
+    icon: 'regular/caret-square-down',
+    options: {
+      remoteFunc: '',
+      placeholder: '',
+      width: '',
+      maxHeight: 300,
+      multiple: false,
+      remote: 'custom',
+      props: {
+        value: 'value',
+        label: 'label',
+        children: 'children',
+      },
+      clearable: true,
+      searchable: true,
+      noChildrenText: '暂无数据',
+      noOptionsText: '暂无数据',
+      noResultsText: '暂无数据',
+      searchNested: true,
+      required: false,
+      showValueLabelSlot: false,
+      disabled: false,
+      showCount: false,
+      disableBranchNodes: true,
+      remoteOptions: [],
     },
   },
 ];
