@@ -53,6 +53,7 @@ export default new Router({
     y: 0,
   }),
   routes: constantRouterMap,
+  mode: 'history',
 })
 
 export const asyncRouterMap = [
