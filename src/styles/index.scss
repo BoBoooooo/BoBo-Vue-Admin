@@ -213,3 +213,19 @@ code {
   background-color: white!important;
   color: unset!important;
 }
+
+
+
+/*
+滚动条样式修改 仅限于webkit内核浏览器有效
+*/
+
+::-webkit-scrollbar {
+  width: 3px;
+  height:3px;
+  background-color: #181c32;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #5a76cd;
+}
