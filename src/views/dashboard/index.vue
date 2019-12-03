@@ -51,10 +51,10 @@
                 >
                   <v-container fill-height>
                     <v-layout align-center>
-                      <strong class="display-4 font-weight-regular mr-4">17</strong>
+                      <strong class="display-4 font-weight-regular mr-4">{{dayjs().date()}}日</strong>
                       <v-layout column justify-end>
-                        <div class="headline font-weight-light">Sunday</div>
-                        <div class="text-uppercase font-weight-light">February 2019</div>
+                        <div class="headline font-weight-light">星期{{dayjs().day()}}</div>
+                        <div class="text-uppercase font-weight-light">{{dayjs().month() + '月 '+ dayjs().year()+'年'}}</div>
                       </v-layout>
                     </v-layout>
                   </v-container>

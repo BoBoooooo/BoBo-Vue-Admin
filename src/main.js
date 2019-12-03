@@ -10,6 +10,7 @@
 
 /* eslint-disable no-new */
 import Vue from 'vue'
+import dayjs from 'dayjs';
 import Vuetify from 'vuetify/lib'
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 import ElementUI from 'element-ui'
@@ -42,6 +43,7 @@ Vue.config.productionTip = false
 Vue.prototype.axios = fetch // 全局基于拦截器配置后的ajax  拦截器在 utils/fetch
 Vue.prototype.Guid = newGuid // 全局调用this.Guid()方法即可
 Vue.prototype.crud = crud // 通用crud接口封装   crud('type','tableName',参数)
+Vue.prototype.dayjs = dayjs;
 
 new Vue({
   el: '#app',
