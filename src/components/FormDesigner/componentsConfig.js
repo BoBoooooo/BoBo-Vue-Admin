@@ -19,6 +19,10 @@ export const basicComponents = [
     type: 'text',
     name: '文本',
     icon: 'language',
+    options: {
+      defaultValue: '',
+      remoteFunc: '',
+    },
   },
   {
     type: 'textarea',
