@@ -296,6 +296,7 @@
             <el-option value="date"/>
             <el-option value="dates"/>
             <!-- <el-option value="week"></el-option> -->
+            <el-option value="monthrange"></el-option>
             <el-option value="datetime"/>
             <el-option value="datetimerange"/>
             <el-option value="daterange"/>
