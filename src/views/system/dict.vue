@@ -4,7 +4,7 @@
     class="widget-box"
   >
     <el-row>
-      <el-col :span="8">
+      <el-col :span="6">
         <el-tree
           ref="dicttypetree"
           :data="dicttypeList"
@@ -45,7 +45,7 @@
           </span>
         </el-tree>
       </el-col>
-      <el-col :span="16">
+      <el-col :span="18">
         <crud-table
           tableName="dict"
           :tableParams="tableParams"
