@@ -8,7 +8,9 @@
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "log": "conventional-changelog --config ./lib/log -i CHANGELOG.md -s -r 0",
+    "cz": "npm run log && git add . && git cz"
   },
   "dependencies": {
     "axios": "0.19.0",
@@ -53,9 +55,30 @@
     "sass-loader": "^7.1.0",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
+    "husky": "^3.0.9",
+    "commitizen": "^4.0.3",
+    "commitlint": "^8.2.0",
+    "conventional-changelog-cli": "^2.0.28",
     "vue-cli-plugin-axios": "0.0.4",
     "vue-cli-plugin-element": "1.0.1",
     "vue-cli-plugin-vuetify": "0.5.0",
     "vue-template-compiler": "^2.6.10"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,vue}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "lib/cz"
+    }
   }
 }
