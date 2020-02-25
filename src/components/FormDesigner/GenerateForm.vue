@@ -277,8 +277,12 @@ export default {
         // 如设置为 $deptname 则读取 this.$store.getters.deptname
         if (typeof (defaultValue) === 'string' && defaultValue.includes('$')) {
           defaultValue = this.$store.getters[defaultValue.replace('$', '')];
+        } else if (typeof (defaultValue) === 'boolean') {
+          defaultValue = '';
+        } else if (defaultValue === '') {
+          defaultValue = null;
         }
-        this.models[config.model] = typeof (defaultValue) === 'boolean' ? '' : defaultValue;
+        this.models[config.model] = defaultValue;
       }
     },
     // 先验证再获取表单内容
