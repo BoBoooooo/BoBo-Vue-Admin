@@ -184,6 +184,10 @@ export default {
           },
         }],
       }, true);
+      // 此处绑定饼图点击事件,把图例内容抛出,用于数据钻取
+      this.chart.on('click', (obj) => {
+        this.$emit('click', obj);
+      });
     },
   },
   watch: {
