@@ -161,6 +161,7 @@ export default {
         yAxis: [{
           type: 'value',
           name: '数量',
+          minInterval: 1,
         }],
         series: [{
           barWidth: 30, // 柱图宽度
