@@ -20,12 +20,11 @@
   <div
     :class="className"
     ref="chart"
-    :style="{height:height,width:width}"/>
+    :style="{height:'100%',width:width,minHeight:height}"/>
 </template>
 
 <script>
 import echarts from 'echarts';
-import 'echarts/theme/macarons';
 
 export default {
   props: {
@@ -43,6 +42,10 @@ export default {
     height: {
       type: String,
       default: '300px',
+    },
+    type: {
+      type: String,
+      default: 'bar',
     },
     data: {
       type: Array,
@@ -84,86 +87,110 @@ export default {
     this.chart.dispose();
     this.chart = null;
   },
-
+  computed: {
+    legand() {
+      const arr = [];
+      this.data.forEach((item) => {
+        arr.push(item.name);
+      });
+      return arr;
+    },
+  },
   methods: {
     initChart() {
       this.chart = echarts.init(this.$refs.chart);
       this.chart.setOption({
-        color: ['#FF7744', '#87CEFA'],
+        color: ['#60acfc', '#32d3eb', '#5bc49f', '#feb64d', '#ff7c7c', '#9287e7'],
         tooltip: {
           trigger: 'axis',
         },
-        grid: {
-          containLabel: true,
+        title: {
+          text: this.title,
+          left: '15%',
+          top: '0',
+          textAlign: 'center',
+          textStyle: {
+            fontSize: 14,
+          },
         },
-        legend: {
-          data: ['案件', '线索'],
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true,
         },
         xAxis: [{
           type: 'category',
-          boundaryGap: false,
-
-          axisTick: {
-            alignWithLabel: true,
-          },
+          data: this.legand,
           axisLabel: { // 坐标轴刻度标签的相关设置。
-            interval: 0, // 横轴信息全部显示
-            rotate: -30, // -30度角倾斜显示
+            formatter(params) {
+              let newParamsName = '';// 最终拼接成的字符串
+              const paramsNameNumber = params.length;// 实际标签的个数
+              const provideNumber = 5;// 每行能显示的字的个数
+              const rowNumber = Math.ceil(paramsNameNumber / provideNumber);// 换行的话，需要显示几行，向上取整
+              /**
+                * 判断标签的个数是否大于规定的个数， 如果大于，则进行换行处理 如果不大于，即等于或小于，就返回原标签
+              */
+              // 条件等同于rowNumber>1
+              if (paramsNameNumber > provideNumber) {
+                /** 循环每一行,p表示行 */
+                for (let p = 0; p < rowNumber; p += 1) {
+                  let tempStr = '';// 表示每一次截取的字符串
+                  const start = p * provideNumber;// 开始截取的位置
+                  const end = start + provideNumber;// 结束截取的位置
+                  // 此处特殊处理最后一行的索引值
+                  if (p === rowNumber - 1) {
+                    // 最后一次不换行
+                    tempStr = params.substring(start, paramsNameNumber);
+                  } else {
+                    // 每一次拼接字符串并换行
+                    tempStr = `${params.substring(start, end)}\n`;
+                  }
+                  newParamsName += tempStr;// 最终拼成的字符串
+                }
+              } else {
+                // 将旧标签的值赋给新标签
+                newParamsName = params;
+              }
+              // 将最终的字符串返回
+              return newParamsName;
+            },
+
           },
-          data: this.date,
         }],
         yAxis: [{
           type: 'value',
-          name: '人数',
-          position: 'left',
-          // axisLabel: {
-          //    formatter: '{value} '
-          // }
+          name: '数量',
         }],
         series: [{
-          name: '线索',
-          type: 'line',
-          stack: '线索总量',
-          areaStyle: { normal: {} },
+          barWidth: 30, // 柱图宽度
+          name: '数量',
+          type: this.type,
+          data: this.data,
+          itemStyle: {
+            normal: {
+              lineStyle: {
+                color: '#8cd5c2', // 改变折线颜色
+              },
+              // 每根柱子颜色设置
+              color(params) {
+                const colorList = ['#60acfc', '#32d3eb', '#5bc49f', '#feb64d', '#ff7c7c', '#9287e7'];
+                return colorList[params.dataIndex];
+              },
+              label: { show: true, color: '#000' },
 
-          label: {
-            normal: {
-              show: true,
-              position: 'top',
             },
           },
-          lineStyle: {
-            normal: {
-              width: 1,
-              shadowColor: 'rgba(0,0,0,0.4)',
-              shadowBlur: 2,
-              shadowOffsetY: 2,
-            },
-          },
-          data: this.data[0],
-        }, {
-          name: '案件',
-          type: 'line',
-          stack: '案件总量',
-          label: {
-            normal: {
-              show: true,
-              position: 'top',
-            },
-          },
-          areaStyle: { normal: {} },
-
-          lineStyle: {
-            normal: {
-              width: 1,
-              shadowColor: 'rgba(0,0,0,0.4)',
-              shadowBlur: 2,
-              shadowOffsetY: 2,
-            },
-          },
-          data: this.data[1],
         }],
-      });
+      }, true);
+    },
+  },
+  watch: {
+    data: {
+      deep: true,
+      handler() {
+        this.initChart();
+      },
     },
   },
 };
