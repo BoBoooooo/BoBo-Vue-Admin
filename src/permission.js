@@ -6,9 +6,9 @@
  * @Description
  * 登录鉴权js,获取当前用户token身份信息以及所拥有的路由权限
  */
+import NProgress from 'nprogress'; // Progress 进度条
 import router from './router';
 import store from './store';
-import NProgress from 'nprogress'; // Progress 进度条
 import 'nprogress/nprogress.css'; // Progress 进度条样式
 import {
   getToken,
