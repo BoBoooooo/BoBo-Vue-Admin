@@ -1,34 +1,52 @@
+# dev框架板项目
+本项目基于 [Vue CLI 3](https://cli.vuejs.org/config/) 构建。
 
-  技术栈主要使用vue-cli3.0+vue+elementUI+vuex+axios。<br>
-  这是一个基于手摸手系列，<a target="_blank" href="https://github.com/PanJiaChen/vueAdmin-template">vueadmin-template</a>进行改造的版本----感谢作者风骚花裤衩。
-  
-  由于是基于vue-cli3.0为基础进行的开发，所以同比vue-cli2会有区别：<br>
-  1、项目的目录结构发生了变化，vue-cli3.0隐藏了webpack的配置文件，目录看起来非常的清爽简洁，在目标上追求0配置进行开发，将大部分时间用在开发上，避免在配置上浪费过多时间。但是个人风格配置无法避免，这里提供了一个<a href="https://github.com/vuejs/vue-docs-zh-cn/blob/master/vue-cli/webpack.md">vue.config.js</a>进行项目的配置；<br><br>
- 
- 2、使用vue ui命令就可以呼唤出vue的图形化界面，可以直接在页面上操控项目的配置，这逼格一下上了天。123 <br>
- ![Image text](https://randy168.com/屏幕快照%202018-08-15%20下午11.04.14.png)  <br><br>
- 
+项目文档 https://wiki.anshare.com.cn/frameworks 。
 
- <strong>如果这个项目对你工作和学习有帮助，别忘了右上角的star哦😊</strong>
- 
- 
-### Project setup
+## 0. 拉取代码时注意事项
+本项目基于airbnb的eslint规范，所以无论你用Windows、Mac OS还是UNIX，请使用0x0A（LF）换行符。
+Git提供了一个“换行符自动转换”功能，默认处于自动模式，Windows环境必须做如下设置：
 ```
-npm install
+提交时转换为LF，检出时不转换
+git config --global core.autocrlf input
+```
+由于vue大小写敏感，请修改Git默认设置
+```
+设置为区分大小写
+git config core.ignorecase false
+```
+## 1、开始使用
+* 使用npm安装依赖包
+```
+npm i
+```
+* 开发环境编译启动及部署
+```
+npm start   
+````
+
+## 2、git commit lint规范
+```
+ 参考angularJs标准提交规范
+ 输入git cz 提交
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run dev
-```
+## 3、eslint规范
 
-### Compiles and minifies for production
-```
-npm run build
-```
+默认采用airbnb规范,规则详见 .eslintrc.js
 
-### Compiles and minifies for production to analyze the component percent
-```
-npm run analyze
-```
+## 4、内置装饰器
+有些场景使用装饰器比在代码里面硬编码显得更简单，比如防抖节流，确认提示等等，当前框架内置了一小部分装饰器，更多装饰器正在完善中。
+
+详见 @/decorator
+
+``` javascript
+使用方法 eq:
+
+@confirm('请输入内容','提示')
+confirmCallBack(){
+  console.log('我是确认回调');
+}
+
  
+```

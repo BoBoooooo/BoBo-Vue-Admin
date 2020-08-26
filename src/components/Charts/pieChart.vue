@@ -18,11 +18,12 @@
 <template>
   <div :class="className"
        ref="chart"
-       :style="{height:'100%',minHeight:height,width:width}" />
+       :style="{height:'100%',width:width}" />
 </template>
 
 <script>
-import echarts from 'echarts';
+import echarts from '@/plugins/echarts';
+import { debounce } from '@/utils/util';
 
 export default {
   props: {
@@ -31,11 +32,7 @@ export default {
     },
     width: {
       type: String,
-      default: '500px',
-    },
-    height: {
-      type: String,
-      default: '250px',
+      default: '100%',
     },
     data: {
       type: Array,
@@ -43,11 +40,15 @@ export default {
     },
     title: {
       type: String,
-      default: '大标题',
+      default: '',
     },
     subtitle: {
       type: String,
       default: '',
+    },
+    option: {
+      type: Object,
+      default: () => ({}),
     },
   },
   data() {
@@ -71,7 +72,8 @@ export default {
         this.chart.resize();
       }
     };
-    window.addEventListener('resize', this.resizeHanlder);
+
+    window.addEventListener('resize', debounce(this.resizeHanlder));
   },
   beforeDestroy() {
     if (!this.chart) {
@@ -84,13 +86,15 @@ export default {
   methods: {
     initChart() {
       this.chart = echarts.init(this.$refs.chart);
-      this.chart.setOption({
+      const defaultOption = {
         color: ['#60acfc', '#32d3eb', '#5bc49f', '#feb64d', '#ff7c7c', '#9287e7'],
         title: {
-          text: this.title,
-          subtext: this.subtitle,
-          left: '29%',
-          top: '44%',
+          // eslint-disable-next-line no-eval
+          text: this.title || eval(this.data.map(item => item.value).join('+')),
+          // eslint-disable-next-line no-eval
+          subtext: this.subtitle || `总数${eval(this.data.map(item => item.value).join('+')) || 0}`,
+          left: '29.2%',
+          top: '40%',
           textAlign: 'center',
           textStyle: {
             fontSize: 14,
@@ -116,20 +120,20 @@ export default {
           },
           data: this.legand,
           formatter: (params) => {
-            let newParamsName = '';// 最终拼接成的字符串
-            const paramsNameNumber = params.length;// 实际标签的个数
-            const provideNumber = 20;// 每行能显示的字的个数
-            const rowNumber = Math.ceil(paramsNameNumber / provideNumber);// 换行的话，需要显示几行，向上取整
+            let newParamsName = ''; // 最终拼接成的字符串
+            const paramsNameNumber = params.length; // 实际标签的个数
+            const provideNumber = 20; // 每行能显示的字的个数
+            const rowNumber = Math.ceil(paramsNameNumber / provideNumber); // 换行的话，需要显示几行，向上取整
             /**
-              * 判断标签的个数是否大于规定的个数， 如果大于，则进行换行处理 如果不大于，即等于或小于，就返回原标签
-            */
+               * 判断标签的个数是否大于规定的个数， 如果大于，则进行换行处理 如果不大于，即等于或小于，就返回原标签
+               */
             // 条件等同于rowNumber>1
             if (paramsNameNumber > provideNumber) {
               /** 循环每一行,p表示行 */
               for (let p = 0; p < rowNumber; p += 1) {
-                let tempStr = '';// 表示每一次截取的字符串
-                const start = p * provideNumber;// 开始截取的位置
-                const end = start + provideNumber;// 结束截取的位置
+                let tempStr = ''; // 表示每一次截取的字符串
+                const start = p * provideNumber; // 开始截取的位置
+                const end = start + provideNumber; // 结束截取的位置
                 // 此处特殊处理最后一行的索引值
                 if (p === rowNumber - 1) {
                   // 最后一次不换行
@@ -138,7 +142,7 @@ export default {
                   // 每一次拼接字符串并换行
                   tempStr = `${params.substring(start, end)}\n`;
                 }
-                newParamsName += tempStr;// 最终拼成的字符串
+                newParamsName += tempStr; // 最终拼成的字符串
               }
             } else {
               // 将旧标签的值赋给新标签
@@ -179,7 +183,14 @@ export default {
             },
           },
         ],
-      }, true);
+      };
+      if (this.option) {
+        this.lodash.merge(defaultOption, this.option);
+      }
+      this.chart.setOption(
+        defaultOption,
+        true,
+      );
       // 此处绑定饼图点击事件,把图例内容抛出,用于数据钻取
       this.chart.on('click', (obj) => {
         this.$emit('click', obj);
@@ -189,7 +200,7 @@ export default {
   watch: {
     data: {
       deep: true,
-      handler() {
+      handler(val) {
         this.initChart();
       },
     },

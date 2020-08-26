@@ -1,0 +1,28 @@
+/*
+ * @file: 声明vue拓展原型链上的属性类型
+ * @copyright: NanJing Anshare Tech .Com
+ * @author: BoBo
+ * @Date: 2020年06月23 16:47:06
+ */
+/* eslint-disable */
+import VueRouter, { Route } from 'vue-router';
+
+import { Store } from 'vuex';
+import { ElMessage } from 'element-ui/types/message';
+
+// 扩充
+declare module 'vue/types/vue' {
+    interface Vue {
+        $router: VueRouter;
+        $route: Route;
+        $store: Store<any>;
+        $api: any;
+        $message:ElMessage
+        lodash:any;
+        axios:any;
+        dayjs:any;
+        $pinyinmatch:any;
+        $EventBus:any;
+    }
+}
+

@@ -1,19 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= webpackConfig.name %></title>
-    <link href='https://fonts.cat.net/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <% if (htmlWebpackPlugin.files.favicon) { %>
+    <link rel="icon" href="<%= htmlWebpackPlugin.files.favicon%>" />
+    <% } else { %>
+    <link rel="icon" href="https://ae01.alicdn.com/kf/HTB1.eyXaZTxK1Rjy0Fg761ovpXa0.png" />
+    <% } %> <% for (var css in htmlWebpackPlugin.files.css) { %>
+    <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet" />
+    <% } %>
+    <link rel="stylesheet" type="text/css" href="<%= BASE_URL %>css/component.css" />
+    <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
-      <script src="<%= BASE_URL %>static/tinymce4.7.5/tinymce.min.js"></script>
     <noscript>
-      <strong>We're sorry but my doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+      <strong>请修改浏览器设置以启用Javascript</strong>
     </noscript>
+
     <div id="app"></div>
-    <!-- built files will be auto injected -->
+    <div
+      id="loader"
+      class="pageload-overlay"
+      data-opening="M -18 -26.90625 L -18 86.90625 L 98 86.90625 L 98 -26.90625 L -18 -26.90625 Z M 40 29.96875 C 40.01804 29.96875 40.03125 29.98196 40.03125 30 C 40.03125 30.01804 40.01804 30.03125 40 30.03125 C 39.98196 30.03125 39.96875 30.01804 39.96875 30 C 39.96875 29.98196 39.98196 29.96875 40 29.96875 Z"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 80 60" preserveAspectRatio="xMidYMid slice">
+        <path
+          d="M -18 -26.90625 L -18 86.90625 L 98 86.90625 L 98 -26.90625 L -18 -26.90625 Z M 40 -25.6875 C 70.750092 -25.6875 95.6875 -0.7500919 95.6875 30 C 95.6875 60.750092 70.750092 85.6875 40 85.6875 C 9.2499078 85.6875 -15.6875 60.750092 -15.6875 30 C -15.6875 -0.7500919 9.2499078 -25.6875 40 -25.6875 Z"
+        />
+      </svg>
+    </div>
+    <script src="<%= BASE_URL %>js/tinymce4.7.5/tinymce.min.js"></script>
+    <% for (var js in htmlWebpackPlugin.files.js) { %>
+    <script src="<%= htmlWebpackPlugin.files.js[js] %>"></script>
+    <% } %> <% if (htmlWebpackPlugin.options.devServer) { %>
+    <script src="<%= htmlWebpackPlugin.options.devServer%>/webpack-dev-server.js"></script>
+    <% } %>
+    <script src="<%= BASE_URL %>js/snap.svg-min.js"></script>
+    <script src="<%= BASE_URL %>js/classie.js"></script>
+    <script src="<%= BASE_URL %>js/svgLoader.js"></script>
+    <script>
+      var loader = new SVGLoader(document.getElementById('loader'), { speedIn: 400, easingIn: mina.easeinout });
+      loader.show();
+      setTimeout(() => {
+        loader.hide();
+      }, 1600);
+    </script>
   </body>
 </html>

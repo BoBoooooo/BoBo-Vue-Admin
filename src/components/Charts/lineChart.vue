@@ -20,16 +20,25 @@
   <div
     :class="className"
     ref="chart"
-    :style="{height:'100%',width:width,minHeight:height}"/>
+    :style="{height:'100%',width:width}" />
 </template>
 
 <script>
-import echarts from 'echarts';
+import echarts from '@/plugins/echarts';
+import { debounce } from '@/utils/util';
 
 export default {
   props: {
     className: {
       type: String,
+    },
+    yAxisLabel: {
+      type: String,
+      default: '数量',
+    },
+    yAxisMax: {
+      type: String,
+      default: null,
     },
     id: {
       type: String,
@@ -37,11 +46,7 @@ export default {
     },
     width: {
       type: String,
-      default: '500px',
-    },
-    height: {
-      type: String,
-      default: '300px',
+      default: '100%',
     },
     type: {
       type: String,
@@ -51,17 +56,17 @@ export default {
       type: Array,
       default: () => ([]),
     },
-    date: {
-      type: Array,
-      default: () => ([]),
-    },
     title: {
       type: String,
-      default: '大标题',
+      default: '',
     },
     subtitle: {
       type: String,
-      default: '小标题',
+      default: '',
+    },
+    option: {
+      type: Object,
+      default: () => ({}),
     },
   },
   data() {
@@ -77,7 +82,7 @@ export default {
         this.chart.resize();
       }
     };
-    window.addEventListener('resize', this.resizeHanlder);
+    window.addEventListener('resize', debounce(this.resizeHanlder));
   },
   beforeDestroy() {
     if (!this.chart) {
@@ -106,7 +111,7 @@ export default {
         },
         title: {
           text: this.title,
-          left: '15%',
+          left: '5%',
           top: '0',
           textAlign: 'center',
           textStyle: {
@@ -160,12 +165,13 @@ export default {
         }],
         yAxis: [{
           type: 'value',
-          name: '数量',
+          name: this.yAxisLabel,
+          max: this.yAxisMax,
           minInterval: 1,
         }],
         series: [{
           barWidth: 30, // 柱图宽度
-          name: '数量',
+          name: this.yAxisLabel,
           type: this.type,
           data: this.data,
           itemStyle: {
@@ -193,7 +199,7 @@ export default {
   watch: {
     data: {
       deep: true,
-      handler() {
+      handler(val) {
         this.initChart();
       },
     },

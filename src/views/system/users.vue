@@ -1,323 +1,371 @@
+<!--
+@file 用户管理
+@author BoBo
+@copyright NanJing Anshare Tech .Com
+@createDate 2018年12月1日22:07:03
+-->
 <template>
-  <div
-    id="users"
-    class=" widget-box"
-  >
+  <div class="page-container">
+    <el-row :gutter="15" class="full-height">
+      <el-col :span="5" class="full-height">
+        <div  class="full-height" style="overflow:auto">
+          <el-input placeholder="请输入查询内容"
+                    v-model="filterText"
+                    prefix-icon="el-icon-search"> </el-input>
+          <!-- 部门树 -->
+          <el-tree v-loading="loading"
+                   class="deptTree"
+                   ref="deptTree"
+                   highlight-current
+                   accordion
+                   :data="deptTree.data"
+                   @node-click="nodeClick"
+                   :filter-node-method="filterNode"
+                   check-strictly
+                   :props="deptTree.mapping"
+                   :node-key="deptTree.mapping.nodeKey"
+                   :default-expanded-keys="deptTree.expandedKeys">
+            <span class="custom-tree-node"
+                  slot-scope="{ node }">
+              <div style="float:left">
+                <i v-if="node.isLeaf"
+                   class="el-icon el-icon-user-solid"></i>
+                <i v-else
+                   class="el-icon el-icon-s-home"></i>
+                <span>{{ node.label }}</span>
+              </div>
+            </span>
+          </el-tree>
+        </div>
+      </el-col>
+      <el-col :span="19">
+        <CrudTable ref="table"
+                   table-name="users"
+                   :tableTitle="tableTitle"
+                   :btnAddOnClick="btnAddOnClick"
+                   :btnEditOnClick="btnEditOnClick"
+                   :remoteFuncs="remoteFuncs"
+                   fullHeight
+                   :actionColumnWidth="300"
+                   :promiseForSelect="promiseForSelect"
+                   :tableParams="tableParams"
+                   :visibleList="{
+                      tableTitle: true,
+                      btnDel:true,
+                    }">
+          <template #columnFormatter="{row,prop}">
+            <template v-if="prop === 'logincount'">
+              <span v-if="row.logincount === '5'"
+                    style="color:red">锁定</span>
+              <span v-else
+                    style="color:green">正常</span>
+            </template>
+            <!-- 头像上传 -->
+            <template v-if="prop === 'avatar'">
+              <el-upload class="avatar-uploader"
+                         :action="uploadUrl"
+                         :show-file-list="false"
+                         :headers="{ auth: getToken }"
+                         :data="{
+                           type:'1',
+                           userid:userid
+                         }"
+                         :on-success="handleAvatarSuccess"
+                         :before-upload="beforeAvatarUpload">
+                <img v-if="row.photo"
+                     :src="row.photo"
+                     class="avatar"
+                     @click="userid = row.id">
+                <i v-else
+                   class="el-icon el-icon-plus avatar-uploader-icon"
+                   @click="userid = row.id"></i>
 
-    <el-button
-      type="primary"
-      size="small"
-      style="margin:10px 0px"
-      @click="New()"
-    >新增</el-button>
+              </el-upload>
+            </template>
+            <!-- 签名上传 -->
+            <template v-if="prop === 'signature'">
+              <el-upload class="avatar-uploader"
+                         :action="uploadUrl"
+                         :show-file-list="false"
+                         :headers="{ auth: getToken }"
+                         :data="{
+                           type:'0',
+                           userid:userid
+                         }"
+                         :on-success="handleAvatarSuccess"
+                         :before-upload="beforeAvatarUpload">
+                <img v-if="row.signature"
+                     :src="row.signature"
+                     class="avatar"
+                     @click="userid = row.id">
+                <i v-else
+                   class="el-icon el-icon-plus avatar-uploader-icon"
+                   @click="userid = row.id"></i>
 
-    <el-table
-      v-loading.body="listLoading"
-      :data="list"
-      element-loading-text="拼命加载中"
-      border
-      fit
-      highlight-current-row
-    >
-      <el-table-column
-        align="center"
-        label="ID"
-        width="95"
-      >
-        <template slot-scope="scope">
-          {{ scope.$index+1 }}
-        </template>
-      </el-table-column>
-      <el-table-column label="昵称">
-        <template slot-scope="scope">
-          {{ scope.row.RealName }}
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="用户名"
-        align="center"
-      >
-        <template slot-scope="scope">
-          <span>{{ scope.row.UserName }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="密码"
-        align="center"
-      >
-        <template slot-scope="scope">
-          {{ scope.row.Password }}
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="角色"
-        align="center"
-      >
-        <template slot-scope="scope">
-          {{ scope.row.RoleName }}
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="部门"
-        align="center"
-      >
-        <template slot-scope="scope">
-          {{ scope.row.DeptName }}
-        </template>
-      </el-table-column>
-
-      <el-table-column
-        label="操作"
-        align="center"
-        min-width="110px"
-      >
-        <template slot-scope="scope">
-          <el-button
-            type="success"
-            size="small"
-            @click="Edit(scope.row.ID)"
-          >编辑</el-button>
-
-          <el-button
-            type="danger"
-            size="small"
-            @click="Delete(scope.row.ID)"
-          >删除</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-    <el-pagination
-      :current-page="listQuery.pageNumber"
-      :page-sizes="[10, 20, 30]"
-      :page-size="listQuery.pageSize"
-      :total="listQuery.totalCount"
-      layout="total,sizes, prev, pager, next"
-      style="margin-top:5px"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-    />
-
-    <el-dialog
-      :title="textMap[dialogStatus]"
-      :visible.sync="dialogFormVisible"
-      :modal-append-to-body="false"
-      width="50%"
-    >
-      <el-form
-        :model="temp"
-        class="small-space"
-        label-position="left"
-        label-width="70px"
-      >
-
-        <el-form-item label="昵称">
-          <el-input
-            v-model="temp.realname"
-            class="filter-item"
-            placeholder="请输入昵称"
-          />
-        </el-form-item>
-        <el-form-item label="用户名">
-          <el-input
-            v-model="temp.username"
-            class="filter-item"
-            placeholder="请输入用户名"
-          />
-        </el-form-item>
-        <el-form-item label="密码">
-          <el-input
-            v-model="temp.password"
-            class="filter-item"
-            type="password"
-            placeholder="请输入密码"
-          />
-        </el-form-item>
-        <el-form-item label="排序码">
-          <el-input
-            v-model="temp.rank"
-            class="filter-item"
-            placeholder="请输入排序码"
-          />
-        </el-form-item>
-
-        <el-form-item label="部门">
-          <el-select
-            v-model="temp.deptid"
-            placeholder="请选择"
-            filterable
-          >
-            <el-option
-              v-for="item in deptoptions"
-              :key="item.id"
-              :label="item.deptname"
-              :value="item.id"
-            />
-          </el-select>
-
-        </el-form-item>
-
-        <el-form-item label="角色">
-          <el-select
-            v-model="temp.roleid"
-            placeholder="请选择"
-          >
-            <el-option
-              v-for="item in roleoptions"
-              :key="item.id"
-              :label="item.rolename"
-              :value="item.id"
-            />
-          </el-select>
-
-        </el-form-item>
-      </el-form>
-      <div
-        slot="footer"
-        class="dialog-footer"
-      >
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button
-          v-if="dialogStatus=='create'"
-          type="primary"
-          @click="create"
-        >确 定</el-button>
-        <el-button
-          v-else
-          type="primary"
-          @click="update"
-        >确 定</el-button>
-      </div>
-    </el-dialog>
-
+              </el-upload>
+            </template>
+          </template>
+          <template #btnCustom="{row}">
+            <el-button slot="btnCustom"
+                       icon="el-icon-edit-outline"
+                       type="warning"
+                       size="mini"
+                       @click="resetPassword(row)">重置密码</el-button>
+            <template v-if="row.logincount === '5'">
+              <el-button slot="btnCustom"
+                         icon="el-icon-unlock"
+                         type="primary"
+                         size="mini"
+                         @click="freezePassword(row,'0')">解锁</el-button>
+            </template>
+            <template v-else>
+              <el-button slot="btnCustom"
+                         icon="el-icon-lock"
+                         type="primary"
+                         size="mini"
+                         @click="freezePassword(row,'5')">锁定</el-button>
+            </template>
+          </template>
+        </CrudTable>
+      </el-col>
+    </el-row>
+    <!-- 用户编辑对话框 -->
+    <UserDialog ref="dialog"
+                :remoteFuncs="remoteFuncs"
+                @afterSave="dialogOnClose" />
   </div>
 </template>
 
 <script>
-import {
-  UsersList,
-  DeleteUsers,
-  GetUsersDetail,
-  AddUsers,
-  UpdateUsers,
-} from '@/api/system/users';
-import { DeptList } from '@/api/system/dept';
-import { RoleList } from '@/api/system/role';
+import { DML, crud } from '@/api/public/crud';
+import { mapGetters } from 'vuex';
+import UserDialog from './components/UserDialog.vue';
 
 export default {
   name: 'Users',
-
+  components: {
+    UserDialog,
+  },
+  created() {
+    this.loadDeptTree();
+  },
+  computed: {
+    getToken() {
+      return this.$store.getters.token;
+    },
+    uploadUrl() {
+      return `${process.env.VUE_APP_API_URL}users/uploadImage`;
+    },
+    ...mapGetters(['config']),
+  },
   data() {
     return {
-      depttree: [],
-      textMap: {
-        update: '编辑',
-        create: '新增',
+      imageUrl: '',
+      // loading
+      loading: false,
+      // 搜索text
+      tableTitle: '',
+      filterText: '',
+      userid: '',
+      tableParams: {},
+      // 部门树
+      deptTree: {
+        // 部门树数据源
+        data: [],
+        // 部门树数据源属性映射关系
+        mapping: {
+          children: 'children',
+          label: 'name',
+          nodeKey: 'id',
+          isLeaf: 'leaf',
+          disabled: 'parentid',
+        },
+        // 根节点id
+        rootId: '-1',
+        // 根节点parentid
+        rootParentid: 0,
+        // 默认展开的节点
+        expandedKeys: ['-1'],
       },
-      dialogFormVisible: false,
-      dialogStatus: '',
-      list: null,
-      listLoading: true,
-      RoleID: '',
-
-      temp: {
-        id: '',
-        username: '',
-        password: '',
-        realname: '',
-        roleid: '',
-        deptid: '',
-        isdeleted: false,
-      },
-      roleoptions: [],
-      deptoptions: [],
-      defaultProps: {
-        children: 'children',
-        label: 'text',
-      },
-      selected: null,
-      listQuery: {
-        totalCount: 0,
-        pageSize: 10,
-        pageNumber: 1,
+      remoteFuncs: {
+        // 请求角色
+        funcGetRole(resolve) {
+          crud(DML.SELECT, 'role').then((res) => {
+            const options = res.data.list.map(item => ({
+              label: item.rolename,
+              value: item.id,
+            }));
+            resolve(options);
+          });
+        },
+        // 请求部门tree
+        funcGetDeptTree: (resolve) => {
+          // 此处暂时写死 admin权限的账号可以看到全部部门
+          crud(
+            DML.TREE,
+            'dept',
+            {},
+            {
+              type: this.$store.getters.isAdmin ? null : '1',
+            },
+          ).then((res) => {
+            resolve(res.data);
+          });
+        },
       },
     };
   },
-
-  created() {
-    this.fetchData(this.listQuery);
-
-    RoleList().then((response) => {
-      this.roleoptions = response.data.list;
-    });
-
-    DeptList().then((response) => {
-      this.deptoptions = response.data.list;
-    });
-  },
   methods: {
-    handleSizeChange(val) {
-      this.listQuery.pageSize = val;
-      this.fetchData(this.listQuery);
-    },
-    handleCurrentChange(val) {
-      this.listQuery.pageNumber = val;
-      this.fetchData(this.listQuery);
-    },
-    fetchData(params) {
-      this.listLoading = true;
-      UsersList(params).then((response) => {
-        this.list = response.data.list;
-        this.listQuery.totalCount = response.data.total;
-        this.listLoading = false;
+    promiseForSelect(data) {
+      return crud(DML.SELECT, 'users', data, {
+        type: this.$store.getters.isAdmin ? null : '1',
       });
     },
-    New() {
-      this.temp = {
-        ID: '',
-        username: '',
-        password: '',
-        realname: '',
-        roleid: '',
-        deptid: '',
-      };
-      this.dialogFormVisible = true;
-
-      this.dialogStatus = 'create';
+    handleAvatarSuccess(res, file) {
+      this.$refs.table.tableReload();
     },
-    Delete(ID) {
-      this.$confirm('确认删除?', '提示', {
-        confirmButtonText: '确定',
+    beforeAvatarUpload(file) {
+      const isJPG = 'image/jpeg,image/png'.includes(file.type);
+      const isLt2M = file.size / 1024 / 1024 < 2;
+
+      if (!isJPG) {
+        this.$message.error('上传图片只能是 JPG/PNG 格式!');
+      }
+      if (!isLt2M) {
+        this.$message.error('上传图片大小不能超过 2MB!');
+      }
+      return isJPG && isLt2M;
+    },
+    resetPassword(user) {
+      const { initialPassword } = this.config;
+      this.$confirm(`确认重置到初始密码${initialPassword}`, '提示', {
+        confirmButtonText: '重置',
         cancelButtonText: '取消',
         type: 'warning',
-      }).then(() => {
-        DeleteUsers(ID).then(() => {
-          this.fetchData(this.listQuery);
+      })
+        .then(() => {
+          const data = { ...user };
+          data.password = initialPassword;
+          crud(DML.UPDATE, 'users', data).then((res) => {
+            if (res.code === 200) {
+              this.$message('重置成功');
+              this.$refs.table.tableReload();
+            }
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消重置',
+          });
         });
+    },
+    freezePassword(user, logincount) {
+      const message = logincount === '0' ? '确认解锁该账号?' : '确认锁定该账号？';
+      this.$confirm(message, '提示', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning',
+      })
+        .then(() => {
+          const data = { ...user };
+          data.logincount = logincount;
+          crud(DML.UPDATE, 'users', data).then((res) => {
+            if (res.code === 200) {
+              this.$refs.table.tableReload();
+              this.$message('操作成功');
+            }
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消',
+          });
+        });
+    },
+    btnAddOnClick() {
+      this.$refs.dialog.showDialog({}, 0, {
+        deptid: this.tableParams.deptid,
       });
     },
-    Edit(ID) {
-      this.dialogStatus = 'update';
-
-      GetUsersDetail(ID).then((response) => {
-        this.temp = response.data;
-
-        this.dialogFormVisible = true;
+    // 请求部门树
+    loadDeptTree(data) {
+      this.loading = true;
+      crud(
+        DML.TREE,
+        'dept',
+        {},
+        {
+          type: this.$store.getters.name !== 'admin' ? '1' : null,
+        },
+      ).then((res) => {
+        this.deptTree.data = [
+          {
+            name: '全部',
+            id: '-1',
+            children: res.data,
+          },
+        ];
+        this.loading = false;
+        this.deptTree.expandedKeys.push(this.deptTree.rootId);
       });
     },
-
-    create() {
-      AddUsers(this.temp).then(() => {
-        this.dialogFormVisible = false;
-
-        this.fetchData(this.listQuery);
-      });
+    btnEditOnClick(row) {
+      this.$refs.dialog.showDialog({ id: row.id }, 1, row);
     },
-    update() {
-      UpdateUsers(this.temp).then(() => {
-        this.dialogFormVisible = false;
-        this.fetchData(this.listQuery);
-      });
+    dialogOnClose() {
+      this.$refs.table.tableReload();
+    },
+    filterNode(value, data, node) {
+      if (!value) return true;
+      return this.$pinyinmatch.match(data.name, value);
+    },
+    nodeClick(data, node) {
+      if (data.id === this.deptTree.rootId) {
+        delete this.tableParams.deptid;
+      } else {
+        this.tableParams.deptid = data.id;
+      }
+      this.tableTitle = data.name;
+      this.$refs.table.tableReload();
+    },
+  },
+  watch: {
+    filterText(val) {
+      this.$refs.deptTree.filter(val);
     },
   },
 };
 </script>
+<style lang="scss" scoped>
+.avatar-uploader {
+  /deep/.el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    display: block;
+    width: 39px;
+    height: 39px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    &:hover {
+      border-color: #409eff;
+    }
+  }
+}
+.avatar-uploader-icon {
+  font-size: 22px;
+  color: #8c939d;
+  width: 39px;
+  height: 39px;
+  line-height: 39px;
+  text-align: center;
+}
+.avatar {
+  width: 39px;
+  height: 39px;
+  display: block;
+}
+</style>

@@ -1,3 +1,9 @@
+<!--
+ * @file: Tinymce组件封装
+ * @copyright: NanJing Anshare Tech .Com
+ * @author: BoBo
+ * @Date: 2018年6月14 11:12:05
+ -->
 <template>
   <div :class="{fullscreen:fullscreen}" class="tinymce-container editor-container">
     <textarea :id="tinymceId" class="tinymce-textarea"/>
@@ -8,9 +14,9 @@
 </template>
 
 <script>
-import editorImage from './components/editorImage'
-import plugins from './plugins'
-import toolbar from './toolbar'
+import editorImage from './components/editorImage';
+import plugins from './plugins';
+import toolbar from './toolbar';
 
 export default {
   name: 'Tinymce',
@@ -19,7 +25,7 @@ export default {
     id: {
       type: String,
       default() {
-        return `vue-tinymce-${+new Date()}${(Math.random() * 1000).toFixed(0)}`
+        return `vue-tinymce-${+new Date()}${(Math.random() * 1000).toFixed(0)}`;
       },
     },
     value: {
@@ -30,7 +36,7 @@ export default {
       type: Array,
       required: false,
       default() {
-        return []
+        return [];
       },
     },
     menubar: {
@@ -57,39 +63,40 @@ export default {
         en: 'en',
         zh: 'zh_CN',
       },
-    }
+    };
   },
   computed: {
     language() {
-      return this.languageTypeList[this.$store.getters.language]
+      return this.languageTypeList[this.$store.getters.language];
     },
   },
   watch: {
     value(val) {
       if (!this.hasChange && this.hasInit) {
-        this.$nextTick(() => window.tinymce.get(this.tinymceId).setContent(val || ''))
+        this.$nextTick(() => window.tinymce.get(this.tinymceId).setContent(val || ''));
       }
     },
     language() {
-      this.destroyTinymce()
-      this.$nextTick(() => this.initTinymce())
+      this.destroyTinymce();
+      this.$nextTick(() => this.initTinymce());
     },
   },
   mounted() {
-    this.initTinymce()
+    this.initTinymce();
   },
   activated() {
-    this.initTinymce()
+    this.initTinymce();
   },
   deactivated() {
-    this.destroyTinymce()
+    this.destroyTinymce();
   },
   destroyed() {
-    this.destroyTinymce()
+    this.destroyTinymce();
   },
   methods: {
     initTinymce() {
-      const _this = this
+      // eslint-disable-next-line no-underscore-dangle
+      const _this = this;
       window.tinymce.init({
         language: 'zh_CN',
         selector: `#${this.tinymceId}`,
@@ -112,18 +119,18 @@ export default {
         nonbreaking_force_tab: true, // inserting nonbreaking space &nbsp; need Nonbreaking Space Plugin
         init_instance_callback: (editor) => {
           if (_this.value) {
-            editor.setContent(_this.value)
+            editor.setContent(_this.value);
           }
-          _this.hasInit = true
+          _this.hasInit = true;
           editor.on('NodeChange Change KeyUp SetContent', () => {
-            this.hasChange = true
-            this.$emit('input', editor.getContent())
-          })
+            this.hasChange = true;
+            this.$emit('input', editor.getContent());
+          });
         },
         setup(editor) {
           editor.on('FullscreenStateChanged', (e) => {
-            _this.fullscreen = e.state
-          })
+            _this.fullscreen = e.state;
+          });
         },
         // 整合七牛上传
         // images_dataimg_filter(img) {
@@ -138,52 +145,53 @@ export default {
         //       $image.addClass('wscnph');
         //     }
         //   }, 0);
-        //   return img
+        //   return img;
         // },
-        // images_upload_handler(blobInfo, success, failure, progress) {
-        //   progress(0);
-        //   const token = _this.$store.getters.token;
-        //   getToken(token).then(response => {
-        //     const url = response.data.qiniu_url;
-        //     const formData = new FormData();
-        //     formData.append('token', response.data.qiniu_token);
-        //     formData.append('key', response.data.qiniu_key);
-        //     formData.append('file', blobInfo.blob(), url);
-        //     upload(formData).then(() => {
-        //       success(url);
-        //       progress(100);
-        //     })
-        //   }).catch(err => {
-        //     failure('出现未知问题，刷新页面，或者联系程序员')
-        //     console.log(err);
-        //   });
-        // },
-      })
+        images_upload_handler(blobInfo, success, failure, progress) {
+          // progress(0);
+          const { token } = _this.$store.getters;
+          // getToken(token).then(response => {
+          //   const url = response.data.qiniu_url;
+          //   const formData = new FormData();
+          //   formData.append('token', response.data.qiniu_token);
+          //   formData.append('key', response.data.qiniu_key);
+          //   formData.append('file', blobInfo.blob(), url);
+          //   upload(formData).then(() => {
+          //     success(url);
+          //     progress(100);
+          //   })
+          // }).catch(err => {
+          //   failure('出现未知问题，刷新页面，或者联系程序员')
+          //   console.log(err);
+          // });
+        },
+      });
     },
     destroyTinymce() {
-      const tinymce = window.tinymce.get(this.tinymceId)
+      const tinymce = window.tinymce.get(this.tinymceId);
       if (this.fullscreen) {
-        tinymce.execCommand('mceFullScreen')
+        tinymce.execCommand('mceFullScreen');
       }
 
       if (tinymce) {
-        tinymce.destroy()
+        tinymce.destroy();
       }
     },
     setContent(value) {
-      window.tinymce.get(this.tinymceId).setContent(value)
+      window.tinymce.get(this.tinymceId).setContent(value);
     },
     getContent() {
-      window.tinymce.get(this.tinymceId).getContent()
+      window.tinymce.get(this.tinymceId).getContent();
     },
     imageSuccessCBK(arr) {
-      const _this = this
+      // eslint-disable-next-line no-underscore-dangle
+      const _this = this;
       arr.forEach((v) => {
-        window.tinymce.get(_this.tinymceId).insertContent(`<img class="wscnph" src="${v.url}" >`)
-      })
+        window.tinymce.get(_this.tinymceId).insertContent(`<img class="wscnph" src="${v.url}" >`);
+      });
     },
   },
-}
+};
 </script>
 
 <style scoped>

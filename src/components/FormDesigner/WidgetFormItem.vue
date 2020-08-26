@@ -1,49 +1,53 @@
 <template>
-  <el-form-item v-if="element && element.key"
-                :class="{active: selectWidget.key == element.key, 'is_req': element.options.required}"
-                :label="element.type === 'text'?'':element.name"
-                class="widget-view "
-                @click.native.stop="handleSelectWidget(index)"
-                :label-width="element.name===''?'0px':''">
-    <template v-if="element.type == 'richtext'">
-      <Tinymce :height="400"
-               v-model="element.options.defaultValue" />
+  <el-form-item class="widget-view "
+                v-if="element && element.key"
+                :class="{
+                  active: selectWidget.key == element.key,
+                  'is_req': element.options.required
+                  }"
+                :label="label"
+                :label-width="labelWidth"
+                @click.native.stop="handleSelectWidget(index)">
+    <template #label>
+        <span v-html="label"></span>
+       <i v-if="element.options.tips" class="el-icon el-icon-question"></i>
     </template>
-
     <template v-if="element.type == 'input'">
       <el-input v-model="element.options.defaultValue"
                 :style="{width: element.options.width}"
-                :placeholder="element.options.placeholder" />
+                :placeholder="element.options.placeholder"></el-input>
     </template>
      <template v-if="element.type == 'text'">
        <h4 style="text-align:center;margin:10px auto">
          {{element.name}}
        </h4>
     </template>
+    <template v-if="element.type == 'button'">
+      <el-button type="primary">{{element.options.text}}</el-button>
+    </template>
     <template v-if="element.type == 'textarea'">
-      <el-input :rows="5"
+      <el-input type="textarea"
+                :rows="5"
                 v-model="element.options.defaultValue"
                 :style="{width: element.options.width}"
-                :placeholder="element.options.placeholder"
-                :disabled="element.options.disabled"
-                type="textarea" />
+                :placeholder="element.options.placeholder"></el-input>
     </template>
 
     <template v-if="element.type == 'number'">
       <el-input-number v-model="element.options.defaultValue"
                        :disabled="element.options.disabled"
                        :controls-position="element.options.controlsPosition"
-                       :style="{width: element.options.width}" />
+                       :style="{width: element.options.width}"></el-input-number>
     </template>
 
     <template v-if="element.type == 'radio'">
       <el-radio-group v-model="element.options.defaultValue"
                       :style="{width: element.options.width}">
-        <el-radio v-for="(item, index) in element.options.options"
-                  :style="{display: element.options.inline ? 'inline-block' : 'block'}"
+        <el-radio :style="{display: element.options.inline ? 'inline-block' : 'block'}"
                   :label="item.value"
+                  v-for="(item, index) in element.options.options"
                   :key="item.value + index">
-          {{ element.options.showLabel ? item.label : item.value }}
+          {{element.options.showLabel ? item.label : item.value}}
         </el-radio>
       </el-radio-group>
     </template>
@@ -51,12 +55,23 @@
     <template v-if="element.type == 'checkbox'">
       <el-checkbox-group v-model="element.options.defaultValue"
                          :style="{width: element.options.width}">
-        <el-checkbox v-for="(item, index) in element.options.options"
-                     :style="{display: element.options.inline ? 'inline-block' : 'block'}"
+        <template v-if="!element.options.buttonStyle">
+            <el-checkbox
+                        :style="{display: element.options.inline ? 'inline-block' : 'block'}"
+                        :label="item.value"
+                        v-for="(item, index) in element.options.options"
+                        :key="item.value + index">
+              {{element.options.showLabel ? item.label : item.value}}
+            </el-checkbox>
+
+        </template>
+
+         <el-checkbox-button v-else :style="{display: element.options.inline ? 'inline-block' : 'block'}"
                      :label="item.value"
+                     v-for="(item, index) in element.options.options"
                      :key="item.value + index">
-          {{ element.options.showLabel ? item.label : item.value }}
-        </el-checkbox>
+          {{element.options.showLabel ? item.label : item.value}}
+        </el-checkbox-button>
       </el-checkbox-group>
     </template>
 
@@ -70,8 +85,9 @@
                       :disabled="element.options.disabled"
                       :editable="element.options.editable"
                       :clearable="element.options.clearable"
-                      :arrow-control="element.options.arrowControl"
-                      :style="{width: element.options.width}" />
+                      :arrowControl="element.options.arrowControl"
+                      :style="{width: element.options.width}">
+      </el-time-picker>
     </template>
 
     <template v-if="element.type == 'date'">
@@ -85,20 +101,21 @@
                       :disabled="element.options.disabled"
                       :editable="element.options.editable"
                       :clearable="element.options.clearable"
-                      :style="{width: element.options.width}" />
+                      :style="{width: element.options.width}">
+      </el-date-picker>
     </template>
 
     <template v-if="element.type == 'rate'">
       <el-rate v-model="element.options.defaultValue"
                :max="element.options.max"
                :disabled="element.options.disabled"
-               :allow-half="element.options.allowHalf" />
+               :allow-half="element.options.allowHalf"></el-rate>
     </template>
 
     <template v-if="element.type == 'color'">
       <el-color-picker v-model="element.options.defaultValue"
                        :disabled="element.options.disabled"
-                       :show-alpha="element.options.showAlpha" />
+                       :show-alpha="element.options.showAlpha"></el-color-picker>
     </template>
 
     <template v-if="element.type == 'select'">
@@ -111,13 +128,14 @@
         <el-option v-for="item in element.options.options"
                    :key="item.value"
                    :value="item.value"
-                   :label="element.options.showLabel?item.label:item.value" />
+                   :label="element.options.showLabel?item.label:item.value"></el-option>
       </el-select>
     </template>
 
     <template v-if="element.type=='switch'">
       <el-switch v-model="element.options.defaultValue"
-                 :disabled="element.options.disabled" />
+                 :disabled="element.options.disabled">
+      </el-switch>
     </template>
 
     <template v-if="element.type=='slider'">
@@ -128,7 +146,7 @@
                  :step="element.options.step"
                  :show-input="element.options.showInput"
                  :range="element.options.range"
-                 :style="{width: element.options.width}" />
+                 :style="{width: element.options.width}"></el-slider>
     </template>
     <template v-if="element.type == 'cascader'">
       <el-cascader v-model="element.options.defaultValue"
@@ -139,76 +157,62 @@
                    :options="element.options.remoteOptions">
       </el-cascader>
     </template>
-    <template v-if="element.type=='upload'">
-      <upload-affix :params="element.options.uploadParams" />
+      <template v-if="element.type=='comment'">
+       <h4 style="text-align:center;margin:0">意见框</h4>
     </template>
-    <el-button v-if="selectWidget.key == element.key"
-               title="删除"
-               class="widget-action-delete"
-               circle
-               plain
-               type="danger"
-               @click.stop="handleWidgetDelete(index)">
-      <icon name="regular/trash-alt"
-            style="width: 12px;height: 12px;" />
-    </el-button>
-    <el-button v-if="selectWidget.key == element.key"
-               title="复制"
-               class="widget-action-clone"
-               circle
-               plain
-               type="primary"
-               @click.stop="handleWidgetClone(index)">
-      <icon name="regular/clone"
-            style="width: 12px;height: 12px;" />
-    </el-button>
+     <template v-if="element.type=='table'">
+       <h4 style="text-align:center;margin:0">表格({{element.model}})</h4>
+    </template>
+      <template v-if="element.type=='treeselect'">
+       <h4 style="text-align:center;margin:0">树形下拉框({{element.model}})</h4>
+    </template>
+     <template v-if="element.type == 'richtext'">
+      <Tinymce :height="400"
+               v-model="element.options.defaultValue" />
+    </template>
+    <template v-if="element.type === 'upload'">
+      <h4 style="text-align:center;margin:0">附件上传</h4>
+    </template>
+    <div class="widget-view-action" v-if="selectWidget.key == element.key">
+          <i class="el-icon el-icon-document-copy" @click.stop="handleWidgetClone(index)"></i>
+          <i class="el-icon el-icon-delete-solid" @click.stop="handleWidgetDelete(index)"></i>
+        </div>
+
+        <div class="widget-view-drag" v-if="selectWidget.key == element.key">
+          <i class="drag-widget el-icon el-icon-rank"></i>
+        </div>
 
   </el-form-item>
 </template>
 
 <script>
-import icon from 'vue-awesome/components/Icon';
-import 'vue-awesome/icons/regular/keyboard';
-import 'vue-awesome/icons/regular/trash-alt';
-import 'vue-awesome/icons/regular/clone';
-import 'vue-awesome/icons/regular/dot-circle';
-import 'vue-awesome/icons/regular/check-square';
-import 'vue-awesome/icons/bars';
-import 'vue-awesome/icons/regular/calendar-alt';
-import 'vue-awesome/icons/regular/clock';
-import 'vue-awesome/icons/th';
-import 'vue-awesome/icons/sort-numeric-up';
-import 'vue-awesome/icons/regular/star';
-import 'vue-awesome/icons/palette';
-import 'vue-awesome/icons/regular/caret-square-down';
-import 'vue-awesome/icons/toggle-off';
-import 'vue-awesome/icons/sliders-h';
-import 'vue-awesome/icons/regular/image';
-import 'vue-awesome/icons/chalkboard';
-import UploadAffix from '@/components/UploadAffix'; // 上传模块
 import Tinymce from '@/components/Tinymce'; // 富文本编辑器
 
 export default {
+  props: ['element', 'select', 'index', 'data'],
   components: {
-    icon,
-    UploadAffix,
     Tinymce,
   },
-  props: ['element', 'select', 'index', 'data'],
   data() {
     return {
       selectWidget: this.select,
     };
   },
-  watch: {
-    select(val) {
-      this.selectWidget = val;
+  computed: {
+    labelWidth() {
+      const { type, labelWidth } = this.element;
+      let label = 'text,comment'.includes(type) ? '0px' : labelWidth || undefined;
+      if (label) {
+        label = label.toString();
+        if (!label.includes('px')) {
+          label += 'px';
+        }
+      }
+      return label;
     },
-    selectWidget: {
-      handler(val) {
-        this.$emit('update:select', val);
-      },
-      deep: true,
+    // 左侧label内容,文本以及意见框组件的时候label为空
+    label() {
+      return 'text,comment'.includes(this.element.type) ? '' : this.element.name;
     },
   },
   methods: {
@@ -255,6 +259,17 @@ export default {
       this.$nextTick(() => {
         this.selectWidget = this.data.list[index + 1];
       });
+    },
+  },
+  watch: {
+    select(val) {
+      this.selectWidget = val;
+    },
+    selectWidget: {
+      handler(val) {
+        this.$emit('update:select', val);
+      },
+      deep: true,
     },
   },
 };

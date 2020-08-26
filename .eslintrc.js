@@ -1,37 +1,48 @@
+/**
+ * @file airbnb eslint http://airbnb.io/javascript/
+ * @author BoBo
+ * @copyright BoBo
+ * @createDate 2018年11月13日11:21:51
+ */
 module.exports = {
   root: true,
   env: {
     node: true,
-    
   },
   extends: [
     'plugin:vue/essential',
     '@vue/airbnb',
+    '@vue/typescript',
   ],
-  plugins: [
-    'vue'
-  ],
-
+  // 修改airbnb部分变态规则
   rules: {
-    "semi": "off", //去掉分号检查
-    'linebreak-style': 'off',
-    'no-param-reassign': 0, //允许改变形参
-    'no-plusplus': 0, // ++ --允许使用
-    'no-underscore-dangle': 0, //允许类似 const _this=this 下划线命名
-    'import/no-unresolved': 'off', //允许alias import    
-    'import/no-duplicates': 'off', //允许alias import    
-    'no-restricted-syntax': 0, // 允许for-of，
-    'vue/require-prop-types': 0, //props允许不指定type
-    'consistent-return': 'off', //
-    'max-len': 'off',
-    'import/extensions': 'off',
-    'vue/require-valid-default-prop': 'off',
+    'max-len': ['error', { code: 200 }],
+    // 允许修改形参
+    'no-param-reassign': 0,
+    // 允许使用 for-of，https://github.com/airbnb/javascript#iterators--nope
+    'no-restricted-syntax': 0,
+    // 允许v-if和v-for同时使用，https://vuejs.github.io/eslint-plugin-vue/rules/no-use-v-if-with-v-for.html
+    'vue/no-use-v-if-with-v-for': ['error', {
+      allowUsingIterationVar: true,
+    }],
+    // 允许循环引入
+    'import/no-cycle': 0,
+    // fix unresolved bug
+    'import/no-unresolved': 0,
+    // file extension
+    'import/extensions': 0,
+    'no-unused-vars': 0,
+    // import named
+    'import/named': 0,
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    // 允许class中方法不使用this
+    'class-methods-use-this': 'off',
   },
   parserOptions: {
-    parser: 'babel-eslint',
+    parser: '@typescript-eslint/parser',
+    ecmaFeatures: {
+      "legacyDecorators": true
+    }
   },
-
-
-}
+};

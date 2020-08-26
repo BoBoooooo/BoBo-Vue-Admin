@@ -1,0 +1,58 @@
+<!--
+ * @file: 消息盒子
+ * @copyright: NanJing Anshare Tech .Com
+ * @author: BoBo
+ * @Date: 2019年12月13 17:08:17
+ -->
+<template>
+  <div class="container">
+    <el-tooltip class="item"
+                effect="dark"
+                content="点击查看通知公告!"
+                placement="left">
+      <el-badge :value="menuNum.summary"
+                :max="9"
+                class="item">
+        <svgIcon icon-class="dashboard_notification"
+                 class="icon"
+                 @click.native="visible = true"></svgIcon>
+      </el-badge>
+    </el-tooltip>
+    <boxDialog @close="visible = false"
+               :visible="visible"
+               v-if="visible"></boxDialog>
+  </div>
+</template>
+<script>
+import { mapGetters } from 'vuex';
+import { crud, DML } from '@/api/public/crud';
+import boxDialog from './components/boxDialog.vue';
+
+export default {
+  name: 'MessageBox',
+  data() {
+    return {
+      visible: false,
+    };
+  },
+  components: {
+    boxDialog,
+  },
+  computed: {
+    ...mapGetters(['menuNum']),
+  },
+};
+</script>
+<style lang="scss" scoped>
+.icon {
+  width: 2em !important;
+  height: 2em !important;
+  cursor: pointer;
+  margin-top:16px;
+  margin-bottom: 16px;
+  transition: all 0.5s ease-out;
+  &:hover {
+    transform: translateX(-4px);
+  }
+}
+</style>

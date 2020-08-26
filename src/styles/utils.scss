@@ -1,0 +1,86 @@
+// 一些快捷工具类样式
+.full-width {
+  width: 100%;
+}
+.full-height {
+  height: 100%;
+}
+.full-size {
+  @extend .full-height;
+  @extend .full-width;
+}
+
+.children-float-left{
+  >*{
+    float: left;
+  }
+}
+
+.text-space-between{//文字两端分散对其（在火狐浏览器上若不生效，在div上添加属性 lang="zh" 即可）
+  text-align-last:justify;
+  text-align:justify;
+  text-justify:distribute-all-lines; // 这行必加，兼容ie浏览器
+}
+
+.text-ellipsis{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+// 以属性值作为class  的样式生成器
+// $attr-name 属性名
+// $values 属性值数组
+// $prefix class选择器前缀
+@mixin attr-to-class-generate($attr-name, $values, $prefix) {
+  @each $i in $values {
+    $class-name: #{$prefix}#{$i};
+    .#{$class-name} {
+      #{$attr-name}: #{$i};
+    }
+  }
+}
+//[$attr-name,$values:[],$prefix]
+$attr-to-class-list: (
+  ('box-sizing', (border-box, content-box), ''),
+  ('position', (fixed, relative, absolute, static), 'position-'),
+  ('display',('inline-block','none','inline','block','flex','table'),'display-'),
+  ('visibility',('hidden','collapse','visible','inherit','initial','unset'),'visibility-'),
+  ('cursor',('pointer'),'cursor-'),
+  ('overflow',("hidden","auto"),"overflow-")
+);
+@each $attr-name, $values, $prefix in $attr-to-class-list {
+  @include attr-to-class-generate($attr-name, $values, $prefix);
+}
+
+
+//例：class="clear-both" 
+@each $position in left, right, both, none {
+  .clear-#{$position} {
+    &:after {
+      content: '';
+      display: block;
+      height: 0;
+      width: 0;
+      clear: #{$position};
+    }
+  }
+}
+
+
+/*
+例:mt-10=> margin-right:10px;
+
+*/
+@each $type, $type-name in (margin, m), (padding, p) {
+  @each $position, $position-name in ("-top", t), ("-bottom", b), ("-left", l),
+    ("-right", r),("","")
+  {
+    @for $i from 0 through 30 {
+      .#{$type-name}#{$position-name}-#{$i} {
+        #{$type}#{$position}: #{$i}px;
+      }
+    }
+  }
+}

@@ -16,17 +16,16 @@
 
  -->
 <template>
-  <div
-    :class="className"
-    ref="chart"
-    :style="{height:height,width:width}"/>
+  <div :class="className"
+       ref="chart"
+       :style="{height:height,width:width}" />
 </template>
 
 <script>
-import echarts from 'echarts';
-import 'echarts/theme/macarons';
+import echarts from '@/plugins/echarts';
+import { debounce } from '@/utils/util';
 import chartData from './data/Charts_Fake';
-import mapJson from './data/jiangsu.json';
+import mapJson from './data/sichuan.json';
 
 export default {
   props: {
@@ -47,11 +46,11 @@ export default {
     },
     data: {
       type: Array,
-      default: () => ([]),
+      default: () => [],
     },
     title: {
       type: String,
-      default: '大标题',
+      default: '',
     },
     subtitle: {
       type: String,
@@ -81,7 +80,7 @@ export default {
         this.chart.resize();
       }
     };
-    window.addEventListener('resize', this.resizeHanlder);
+    window.addEventListener('resize', debounce(this.resizeHanlder));
   },
   beforeDestroy() {
     if (!this.chart) {
@@ -93,40 +92,47 @@ export default {
   },
   methods: {
     initChart() {
-      echarts.registerMap('jiangsu', this.mapJson);
+      echarts.registerMap('map', this.mapJson);
       this.chart = echarts.init(this.$refs.chart);
       this.chart.setOption(
         {
-          series: [{
-            type: 'map',
-            map: 'jiangsu',
-            data: this.chartData.mapData,
-            selectedMode: 'single',
-            zoom: 1.2,
-            label: {
-              normal: {
-                show: true,
+          series: [
+            {
+              type: 'map',
+              map: 'map',
+              data: this.chartData.mapData,
+              selectedMode: 'single',
+              zoom: 1.2,
+              label: {
+                normal: {
+                  show: true,
+                  textStyle: {
+                    fontSize: 12,
+                    fontWeight: 'bold',
+                    color: 'black',
+                  },
+                },
+                emphasis: {
+                  show: true,
+                },
               },
-              emphasis: {
-                show: true,
+              itemStyle: {
+                normal: {
+                  areaColor: '#323c48',
+                  borderColor: '#111',
+                },
+                emphasis: {
+                  // 鼠标移入高亮显颜色
+                  areaColor: '#f46d43',
+                },
               },
             },
-            itemStyle: {
-              normal: {
-                areaColor: '#323c48',
-                borderColor: '#111',
-              },
-              emphasis: {// 鼠标移入高亮显颜色
-                areaColor: '#f46d43',
-              },
-            },
-
-          }],
+          ],
 
           visualMap: {
             show: false,
             min: 0,
-            max: 50000,
+            max: 500,
             realtime: false,
             calculable: true,
             inRange: {
@@ -135,8 +141,13 @@ export default {
             left: 'right',
             top: 'top',
           },
-        }, true,
+        },
+        true,
       );
+      // 此处绑定饼图点击事件,把图例内容抛出,用于数据钻取
+      this.chart.on('click', (obj) => {
+        this.$emit('click', obj);
+      });
     },
   },
 };

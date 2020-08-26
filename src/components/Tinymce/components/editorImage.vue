@@ -8,10 +8,11 @@
         :file-list="fileList"
         :show-file-list="true"
         :on-remove="handleRemove"
+        :action="uploadUrl"
+        :headers="{ auth: getToken }"
         :on-success="handleSuccess"
         :before-upload="beforeUpload"
         class="editor-slide-upload"
-        action="https://httpbin.org/post"
         list-type="picture-card">
         <el-button size="small" type="primary">点击上传</el-button>
       </el-upload>
@@ -37,62 +38,71 @@ export default {
       dialogVisible: false,
       listObj: {},
       fileList: [],
-    }
+
+    };
+  },
+  computed: {
+    uploadUrl() {
+      return `${process.env.VUE_APP_API_URL}file/uploadImage`;
+    },
+    getToken() {
+      return this.$store.getters.token;
+    },
   },
   methods: {
     checkAllSuccess() {
-      return Object.keys(this.listObj).every(item => this.listObj[item].hasSuccess)
+      return Object.keys(this.listObj).every(item => this.listObj[item].hasSuccess);
     },
     handleSubmit() {
-      const arr = Object.keys(this.listObj).map(v => this.listObj[v])
+      const arr = Object.keys(this.listObj).map(v => this.listObj[v]);
       if (!this.checkAllSuccess()) {
-        this.$message('请等待所有图片上传成功 或 出现了网络问题，请刷新页面重新上传！')
-        return
+        this.$message('请等待所有图片上传成功 或 出现了网络问题，请刷新页面重新上传！');
+        return;
       }
-      this.$emit('successCBK', arr)
-      this.listObj = {}
-      this.fileList = []
-      this.dialogVisible = false
+      this.$emit('successCBK', arr);
+      this.listObj = {};
+      this.fileList = [];
+      this.dialogVisible = false;
     },
     handleSuccess(response, file) {
-      const { uid } = file
-      const objKeyArr = Object.keys(this.listObj)
-      for (let i = 0, len = objKeyArr.length; i < len; i++) {
+      const { uid } = file;
+      const objKeyArr = Object.keys(this.listObj);
+      for (let i = 0, len = objKeyArr.length; i < len; i += 1) {
         if (this.listObj[objKeyArr[i]].uid === uid) {
-          this.listObj[objKeyArr[i]].url = response.files.file
-          this.listObj[objKeyArr[i]].hasSuccess = true
-          return
+          this.listObj[objKeyArr[i]].url = response.files.file;
+          this.listObj[objKeyArr[i]].hasSuccess = true;
+          return;
         }
       }
     },
     handleRemove(file) {
-      const { uid } = file
-      const objKeyArr = Object.keys(this.listObj)
-      for (let i = 0, len = objKeyArr.length; i < len; i++) {
+      const { uid } = file;
+      const objKeyArr = Object.keys(this.listObj);
+      for (let i = 0, len = objKeyArr.length; i < len; i += 1) {
         if (this.listObj[objKeyArr[i]].uid === uid) {
-          delete this.listObj[objKeyArr[i]]
-          return
+          delete this.listObj[objKeyArr[i]];
+          return;
         }
       }
     },
     beforeUpload(file) {
-      const _self = this
-      const _URL = window.URL || window.webkitURL
-      const fileName = file.uid
-      this.listObj[fileName] = {}
+      // eslint-disable-next-line no-underscore-dangle
+      const _URL = window.URL || window.webkitURL;
+      const fileName = file.uid;
+      this.listObj[fileName] = {};
       return new Promise((resolve) => {
-        const img = new Image()
-        img.src = _URL.createObjectURL(file)
+        const img = new Image();
+        img.src = _URL.createObjectURL(file);
         img.onload = function onload() {
-          _self.listObj[fileName] = {
+          this.listObj[fileName] = {
             hasSuccess: false, uid: file.uid, width: this.width, height: this.height,
-          }
-        }
-        resolve(true)
-      })
+          };
+        };
+        resolve(true);
+      });
     },
   },
-}
+};
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
