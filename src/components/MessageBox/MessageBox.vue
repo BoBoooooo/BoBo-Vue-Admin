@@ -18,15 +18,15 @@
                  @click.native="visible = true"></svgIcon>
       </el-badge>
     </el-tooltip>
-    <boxDialog @close="visible = false"
+    <BoxDialog @close="visible = false"
                :visible="visible"
-               v-if="visible"></boxDialog>
+               v-if="visible"></BoxDialog>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
 import { crud, DML } from '@/api/public/crud';
-import boxDialog from './components/boxDialog.vue';
+import BoxDialog from './components/BoxDialog.vue';
 
 export default {
   name: 'MessageBox',
@@ -36,7 +36,7 @@ export default {
     };
   },
   components: {
-    boxDialog,
+    BoxDialog,
   },
   computed: {
     ...mapGetters(['menuNum']),
