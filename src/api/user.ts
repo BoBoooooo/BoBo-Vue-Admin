@@ -7,7 +7,7 @@
 import axios from '@/plugins/axios';
 
 // 用户登录
-export function login(userInfo):any {
+export function login(userInfo): any {
   return axios({
     url: '/user/login',
     method: 'post',
@@ -53,15 +53,5 @@ export function findByNames(names) {
     params: {
       names,
     },
-  });
-}
-
-/**
- * 统计在线人数
- */
-export function onlineNumbers() {
-  return axios({
-    url: '/users/olCount',
-    method: 'post',
   });
 }
