@@ -13,7 +13,7 @@
       <el-badge :value="menuNum.summary"
                 :max="9"
                 class="item">
-        <svgIcon icon-class="dashboard_notification"
+        <svgIcon icon-class="notification"
                  class="icon"
                  @click.native="visible = true"></svgIcon>
       </el-badge>
@@ -45,14 +45,14 @@ export default {
 </script>
 <style lang="scss" scoped>
 .icon {
-  width: 2em !important;
-  height: 2em !important;
+  width: 2.5em !important;
+  height: 100% !important;
   cursor: pointer;
-  margin-top:16px;
-  margin-bottom: 16px;
+  // margin-top: 16px;
+  // margin-bottom: 16px;
   transition: all 0.5s ease-out;
   &:hover {
-    transform: translateX(-4px);
+  box-shadow: 0px 4px 12px 0px rgba(7, 17, 27, 0.1);
   }
 }
 </style>

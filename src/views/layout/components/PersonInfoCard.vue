@@ -46,6 +46,15 @@
           <p>单位: {{ this.$store.getters.companyname }}</p>
           <p>部门: {{$store.getters.deptname}}</p>
           <p>角色: {{ this.$store.getters.rolename }}</p>
+          <p v-if="isAuth">当前委托人: {{ candidateUser }}
+            <el-tooltip class="item"
+                        effect="dark"
+                        content="取消授权"
+                        placement="right">
+              <i class="cancelIcon el-icon el-icon-circle-close"
+                 @click="clearAuth"></i>
+            </el-tooltip>
+          </p>
         </el-col>
       </el-row>
       <div slot="footer"
@@ -58,91 +67,68 @@
     <ChangePasswordDialog ref="passwordDialog"></ChangePasswordDialog>
   </div>
 </template>
-<script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+
+<script>
 import { mapGetters } from 'vuex';
 import ChangePasswordDialog from '@/components/ChangePasswordDialog/ChangePasswordDialog.vue';
 
-@Component({
-  name: 'PersonInfoCard',
+export default {
   components: {
     ChangePasswordDialog,
   },
-})
-export default class PersonInfoCard extends Vue {
-  $refs!: {
-    passwordDialog: HTMLFormElement;
-  };
-
-  visible = false;
-
-  visibleMember = false;
-
-  imageUrl = '';
-
+  data() {
+    return {
+      visible: false,
+      visibleMember: false,
+      imageUrl: '',
+    };
+  },
   created() {
     this.imageUrl = this.photo;
-  }
+  },
+  computed: {
+    uploadUrl() {
+      return `${process.env.VUE_APP_API_URL}users/uploadImage`;
+    },
+    ...mapGetters(['candidateUser', 'photo', 'userid', 'token']),
+  },
+  methods: {
+    showDialog(param = {}) {
+      this.visible = true;
+    },
+    handleCommand(command) {
+      switch (command) {
+        case 'changepwd':
+          this.$refs.passwordDialog.showDialog();
+          break;
+        case 'auth':
+          this.visibleMember = true;
+          break;
+        default:
+          break;
+      }
+    },
+    closeEvent() {
+      this.clearAuth();
+    },
+    handleAvatarSuccess(res, file) {
+      this.imageUrl = res.data;
+      this.$store.commit('SET_PHOTO', res.data);
+    },
+    beforeAvatarUpload(file) {
+      const isJPG = file.type === 'image/jpeg';
+      const isLt2M = file.size / 1024 / 1024 < 2;
 
-  get photo() {
-    return this.$store.getters.photo;
-  }
-
-  get userid() {
-    return this.$store.getters.userid;
-  }
-
-  get token() {
-    return this.$store.getters.token;
-  }
-
-  get candidateUser() {
-    return this.$store.getters.candidateUser;
-  }
-
-  get isAuth() {
-    return this.candidateUser !== '暂无授权';
-  }
-
-  get uploadUrl() {
-    return `${process.env.VUE_APP_API_URL}users/uploadImage`;
-  }
-
-  showDialog(param = {}) {
-    this.visible = true;
-  }
-
-  handleCommand(command) {
-    switch (command) {
-      case 'changepwd':
-        this.$refs.passwordDialog.showDialog();
-        break;
-      case 'auth':
-        this.visibleMember = true;
-        break;
-      default:
-        break;
-    }
-  }
-
-  handleAvatarSuccess(res, file) {
-    this.imageUrl = res.data;
-    this.$store.commit('SET_PHOTO', res.data);
-  }
-
-  beforeAvatarUpload(file) {
-    const isJPG = file.type === 'image/jpeg';
-    const isLt2M = file.size / 1024 / 1024 < 2;
-
-    if (!isJPG) {
-      this.$message.error('上传头像图片只能是 JPG 格式!');
-    }
-    if (!isLt2M) {
-      this.$message.error('上传头像图片大小不能超过 2MB!');
-    }
-    return isJPG && isLt2M;
-  }
-}
+      if (!isJPG) {
+        this.$message.error('上传头像图片只能是 JPG 格式!');
+      }
+      if (!isLt2M) {
+        this.$message.error('上传头像图片大小不能超过 2MB!');
+      }
+      return isJPG && isLt2M;
+    },
+  },
+};
 </script>
 
 <style lang='scss' scoped>
