@@ -141,19 +141,11 @@
                 :slotName="column.slotName"></slot>
         </template>
         <template slot-scope="scope">
-          <span v-if="column.filter">
-            {{ Vue.filter(column['filter'])(scope.row[column.prop]) }}
-          </span>
-          <span v-else-if="column.slotName">
+          <span v-if="column.slotName">
             <slot :name="column.slotName"
                   :row="scope.row"
                   :prop="column.prop"
                   :$index="scope.$index" />
-          </span>
-          <span v-else-if="column.render"
-                v-html="column.render(scope.row)"> </span>
-          <span v-else-if="column.formatter">
-            {{ column.formatter(scope.row, scope.column, scope.row[column.prop], scope.$index) }}
           </span>
           <el-input v-else-if="scope.row.isEdit"
                     v-model="scope.row[column.prop]"></el-input>
