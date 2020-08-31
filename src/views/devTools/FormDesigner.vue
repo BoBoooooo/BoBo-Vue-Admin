@@ -36,7 +36,7 @@
 <script>
 import { DML, crud } from '@/api/public/crud';
 import { getTables } from '@/api/system/form';
-import FormDesignerDialog from './components/FormDesignerDialog.vue';
+import FormDesignerDialog from '@/components/BaseDialog/FormDesignerDialog.vue';
 
 export default {
   name: 'FormDesigner',
