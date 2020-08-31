@@ -37,15 +37,5 @@
     <% } %> <% if (htmlWebpackPlugin.options.devServer) { %>
     <script src="<%= htmlWebpackPlugin.options.devServer%>/webpack-dev-server.js"></script>
     <% } %>
-    <script src="<%= BASE_URL %>js/snap.svg-min.js"></script>
-    <script src="<%= BASE_URL %>js/classie.js"></script>
-    <script src="<%= BASE_URL %>js/svgLoader.js"></script>
-    <script>
-      var loader = new SVGLoader(document.getElementById('loader'), { speedIn: 400, easingIn: mina.easeinout });
-      loader.show();
-      setTimeout(() => {
-        loader.hide();
-      }, 1600);
-    </script>
   </body>
 </html>

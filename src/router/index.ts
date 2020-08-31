@@ -25,7 +25,7 @@ const RouteView = () => ({ render: h => h('router-view') });
 
 interface RouterType {
   path: string, // 路由path
-  component: any, // 引用的组件
+  component?: any, // 引用的组件
   name?: string, // routerName,切勿重复
   title?: string, // 此处title同时配置icon名称,如果有需求可自行新增icon属性
   hidden?: boolean, // 是否隐藏
@@ -40,12 +40,15 @@ interface RouterType {
 export const constantRouterMap:RouterType[] = [
   {
     path: '/',
+    redirect: '/dashboard',
     component: () => import('@/views/layout/Layout.vue'),
     hidden: true,
     name: 'dashboard',
   },
   { path: '/login', component: () => import('@/views/public/Login.vue'), hidden: true },
-  { path: '/404', component: () => import('@/views/public/404.vue'), hidden: true },
+  {
+    path: '/404', name: 'notFound', component: () => import('@/views/public/404.vue'), hidden: true,
+  },
 ];
 
 export const router = new Router({
@@ -54,19 +57,20 @@ export const router = new Router({
 
 
 // 异步路由
-const asyncRouter = [
+const asyncRouter:RouterType[] = [
   {
-    path: '/wordboard',
+    path: '/dashboard',
     component: Layout,
     noDropdown: true,
     name: 'dashboardForUser',
-    title: '工作桌面',
+    title: '首页',
+    redirect: '/dashboard/dashboard',
     children: [{
-      path: 'workboard',
+      path: 'dashboard',
       component: () => import('@/views/dashboard/Dashboard.vue'),
       name: 'dashboardForUserIndex',
       meta: {
-        title: '工作桌面',
+        title: '首页',
       },
     }],
   },

@@ -25,7 +25,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component({
-  name: '404',
+  name: 'notFound',
 })
 export default class {
   goLogin() {
