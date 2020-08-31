@@ -50,3 +50,32 @@ confirmCallBack(){
 
  
 ```
+
+
+## 2、目录结构
+
+```bash
+├── public                     # public文件夹
+│   └── index.html             # html模板
+│   └── js                     # 公有js(一些插件直接引入html)
+├── src                        # 源代码
+│   ├── api                    # 所有请求
+│   ├── assets                 # 主题 字体等静态资源
+│   ├── components             # 全局公用组件
+│   ├── icons                  # 项目所有 svg icons
+│   ├── model                  # 自定义model
+│   ├── plugins                # 插件(axios,element ui,echarts)等
+│   ├── router                 # 路由
+│   ├── store                  # 全局 store管理
+│   ├── styles                 # 全局样式
+│   ├── utils                  # 全局公用方法
+│   ├── views                  # views 所有页面
+│   ├── App.vue                # 入口页面
+│   ├── main.ts                # 入口文件 加载组件 初始化等
+│   └── permission.ts          # 权限管理
+├── tests                      # 测试
+├── .env.xxx                   # 环境变量配置(包含多种环境变量,详情见具体项目)
+├── vue.config.js              # vue-cli 配置
+├── commitlint.config.js       # git commit lint 配置文件
+└── package.json               # package.json
+```
