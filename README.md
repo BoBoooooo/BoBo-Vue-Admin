@@ -79,3 +79,8 @@ confirmCallBack(){
 ├── commitlint.config.js       # git commit lint 配置文件
 └── package.json               # package.json
 ```
+
+## TODO
+
+1.升级vue-cli 4.x版本
+2.部分老页面按vue-class-component重构
