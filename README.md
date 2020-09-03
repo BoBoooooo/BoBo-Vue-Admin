@@ -81,6 +81,4 @@ confirmCallBack(){
 ```
 
 ## TODO
-
-1.升级vue-cli 4.x版本
-2.部分老页面按vue-class-component重构
+1.部分老页面按vue-class-component重构
