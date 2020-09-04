@@ -17,8 +17,6 @@ const app = {
     config: {
       // 密码长度
       passwordLength: '',
-      // 密码有效时间(天)
-      passwordTime: '',
       // 客户端超时时间(分钟)
       clientTimeOut: '',
       // 初始密码

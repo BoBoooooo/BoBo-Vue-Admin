@@ -119,49 +119,42 @@ export default class Login {
         this.btnLoginIsLoading = false;
         return null;
       }
-      this.loginForm.passwordTime = this.config.passwordTime;
       this.$store
         .dispatch('setTokenByLogin', this.loginForm)
         .then((res) => {
           this.btnLoginIsLoading = false;
           // 配置了首页
-          if (res.homepage) {
-            let view = null;
-            this.lodash.forEach(asyncRouterMap, (l1) => {
-              this.lodash.forEach(l1.children, (l2) => {
-                if (l2.name === res.homepage) {
-                  view = `${l1.path}/${l2.path}`;
-                  return false;
-                }
-                return true;
-              });
-              return !view;
-            });
-            this.$store.commit('SET_HOME_PAGE_PATH', view);
-            this.url = view;
-          } else {
-            this.url = '/';
-          }
+          // if (res.homepage) {
+          //   let view = null;
+          //   this.lodash.forEach(asyncRouterMap, (l1) => {
+          //     this.lodash.forEach(l1.children, (l2) => {
+          //       if (l2.name === res.homepage) {
+          //         view = `${l1.path}/${l2.path}`;
+          //         return false;
+          //       }
+          //       return true;
+          //     });
+          //     return !view;
+          //   });
+          //   this.$store.commit('SET_HOME_PAGE_PATH', view);
+          //   this.url = view;
+          // } else {
+          //   this.url = '/';
+          // }
 
           // 进入内部页面
           this.$router
             .push({
-              path: this.url,
+              path: '/',
             })
             .catch((error) => {
               console.info(error.message);
             });
         })
         .catch((error) => {
-          if (+error.code === 800) {
-            this.$alert(error.message, '警告', {
-              confirmButtonText: '重新输入',
-            });
-          } else {
-            this.$alert(error.message, '警告', {
-              confirmButtonText: '重新输入',
-            });
-          }
+          this.$alert(error.message, '警告', {
+            confirmButtonText: '重新输入',
+          });
           this.btnLoginIsLoading = false;
         });
       return null;

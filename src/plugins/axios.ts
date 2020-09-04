@@ -34,7 +34,7 @@ service.interceptors.request.use(
     NProgress.start();
     if (store.getters.token && store.getters.token !== 'null') {
       // 让每个请求携带自定义token
-      config.headers.auth = store.getters.token;
+      config.headers.Authorization = store.getters.token;
     }
     if (encrypt) {
       config.data = {

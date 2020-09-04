@@ -29,18 +29,9 @@ router.beforeEach(async (to, from, next) => {
         userName: userInfo.userName,
       });
       router.addRoutes(store.getters.addRouters); // 动态添加可访问路由表
-      // 新tab页打开工作流表单的时候不建立ws连接,避免造成多次重复连接.
-      if (!to.path.includes('task')) {
-        store.dispatch('initWebSocket', store.getters.name); // 建立ws连接
-        // 获取菜单待办数量
-        next({ ...to, replace: true } as any);
-      } else {
-        next({ ...to, replace: true } as any);
-      }
+      // store.dispatch('initWebSocket', store.getters.name); // 建立ws连接
+      next({ ...to, replace: true } as any);
     } else {
-      // 此时虽然stroe中有动态路由，但是由于刷新页面导致router中变量已经释放，需要重新导入
-      // 由于vue-router的BUG:https://github.com/vuejs/vue-router/issues/1859
-      // 我只能给store做局部持久化
       next();
     }
   } else if (whiteList.includes(to.path)) {

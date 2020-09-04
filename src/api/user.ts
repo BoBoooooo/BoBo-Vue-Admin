@@ -9,16 +9,16 @@ import axios from '@/plugins/axios';
 // 用户登录
 export function login(userInfo): any {
   return axios({
-    url: '/user/login',
+    url: '/users/login',
     method: 'post',
-    params: userInfo,
+    data: userInfo,
   });
 }
 
 // 获取用户信息
 export function getInfo() {
   return axios({
-    url: '/user/userinfo',
+    url: '/users/userinfo',
     method: 'post',
   });
 }
@@ -26,7 +26,7 @@ export function getInfo() {
 // 注销
 export function logout() {
   return axios({
-    url: '/user/logout',
+    url: '/users/logout',
     method: 'post',
   });
 }
@@ -34,7 +34,7 @@ export function logout() {
 // 修改密码
 export function update(data) {
   return axios({
-    url: '/user/changepassword',
+    url: '/users/changepassword',
     method: 'post',
     params: data,
   });
@@ -48,7 +48,7 @@ export function update(data) {
 
 export function findByNames(names) {
   return axios({
-    url: '/users/findByNames',
+    url: '/userss/findByNames',
     method: 'post',
     params: {
       names,

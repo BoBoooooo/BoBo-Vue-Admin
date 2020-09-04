@@ -90,7 +90,7 @@ const user = {
       const promise = await login(userInfo).then((res) => {
         // 登录成功
         if (res.code === 200) {
-          commit('SET_TOKEN', res.data.token);
+          commit('SET_TOKEN', `Bearer ${res.data.token}`);
           // 关闭之前打开的标签
           commit('DEL_ALL_VIEWS');
           return res.data;
@@ -134,16 +134,8 @@ const user = {
         commit('SET_ROLENAME', data.roleName);
         commit('SET_DEPTID', data.deptID);
         commit('SET_USERID', data.userID);
-        commit('SET_TEL', data.tel);
-        commit('SET_CANDIDATEUSER', data.candidateUser);
         // 用户头像
         commit('SET_PHOTO', data.photo);
-        // 用户签名
-        commit('SET_SIGNATURE', data.signature);
-        // 单位id
-        commit('SET_COMPANYID', data.companyID);
-        // 单位名
-        commit('SET_COMPANYNAME', data.companyName);
         // 是否为admin账号
         commit('SET_ISADMIN', data.userName === 'admin');
 
