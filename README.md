@@ -9,7 +9,7 @@
 
 * 基础三员管理
 
-* 表单设计器 (基于(https://github.com/GavinZhuLei/vue-form-making)开源版本代码进行二次开发重构,感谢大佬!如有侵权及时联系)
+* 表单设计器 (基于 (https://github.com/GavinZhuLei/vue-form-making) 开源版本代码进行二次开发重构,感谢大佬!如有侵权及时联系)
   * 新增附件组件
   * 文本组件
   * 按钮组件
