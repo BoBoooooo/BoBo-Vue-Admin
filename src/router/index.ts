@@ -104,18 +104,6 @@ const asyncRouter:RouterType[] = [
         component: () => import(/* webpackChunkName: "system" */ '@/views/system/Dept.vue'),
         meta: { title: '部门管理' },
       },
-      {
-        path: 'action-log',
-        name: 'ActionLog',
-        component: () => import(/* webpackChunkName: "system" */ '@/views/system/ActionLog.vue'),
-        meta: { title: '运行日志' },
-      },
-      {
-        path: 'login-log',
-        name: 'LoginLog',
-        component: () => import(/* webpackChunkName: "system" */ '@/views/system/LoginLog.vue'),
-        meta: { title: '登录日志' },
-      },
     ],
   },
   {
@@ -168,8 +156,6 @@ const asyncRouter:RouterType[] = [
       },
     ],
   },
-
-
   { path: '*', redirect: '/404', hidden: true },
 
 ];
