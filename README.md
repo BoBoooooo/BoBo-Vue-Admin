@@ -3,6 +3,8 @@
 
 项目文档 https://wiki.anshare.com.cn/frameworks 。
 
+配套后端地址 https://github.com/BoBoooooo/NestJS-API-Server.git (还在初期阶段)
+
 ## 0. 拉取代码时注意事项
 本项目基于airbnb的eslint规范，所以无论你用Windows、Mac OS还是UNIX，请使用0x0A（LF）换行符。
 Git提供了一个“换行符自动转换”功能，默认处于自动模式，Windows环境必须做如下设置：
