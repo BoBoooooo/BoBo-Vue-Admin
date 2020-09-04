@@ -19,6 +19,7 @@
     </noscript>
 
     <div id="app"></div>
+    <script src="<%= BASE_URL %>js/tinymce4.7.5/tinymce.min.js"></script>
     <% for (var js in htmlWebpackPlugin.files.js) { %>
     <script src="<%= htmlWebpackPlugin.files.js[js] %>"></script>
     <% } %> <% if (htmlWebpackPlugin.options.devServer) { %>

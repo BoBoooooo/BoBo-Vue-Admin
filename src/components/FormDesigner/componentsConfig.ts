@@ -385,14 +385,6 @@ export const advanceComponents = [
     },
   },
   {
-    type: 'comment',
-    name: '意见框',
-    icon: 'comment',
-    options: {
-      defaultType: 'String',
-    },
-  },
-  {
     type: 'richtext',
     name: '富文本',
     icon: 'text-width',
