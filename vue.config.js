@@ -95,11 +95,9 @@ module.exports = {
         vuex: 'Vuex',
         'vue-router': 'VueRouter',
         'element-ui': 'ELEMENT',
-        echarts: 'echarts',
         axios: 'axios',
         lodash: '_',
         jsoneditor: 'JSONEditor',
-        gojs: 'go',
         'core-js': 'core',
       });
       // 向模板插入资源
@@ -113,10 +111,8 @@ module.exports = {
             '/element-ui/2.13.0/theme-chalk/index.css',
             '/axios/0.19.0-beta.1/axios.min.js',
             '/lodash.js/4.17.11/lodash.min.js',
-            '/echarts/4.6.0/echarts.min.js',
             '/jsoneditor/7.0.5/jsoneditor.min.css',
             '/jsoneditor/7.0.5/jsoneditor.min.js',
-            '/gojs/2.0.4/go.js',
             '/core-js/2.6.5/shim.min.js',
           ],
           append: false,

@@ -21,7 +21,6 @@
     "core-js": "3.6.5",
     "crypto-js": "^4.0.0",
     "dayjs": "1.8.20",
-    "echarts": "4.8.0",
     "element-ui": "^2.13.2",
     "inquirer": "^6.5.2",
     "jsoneditor": "8.5.3",
