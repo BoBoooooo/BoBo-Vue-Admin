@@ -180,7 +180,7 @@
                style="width:100%">
           <thead>
             <th>数据源</th>
-            <th>前缀</th>
+
           </thead>
           <tbody>
             <td>
@@ -190,14 +190,9 @@
                          placeholder="选择数据源">
                 <el-option v-for="(item,index) in allTables"
                            :key="index"
-                           :label="item.table_name"
-                           :value="item.table_name"></el-option>
+                           :label="item.TABLE_NAME"
+                           :value="item.TABLE_NAME"></el-option>
               </el-select>
-            </td>
-            <td>
-              <el-input style="width:100%"
-                        v-model="formKeys.prefill"
-                        placeholder="前缀(非工作流绑定表单不需要配置)"></el-input>
             </td>
           </tbody>
         </table>

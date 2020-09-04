@@ -50,8 +50,8 @@ export default {
           // 请求表名列表
           getTables().then((res) => {
             const options = res.data.map(item => ({
-              label: item.table_name,
-              value: item.table_name,
+              label: item.TABLE_NAME,
+              value: item.TABLE_NAME,
             }));
             resolve(options);
           });

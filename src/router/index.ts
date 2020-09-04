@@ -138,24 +138,6 @@ const asyncRouter:RouterType[] = [
       },
     ],
   },
-  {
-    path: '/article',
-    component: Layout,
-    name: 'Article',
-    title: '通知公告',
-    noDropdown: true,
-    children: [
-      {
-        path: 'index',
-        name: 'ArticleIndex',
-        component: () => import('@/views/article/Article.vue'),
-        noCache: true,
-        meta: {
-          title: '通知公告',
-        },
-      },
-    ],
-  },
   { path: '*', redirect: '/404', hidden: true },
 
 ];
