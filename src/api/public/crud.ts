@@ -30,7 +30,7 @@ export const DML = {
  */
 export function crud(dml:string, tableName:string, data:object = {}, params:any = null, encrypt:boolean = false) {
   const options:optionsType = {
-    url: `/${tableName.replace(/_/g, '/')}/${dml}`,
+    url: `/${tableName}/${dml}`,
     method: 'post',
   };
   // 以下请求通过包体传参
