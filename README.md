@@ -1,22 +1,25 @@
-# dev框架板项目
-本项目基于 [Vue CLI 3](https://cli.vuejs.org/config/) 构建。
+# BoBo's Vue Admin
+本项目基于 [Vue CLI 4.x](https://cli.vuejs.org/config/) 构建。
 
 项目文档 https://wiki.anshare.com.cn/frameworks 。
 
 配套后端地址 https://github.com/BoBoooooo/NestJS-API-Server.git (还在初期阶段)
 
-## 0. 拉取代码时注意事项
-本项目基于airbnb的eslint规范，所以无论你用Windows、Mac OS还是UNIX，请使用0x0A（LF）换行符。
-Git提供了一个“换行符自动转换”功能，默认处于自动模式，Windows环境必须做如下设置：
-```
-提交时转换为LF，检出时不转换
-git config --global core.autocrlf input
-```
-由于vue大小写敏感，请修改Git默认设置
-```
-设置为区分大小写
-git config core.ignorecase false
-```
+## 0、核心功能
+
+* 基础三员管理
+
+* 表单设计器 (基于(https://github.com/GavinZhuLei/vue-form-making)开源版本代码进行二次开发重构,感谢大佬!如有侵权及时联系)
+  * 新增附件组件
+  * 文本组件
+  * 按钮组件
+  * 表格组件
+  * 级联选择器
+  * 富文本编辑器(Tinymce)
+* 表格设计器 (基于表单设计json自动生成列表json,可视化配置)
+* CrudTable组件 (结合表单表格设计器,传统单表crud一键完成开发,全靠配置,解放生产力)
+
+
 ## 1、开始使用
 * 使用npm安装依赖包
 ```
@@ -49,10 +52,8 @@ npm start
 confirmCallBack(){
   console.log('我是确认回调');
 }
-
  
 ```
-
 
 ## 2、目录结构
 
@@ -82,5 +83,21 @@ confirmCallBack(){
 └── package.json               # package.json
 ```
 
-## TODO
-1.部分老页面按vue-class-component重构
+## 4、TODO
+1. 部分老页面按vue-class-component重构
+2. 完善后端配套项目
+3. 准备线上部署演示demo
+
+
+## 5. 拉取代码时注意事项
+本项目基于airbnb的eslint规范，所以无论你用Windows、Mac OS还是UNIX，请使用0x0A（LF）换行符。
+Git提供了一个“换行符自动转换”功能，默认处于自动模式，Windows环境必须做如下设置：
+```
+提交时转换为LF，检出时不转换
+git config --global core.autocrlf input
+```
+由于vue大小写敏感，请修改Git默认设置
+```
+设置为区分大小写
+git config core.ignorecase false
+```
