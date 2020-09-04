@@ -55,7 +55,6 @@ const app = {
         const { codevalue, remark } = k;
         config[remark] = codevalue;
       });
-      config.systemName = 'BoBo"s Vue Admin';
       commit('SET_CONFIG', config);
       return config;
     },
