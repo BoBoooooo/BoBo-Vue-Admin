@@ -19,11 +19,7 @@ const user = {
     deptname: '', // 用户部门名
     deptid: '', // 用户部门id
     userid: '', // 用户ID
-    tel: '', // 用户电话号码,
     photo: '', // 用户头像base64
-    candidateUser: '', // 临时授权人
-    companyid: '', // 所属单位id
-    companyname: '', // 所属单位名
     isAdmin: false, // 是否为系统管理员
   },
   mutations: {
@@ -49,26 +45,8 @@ const user = {
     SET_USERID: (state, userid) => {
       state.userid = userid;
     },
-    SET_ISLEADER: (state, leader) => {
-      state.isLeader = leader;
-    },
-    SET_CANDIDATEUSER: (state, name) => {
-      state.candidateUser = name;
-    },
-    SET_TEL: (state, tel) => {
-      state.tel = tel;
-    },
     SET_PHOTO: (state, photo) => {
       state.photo = photo;
-    },
-    SET_SIGNATURE: (state, signature) => {
-      state.signature = signature;
-    },
-    SET_COMPANYID: (state, companyid) => {
-      state.companyid = companyid;
-    },
-    SET_COMPANYNAME: (state, companyname) => {
-      state.companyname = companyname;
     },
     SET_ISADMIN: (state, isadmin) => {
       state.isAdmin = isadmin;
