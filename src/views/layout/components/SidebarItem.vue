@@ -1,15 +1,10 @@
 <!--
- * @file:
+ * @file: 左侧菜单item
  * @copyright: NanJing Anshare Tech .Com
  * @author: BoBo
  * @Date: 2019-09-05 21:55:47
  -->
-<!--
-@file 左侧边栏菜单子项
-@author ytyang
-@copyright NanJing Anshare Tech .Com
-@createDate 2018年11月13日15:21:56
--->
+
 <template>
   <div class="menu-wrapper">
     <template v-for="item in routes">

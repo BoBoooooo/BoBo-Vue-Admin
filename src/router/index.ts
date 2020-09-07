@@ -27,7 +27,7 @@ interface RouterType {
   path: string, // 路由path
   component?: any, // 引用的组件
   name?: string, // routerName,切勿重复
-  title?: string, // 此处title同时配置icon名称,如果有需求可自行新增icon属性
+  title?: string, // 此处title同时配置icon名称,如果有需求可自行新增icon属性,修改sidebaritem相关代码
   hidden?: boolean, // 是否隐藏
   redirect?: string, // 是否重定向
   children?: any, // 是否含有二级路由

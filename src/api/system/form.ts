@@ -1,3 +1,9 @@
+/*
+ * @file: 表单设计相关api
+ * @copyright: NanJing Anshare Tech .Com
+ * @author: BoBo
+ * @Date: 2020年08月26 16:14:53
+ */
 import axios from '@/plugins/axios';
 
 /**

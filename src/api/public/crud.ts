@@ -15,6 +15,9 @@ interface optionsType {
   headers?:any // 自定义头,用于设置是否加密请求
 }
 
+/**
+ * 操作类型枚举
+ */
 export const DML = {
   INSERT: 'add',
   UPDATE: 'update',
@@ -26,7 +29,12 @@ export const DML = {
 };
 
 /**
- * 公共crud
+ *
+ * @param dml 操作类型
+ * @param tableName 数据库表名
+ * @param data body data
+ * @param params query Params
+ * @param encrypt 是否加密
  */
 export function crud(dml:string, tableName:string, data:object = {}, params:any = null, encrypt:boolean = false) {
   const options:optionsType = {
