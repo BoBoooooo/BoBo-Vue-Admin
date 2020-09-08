@@ -19,6 +19,7 @@
     "animate.css": "4.1.0",
     "axios": "^0.19.2",
     "compressing": "^1.4.0",
+    "conventional-changelog-cli": "^2.1.0",
     "core-js": "3.6.5",
     "crypto-js": "^4.0.0",
     "dayjs": "1.8.20",
