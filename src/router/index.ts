@@ -17,6 +17,13 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Layout from '../views/layout/Layout.vue';
 
+const originalPush = Router.prototype.push;
+
+// 处理路由跳转会报错的问题
+Router.prototype.push = function push(...rest) {
+  return (originalPush as any).apply(this, rest).catch(err => err);
+};
+
 Vue.use(Router);
 
 // 用于多级菜单时候作为router-view入口用
