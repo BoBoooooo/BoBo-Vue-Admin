@@ -52,9 +52,10 @@ const app = {
         systemName: '',
       };
       list.forEach((k) => {
-        const { codevalue, remark } = k;
-        config[remark] = codevalue;
+        const { codeValue, remark } = k;
+        config[remark] = codeValue;
       });
+
       commit('SET_CONFIG', config);
       return config;
     },

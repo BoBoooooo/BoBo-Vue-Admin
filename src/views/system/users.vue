@@ -54,14 +54,8 @@
                       btnDel:true,
                     }">
           <template #columnFormatter="{row,prop}">
-            <template v-if="prop === 'logincount'">
-              <span v-if="row.logincount === '5'"
-                    style="color:red">锁定</span>
-              <span v-else
-                    style="color:green">正常</span>
-            </template>
             <!-- 头像上传 -->
-            <template v-if="prop === 'avatar'">
+            <template v-if="prop === 'photo'">
               <el-upload class="avatar-uploader"
                          :action="uploadUrl"
                          :show-file-list="false"
@@ -82,28 +76,6 @@
 
               </el-upload>
             </template>
-            <!-- 签名上传 -->
-            <template v-if="prop === 'signature'">
-              <el-upload class="avatar-uploader"
-                         :action="uploadUrl"
-                         :show-file-list="false"
-                         :headers="{ auth: getToken }"
-                         :data="{
-                           type:'0',
-                           userid:userid
-                         }"
-                         :on-success="handleAvatarSuccess"
-                         :before-upload="beforeAvatarUpload">
-                <img v-if="row.signature"
-                     :src="row.signature"
-                     class="avatar"
-                     @click="userid = row.id">
-                <i v-else
-                   class="el-icon el-icon-plus avatar-uploader-icon"
-                   @click="userid = row.id"></i>
-
-              </el-upload>
-            </template>
           </template>
           <template #btnCustom="{row}">
             <el-button slot="btnCustom"
@@ -111,20 +83,6 @@
                        type="warning"
                        size="mini"
                        @click="resetPassword(row)">重置密码</el-button>
-            <template v-if="row.logincount === '5'">
-              <el-button slot="btnCustom"
-                         icon="el-icon-unlock"
-                         type="primary"
-                         size="mini"
-                         @click="freezePassword(row,'0')">解锁</el-button>
-            </template>
-            <template v-else>
-              <el-button slot="btnCustom"
-                         icon="el-icon-lock"
-                         type="primary"
-                         size="mini"
-                         @click="freezePassword(row,'5')">锁定</el-button>
-            </template>
           </template>
         </CrudTable>
       </el-col>

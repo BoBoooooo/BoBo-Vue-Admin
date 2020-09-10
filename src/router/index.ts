@@ -17,12 +17,12 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Layout from '../views/layout/Layout.vue';
 
-const originalPush = Router.prototype.push;
+// const originalPush = Router.prototype.push;
 
-// 处理路由跳转会报错的问题
-Router.prototype.push = function push(...rest) {
-  return (originalPush as any).apply(this, rest).catch(err => err);
-};
+// // 处理路由跳转会报错的问题
+// Router.prototype.push = function push(...rest) {
+//   return (originalPush as any).apply(this, rest).catch(err => err);
+// };
 
 Vue.use(Router);
 
@@ -92,12 +92,6 @@ const asyncRouter:RouterType[] = [
         name: 'Users',
         component: () => import(/* webpackChunkName: "system" */ '@/views/system/Users.vue'),
         meta: { title: '用户管理' },
-      },
-      {
-        path: 'auth',
-        name: 'Auth',
-        component: () => import(/* webpackChunkName: "system" */ '@/views/system/Auth.vue'),
-        meta: { title: '授权管理' },
       },
       {
         path: 'role',

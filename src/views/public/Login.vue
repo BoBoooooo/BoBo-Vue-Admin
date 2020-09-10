@@ -1,9 +1,8 @@
 <!--
-@file 为保证登录页浏览器兼容性，布局技术必须支持IE，避免使用flex等科技。
-      系统图标支持三种来源，分别是：elementUI自带、icons文件夹自动引入、vue-awesome插件。
+@file 登录页
 @author BoBo
 @copyright NanJing Anshare Tech .Com
-@createDate 2018年12月12日16:57:15
+@createDate 2020年09月10日10:50:36
 -->
 <template>
   <div class="login-container">
@@ -24,7 +23,7 @@
                       name="username"
                       type="text"
                       auto-complete="on"
-                      placeholder="请输入用户名" />
+                      placeholder="请输入用户名(演示账号 admin)" />
           </el-form-item>
           <el-form-item prop="password">
 
@@ -32,7 +31,7 @@
                       type="password"
                       name="password"
                       auto-complete="on"
-                      placeholder="请输入密码"
+                      placeholder="请输入密码(密码 123)"
                       @keyup.enter.native="handleLogin" />
           </el-form-item>
 
@@ -60,7 +59,6 @@
 
 <script>
 import { Component, Vue } from 'vue-property-decorator';
-import { asyncRouterMap } from '@/router/index';
 import ChangePasswordDialog from '@/components/ChangePasswordDialog/ChangePasswordDialog.vue';
 import { mapGetters } from 'vuex';
 
@@ -123,25 +121,6 @@ export default class Login {
         .dispatch('setTokenByLogin', this.loginForm)
         .then((res) => {
           this.btnLoginIsLoading = false;
-          // 配置了首页
-          // if (res.homepage) {
-          //   let view = null;
-          //   this.lodash.forEach(asyncRouterMap, (l1) => {
-          //     this.lodash.forEach(l1.children, (l2) => {
-          //       if (l2.name === res.homepage) {
-          //         view = `${l1.path}/${l2.path}`;
-          //         return false;
-          //       }
-          //       return true;
-          //     });
-          //     return !view;
-          //   });
-          //   this.$store.commit('SET_HOME_PAGE_PATH', view);
-          //   this.url = view;
-          // } else {
-          //   this.url = '/';
-          // }
-
           // 进入内部页面
           this.$router
             .push({

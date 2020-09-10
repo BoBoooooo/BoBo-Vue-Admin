@@ -12,7 +12,7 @@
             tableTitle:false,
           }'
           :tableParams="{
-            codetype:'系统配置'
+            codeType:'系统配置'
           }"
           tableDesignerName="params"
           dialogFormDesignerName="params"

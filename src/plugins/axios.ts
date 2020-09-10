@@ -60,12 +60,7 @@ service.interceptors.response.use(
     const res = response.data;
     // let { data } = res;
     const { message, code } = res;
-    let { data } = res;
-    if (typeof data === 'string') {
-      const decRes = Decrypt(data);
-      data = JSON.parse(decRes) || data;
-      res.data = data;
-    }
+
     NProgress.done();
     // 600表示token异常需要重新登录
     if (code === 600) {
