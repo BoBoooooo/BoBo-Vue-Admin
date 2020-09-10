@@ -394,8 +394,8 @@ export default class GenerateFormItem extends Vue {
           this.visible = true;
         } else {
           this.widget.options.remoteOptions = res.data.list.map(item => ({
-            value: item.codevalue,
-            label: item.codename,
+            value: item.codeValue,
+            label: item.codeName,
           }));
         }
 

@@ -647,8 +647,8 @@ export default {
     // 请求字典分类
     crud(DML.SELECT, 'ad_codelist_type').then((res) => {
       this.dictType = res.data.list.map(item => ({
-        label: item.codename,
-        value: item.codevalue,
+        label: item.codeName,
+        value: item.codeValue,
       }));
     });
   },

@@ -145,6 +145,7 @@
                   @on-submit="handleTest"
                   width="1000px"
                   form>
+        <el-alert type="warning" :closable="false" class="mb-15">组件依赖远端数据需要结合代码实际预览,此处无法直接预览效果!</el-alert>
         <generate-form v-if="previewVisible"
                        :data="widgetForm"
                        :remote="remoteFuncsForPreview"

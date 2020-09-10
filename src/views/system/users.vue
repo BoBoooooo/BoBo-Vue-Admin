@@ -144,7 +144,7 @@ export default {
         funcGetRole(resolve) {
           crud(DML.SELECT, 'role').then((res) => {
             const options = res.data.list.map(item => ({
-              label: item.rolename,
+              label: item.roleName,
               value: item.id,
             }));
             resolve(options);
