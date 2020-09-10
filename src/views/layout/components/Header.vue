@@ -32,10 +32,7 @@
         <i class="el-icon-switch-button icon"
            @click="logOut"></i>
       </div>
-      <div class="elevator">
-        <MessageBox></MessageBox>
-      </div>
-      <Sidebar />
+      <NavMenu />
     </el-header>
     <PersonInfoCard ref="personInfoCard"></PersonInfoCard>
   </div>
@@ -44,18 +41,16 @@
 <script>
 import { mapGetters } from 'vuex';
 import Hamburger from '@/components/Hamburger/Hamburger.vue';
-import MessageBox from '@/components/MessageBox/MessageBox';
 import PersonInfoCard from './PersonInfoCard.vue';
 
-import Sidebar from './Sidebar.vue';
+import NavMenu from './NavMenu.vue';
 
 export default {
   name: 'Header',
   components: {
     // Hamburger,
     PersonInfoCard,
-    Sidebar,
-    MessageBox,
+    NavMenu,
   },
   data() {
     return {

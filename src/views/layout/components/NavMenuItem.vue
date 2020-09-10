@@ -28,14 +28,10 @@
           <!-- <SvgIcon v-if="item.icon"
                     :icon-class="item.icon" /> {{ item.title }} -->
           <SvgIcon :icon-class="item.title" /> {{ item.title }}
-          <!-- 父级待办事项红点 -->
-          <el-badge is-dot
-                    class="item"
-                    v-if="visibleParentCountNum(item)>0"></el-badge>
         </template>
         <template v-for="child in item.children"
                   v-if="!child.hidden">
-          <sidebar-item v-if="child.children&&child.children.length>0"
+          <navmenu-item v-if="child.children&&child.children.length>0"
                         :key="child.name"
                         :routes="[child]"
                         class="menu-indent" />
@@ -45,12 +41,6 @@
                        class="menu-indent">
             <el-menu-item :index="item.path+'/'+child.path">
               {{ child.meta.title }}
-              <!-- 待办事项数量统计 -->
-              <template v-if="child.meta.visibleCountNum">
-                <el-badge :value="getListNum(child.meta.visibleCountNum)"
-                          v-if="getListNum(child.meta.visibleCountNum) !== 0"
-                          class="subitem"></el-badge>
-              </template>
             </el-menu-item>
           </router-link>
         </template>
@@ -61,37 +51,14 @@
 
 <script>
 export default {
-  name: 'SidebarItem',
+  name: 'NavMenuItem',
   props: {
     routes: {
       type: Array,
       default: () => [],
     },
-    waitListNum: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
-  computed: {
-    getWaitListNum() {
-      return this.waitListNum || {};
-    },
   },
   methods: {
-    // 返回各个待办菜单数量
-    getListNum(key) {
-      return this.getWaitListNum[key] || 0;
-    },
-    // 计算父级菜单是否需要显示 红点
-    visibleParentCountNum(item) {
-      let sum = 0;
-      for (const child of item.children) {
-        if (child.meta.visibleCountNum) {
-          sum += this.getListNum(child.meta.visibleCountNum);
-        }
-      }
-      return sum;
-    },
   },
 };
 </script>

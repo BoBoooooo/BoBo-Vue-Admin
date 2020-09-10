@@ -1,5 +1,5 @@
 <!--
-@file 左侧边栏菜单
+@file 顶部菜单
 @author BoBo
 @copyright NanJing Anshare Tech .Com
 @createDate 2018年11月13日15:17:37
@@ -16,13 +16,13 @@
            class="menu"
            id="menu-container">
     <!-- 菜单项组件 -->
-    <SidebarItem :routes="routers" />
+    <NavMenuItem :routes="routers" />
   </el-menu>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
-import SidebarItem from './SidebarItem.vue';
+import NavMenuItem from './NavMenuItem.vue';
 
 export default {
   data() {
@@ -32,10 +32,10 @@ export default {
     };
   },
   components: {
-    SidebarItem,
+    NavMenuItem,
   },
   computed: {
-    ...mapGetters(['routers', 'menuNum']),
+    ...mapGetters(['routers']),
   },
   methods: {
     handleDropDownCommand(command) {
