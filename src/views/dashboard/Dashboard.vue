@@ -7,7 +7,7 @@
 
 <template>
   <div class="workboard-container">
-    <img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3320765880,3678643770&fm=26&gp=0.jpg">
+    <img class="home-page" src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3320765880,3678643770&fm=26&gp=0.jpg">
   </div>
 </template>
 
@@ -17,7 +17,7 @@ import { Vue } from 'vue-property-decorator';
 export default class Dashboard extends Vue {}
 </script>
 <style lang="scss" scoped>
-img {
+.home-page {
   position: fixed;
   left:50%;
   top:50%;

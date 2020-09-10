@@ -374,7 +374,7 @@ export default class GenerateFormItem extends Vue {
       crud(DML.SELECT, 'ad_codelist', {
         searchCondition: [
           {
-            field: 'codetype',
+            field: 'codeType',
             operator: 'eq',
             value: this.widget.options.dictType,
           },

@@ -6,9 +6,12 @@
 -->
 <template>
   <div class="page-container">
-    <el-row :gutter="15" class="full-height">
-      <el-col :span="5" class="full-height">
-        <div  class="full-height" style="overflow:auto">
+    <el-row :gutter="15"
+            class="full-height">
+      <el-col :span="5"
+              class="full-height">
+        <div class="full-height"
+             style="overflow:auto">
           <el-input placeholder="请输入查询内容"
                     v-model="filterText"
                     prefix-icon="el-icon-search"> </el-input>
@@ -42,12 +45,10 @@
         <CrudTable ref="table"
                    table-name="users"
                    :tableTitle="tableTitle"
-                   :btnAddOnClick="btnAddOnClick"
-                   :btnEditOnClick="btnEditOnClick"
                    :remoteFuncs="remoteFuncs"
                    fullHeight
+                   :prefill="tableParams"
                    :actionColumnWidth="300"
-                   :promiseForSelect="promiseForSelect"
                    :tableParams="tableParams"
                    :visibleList="{
                       tableTitle: true,
@@ -87,23 +88,16 @@
         </CrudTable>
       </el-col>
     </el-row>
-    <!-- 用户编辑对话框 -->
-    <UserDialog ref="dialog"
-                :remoteFuncs="remoteFuncs"
-                @afterSave="dialogOnClose" />
   </div>
 </template>
 
 <script>
 import { DML, crud } from '@/api/public/crud';
 import { mapGetters } from 'vuex';
-import UserDialog from './components/UserDialog.vue';
 
 export default {
   name: 'Users',
-  components: {
-    UserDialog,
-  },
+
   created() {
     this.loadDeptTree();
   },
@@ -162,10 +156,6 @@ export default {
           crud(
             DML.TREE,
             'dept',
-            {},
-            {
-              type: this.$store.getters.isAdmin ? null : '1',
-            },
           ).then((res) => {
             resolve(res.data);
           });
@@ -174,11 +164,6 @@ export default {
     };
   },
   methods: {
-    promiseForSelect(data) {
-      return crud(DML.SELECT, 'users', data, {
-        type: this.$store.getters.isAdmin ? null : '1',
-      });
-    },
     handleAvatarSuccess(res, file) {
       this.$refs.table.tableReload();
     },
@@ -218,46 +203,11 @@ export default {
           });
         });
     },
-    freezePassword(user, logincount) {
-      const message = logincount === '0' ? '确认解锁该账号?' : '确认锁定该账号？';
-      this.$confirm(message, '提示', {
-        confirmButtonText: '确认',
-        cancelButtonText: '取消',
-        type: 'warning',
-      })
-        .then(() => {
-          const data = { ...user };
-          data.logincount = logincount;
-          crud(DML.UPDATE, 'users', data).then((res) => {
-            if (res.code === 200) {
-              this.$refs.table.tableReload();
-              this.$message('操作成功');
-            }
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消',
-          });
-        });
-    },
-    btnAddOnClick() {
-      this.$refs.dialog.showDialog({}, 0, {
-        deptid: this.tableParams.deptid,
-      });
-    },
+
     // 请求部门树
     loadDeptTree(data) {
       this.loading = true;
-      crud(
-        DML.TREE,
-        'dept',
-        {},
-        {
-          type: this.$store.getters.name !== 'admin' ? '1' : null,
-        },
-      ).then((res) => {
+      crud(DML.TREE, 'dept').then((res) => {
         this.deptTree.data = [
           {
             name: '全部',
@@ -269,9 +219,7 @@ export default {
         this.deptTree.expandedKeys.push(this.deptTree.rootId);
       });
     },
-    btnEditOnClick(row) {
-      this.$refs.dialog.showDialog({ id: row.id }, 1, row);
-    },
+
     dialogOnClose() {
       this.$refs.table.tableReload();
     },
