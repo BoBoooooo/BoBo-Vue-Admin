@@ -1,6 +1,8 @@
 # BoBo's Vue Admin
 本项目基于 [Vue CLI 4.x](https://cli.vuejs.org/config/) 构建。
 
+在线演示地址 http://server.boboooooo.top:9999/
+
 项目文档 https://wiki.anshare.com.cn/frameworks 。
 
 配套后端地址 https://github.com/BoBoooooo/NestJS-API-Server.git (还在初期阶段)
