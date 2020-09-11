@@ -9,10 +9,11 @@
   <div class="full-height page-container">
     <el-row :gutter="15"
             style="height:90%">
-      <el-col :span="6"
+      <el-col :span="5"
               class="full-height">
         <el-input placeholder="请输入查询内容"
                   v-model="filterText"
+                  size="small"
                   prefix-icon="el-icon-search"></el-input>
         <el-tree ref="dicttypetree"
                  class="full-height tree"
@@ -21,7 +22,7 @@
                  @node-drop="afterDropDown"
                  :props="defaultProps"
                  :filterNodeMethod="filterNode"
-                 :allow-drag="node=> node.data.parentid !== '0'"
+                 :allow-drag="node=> node.data.parentId !== '0'"
                  node-key="id"
                  highlight-current
                  :default-expanded-keys="['fe980574-2552-4754-88c8-366eb5a22861']"
@@ -42,7 +43,7 @@
               </el-button>
               <el-button type="text"
                          size="mini"
-                         v-if="data.parentid!=='0'"
+                         v-if="data.parentId!=='0'"
                          @click="() => remove(data)">
                 删除
               </el-button>
@@ -50,7 +51,7 @@
           </span>
         </el-tree>
       </el-col>
-      <el-col :span="18">
+      <el-col :span="19">
         <CrudTable tableName="ad_codelist"
                    ref="codeListTable"
                    full-height
@@ -82,10 +83,10 @@
                :model="entity"
                label-width="80px">
         <el-form-item label="类目名">
-          <el-input v-model="entity.codename"></el-input>
+          <el-input v-model="entity.codeName"></el-input>
         </el-form-item>
         <el-form-item label="排序码">
-          <el-input-number v-model="entity.codeorder"></el-input-number>
+          <el-input-number v-model="entity.codeOrder"></el-input-number>
         </el-form-item>
         <el-form-item label="备注">
           <el-input type="textarea"
@@ -131,7 +132,7 @@ export default {
       dialogStatus: 0,
       defaultProps: {
         children: 'children',
-        label: 'codename',
+        label: 'codeName',
       },
       textMap: {
         1: '编辑',
@@ -139,10 +140,10 @@ export default {
       },
       entity: {
         id: '',
-        codename: '',
-        codevalue: '',
-        parentid: '',
-        codeorder: 0,
+        codeName: '',
+        codeValue: '',
+        parentId: '',
+        codeOrder: 0,
         remark: '',
       },
       tableParams: {},
@@ -153,7 +154,7 @@ export default {
           // 请求字典分类
           crud(DML.SELECT, 'ad_codelist_type').then((res) => {
             const options = res.data.list.map(item => ({
-              label: item.codename,
+              label: item.codeName,
               value: item.id,
             }));
             resolve(options);
@@ -166,7 +167,7 @@ export default {
     afterDropDown(node, end, position, event) {
       if (position === 'inner') {
         const obj = node.data;
-        obj.parentid = end.data.id;
+        obj.parentId = end.data.id;
         crud(DML.UPDATE, 'ad_codelist_type', obj).then((res) => {
           this.$message.success('操作成功');
           this.fetchDictType();
@@ -200,7 +201,7 @@ export default {
       });
     },
     save() {
-      this.entity.codevalue = this.entity.codename;
+      this.entity.codeValue = this.entity.codeName;
       if (this.dialogStatus === STATUS.CREATE) {
         crud(DML.INSERT, 'ad_codelist_type', this.entity).then((res) => {
           this.fetchDictType();
@@ -223,7 +224,7 @@ export default {
       Object.keys(this.entity).forEach((key) => {
         this.entity[key] = '';
       });
-      this.entity.parentid = data.id;
+      this.entity.parentId = data.id;
       this.dialogStatus = STATUS.CREATE;
     },
     edit(data) {
@@ -232,18 +233,18 @@ export default {
       this.dialogStatus = STATUS.UPDATE;
     },
     treeClick(data) {
-      if (data.parentid === '0') {
-        delete this.tableParams.codetype;
+      if (data.parentId === '0') {
+        delete this.tableParams.codeType;
       } else {
         this.codeTypeId = data.id || '';
-        this.tableParams.codetype = data.codevalue;
+        this.tableParams.codeType = data.id;
       }
       this.$refs.codeListTable.tableReload();
     },
     // 树节点过滤
     filterNode(value, data, node) {
       if (!value) return true;
-      return this.$pinyinmatch.match(data.codename, value);
+      return this.$pinyinmatch.match(data.codeName, value);
     },
     // 批量添加字典值
     multiAddDict() {

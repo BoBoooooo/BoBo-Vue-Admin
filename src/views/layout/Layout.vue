@@ -68,7 +68,7 @@ export default {
   .main-container {
     background: #f0f3f7;
     padding: 0 50px 10px;
-    height: calc(100% - 80px);
+    height: calc(100% - 90px);
   }
 }
 </style>
