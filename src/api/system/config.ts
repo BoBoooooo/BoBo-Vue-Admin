@@ -9,6 +9,6 @@ import { crud, DML } from '@/api/public/crud';
 
 export default function () {
   return crud(DML.SELECT, 'ad_codelist', {
-    searchCondition: [{ field: 'codeType', operator: 'eq', value: '系统配置' }],
+    searchCondition: [{ field: 'codeType', operator: 'eq', value: 'f844cb90-1738-4013-b9f2-b0755b63b9dc' }],
   });
 }

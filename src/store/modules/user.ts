@@ -123,34 +123,19 @@ const user = {
     },
     // 删除客户端和服务端Token
     async clearToken({ commit }) {
-      // 如果配置了“不请求后端接口”
-      if (process.env.VUE_APP_REQUEST_API === 'false') {
-        const promise = new Promise((resolve) => {
-          commit('SET_TOKEN', null);
-          window.location.reload();
-          resolve();
-        });
-        return promise;
-      }
-      const promise = await logout().then(() => {
-        commit('SET_TOKEN', null);
-        window.location.reload();
-      });
-      return promise;
+      commit('SET_TOKEN', null);
+      window.location.reload();
     },
     // 客户端timeOut
     async clientTimeOut({ commit }) {
-      const promise = await logout().then(() => {
-        commit('SET_TOKEN', null);
-        MessageBox.alert('长时间未操作,登录超时,请重新登录', {
-          confirmButtonText: '重新登录',
-          showClose: false,
-          callback: () => {
-            window.location.reload();
-          },
-        });
+      commit('SET_TOKEN', null);
+      MessageBox.alert('长时间未操作,登录超时,请重新登录', {
+        confirmButtonText: '重新登录',
+        showClose: false,
+        callback: () => {
+          window.location.reload();
+        },
       });
-      return promise;
     },
     // 修改密码
     async changePassword({ commit }, {

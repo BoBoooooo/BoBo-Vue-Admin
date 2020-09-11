@@ -72,7 +72,7 @@ service.interceptors.response.use(
         customClass: 'msgBox',
         showClose: true,
       });
-    } else {
+    } else if (code !== 200) {
       // 业务失败情况统一拦截
       MessageBox.alert(`原因：${message}`, '操作失败', {
         confirmButtonText: '我知道了',
