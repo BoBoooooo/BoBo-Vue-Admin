@@ -8,12 +8,13 @@
   <div class="page-container">
     <el-row :gutter="15"
             class="full-height">
-      <el-col :span="5"
+      <el-col :span="4"
               class="full-height">
         <div class="full-height"
              style="overflow:auto">
           <el-input placeholder="请输入查询内容"
                     v-model="filterText"
+                    size="small"
                     prefix-icon="el-icon-search"> </el-input>
           <!-- 部门树 -->
           <el-tree v-loading="loading"
@@ -41,7 +42,7 @@
           </el-tree>
         </div>
       </el-col>
-      <el-col :span="19">
+      <el-col :span="20">
         <CrudTable ref="table"
                    table-name="users"
                    :tableTitle="tableTitle"
@@ -153,10 +154,7 @@ export default {
         // 请求部门tree
         funcGetDeptTree: (resolve) => {
           // 此处暂时写死 admin权限的账号可以看到全部部门
-          crud(
-            DML.TREE,
-            'dept',
-          ).then((res) => {
+          crud(DML.TREE, 'dept').then((res) => {
             resolve(res.data);
           });
         },

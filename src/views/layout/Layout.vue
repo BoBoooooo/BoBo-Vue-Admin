@@ -13,7 +13,7 @@
     <div class="main-container">
       <!-- TAB标签页 -->
       <!-- <TagsView /> -->
-      <!-- <Breadcrumb></Breadcrumb> -->
+      <Breadcrumb></Breadcrumb>
       <!-- 包含二级路由，可以继续嵌套子页面 -->
       <AppMain />
     </div>
@@ -26,7 +26,7 @@
 <script>
 
 import { AppMain, Header } from '@/views/layout/components/index.ts';
-// import Breadcrumb from '@/components/Breadcrumb/index.vue';
+import Breadcrumb from '@/components/Breadcrumb/index.vue';
 
 export default {
   name: 'Layout',
@@ -37,7 +37,7 @@ export default {
     AppMain,
     // TagsView,
     Header,
-    // Breadcrumb,
+    Breadcrumb,
   },
   computed: {
     sidebar() {
@@ -67,8 +67,8 @@ export default {
   // 主体区域
   .main-container {
     background: #f0f3f7;
-    padding: 10px 50px;
-    height: calc(100% - 100px);
+    padding: 0 50px 10px;
+    height: calc(100% - 80px);
   }
 }
 </style>

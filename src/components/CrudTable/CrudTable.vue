@@ -395,7 +395,7 @@ export default class CrudTable extends Vue {
   @Prop({ type: Boolean, default: false }) fullHeight!: boolean;
 
   // 高度minus
-  @Prop({ type: Number, default: 205 }) maxHeightMinus!: number;
+  @Prop({ type: Number, default: 235 }) maxHeightMinus!: number;
 
   // 高度minus
   @Prop(Number) height!: number;

@@ -48,6 +48,6 @@ export default {
 <style lang="scss" scoped>
 .app-main {
   // padding-top: 16px;
-  height:100%;
+  height:calc(100% - 40px);
 }
 </style>
