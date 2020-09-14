@@ -72,7 +72,7 @@ export default {
   overflow-y: auto;
   position: fixed;
   z-index:200;
-  width: 35px;
+  width: 34px;
   top: 100px;
   max-height:80%;
   border-top-right-radius: 8px;

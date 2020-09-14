@@ -71,7 +71,7 @@
                    size="mini"
                    type="primary"
                    style="color:white"
-                   @click.stop="editInlineMode? btnAddInline(): btnAdd()"></el-button>
+                   @click.stop="btnAdd()"></el-button>
 
       </template>
       <!-- 操作列 -->
@@ -84,20 +84,8 @@
                    @click.stop="actionColumnAdd(scope.row)">{{text.add}}</el-button>
         <!-- 操作列-编辑按钮 -->
         <template v-if="actionColumnBtnEditVisible(scope.row)">
-          <!-- 行内编辑模式 -->
-          <template v-if="scope.row.isEdit">
-            <el-button type="primary"
-                       icon="el-icon-check"
-                       @click.stop="btnSaveInlineOnClick(scope.row)"
-                       size="mini"
-                       :loading="btnSaveIsLoading">保存</el-button>
-            <el-button icon="el-icon-close"
-                       size="mini"
-                       @click.stop="tableReload">取消</el-button>
-          </template>
           <!-- 正常编辑按钮 -->
-          <el-button v-else
-                     type="success"
+          <el-button type="success"
                      size="mini"
                      @click.stop="actionColumnEdit(scope.row)">{{text.edit}}</el-button>
         </template>
@@ -121,34 +109,7 @@
                  type="primary"
                  icon="el-icon-plus"
                  size="mini"
-                 @click.stop="editInlineMode? btnAddInline(): btnAdd()">{{text.add}}</el-button>
-      <!-- 导出按钮 -->
-      <el-button v-if="view.btnExport"
-                 slot="btnExport"
-                 slot-scope="scope"
-                 type="primary"
-                 icon="el-icon-download"
-                 size="mini"
-                 @click.stop="btnExport(scope)">{{text.export}}</el-button>
-      <!-- 导入按钮、数据校验按钮 -->
-      <template v-if="view.btnImport"
-                slot="btnImport"
-                slot-scope="scope">
-        <el-button type="primary"
-                   icon="el-icon-upload"
-                   size="mini"
-                   @click.stop="btnImport(scope)">{{text.import}}</el-button>
-        <span style="margin-right: 15px;margin-top: 5px;display:inline-block"
-              v-if="checkSwitchStatus === '关闭校验'">数据校验状态:<span style="color:green">开启</span></span>
-        <el-switch v-model="checkSwitchStatus"
-                   @change="dataCheck"
-                   style="margin-top:4px"
-                   active-color="#13ce66"
-                   active-value="关闭校验"
-                   inactive-value="开启校验"
-                   inactive-color="#ff5722">
-        </el-switch>
-      </template>
+                 @click.stop="btnAdd()">{{text.add}}</el-button>
     </BaseTable>
     <!-- 对话框内的只有表单，时表格默认的对话框 -->
     <GenerateFormDialog ref="dialog"
@@ -173,18 +134,6 @@
               :save="save"></slot>
       </template>
     </GenerateFormDialog>
-    <!-- 导出列过滤对话框 -->
-    <ColumnFilterDialog ref="columnFilterDialog"
-                        :downloadURL="downloadURL"
-                        :tableTitle="tableTitle"
-                        :exportColumns="exportCondition"
-                        :promiseForExport="promiseForExport"
-                        v-if="exportCondition" />
-    <!-- 导入对话框 -->
-    <ImportDialog ref="importDialog"
-                  :tableName="tableName"
-                  @importSuccess="tableReload"
-                  :columns="tableConfig.columns"></ImportDialog>
   </div>
 </template>
 
@@ -196,8 +145,6 @@ import { DML, crud } from '@/api/public/crud';
 import { getTableDetail, getFormDetail } from '@/api/system/form';
 import BaseTable from '@/components/BaseTable/BaseTable.vue';
 import GenerateFormDialog from '@/components/BaseDialog/GenerateFormDialog.vue';
-import ColumnFilterDialog from './ColumnFilterDialog.vue';
-import ImportDialog from './ImportDialog.vue';
 
 const STATUS = {
   CREATE: 0,
@@ -209,8 +156,6 @@ const STATUS = {
   components: {
     BaseTable,
     GenerateFormDialog,
-    ColumnFilterDialog,
-    ImportDialog,
   },
 })
 export default class CrudTable extends Vue {
@@ -218,8 +163,6 @@ export default class CrudTable extends Vue {
   $refs!: {
     BaseTable: HTMLFormElement;
     dialog: HTMLFormElement;
-    columnFilterDialog: HTMLFormElement;
-    importDialog: HTMLFormElement;
   };
 
   // 表格结构json，将来可能有多张表
@@ -251,9 +194,6 @@ export default class CrudTable extends Vue {
 
   // 保存按钮Loading状态
   btnSaveIsLoading = false;
-
-  // 标记一下是否处于正在编辑模式
-  isEditing = false;
 
   // 表格行中的添加按钮点击事件
   @Prop({ default: null, type: Function }) btnRowAddOnClick!: any;
@@ -434,9 +374,6 @@ export default class CrudTable extends Vue {
   // 子表tableConfig 详情看GenerateFormItem中解释
   @Prop({ default: () => ({}), type: Object }) formTableConfig!: any;
 
-  // 是否开启行内编辑模式
-  @Prop({ type: Boolean, default: false }) editInlineMode!: any;
-
   // 行样式
   @Prop({
     default: () => ({
@@ -482,8 +419,6 @@ export default class CrudTable extends Vue {
       searchForm: true,
       tableTitle: true,
       btnAdd: true,
-      btnExport: true,
-      btnImport: false,
       actionColumnBtnAdd: false,
       actionColumnBtnEdit: true,
       actionColumnBtnDetail: false,
@@ -536,72 +471,6 @@ export default class CrudTable extends Vue {
   // 表格刷新
   tableReload() {
     this.$refs.BaseTable.dataChangeHandler();
-    this.isEditing = false;
-  }
-
-  btnAddInline() {
-    interface editMode {
-      isEdit: boolean;
-      [key: string]: string | boolean;
-    }
-    if (this.judgeIsEditing()) {
-      this.isEditing = true;
-      const entity: editMode = {
-        isEdit: true,
-      };
-      for (const row of this.tableConfig.columns) {
-        const { prop } = row;
-        if (prop !== '') {
-          entity[prop] = '';
-        }
-      }
-      this.dialogStatus = STATUS.CREATE;
-      this.$refs.BaseTable.addRow(entity);
-    }
-  }
-
-  // 行内保存按钮点击
-  btnSaveInlineOnClick(row) {
-    this.btnSaveIsLoading = true;
-    let msg;
-    let type;
-    // 根据对话框状态判断保存或编辑
-    if (this.dialogStatus === STATUS.CREATE) {
-      type = DML.INSERT;
-      msg = '添加成功';
-    } else {
-      type = DML.UPDATE;
-      msg = '编辑成功';
-    }
-    let promise;
-    const opt = {
-      ...row, // 默认基于formValues初始值修改
-      ...this.prefill,
-    };
-    // 如果有代理的保存方法
-    if (this.promiseForSave) {
-      promise = this.promiseForSave(opt);
-    } else {
-      promise = crud(type, this.tableName, opt);
-    }
-
-    promise.then((res) => {
-      if (res.code !== 200) {
-        this.$message({
-          type: 'error',
-          message: `保存失败，原因：${res.message}`,
-        });
-        this.btnSaveIsLoading = false;
-        return;
-      }
-      this.btnSaveIsLoading = false;
-      this.$message({
-        type: 'success',
-        message: msg,
-      });
-      row.isEdit = false;
-      this.tableReload();
-    });
   }
 
   // 添加
@@ -615,113 +484,6 @@ export default class CrudTable extends Vue {
       this.$refs.dialog.showDialog({}, 0, this.prefill);
     } else {
       this.$refs.dialog.showDialog();
-    }
-  }
-
-  // 导出
-  btnExport(scope) {
-    this.$refs.BaseTable.getSearchCondition((searchParams) => {
-      // 虽然从BaseTable的AdvancedSearchForm回调的searchParams是数组
-      // 如果传入的参数是数组与高级查询参数拼接，如果传入的是对象转为数组
-      if (Array.isArray(this.tableParams)) {
-        searchParams = searchParams.concat(this.tableParams);
-      } else if (this.tableParams) {
-        Object.keys(this.tableParams).forEach((k) => {
-          searchParams.push({
-            field: k,
-            operator: 'eq',
-            value: this.tableParams[k],
-          });
-        });
-      }
-      if (this.selectedRows.length > 0) {
-        searchParams.push({
-          field: this.multipleExportField,
-          operator: 'in',
-          value: this.selectedRows.map(t => t.id).join(','),
-        });
-      }
-
-      // 从表格列的json获取要导出的字段
-      this.exportCondition = this.tableConfig.columns
-        .filter((item: any) => item.prop !== '' && !item.slotName)
-        .map((item: any) => ({
-          value: item.label,
-          field: item.prop,
-        }));
-
-      // 对话框默认不存在，上面给exportCondition赋值后才会初始化元素
-      this.$nextTick(() => {
-        // 导出列过滤对话框
-        this.$refs.columnFilterDialog.showDialog({
-          orderCondition: scope.order,
-          searchCondition: searchParams,
-        });
-      });
-    });
-  }
-
-  // 导入
-  btnImport(scope) {
-    this.$refs.importDialog.showDialog(this.prefill);
-  }
-
-  // 数据校验
-  dataCheck(status) {
-    if (status === '关闭校验') {
-      // 必填项校验
-      const requiredFields = [];
-      // 下拉框校验(绑定数据字典情况)
-      const selectFields = [];
-      // 日期格式校验
-      const dateFields = [];
-
-      // 请求对话框内的动态表单json
-      getFormDetail(this.dialogFormDesignerName ? this.dialogFormDesignerName : this.tableName).then((res) => {
-        this.generateModle(JSON.parse(res.data.formJson).list, requiredFields, selectFields, dateFields);
-        const requiredCondition = [...requiredFields, ...selectFields, ...dateFields];
-        this.$refs.BaseTable.fetchHandler(false, false, requiredCondition);
-      });
-    } else {
-      this.$refs.BaseTable.fetchHandler(false, false, []);
-    }
-  }
-
-  // 设置只读
-  generateModle(genList, requiredFields, selectFields, dateFields) {
-    // 遍历设计的结构
-    for (let i = 0; i < genList.length; i += 1) {
-      if (genList[i].type === 'grid') {
-        genList[i].columns.forEach((item) => {
-          this.generateModle(item.list, requiredFields, selectFields, dateFields);
-        });
-      } else {
-        const row = genList[i];
-        if (row.options.required) {
-          requiredFields.push({
-            field: row.model,
-            operator: 'check',
-            required: true,
-          });
-        }
-        if (row.options.dictType) {
-          selectFields.push({
-            field: row.model,
-            operator: 'check',
-            dictType: row.options.dictType,
-          });
-        }
-        if (row.options.type === 'date') {
-          const { format } = row.options;
-          // eslint-disable-next-line no-nested-ternary
-          const dateformat = format === 'yyyy-MM-dd' ? '%Y-%m-%d' : format === 'yyyy年MM月dd日' ? '%Y年%m月%d日' : format === 'yyyyMMdd' ? '%Y%m%d' : format === 'yyyy/MM/dd' ? '%Y/%m/%d' : '';
-          selectFields.push({
-            field: row.model,
-            operator: 'check',
-            dateformat,
-          });
-        }
-      }
     }
   }
 
@@ -745,24 +507,9 @@ export default class CrudTable extends Vue {
     }
   }
 
-  // 判断是否在编辑状态
-  judgeIsEditing() {
-    if (!this.isEditing) {
-      return true;
-    }
-    this.$message.info('请先退出当前编辑状态');
-    return false;
-  }
-
   // 操作列-编辑
   actionColumnEdit(row) {
-    if (this.editInlineMode) {
-      if (this.judgeIsEditing()) {
-        this.$set(row, 'isEdit', true);
-        this.isEditing = true;
-        this.dialogStatus = STATUS.UPDATE;
-      }
-    } else if (this.btnEditOnClick) {
+    if (this.btnEditOnClick) {
       this.btnEditOnClick(row);
     } else {
       // 此处处理防止tree结构带有children属性造成保存bug
@@ -874,9 +621,6 @@ export default class CrudTable extends Vue {
     if (this.btnDelVisibleFunc) {
       // 如果传入了计算函数，取函数结果
       visible = this.btnDelVisibleFunc(row);
-    } else if (row.isEdit) {
-      // 默认显示
-      visible = false;
     } else {
       // 默认显示
       visible = this.view.actionColumnBtnDel;

@@ -1,10 +1,9 @@
 <!--
-@file BaseTable.vue基于el-table二次封装，支持搜索、分页、动态生成表头，页面大量使用建议三次封装
-      参考https://zhuanlan.zhihu.com/p/31990840
+@file BaseTable.vue基于el-table二次封装，支持高级查询、分页、动态生成表头
+      参考 https://zhuanlan.zhihu.com/p/31990840
 @author BoBo
 @copyright NanJing Anshare Tech .Com
 @createDate 2018年11月14日10:00:37
-@Refactor 重构 by BoBo
 -->
 
 <template>
@@ -19,12 +18,6 @@
       <slot name="btnBarPrevBtn" />
       <!-- 添加 -->
       <slot name="btnAdd" />
-      <!-- 导出 -->
-      <slot name="btnExport"
-            :order="sortParams.orderCondition"
-            :search="tableParams" />
-      <!-- 导入 -->
-      <slot name="btnImport" />
     </div>
     <!--
       高级搜索表单
@@ -630,11 +623,6 @@ export default class BaseTable extends Vue {
     this.$emit('sort-change', args);
     // 最后再刷新表格
     this.dataChangeHandler();
-  }
-
-  // 行内编辑的情况下获取CrudTable中传入的row
-  addRow(row) {
-    this.tableData.push(row);
   }
 
   @Watch('data')
