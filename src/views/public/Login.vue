@@ -6,8 +6,13 @@
 -->
 <template>
   <div class="login-container">
-
     <el-row>
+      <el-col :span="12"
+              class="wallpaper">
+        <svg-icon icon-class="banner"
+                  class="banner"></svg-icon>
+        <div class="line"></div>
+      </el-col>
       <el-col :span="12">
         <el-form ref="loginForm"
                  :model="loginForm"
@@ -44,15 +49,7 @@
           </el-form-item>
         </el-form>
       </el-col>
-      <el-col :span="12"
-              class="wallpaper">
-        <svg-icon icon-class="banner"
-                  class="banner"></svg-icon>
-        <div class="line"></div>
-      </el-col>
-
     </el-row>
-
   </div>
 </template>
 
@@ -155,7 +152,6 @@ $light_gray: #fff;
 
   .el-button {
     display: block;
-
     margin: 0 auto;
     width: 70%;
     border-radius: 15px;
@@ -168,6 +164,7 @@ $light_gray: #fff;
   }
   .el-col {
     height: 100%;
+    position: relative;
   }
 
   .wallpaper {
@@ -202,12 +199,10 @@ $light_gray: #fff;
   .login-form {
     margin: 0 auto;
     width: 300px;
-    // max-width: 100%;
-    // margin-top:50px;
     padding: 20px 35px;
     position: absolute;
     transform: translate(-50%, -50%);
-    left: 25%;
+    left: 50%;
     top: 42%;
   }
 
