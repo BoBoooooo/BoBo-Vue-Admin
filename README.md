@@ -1,4 +1,4 @@
-# BoBo's Vue Admin
+# BoBo's Vue Admin (目前还在持续更新中,敬请关注最新代码)
 本项目基于 [Vue CLI 4.x](https://cli.vuejs.org/config/) 构建。
 
 在线演示地址 http://server.boboooooo.top:9999/
