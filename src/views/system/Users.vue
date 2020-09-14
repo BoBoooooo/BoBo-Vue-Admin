@@ -61,9 +61,8 @@
               <el-upload class="avatar-uploader"
                          :action="uploadUrl"
                          :show-file-list="false"
-                         :headers="{ auth: getToken }"
+                         :headers="{ Authorization: getToken }"
                          :data="{
-                           type:'1',
                            userid:userid
                          }"
                          :on-success="handleAvatarSuccess"

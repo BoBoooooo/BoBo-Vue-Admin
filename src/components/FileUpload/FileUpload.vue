@@ -12,7 +12,7 @@
                :action="uploadUrl"
                :data="uploadParams"
                :accept="accept"
-               :headers="{ auth: this.$store.getters.token }"
+               :headers="{ Authorization: this.$store.getters.token }"
                :show-file-list="false"
                :before-upload="beforeUpload"
                :on-success="uploadSuccess"

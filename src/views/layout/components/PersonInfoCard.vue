@@ -24,7 +24,7 @@
           <el-upload class="avatar-uploader"
                      :action="uploadUrl"
                      :show-file-list="false"
-                     :headers="{ auth: token }"
+                     :headers="{ Authorization: token }"
                      :data="{
                            type:'1',
                            userid:userid

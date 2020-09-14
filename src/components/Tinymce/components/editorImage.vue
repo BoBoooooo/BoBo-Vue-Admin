@@ -9,7 +9,7 @@
         :show-file-list="true"
         :on-remove="handleRemove"
         :action="uploadUrl"
-        :headers="{ auth: getToken }"
+        :headers="{ Authorization: getToken }"
         :on-success="handleSuccess"
         :before-upload="beforeUpload"
         class="editor-slide-upload"
