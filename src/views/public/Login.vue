@@ -10,8 +10,8 @@
       <el-col :span="12"
               class="wallpaper">
         <svg-icon icon-class="banner"
+                  @click.native="redirectToGitHub"
                   class="banner"></svg-icon>
-        <div class="line"></div>
       </el-col>
       <el-col :span="12">
         <el-form ref="loginForm"
@@ -107,6 +107,10 @@ export default class Login {
     }
   }
 
+  redirectToGitHub() {
+    window.open('https://github.com/BoBoooooo/BoBo-Vue-Admin', '_blank');
+  }
+
   handleLogin() {
     this.btnLoginIsLoading = true;
     this.$refs.loginForm.validate((valid) => {
@@ -155,8 +159,8 @@ $light_gray: #fff;
     margin: 0 auto;
     width: 70%;
     border-radius: 15px;
-    background: $primary;
-    box-shadow: 0 4px 9.6px 0.4px rgba(74, 227, 135, 0.5);
+    background: #f36874;
+    box-shadow: 0 4px 9.6px 0.4px rgba(227, 74, 74, 0.5);
     color: #fff;
   }
   .el-row {
@@ -168,31 +172,19 @@ $light_gray: #fff;
   }
 
   .wallpaper {
-    background: #333;
+    background: #6163ad;
     overflow: hidden;
     position: relative;
     .banner {
-      color: $primary;
-      width: 40%;
-      height: 2.625rem;
+      color: #f2f6fc;
+      cursor: pointer;
+      width: 30%;
+      height: 30%;
       position: absolute;
-
       transform: translate(-50%, -50%);
       left: 50%;
-      top: 48%;
+      top: 45%;
       z-index: 20;
-    }
-    .line {
-      position: absolute;
-      width: 27%;
-      left: 36%;
-      z-index: 10;
-      height: 120%;
-      transform: rotate(15deg);
-      top: -10%;
-      margin: 0 auto;
-      // transform: rotate(15deg);
-      background: #282828;
     }
   }
   // background-color: $bg;
