@@ -1,11 +1,10 @@
 /*
-本文件专门用于通过变量覆盖elementui主题颜色，具体变量名可以在这里查询：
-element-ui/packages/theme-chalk/src/common/var.scss.
-官网关于变量覆盖的介绍：
-http://element-cn.eleme.io/#/zh-CN/component/custom-theme#strong-xiu-gai-bian-liang-strong
-*/
+ * @file: element-ui 主题色配置
+ * @copyright: NanJing Anshare Tech .Com
+ * @author: BoBo
+ * @Date: 2020年09月14 18:01:58
+ */
 
-// 官方说如果这个文件存在，字体路径是必须覆盖的，我没时间测试删除以后会怎样
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 $--color-primary:#616dad;
 $--color-success:#4CAF50;

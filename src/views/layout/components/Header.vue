@@ -10,16 +10,13 @@
     <el-header height="80px"
                class="navHeader"
                style="background:#f0f3f7">
-      <div class="title-container close"
-           id="title-container">
+      <div class="title-container">
         <img class="header_logo"
              src="@/assets/logo.png">
         <span class="title">{{title}}</span>
       </div>
       <!-- 姓名及下拉菜单 -->
-      <div class="user-container"
-           id="user-container"
-           :class="{close:isCollapse}">
+      <div class="user-container">
         <img :src="photo"
              v-if="photo"
              class="photo"
@@ -32,57 +29,52 @@
         <i class="el-icon-switch-button icon"
            @click="logOut"></i>
       </div>
-      <NavMenu />
     </el-header>
     <PersonInfoCard ref="personInfoCard"></PersonInfoCard>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
-import Hamburger from '@/components/Hamburger/Hamburger.vue';
+// import Hamburger from '@/components/Hamburger/Hamburger.vue';
 import PersonInfoCard from './PersonInfoCard.vue';
 
-import NavMenu from './NavMenu.vue';
-
-export default {
+@Component({
   name: 'Header',
   components: {
     // Hamburger,
     PersonInfoCard,
-    NavMenu,
-  },
-  data() {
-    return {
-      visibleMember: false,
-      driver: null,
-    };
   },
   computed: {
-    isCollapse() {
-      return !this.$store.getters.sidebar.opened;
-    },
-    sidebar() {
-      return this.$store.getters.sidebar.opened;
-    },
-    // 是否是外网脱敏版本
-    isPublic() {
-      return process.env.VUE_APP_ISPUBLIC === 'true';
-    },
-    ...mapGetters(['menuNum', 'candidateUser', 'photo']),
-    title() {
-      return process.env.VUE_APP_NAME;
-    },
+    ...mapGetters(['menuNum', 'photo', 'config']),
   },
-  methods: {
-    showCard() {
-      this.$refs.personInfoCard.showDialog();
-    },
-    logOut() {
-      this.$store.dispatch('clearToken');
-    },
-  },
-};
+})
+export default class Header extends Vue {
+  visibleMember = false;
+
+  config!: any;
+
+  $refs!: {
+    personInfoCard: HTMLFormElement;
+  };
+
+  get sidebar() {
+    return this.$store.getters.sidebar.opened;
+  }
+
+  get title() {
+    return this.config.systemName || process.env.VUE_APP_NAME;
+  }
+
+  showCard() {
+    this.$refs.personInfoCard.showDialog();
+  }
+
+  logOut() {
+    this.$store.dispatch('clearToken');
+  }
+}
 </script>
 <style scoped>
 .tag >>> .el-tag__close {

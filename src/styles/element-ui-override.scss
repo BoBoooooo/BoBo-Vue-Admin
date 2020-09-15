@@ -1,6 +1,9 @@
-/* 本文件用于覆盖element-ui样式，
-如果仅仅覆盖按钮颜色变量请移步官方文件element-variables.scss
-文本见覆盖样式时请保留完整层级，避免造成全局污染*/
+/*
+ * @file: override element ui css
+ * @copyright: NanJing Anshare Tech .Com
+ * @author: BoBo
+ * @Date: 2020年09月14 18:01:58
+ */
 
 $font-size: 15px;
 
@@ -266,4 +269,67 @@ body .el-table::before {
   padding:10px 16px!important;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
   background: white !important;
+}
+
+.is-disabled {
+  color: #606266;
+}
+ .el-radio__input.is-disabled + span.el-radio__label {
+  color: #606266!important;
+  font-weight: normal!important;
+}
+ .el-radio.is-disabled {
+  display: none !important;
+}
+ .el-radio.is-disabled.is-checked {
+  display: inline-block !important;
+  padding:0px;
+}
+ .el-checkbox-group.is-disabled + span.el-checkbox__label {
+  color: #606266!important;
+  font-weight: normal!important;
+}
+.el-checkbox__input.is-disabled + span.el-checkbox__label{
+  color: #606266!important;
+  font-weight: normal!important;
+}
+.el-cascader__label{
+  color: #606266!important;
+  font-weight: normal!important;
+}
+.el-checkbox__input.is-disabled.is-checked{
+  display: none !important;
+}
+ .el-checkbox.is-disabled {
+  display: none !important;
+}
+ .el-checkbox.is-disabled.is-checked {
+  display: inline-block !important;
+  padding:0px;
+}
+.is-disabled>.el-input__suffix{
+  display: none !important;
+}
+ .el-radio__input.is-disabled.is-checked {
+  display: none !important;
+}
+.el-checkbox-group{
+  min-height:32px;
+}
+.is-disabled .el-checkbox__label,.el-radio__label{
+  padding-left:0px!important;
+}
+
+.el-date-editor.el-input{
+  width:100%!important;
+}
+.el-badge__content.is-dot{
+  width:6px!important;
+  height:6px!important;
+}
+.el-badge__content{
+  border:none!important;
+}
+.el-transfer-panel__item.el-checkbox{
+  display: block;
 }

@@ -14,6 +14,8 @@
       <!-- TAB标签页 -->
       <!-- <TagsView /> -->
       <Breadcrumb></Breadcrumb>
+      <!-- 菜单 -->
+      <NavMenu />
       <!-- 包含二级路由，可以继续嵌套子页面 -->
       <AppMain />
     </div>
@@ -27,6 +29,7 @@
 
 import { AppMain, Header } from '@/views/layout/components/index.ts';
 import Breadcrumb from '@/components/Breadcrumb/index.vue';
+import NavMenu from './components/NavMenu.vue';
 
 export default {
   name: 'Layout',
@@ -38,6 +41,7 @@ export default {
     // TagsView,
     Header,
     Breadcrumb,
+    NavMenu,
   },
   computed: {
     sidebar() {

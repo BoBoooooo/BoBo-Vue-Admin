@@ -24,8 +24,9 @@
           <el-upload class="avatar-uploader"
                      :action="uploadUrl"
                      :show-file-list="false"
-                     :headers="{ Authorization: token }"
+                     :headers="{ auth: token }"
                      :data="{
+                           type:'1',
                            userid:userid
                          }"
                      :on-success="handleAvatarSuccess"
@@ -48,76 +49,83 @@
       </el-row>
       <div slot="footer"
            class="footer">
-        <div @click="handleCommand('changepwd')">
+        <div @click="changePassword">
           <i class="el-icon-s-tools icon"></i>修改密码
         </div>
       </div>
     </el-dialog>
+
     <ChangePasswordDialog ref="passwordDialog"></ChangePasswordDialog>
   </div>
 </template>
-
-<script>
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
 import ChangePasswordDialog from '@/components/ChangePasswordDialog/ChangePasswordDialog.vue';
 
-export default {
+@Component({
+  name: 'PersonInfoCard',
   components: {
     ChangePasswordDialog,
   },
-  data() {
-    return {
-      visible: false,
-      visibleMember: false,
-      imageUrl: '',
-    };
-  },
+})
+export default class PersonInfoCard extends Vue {
+  $refs!: {
+    passwordDialog: HTMLFormElement;
+  };
+
+  visible = false;
+
+  visibleMember = false;
+
+  imageUrl = '';
+
   created() {
     this.imageUrl = this.photo;
-  },
-  computed: {
-    uploadUrl() {
-      return `${process.env.VUE_APP_API_URL}users/uploadImage`;
-    },
-    ...mapGetters(['photo', 'userid', 'token']),
-  },
-  methods: {
-    showDialog(param = {}) {
-      this.visible = true;
-    },
-    handleCommand(command) {
-      switch (command) {
-        case 'changepwd':
-          this.$refs.passwordDialog.showDialog();
-          break;
-        case 'auth':
-          this.visibleMember = true;
-          break;
-        default:
-          break;
-      }
-    },
-    closeEvent() {
-      this.clearAuth();
-    },
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = res.data;
-      this.$store.commit('SET_PHOTO', res.data);
-    },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === 'image/jpeg';
-      const isLt2M = file.size / 1024 / 1024 < 2;
+  }
 
-      if (!isJPG) {
-        this.$message.error('上传头像图片只能是 JPG 格式!');
-      }
-      if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!');
-      }
-      return isJPG && isLt2M;
-    },
-  },
-};
+  get photo() {
+    return this.$store.getters.photo;
+  }
+
+  get userid() {
+    return this.$store.getters.userid;
+  }
+
+  get token() {
+    return this.$store.getters.token;
+  }
+
+  get uploadUrl() {
+    return `${process.env.VUE_APP_API_URL}users/uploadImage`;
+  }
+
+  showDialog(param = {}) {
+    this.visible = true;
+  }
+
+  changePassword() {
+    this.$refs.passwordDialog.showDialog();
+  }
+
+  handleAvatarSuccess(res, file) {
+    this.imageUrl = res.data;
+    this.$store.commit('SET_PHOTO', res.data);
+  }
+
+  beforeAvatarUpload(file) {
+    const isJPG = file.type === 'image/jpeg';
+    const isLt2M = file.size / 1024 / 1024 < 2;
+
+    if (!isJPG) {
+      this.$message.error('上传头像图片只能是 JPG 格式!');
+    }
+    if (!isLt2M) {
+      this.$message.error('上传头像图片大小不能超过 2MB!');
+    }
+    return isJPG && isLt2M;
+  }
+}
 </script>
 
 <style lang='scss' scoped>

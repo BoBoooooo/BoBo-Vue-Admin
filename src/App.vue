@@ -15,9 +15,9 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
-import { debounce } from '@/utils/util';
 
 @Component({
+  name: 'App',
   computed: {
     ...mapGetters(['config']),
   },
@@ -41,12 +41,6 @@ export default class App extends Vue {
     }
   }
 
-  mounted() {
-    // 判断加载哪套主题  @/components/ToggleTheme.vue
-    if (localStorage.getItem('customTheme')) {
-      document.body.className = 'custom-theme';
-    }
-  }
 
   debounce(event, callback) {
     let timer:any = null;
@@ -98,8 +92,3 @@ export default class App extends Vue {
   }
 }
 </script>
-<style lang="scss" scoped>
-#nprogress .bar {
-  background: red !important; //自定义颜色
-}
-</style>

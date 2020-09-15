@@ -1,5 +1,5 @@
 <!--
- * @file: 左侧菜单item
+ * @file: 菜单item
  * @copyright: NanJing Anshare Tech .Com
  * @author: BoBo
  * @Date: 2019-09-05 21:55:47
@@ -49,19 +49,22 @@
   </div>
 </template>
 
-<script>
-export default {
+
+<script lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator';
+
+@Component({
   name: 'NavMenuItem',
-  props: {
-    routes: {
-      type: Array,
-      default: () => [],
-    },
-  },
-  methods: {
-  },
-};
+})
+export default class MenuItem extends Vue {
+  @Prop({
+    type: Array,
+    default: () => [],
+  })
+  routes: any;
+}
 </script>
+
 <style scoped>
 .subitem >>> .el-badge__content {
   margin-top: 10px;

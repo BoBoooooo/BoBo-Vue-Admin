@@ -1,8 +1,8 @@
 <!--
-@file 顶部菜单
+@file 菜单
 @author BoBo
 @copyright NanJing Anshare Tech .Com
-@createDate 2018年11月13日15:17:37
+@createDate 2019-09-05 21:55:47
 -->
 <template>
   <!-- 导航菜单+滚动条 -->
@@ -71,6 +71,7 @@ export default {
   overflow-x: hidden;
   overflow-y: auto;
   position: fixed;
+  left:0;
   z-index:200;
   width: 34px;
   top: 100px;

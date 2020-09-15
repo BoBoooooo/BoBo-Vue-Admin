@@ -54,23 +54,15 @@
       <el-col :span="19">
         <CrudTable tableName="ad_codelist"
                    ref="codeListTable"
-                   full-height
+                   fullHeight
                    :maxHeightMinus="245"
                    :prefill="tableParams"
                    :tableParams="tableParams"
                    :remoteFuncs="remoteFuncs"
                    :visibleList="{
-                 tableTitle:false,
-                 btnDel:true,
-               }">
-          <template #btnBarPrevBtn>
-            <el-button v-if="codeTypeId"
-                       type="primary"
-                       size="mini"
-                       icon="el-icon-plus"
-                       style="margin-left: 10px"
-                       @click="multiAddDict()">批量添加</el-button>
-          </template>
+                      tableTitle:false,
+                      btnDel:true,
+                    }">
         </CrudTable>
       </el-col>
 
@@ -245,44 +237,6 @@ export default {
     filterNode(value, data, node) {
       if (!value) return true;
       return this.$pinyinmatch.match(data.codeName, value);
-    },
-    // 批量添加字典值
-    multiAddDict() {
-      this.$prompt('请输入需要添加的字典值，\n多个值请用 “、” 分割', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        inputPattern: /^[a-zA-Z 0-9 、\u4e00-\u9fa5]+$/,
-        inputErrorMessage: '多个值请使用顿号分割！',
-      })
-        .then(({ value }) => {
-          this.axios({
-            url: 'ad/codelist/batchAdd',
-            method: 'post',
-            data: {
-              codeTypeId: this.codeTypeId,
-              codeValues: value,
-            },
-          }).then((res) => {
-            if (res.code === 200) {
-              this.$message({
-                type: 'success',
-                message: '添加成功！',
-              });
-              this.$refs.codeListTable.tableReload();
-            } else {
-              this.$message({
-                type: 'error',
-                message: '添加失败！',
-              });
-            }
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: 'info',
-            message: '字典值录入取消',
-          });
-        });
     },
   },
   watch: {
