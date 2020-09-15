@@ -109,9 +109,6 @@ export default class Login {
             });
         })
         .catch((error) => {
-          this.$alert(error.message, '警告', {
-            confirmButtonText: '重新输入',
-          });
           this.btnLoginIsLoading = false;
         });
       return null;
