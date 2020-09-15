@@ -103,8 +103,3 @@ export default class App extends Vue {
   background: red !important; //自定义颜色
 }
 </style>
-<style>
-html{
-  cursor:url('~@/assets/cursor.png'),auto;
-}
-</style>

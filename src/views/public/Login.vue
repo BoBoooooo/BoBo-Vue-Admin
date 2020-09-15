@@ -75,36 +75,9 @@ export default class Login {
 
   btnLoginIsLoading = false;
 
-  rules = {
-    username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-    password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-  };
-
-  // 背景图
-  bg = null;
-
-  iconClass = null;
-
-  get isPublic() {
-    return process.env.VUE_APP_ISPUBLIC === 'true';
-  }
-
+  // 获取系统名称,在字典配置-系统配置中设置标题
   get title() {
     return this.config.systemName || process.env.VUE_APP_NAME;
-  }
-
-  created() {
-    this.iconClass = 'loginTitle';
-  }
-
-  mounted() {
-    if (!!window.ActiveXObject || 'ActiveXObject' in window) {
-      this.$notify({
-        title: '您当前的浏览器版本过低，可能存在安全风险！',
-        message: '建议您使用谷歌浏览器',
-        duration: 60000,
-      });
-    }
   }
 
   redirectToGitHub() {
@@ -144,33 +117,17 @@ export default class Login {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-@import '~@/styles/variables';
-$bg: #2d3a4b;
-$dark_gray: #fff;
-$light_gray: #fff;
-
 .login-container {
   position: fixed;
   height: 100%;
   width: 100%;
-
-  .el-button {
-    display: block;
-    margin: 0 auto;
-    width: 70%;
-    border-radius: 15px;
-    background: #f36874;
-    box-shadow: 0 4px 9.6px 0.4px rgba(227, 74, 74, 0.5);
-    color: #fff;
-  }
-  .el-row {
+  .el-row,
+  .el-col {
     height: 100%;
   }
   .el-col {
-    height: 100%;
     position: relative;
   }
-
   .wallpaper {
     background: #6163ad;
     overflow: hidden;
@@ -187,7 +144,6 @@ $light_gray: #fff;
       z-index: 20;
     }
   }
-  // background-color: $bg;
   .login-form {
     margin: 0 auto;
     width: 300px;
@@ -196,24 +152,15 @@ $light_gray: #fff;
     transform: translate(-50%, -50%);
     left: 50%;
     top: 42%;
-  }
-
-  .tips {
-    font-size: 14px;
-    color: #fff;
-    margin-bottom: 10px;
-    span {
-      &:first-of-type {
-        margin-right: 16px;
-      }
+    .el-button {
+      display: block;
+      margin: 0 auto;
+      width: 70%;
+      border-radius: 15px;
+      background: #f36874;
+      box-shadow: 0 4px 9.6px 0.4px rgba(227, 74, 74, 0.5);
+      color: #fff;
     }
-  }
-  .svg-container {
-    padding: 6px 5px 6px 20px;
-    color: $dark_gray;
-    vertical-align: middle;
-    width: 30px;
-    display: inline-block;
   }
   .title {
     font-size: 2rem;
@@ -221,15 +168,6 @@ $light_gray: #fff;
     margin-bottom: 32px;
     text-align: center;
     font-weight: 500;
-  }
-  .show-pwd {
-    position: absolute;
-    right: 10px;
-    top: 7px;
-    font-size: 16px;
-    color: $dark_gray;
-    cursor: pointer;
-    user-select: none;
   }
 }
 </style>

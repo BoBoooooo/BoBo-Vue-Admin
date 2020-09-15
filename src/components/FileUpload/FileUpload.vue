@@ -17,13 +17,11 @@
                :before-upload="beforeUpload"
                :on-success="uploadSuccess"
                multiple>
-      <slot name="uploadBtn"></slot>
       <el-tooltip class="item"
                   effect="dark"
                   content="上传附件"
                   placement="bottom">
         <el-button size="mini"
-                   ref="uploadBtn"
                    v-show="view.uploadBtn"
                    style="float:right;"
                    :icon="btnIcon"
@@ -32,7 +30,6 @@
       </el-tooltip>
     </el-upload>
     <CrudTable ref="table"
-               id="affix_list"
                v-if="view.list"
                :listField="listField"
                emptyText="暂无附件"
@@ -42,7 +39,6 @@
                :tableTitle="tableTitle"
                :tableParams="tableParams"
                :promiseForSelect="promiseForSelect"
-               :allResponse="allResponse"
                :fullHeight="fullHeight"
                :visibleList="{
                   conditionTitle: false,
@@ -70,7 +66,7 @@
       <template #btnCustom="scope">
         <slot name="btnCustom"
               :row="scope.row"></slot>
-        <div v-if="view.btnHandleGroup && scope.row.isdeleted === false">
+        <div>
           <el-dropdown trigger="click"
                        placement="bottom"
                        class="selectButton">
@@ -78,15 +74,6 @@
               更多<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item v-if="visibleWenShuEdit(scope)">
-                <i class="el-icon-edit-outline"
-                   @click="btnRenameOnClick(scope.row)">
-                  <span class="dropLink">
-                    重命名
-                  </span>
-                </i>
-              </el-dropdown-item>
-
               <el-dropdown-item>
                 <i class="el-icon-download"
                    @click="btnDownloadOnClick(scope)">
@@ -96,7 +83,7 @@
                 </i>
               </el-dropdown-item>
 
-              <el-dropdown-item v-if="visibleDelBtn(scope)">
+              <el-dropdown-item>
                 <i class="el-icon-delete"
                    @click="btnDelOnClick(scope)">
                   <span class="dropLink">
@@ -123,9 +110,6 @@ export default class FileUpload extends Vue {
     uploadBtn: HTMLFormElement;
     table:HTMLFormElement;
   };
-
-  // 若是制作文书的情况,upload接口传wenshuId
-  wenShuId = '';
 
   // 保存按钮Loading状态
   btnSaveIsLoading = false;
@@ -174,20 +158,6 @@ export default class FileUpload extends Vue {
 
   @Prop({
     type: Object,
-    default: null,
-  })
-  myTask: any;
-
-  // 直接传入表头和表体，表格不用再发起任何请求
-
-  @Prop({
-    type: Object,
-    default: null,
-  })
-  allResponse: any;
-
-  @Prop({
-    type: Object,
     default: () => ({}),
   })
   visibleList: any;
@@ -209,12 +179,6 @@ export default class FileUpload extends Vue {
     type: Function,
   })
   promiseForSelect: any;
-
-  @Prop({
-    type: Object,
-    default: () => ({}),
-  })
-  customParams: any;
 
   @Prop({
     type: String,
@@ -265,24 +229,16 @@ export default class FileUpload extends Vue {
       btnPreview: true,
       upload: true,
       list: true,
-      btnHandleGroup: true,
-      btnWenShuCode: false,
       btnDownload: true,
       uploadBtn: true,
       searchForm: false,
       tableTitle: true,
-      btnSetSecret: true,
-
       ...this.visibleList,
     };
   }
 
   get tableParams() {
     const params:any = {};
-    // 工作流附件需要传该参数,非工作流相关的附件则为null
-    if (this.myTask) {
-      params.taskId = this.myTask.id;
-    }
     if (this.resourceid) {
       params.resourceid = this.resourceid;
     }
@@ -294,64 +250,21 @@ export default class FileUpload extends Vue {
 
   get uploadParams() {
     const {
-      wenShuId, myTask, resourceid, fileType,
+      resourceid, fileType,
     } = this;
     let params : any = {
       userid: this.$store.getters.userid,
     };
-    if (wenShuId) {
-      params.affixId = wenShuId;
-    }
-    if (myTask) {
-      params.taskId = myTask.id;
-      params.append = '0';
-    }
     if (resourceid) {
       params.resourceid = resourceid;
     }
-    if (fileType) {
-      params.filetype = fileType;
+    if (this.fileType) {
+      params.type = this.fileType;
     }
     params = {
       ...params,
-      ...this.customParams,
     };
     return params;
-  }
-
-  // 文书编辑按钮 仅当上传人为【自己、领导角色、文书审核员时】,表单可编辑,以及还未生成过文书编号时显示
-  visibleWenShuEdit({ row }) {
-    return this.view.btnEdit && (this.$store.getters.name === row.uploaduser || this.$store.getters.isLeader || this.$store.getters.rolename === '文书审核员') && !this.readOnly;
-  }
-
-  // 重命名
-  btnRenameOnClick(data) {
-    this.$prompt('请输入新文件名', '提示', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
-    })
-      .then(({ value } : any) => {
-        crud(DML.UPDATE, 'file', {
-          id: data.id,
-          filename: value + data.fileextension,
-        }).then((res:any) => {
-          if (res.code === 200) {
-            this.$message.success('修改成功');
-            this.tableReload();
-          }
-        });
-      })
-      .catch(() => {
-        this.$message({
-          type: 'info',
-          message: '取消输入',
-        });
-      });
-  }
-
-  // 删除按钮是否显示
-  visibleDelBtn({ row }) {
-    return this.view.btnDel && this.$store.getters.name === row.uploaduser && !this.readOnly;
   }
 
   beforeUpload() {
@@ -365,7 +278,6 @@ export default class FileUpload extends Vue {
 
   // 文件上传成功
   uploadSuccess(res) {
-    console.log(res);
     const { code } = res;
     if (code === 400) {
       this.$message({
@@ -377,7 +289,6 @@ export default class FileUpload extends Vue {
         type: 'success',
         message: '上传成功',
       });
-      this.wenShuId = '';
       if (this.view.list) {
         this.tableReload();
       }
@@ -390,7 +301,6 @@ export default class FileUpload extends Vue {
   btnDownloadOnClick(scope) {
     download(`${process.env.VUE_APP_API_URL}file/download`, scope.row.filename, { id: scope.row.id });
   }
-
 
   // 删除按钮代理
   btnDelOnClick({ row }) {
@@ -422,18 +332,6 @@ export default class FileUpload extends Vue {
     this.$refs.table.tableReload();
   }
 
-  triggerUploadBtn({ wenShuId, affixId = null }) {
-    this.wenShuId = wenShuId;
-    if (affixId) {
-      this.customParams.type = affixId;
-    }
-    this.$refs.uploadBtn.$el.click();
-  }
-
-  submitUpload() {
-    this.$refs.uploadBtn.$el.click();
-  }
-
   // 获取附件列表勾选项
   getSelection(data) {
     this.$emit('selection', data);
@@ -449,13 +347,6 @@ export default class FileUpload extends Vue {
 }
 </style>
 <style lang="scss" scoped>
-.dropButton {
-  margin-right: 10px;
-  .el-dropdown-selfdefine {
-    padding: 9px 15px;
-    font-size: 12px;
-  }
-}
 // 操作列更多按选项按钮
 .selectButton {
   .el-dropdown-link {

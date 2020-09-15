@@ -1,6 +1,11 @@
+<!--
+ * @file: tabs
+ * @copyright: NanJing Anshare Tech .Com
+ * @author: BoBo
+ * @Date: 2020年09月14 18:01:58
+-->
 <template>
   <div class="tags-view-container">
-
     <scroll-pane ref="scrollPane"
                  class="tags-view-wrapper">
       <router-link v-for="tag in Array.from(visitedViews)"
@@ -109,8 +114,7 @@ export default {
             // 打开最后访问的选项卡
             this.$router.push(latestView.path);
           } else {
-            this.$router.push(this.$store.state.app.homePagePath);
-            // this.$router.push('/');
+            this.$router.push('/');
           }
         }
       });

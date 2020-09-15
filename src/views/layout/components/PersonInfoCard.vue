@@ -26,7 +26,6 @@
                      :show-file-list="false"
                      :headers="{ Authorization: token }"
                      :data="{
-                           type:'1',
                            userid:userid
                          }"
                      :on-success="handleAvatarSuccess"
@@ -43,18 +42,8 @@
           <svgIcon class="icon"
                    icon-class="dashboard-person"></svgIcon>
           <p style="margin-top:0">用户: {{ this.$store.getters.realname }}</p>
-          <p>单位: {{ this.$store.getters.companyname }}</p>
           <p>部门: {{$store.getters.deptname}}</p>
           <p>角色: {{ this.$store.getters.rolename }}</p>
-          <p v-if="isAuth">当前委托人: {{ candidateUser }}
-            <el-tooltip class="item"
-                        effect="dark"
-                        content="取消授权"
-                        placement="right">
-              <i class="cancelIcon el-icon el-icon-circle-close"
-                 @click="clearAuth"></i>
-            </el-tooltip>
-          </p>
         </el-col>
       </el-row>
       <div slot="footer"
@@ -90,7 +79,7 @@ export default {
     uploadUrl() {
       return `${process.env.VUE_APP_API_URL}users/uploadImage`;
     },
-    ...mapGetters(['candidateUser', 'photo', 'userid', 'token']),
+    ...mapGetters(['photo', 'userid', 'token']),
   },
   methods: {
     showDialog(param = {}) {
