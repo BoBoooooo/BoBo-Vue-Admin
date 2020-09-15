@@ -9,9 +9,13 @@
     <el-row>
       <el-col :span="12"
               class="wallpaper">
-        <svg-icon icon-class="banner"
-                  @click.native="redirectToGitHub"
-                  class="banner"></svg-icon>
+        <div @click="redirectToGitHub">
+          <svg-icon icon-class="banner"
+                    class="banner"></svg-icon>
+          <p class="author">
+            © Awesome Crud Framework By BoBo
+          </p>
+        </div>
       </el-col>
       <el-col :span="12">
         <el-form ref="loginForm"
@@ -20,7 +24,7 @@
                  auto-complete="on"
                  label-position="left">
           <h5 class="title">
-            Welcome!
+            Welcome 🎯
           </h5>
           <el-form-item prop="username">
 
@@ -115,7 +119,8 @@ export default class Login {
   }
 }
 </script>
-
+<style scoped>
+</style>
 <style rel="stylesheet/scss" lang="scss" scoped>
 .login-container {
   position: fixed;
@@ -140,8 +145,32 @@ export default class Login {
       position: absolute;
       transform: translate(-50%, -50%);
       left: 50%;
-      top: 45%;
+      top: 40%;
       z-index: 20;
+    }
+    .author {
+      background: #ffbebe -webkit-linear-gradient(left, #fff8f8, #fff) 0 0 no-repeat;
+      background-clip: text;
+      -webkit-text-fill-color: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      font-size: 1.5em;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      width: 100%;
+      text-align: center;
+      animation: slideShine 3s infinite;
+      background-size: 80px;
+      top: 60%;
+      z-index: 20;
+      @keyframes slideShine {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: 100% 100%;
+        }
+      }
     }
   }
   .login-form {
