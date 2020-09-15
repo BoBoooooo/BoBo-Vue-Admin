@@ -27,7 +27,7 @@ const store = new Vuex.Store({
   },
   getters,
   // 局部持久化，之所以不能全部持久化，详见src/permission.js
-  plugins: [createPersistedState({ paths: ['tagsView', 'dept'] })],
+  plugins: [createPersistedState({ paths: ['tagsView'] })],
 });
 
 export default store;

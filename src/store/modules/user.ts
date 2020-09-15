@@ -5,7 +5,7 @@
  * @createDate 2018年11月13日20:24:53
  */
 import {
-  login, logout, getInfo, update,
+  login, getInfo, update,
 } from '@/api/user';
 import { MessageBox } from 'element-ui';
 
@@ -20,7 +20,6 @@ const user = {
     deptid: '', // 用户部门id
     userid: '', // 用户ID
     photo: '', // 用户头像base64
-    isAdmin: false, // 是否为系统管理员
   },
   mutations: {
     SET_TOKEN: (state, token) => {
@@ -48,22 +47,10 @@ const user = {
     SET_PHOTO: (state, photo) => {
       state.photo = photo;
     },
-    SET_ISADMIN: (state, isadmin) => {
-      state.isAdmin = isadmin;
-    },
   },
   actions: {
     // 登录并设置token
     async setTokenByLogin({ commit }, userInfo) {
-      // 如果配置了“不请求后端接口”
-      if (process.env.VUE_APP_REQUEST_API === 'false') {
-        // 直接返回首页
-        const promise = new Promise((resolve) => {
-          commit('SET_TOKEN', 'test');
-          resolve();
-        });
-        return promise;
-      }
       // 开发阶段直接登录而不请求后端接口
       const promise = await login(userInfo).then((res) => {
         // 登录成功
@@ -75,34 +62,12 @@ const user = {
         }
         // 登录失败清空token
         commit('SET_TOKEN', null);
-
-        // 600: 账号已过期（底层全局已经提示）
-        // 800: 用户名或密码错误（需要上层提示）
-        // 801: 该用户未绑定角色（需要上层提示）
-        // 802: 单点登录校验不正确（需要上层提示）
-        // 803: redis异常（需要上层提示）
-        // 804: 账号已被锁定（需要上层提示）
-        // 本层只做vuex操作，需要提示的话将res.code抛给上层
         return Promise.reject(res);
       });
       return promise;
     },
     // 根据token请求用户信息并设置到store
     async getUserInfoByToken({ commit, state }) {
-      // 如果配置了“不请求后端接口”
-      if (process.env.VUE_APP_REQUEST_API === 'false') {
-        const promise = new Promise((resolve) => {
-          const data = {
-            RealName: '管理员',
-            UserName: 'admin',
-            RoleAuthName: '',
-          };
-          commit('SET_USER_REALNAME', data.RealName);
-          commit('SET_USERNAME', data.UserName);
-          resolve(data);
-        });
-        return promise;
-      }
       // 请求userinfo接口获取用户名和可访问页面
       const promise = await getInfo().then((response) => {
         const { data } = response;
@@ -114,9 +79,6 @@ const user = {
         commit('SET_USERID', data.userID);
         // 用户头像
         commit('SET_PHOTO', data.photo);
-        // 是否为admin账号
-        commit('SET_ISADMIN', data.userName === 'admin');
-
         return data;
       });
       return promise;

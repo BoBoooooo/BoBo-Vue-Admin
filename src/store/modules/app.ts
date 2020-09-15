@@ -12,8 +12,6 @@ const app = {
       // 侧边栏隐藏状态
       opened: 1,
     },
-    // 登陆后跳转到指定页面
-    homePagePath: '/',
     config: {
       // 密码长度
       passwordLength: '',
@@ -33,9 +31,6 @@ const app = {
         state.sidebar.opened = 0;
       }
       state.sidebar.opened = !state.sidebar.opened;
-    },
-    SET_HOME_PAGE_PATH: (state, homePagePath) => {
-      state.homePagePath = homePagePath;
     },
     SET_CONFIG: (state, config) => {
       state.config = config;
