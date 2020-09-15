@@ -125,7 +125,7 @@
                         :append-to-body="appendToBody"
                         :close_on_click_modal="closeOnClickModal"
                         :fullscreen="fullscreen"
-                        @btnonclick="btnOnClick">
+                        @btnonclick="formBtnOnClick">
       <template #formTitle>
         <slot name="formTitle"></slot>
       </template>
@@ -572,7 +572,7 @@ export default class CrudTable extends Vue {
     })
       .then(() => {
         // 如果prop传入了promiseForDel说明需要回调自定义删除
-        const promise = this.promiseForDel ? this.promiseForDel({ id: row.id }) : crud(DML.DELETE, this.tableName, { id: row.id });
+        const promise = this.promiseForDel ? this.promiseForDel({ id: row.id }) : crud(DML.DELETE, this.tableName, {}, { id: row.id });
         promise.then(() => {
           this.tableReload();
           this.$message({
@@ -646,13 +646,13 @@ export default class CrudTable extends Vue {
   }
 
   // 生成的按钮点击
-  btnOnClick(widget) {
-    this.$emit('btnOnClick', widget);
+  formBtnOnClick(widget) {
+    this.$emit('formBtnOnClick', widget);
   }
 
   // 监听dialog中form对象改变
   formChange(val) {
-    this.$emit('change', val);
+    this.$emit('formChange', val);
   }
 }
 </script>

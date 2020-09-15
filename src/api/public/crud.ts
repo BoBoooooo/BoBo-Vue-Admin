@@ -1,5 +1,6 @@
 /*
  * @file: 通用请求crud
+          可根据后台接口情况自行修改
  * @copyright: BoBo
  * @author: BoBo
  * @Date: 2020年04月24 11:35:00
@@ -18,15 +19,15 @@ interface optionsType {
 /**
  * 操作类型枚举
  */
-export const DML = {
-  INSERT: 'add',
-  UPDATE: 'update',
-  DELETE: 'delete',
-  SELECT: 'list',
-  TREE: 'tree',
-  DETAIL: 'detail',
-  DELETES: 'deleteByIds',
-};
+export enum DML {
+  INSERT= 'add',
+  UPDATE= 'update',
+  DELETE= 'delete',
+  SELECT= 'list',
+  TREE= 'tree',
+  DETAIL= 'detail',
+  DELETES='deleteByIds',
+}
 
 /**
  *
@@ -34,16 +35,15 @@ export const DML = {
  * @param tableName 数据库表名
  * @param data body data
  * @param params query Params
- * @param encrypt 是否加密
  */
-export function crud(dml:string, tableName:string, data:object = {}, params:any = null, encrypt:boolean = false) {
+export function crud(dml:DML, tableName:string, data:object = {}, params:any = null) {
   const options:optionsType = {
-    url: `/${tableName}/${dml}`,
+    url: `/${tableName}/${dml}`, // 例如users表的查询接口为  /users/list
     method: 'post',
   };
   // 以下请求通过包体传参
-  if ('list,tree'.includes(dml)) {
-    // 所有list接口后端使用实体类接收，需要保证结构
+  if ('list'.includes(dml)) {
+    // list接口高级查询条件拼接
     options.data = {
       orderCondition: '',
       searchCondition: [],
@@ -51,16 +51,10 @@ export function crud(dml:string, tableName:string, data:object = {}, params:any 
       pageSize: 0,
       ...data,
     };
-    options.params = params;
-  } else if ('add,update'.includes(dml) || dml === 'deleteByIds') {
-    options.data = data;
   } else {
-    // delete,tree两个请求在url传参
-    options.params = data;
+    options.data = data;
   }
+  options.params = params;
 
-  if (encrypt) {
-    options.headers.encrypt = true;
-  }
   return axios(options as any);
 }
