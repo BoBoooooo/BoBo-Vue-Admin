@@ -1,8 +1,12 @@
 <!--
-@file 根据jison动态生成表单
+@file 表单生成
 @author BoBo
-@copyright NanJing Anshare Tech .Com
 @createDate 2018年11月15日21:40:56
+@copyright GavinZhuLei
+部分修改重构
+原作者地址 https://github.com/GavinZhuLei/vue-form-making
+感谢大佬!
+
 -->
 <template>
   <div class="table-form-wrapper">

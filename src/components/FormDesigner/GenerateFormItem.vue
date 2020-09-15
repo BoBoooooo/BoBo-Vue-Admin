@@ -1,8 +1,11 @@
 <!--
 @file 动态表单最小粒度元素生成
 @author BoBo
-@copyright NanJing Anshare Tech .Com
 @createDate 2018年11月15日10:17:01
+@copyright GavinZhuLei
+部分修改重构
+原作者地址 https://github.com/GavinZhuLei/vue-form-making
+感谢大佬!
 -->
 <template>
   <el-form-item :prop="widget.type == 'button'?undefined:widget.model"

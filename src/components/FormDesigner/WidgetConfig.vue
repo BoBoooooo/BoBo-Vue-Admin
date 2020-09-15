@@ -1,8 +1,11 @@
 <!--
  * @file: 表单设计器右侧配置项区域
- * @copyright: NanJing Anshare Tech .Com
  * @author: BoBo
  * @Date: 2019-07-09 14:30:43
+ * @copyright GavinZhuLei
+  部分修改重构
+  原作者地址 https://github.com/GavinZhuLei/vue-form-making
+  感谢大佬!
  -->
 <template>
   <div v-if="show">

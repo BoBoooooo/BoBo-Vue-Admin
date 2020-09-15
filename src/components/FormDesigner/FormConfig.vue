@@ -1,3 +1,9 @@
+<!--
+ * @file: 表单属性
+ * @copyright: NanJing Anshare Tech .Com
+ * @author: BoBo
+ * @Date: 2020年09月14 18:01:58
+-->
 <template>
   <div class="form-config-container">
     <el-form label-position="top">
