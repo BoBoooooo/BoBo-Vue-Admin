@@ -59,7 +59,7 @@ confirmCallBack(){
  
 ```
 
-## 2、目录结构
+## 5、目录结构
 
 ```bash
 ├── public                     # public文件夹
@@ -87,20 +87,15 @@ confirmCallBack(){
 └── package.json               # package.json
 ```
 
-## 4、TODO
+## 6、TODO
 1. 部分老页面按vue-class-component重构
 2. 完善后端配套项目
-3. 准备线上部署演示demo
 
-
-## 5. 拉取代码时注意事项
-本项目基于airbnb的eslint规范，所以无论你用Windows、Mac OS还是UNIX，请使用0x0A（LF）换行符。
-Git提供了一个“换行符自动转换”功能，默认处于自动模式，Windows环境必须做如下设置：
+## 7. 拉取代码时注意事项
 ```
 提交时转换为LF，检出时不转换
 git config --global core.autocrlf input
 ```
-由于vue大小写敏感，请修改Git默认设置
 ```
 设置为区分大小写
 git config core.ignorecase false
