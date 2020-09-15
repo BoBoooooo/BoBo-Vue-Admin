@@ -88,7 +88,7 @@ service.interceptors.response.use(
     // http状态码200以外的情况
     // 请检查网络链接或联系管理员
     const msg = '请检查网络链接或联系管理员。';
-    MessageBox.alert(`${error.response.data.message}，${msg}`, '网络异常', {
+    MessageBox.alert(`${(error.response && error.response.data.message) || error.message}，${msg}`, '网络异常', {
       confirmButtonText: '重试',
       type: 'warning',
     });
