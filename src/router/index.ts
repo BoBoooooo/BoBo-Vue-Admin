@@ -131,12 +131,6 @@ const asyncRouter:RouterType[] = [
         component: () => import(/* webpackChunkName: "dev" */ '@/views/devTools/Dict.vue'),
         meta: { title: '字典管理' },
       },
-      {
-        path: 'params',
-        name: 'Params',
-        component: () => import(/* webpackChunkName: "dev" */ '@/views/devTools/Params.vue'),
-        meta: { title: '参数设置' },
-      },
     ],
   },
   { path: '*', redirect: '/404', hidden: true },
