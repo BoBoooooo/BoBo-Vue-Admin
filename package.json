@@ -7,7 +7,7 @@
   "scripts": {
     "start": "vue-cli-service serve --mode dev",
     "build:out": "vue-cli-service build --mode out",
-    "build:dev": "vue-cli-service build --mode developer",
+    "build:dev": "vue-cli-service build --mode dev",
     "report:out": "vue-cli-service build --mode report",
     "lint": "vue-cli-service lint --mode dev",
     "inspect": "vue-cli-service inspect --mode out>webpackConfig.txt",
@@ -44,7 +44,6 @@
   "devDependencies": {
     "compression-webpack-plugin": "^4.0.0",
     "@types/lodash": "^4.14.149",
-    "@types/echarts": "^4.6.1",
     "@types/nprogress": "^0.2.0",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",
