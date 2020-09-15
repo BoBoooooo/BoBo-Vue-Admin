@@ -21,7 +21,6 @@
     "compressing": "^1.4.0",
     "conventional-changelog-cli": "^2.1.0",
     "core-js": "3.6.5",
-    "crypto-js": "^4.0.0",
     "dayjs": "1.8.20",
     "element-ui": "^2.13.2",
     "inquirer": "^6.5.2",
