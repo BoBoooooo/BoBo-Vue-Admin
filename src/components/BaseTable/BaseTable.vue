@@ -19,25 +19,16 @@
       <!-- 添加 -->
       <slot name="btnAdd" />
     </div>
-    <!--
-      高级搜索表单
-      submit-handler 用于接收查询按钮点击回调
-     -->
+
     <SearchForm ref="searchForm"
                 v-if="view.searchForm"
                 :columns="columns"
                 @click="fetchHandler(false,true)"
-                :showSeniorSearchForm="view.showSeniorSearchForm"
                 :searchFormCondition.sync="searchFormCondition"
                 :remoteFuncs="remoteFuncs"
                 :isLoading="loading"
                 @clear="dataChangeHandler(true)">
-      <template #SeniorSearchForm>
-        <slot name="SeniorSearchForm"></slot>
-      </template>
     </SearchForm>
-    <slot :loading="loading"
-          name="form" />
     <!-- 表格主体 -->
     <el-table v-loading.lock="loading"
               element-loading-text="加载中……"
@@ -140,8 +131,6 @@
                   :prop="column.prop"
                   :$index="scope.$index" />
           </span>
-          <el-input v-else-if="scope.row.isEdit"
-                    v-model="scope.row[column.prop]"></el-input>
           <span v-else>
             {{ scope.row[column.prop] }}
           </span>
@@ -216,7 +205,7 @@ export default class BaseTable extends Vue {
   maxHeight: string | number = '100%';
 
   // 表格高度
-  tableHeight:number|string = '100%';
+  tableHeight: number | string = '100%';
 
   // 是否需要多选
   @Prop({ default: false, type: Boolean }) isMultiple!: boolean;
@@ -336,25 +325,6 @@ export default class BaseTable extends Vue {
     default: () => ({}),
   }) tableParams!: any;
 
-  // 请求类型(远端,本地)
-  @Prop({
-    type: String,
-    default: 'remote',
-    validator(value) {
-      const types = ['remote', 'local'];
-      const validType = types.indexOf(value) !== -1;
-      if (!validType) {
-        throw new Error(`Invalid type of '${value}', please set one type of 'remote' or 'local'.`);
-      }
-      return validType;
-    },
-  }) type!: string;
-
-  // 表格数据data
-  @Prop({
-    type: Array,
-  }) data: any;
-
   // 表格设计json
   @Prop({
     type: Array,
@@ -393,7 +363,6 @@ export default class BaseTable extends Vue {
   get view() {
     return {
       searchForm: true,
-      showSeniorSearchForm: true,
       ...this.visibleList,
     };
   }
@@ -416,15 +385,12 @@ export default class BaseTable extends Vue {
   mounted() {
     // event: expand changed to `expand-change` in Element v2.x
     this.$refs.table.$on('expand', (row, expanded) => this.emitEventHandler('expand', row, expanded));
-    const { type, data } = this;
-    this.setMaxHeight();
 
-    // type为remote则加载远程数据,否则加载本地数据
-    if (type === 'remote') {
-      this.fetchHandler(true);
-    } else {
-      this.tableData = this.data;
-    }
+    // 初始化表格高度
+    this.setMaxHeight();
+    // 请求数据
+    this.fetchHandler(true);
+
     // 自适应分页组件按钮;
     window.addEventListener('resize', () => {
       this.setPagerByWidth();
@@ -623,14 +589,6 @@ export default class BaseTable extends Vue {
     this.$emit('sort-change', args);
     // 最后再刷新表格
     this.dataChangeHandler();
-  }
-
-  @Watch('data')
-  onDataChange(value: any, oldval: any) {
-    // 监听本地数据变动实时更新列表
-    if (Array.isArray(value) && this.type === 'local') {
-      this.tableData = this.data;
-    }
   }
 }
 </script>

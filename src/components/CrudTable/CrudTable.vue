@@ -3,7 +3,7 @@
       三次封装关系：el-table->BaseTable.vue->CrudTable.vue
 @author BoBo
 @copyright NanJing Anshare Tech .Com
-@createDate 2018年11月14日17:25:47
+@createDate 2019年07月29日14:58:39
 -->
 <template>
   <div class="CrudTable">
@@ -17,8 +17,6 @@
                :expandModel="expandModel"
                :orderCondition="orderCondition"
                :visibleList="view"
-               :type="rows?'local':'remote'"
-               :data="rows"
                :remoteFuncs="remoteFuncs"
                :fullHeight="fullHeight"
                :height="height"
@@ -42,10 +40,6 @@
                :showColumnIndex="showColumnIndex">
       <template #bottomBtn>
         <slot name="bottomBtn"></slot>
-      </template>
-      <!-- 高级查询slot -->
-      <template #SeniorSearchForm>
-        <slot name="SeniorSearchForm"></slot>
       </template>
       <template #columnFormatter="scope">
         <slot name="columnFormatter"
@@ -111,28 +105,20 @@
                  size="mini"
                  @click.stop="btnAdd()">{{text.add}}</el-button>
     </BaseTable>
-    <!-- 对话框内的只有表单，时表格默认的对话框 -->
+    <!-- 新增、编辑、查看按钮 弹出 表单-->
     <GenerateFormDialog ref="dialog"
                         :tableName="tableName"
                         :dialogFormDesignerName="dialogFormDesignerName"
                         :tableParams="tableParams"
-                        @afterSave="saveDialog"
+                        @afterSave="tableReload"
                         @change="formChange"
-                        :formValuesAsync="formValuesAsync"
                         :remoteFuncs="remoteFuncs"
                         :visibleList="view"
                         :setReadOnly="setReadOnly"
                         :append-to-body="appendToBody"
                         :close_on_click_modal="closeOnClickModal"
                         :fullscreen="fullscreen"
-                        @btnonclick="formBtnOnClick">
-      <template #formTitle>
-        <slot name="formTitle"></slot>
-      </template>
-      <template #footer="{save}">
-        <slot name="footer"
-              :save="save"></slot>
-      </template>
+                        @btnOnClick="formBtnOnClick">
     </GenerateFormDialog>
   </div>
 </template>
@@ -145,6 +131,7 @@ import { DML, crud } from '@/api/public/crud';
 import { getTableDetail, getFormDetail } from '@/api/system/form';
 import BaseTable from '@/components/BaseTable/BaseTable.vue';
 import GenerateFormDialog from '@/components/BaseDialog/GenerateFormDialog.vue';
+import { confirm } from '@/decorator/confirm';
 
 const STATUS = {
   CREATE: 0,
@@ -174,14 +161,8 @@ export default class CrudTable extends Vue {
   // 对话框编辑或删除状态
   dialogStatus = STATUS.CREATE;
 
-  // 如果直接传入rows说明无需请求，直接根据rows生成表体
-  rows = null;
-
   // 从表格列的json获取要导出的字段
   exportCondition: any | null = null;
-
-  // 下载地址
-  downloadURL: string | null = null;
 
   // 多选行选中项
   selectedRows: any = [];
@@ -280,9 +261,6 @@ export default class CrudTable extends Vue {
   @Prop({ default: null, type: Function }) promiseForEdit!: any;
 
   // 表格行中的添加按钮点击事件
-  @Prop({ default: null, type: Function }) promiseForColumns!: any;
-
-  // 表格行中的添加按钮点击事件
   @Prop({ default: null, type: Function }) promiseForExport!: any;
 
   // 代理保存方法
@@ -312,9 +290,6 @@ export default class CrudTable extends Vue {
   // 远程数据方法
   @Prop({ default: () => ({}), type: Object }) remoteFuncs!: any;
 
-  // 直接传入表头和表体，表格不用再发起任何请求
-  @Prop({ default: null, type: Object }) allResponse!: any;
-
   // 行的 className 的回调方法
   @Prop([String, Function]) rowClassName!: any;
 
@@ -335,7 +310,7 @@ export default class CrudTable extends Vue {
   @Prop({ type: Boolean, default: false }) fullHeight!: boolean;
 
   // 高度minus
-  @Prop({ type: Number, default: 235 }) maxHeightMinus!: number;
+  @Prop({ type: Number, default: 245 }) maxHeightMinus!: number;
 
   // 高度minus
   @Prop(Number) height!: number;
@@ -355,21 +330,11 @@ export default class CrudTable extends Vue {
   // el-table expandModel
   @Prop(Object) expandModel !:any;
 
-  // 自定义导出downloadUrl
-  @Prop({
-    type: String,
-    default: null,
-  })
-  exportDownloadUrl!: string;
-
   // 边框线
   @Prop({ type: Boolean, default: false }) border!: boolean;
 
   // 斑马纹
   @Prop({ type: Boolean, default: true }) stripe!: boolean;
-
-  // 异步更新表单数据
-  @Prop({ default: () => ({}), type: Object }) formValuesAsync!: any;
 
   // 子表tableConfig 详情看GenerateFormItem中解释
   @Prop({ default: () => ({}), type: Object }) formTableConfig!: any;
@@ -425,7 +390,6 @@ export default class CrudTable extends Vue {
       actionColumnBtnDel: true,
       personInfo: false,
       actionColumn: true,
-      showSeniorSearchForm: true,
       btnAddOnColumnHeader: false,
       btnDel: false,
       ...this.visibleList,
@@ -433,39 +397,25 @@ export default class CrudTable extends Vue {
   }
 
   created() {
-    // 如果直接传入表头和表体，表格不用再发起任何请求
-    if (this.allResponse) {
-      // allResponse下必须有config属性
-      this.tableConfig = this.allResponse.config;
-      this.rows = this.allResponse.rows;
-      // this.pageSize = undefined;
-    } else {
-      // 如果传入了代理promise请求config使用代理promise请求
-      const promise = this.promiseForColumns ? this.promiseForColumns() : getTableDetail(this.tableDesignerName ? this.tableDesignerName : this.tableName);
-      // 加载表格结构
-      promise.then((res) => {
-        this.tableConfig = JSON.parse(res.data.formJson);
-        // 如果不显示操作列,则隐藏
-        if (!this.view.actionColumn) {
-          this.tableConfig.columns = this.tableConfig.columns.filter((item: any) => item.slotName !== 'actionColumn');
+    // 请求表格设计json
+    const promise = getTableDetail(this.tableDesignerName ? this.tableDesignerName : this.tableName);
+    // 加载表格结构
+    promise.then((res) => {
+      this.tableConfig = JSON.parse(res.data.formJson);
+      // 如果不显示操作列,则隐藏
+      if (!this.view.actionColumn) {
+        this.tableConfig.columns = this.tableConfig.columns.filter((item: any) => item.slotName !== 'actionColumn');
+      }
+      const { actionColumnWidth } = this;
+      // 如果显示指明了操作列列宽
+      if (actionColumnWidth) {
+        const actionColumn: any = this.tableConfig.columns.find((item: any) => item.slotName === 'actionColumn');
+        if (actionColumn) {
+          actionColumn.width = actionColumnWidth;
+          actionColumn.minWidth = actionColumnWidth;
         }
-        const { actionColumnWidth } = this;
-        // 如果显示指明了操作列列宽
-        if (actionColumnWidth) {
-          const actionColumn: any = this.tableConfig.columns.find((item: any) => item.slotName === 'actionColumn');
-          if (actionColumn) {
-            actionColumn.width = actionColumnWidth;
-            actionColumn.minWidth = actionColumnWidth;
-          }
-        }
-      });
-    }
-    // 下载地址
-    if (this.exportDownloadUrl) {
-      this.downloadURL = this.exportDownloadUrl;
-    } else {
-      this.downloadURL = `${this.tableUrl}/dataExport`;
-    }
+      }
+    });
   }
 
   // 表格刷新
@@ -529,7 +479,7 @@ export default class CrudTable extends Vue {
     }
   }
 
-  // 底部批量删除按钮(暂时只支持单表,不支持外侧传入代理方法)
+  // 批量删除按钮
   btnDeletesOnClick() {
     const { length } = this.selectedRows || [];
     if (length > 0) {
@@ -564,29 +514,17 @@ export default class CrudTable extends Vue {
   }
 
   // 操作列-删除
+  @confirm('确认删除?', '提示')
   actionColumnDel(row) {
-    this.$confirm('确认删除？该操作不可恢复！', '提示', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
-      type: 'warning',
-    })
-      .then(() => {
-        // 如果prop传入了promiseForDel说明需要回调自定义删除
-        const promise = this.promiseForDel ? this.promiseForDel({ id: row.id }) : crud(DML.DELETE, this.tableName, {}, { id: row.id });
-        promise.then(() => {
-          this.tableReload();
-          this.$message({
-            type: 'success',
-            message: '删除成功',
-          });
-        });
-      })
-      .catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除',
-        });
+    // 如果prop传入了promiseForDel说明需要回调自定义删除
+    const promise = this.promiseForDel ? this.promiseForDel({ id: row.id }) : crud(DML.DELETE, this.tableName, {}, { id: row.id });
+    promise.then(() => {
+      this.tableReload();
+      this.$message({
+        type: 'success',
+        message: '删除成功',
       });
+    });
   }
 
   // 操作列-编辑按钮是否显示
@@ -626,11 +564,6 @@ export default class CrudTable extends Vue {
       visible = this.view.actionColumnBtnDel;
     }
     return visible;
-  }
-
-  // 对话框保存成功后刷新表格
-  saveDialog() {
-    this.tableReload();
   }
 
   // 表格数据请求完成

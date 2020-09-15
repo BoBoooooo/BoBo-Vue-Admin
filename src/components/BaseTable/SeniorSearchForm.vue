@@ -57,6 +57,10 @@ import {
   },
 })
 export default class SeniorSearchForm extends Vue {
+   $refs!: {
+    generateDialogForm: HTMLFormElement;
+  };
+
   visible = false;
 
   entity: any = {};
@@ -73,9 +77,6 @@ export default class SeniorSearchForm extends Vue {
   // 远程数据方法
   @Prop({ default: () => ({}), type: Object }) remoteFuncs!: any;
 
-  $refs!: {
-    generateDialogForm: HTMLFormElement;
-  };
 
   created() {
     this.autoGenerateFormByBackend();
@@ -183,7 +184,6 @@ export default class SeniorSearchForm extends Vue {
         row.columns.push(date);
       } else if (option && option.type === 'select') {
         row.columns.push(select);
-        console.log(select);
       } else {
         row.columns.push(input);
       }

@@ -198,9 +198,9 @@
           </tbody>
         </table>
         <el-button type="success"
-                   @click="handleGenerateKey(true)">自动生成表单(初始化,暂时默认一行两列)</el-button>
-        <el-button type="primary"
-                   @click="handleGenerateKey()">自动绑定key(已有表单的情况)</el-button>
+                   @click="handleGenerateKey(true)">自动生成表单(根据数据库字段初始化,默认一行两列)</el-button>
+        <!-- <el-button type="primary"
+                   @click="handleGenerateKey()">自动绑定key(已有表单的情况)</el-button> -->
       </cus-dialog>
     </el-container>
   </el-dialog>

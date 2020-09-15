@@ -14,7 +14,6 @@
              :append-to-body="appendToBody"
              :fullscreen="fullscreen"
              :close-on-click-modal="closeOnClickModal">
-    <slot name="formTitle"></slot>
     <!-- 对话框内动态表单 -->
     <GenerateForm ref="generateDialogForm"
                   :value="formValues"
@@ -27,9 +26,6 @@
     <el-row type="flex"
             justify="end"
             slot="footer">
-      <slot name="footer"
-            v-if="!readOnly"
-            :save="btnSaveOnClick"></slot>
       <template v-if="readOnly">
         <el-button @click="visible=false">关 闭</el-button>
       </template>
@@ -66,9 +62,6 @@ const STATUS = {
   },
 })
 export default class GenerateFormDialog extends Vue {
-  // 异步更新表单数据
-  @Prop({ default: () => ({}), type: Object }) formValuesAsync!: any;
-
   // 子表tableConfig 详情看GenerateFormItem中解释
   @Prop({ default: () => ({}), type: Object }) formTableConfig!: any;
 
@@ -287,14 +280,6 @@ export default class GenerateFormDialog extends Vue {
     this.$emit('change', {
       formEntity: value,
       formDesign: this.formDesign,
-    });
-  }
-
-  @Watch('formValuesAsync', { deep: true })
-  onValueChange(value: any) {
-    Object.keys(value).forEach((k) => {
-      // 异步赋值
-      this.$set(this.formValues, k, value[k]);
     });
   }
 }
