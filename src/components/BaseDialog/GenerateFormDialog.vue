@@ -223,17 +223,17 @@ export default class GenerateFormDialog extends Vue {
           msg = '编辑成功';
         }
         let promise;
-        const opt = {
-          ...this.formValues, // 默认基于formValues初始值修改
-          ...this.tableParams,
-          ...formValue,
-          ...this.dialogParams,
-        };
+        // const opt = {
+        //   ...this.formValues,
+        //   ...this.tableParams,
+        //   ...formValue,
+        //   ...this.dialogParams,
+        // };
         // 如果有代理的保存方法
         if (this.promiseForSave) {
-          promise = this.promiseForSave(opt);
+          promise = this.promiseForSave(formValue);
         } else {
-          promise = crud(type, this.tableName, opt);
+          promise = crud(type, this.tableName, formValue);
         }
 
         promise.then((res) => {

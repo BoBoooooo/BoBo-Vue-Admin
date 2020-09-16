@@ -124,7 +124,7 @@ export default {
       dialogStatus: 0,
       defaultProps: {
         children: 'children',
-        label: 'codeName',
+        label: 'typeName',
       },
       textMap: {
         1: '编辑',
@@ -146,7 +146,7 @@ export default {
           // 请求字典分类
           crud(DML.SELECT, 'ad_codelist_type').then((res) => {
             const options = res.data.list.map(item => ({
-              label: item.codeName,
+              label: item.typeName,
               value: item.id,
             }));
             resolve(options);
@@ -186,7 +186,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        crud(DML.DELETE, 'ad_codelist_type', { id: data.id }).then(() => {
+        crud(DML.DELETE, 'ad_codelist_type', {}, { id: data.id }).then(() => {
           this.dialogFormVisible = false;
           this.fetchDictType();
         });
