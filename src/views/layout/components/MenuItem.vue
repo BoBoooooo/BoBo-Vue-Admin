@@ -54,7 +54,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
 @Component({
-  name: 'NavMenuItem',
+  name: 'MenuItem',
 })
 export default class MenuItem extends Vue {
   @Prop({

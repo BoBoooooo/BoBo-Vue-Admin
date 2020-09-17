@@ -9,39 +9,33 @@
        class="app-wrapper">
     <!-- 导航栏 -->
     <Header />
-    <!-- 左侧边栏 -->
+    <!-- 左侧菜单 -->
+    <Menu />
     <div class="main-container">
       <!-- TAB标签页 -->
       <!-- <TagsView /> -->
+      <!-- 面包屑导航 -->
       <Breadcrumb></Breadcrumb>
-      <!-- 菜单 -->
-      <NavMenu />
-      <!-- 包含二级路由，可以继续嵌套子页面 -->
+      <!-- 二级路由 -->
       <AppMain />
     </div>
 
     <el-backtop target=".main-container"></el-backtop>
-
   </div>
 </template>
 
 <script>
-
-import { AppMain, Header } from '@/views/layout/components/index.ts';
 import Breadcrumb from '@/components/Breadcrumb/index.vue';
-import NavMenu from './components/NavMenu.vue';
+import { AppMain, Header, Menu } from './components/index.ts';
 
 export default {
   name: 'Layout',
-  data() {
-    return {};
-  },
   components: {
     AppMain,
     // TagsView,
     Header,
     Breadcrumb,
-    NavMenu,
+    Menu,
   },
   computed: {
     sidebar() {
@@ -53,10 +47,6 @@ export default {
         openSidebar: this.sidebar.opened,
       };
     },
-  },
-
-  mounted() {
-    window.addEventListener('scroll', () => {});
   },
 };
 </script>
