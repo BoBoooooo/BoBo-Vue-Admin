@@ -1,53 +1,21 @@
 <!--
-@file 用于增删改查的表格，第三层封装
-      三次封装关系：el-table->BaseTable.vue->CrudTable.vue
-@author BoBo
-@copyright NanJing Anshare Tech .Com
-@createDate 2019年07月29日14:58:39
+ * @file: el-table CrudTable封装,支持高级查询 分页 增删改查表单
+ * @copyright: NanJing Anshare Tech .Com
+ * @author: BoBo
+ * @Date: 2020年09月14 18:01:58
 -->
+
 <template>
   <div class="CrudTable">
-    <BaseTable ref="BaseTable"
-               :url="`${tableUrl}/list`"
-               :tableParams="tableParams"
-               :tableTitle="tableTitle"
-               :columns="tableConfig.columns"
-               :showPagination="showPagination"
-               :promiseForSelect="promiseForSelect"
-               :expandModel="expandModel"
-               :orderCondition="orderCondition"
-               :visibleList="view"
-               :remoteFuncs="remoteFuncs"
-               :fullHeight="fullHeight"
-               :height="height"
-               :maxHeightMinus="maxHeightMinus"
-               :rowClassName="rowClassName"
-               :empty-text="emptyText"
-               @done="done"
-               :border="border"
-               method="post"
-               fit
-               :rowStyle="rowStyle"
-               :cellStyle="cellStyle"
-               highlight-current-row
-               :stripe="stripe"
-               :isMultiple="isMultiple || view.btnDel"
-               @selection-change="handleSelectionChange"
-               :listField="listField"
-               :expandRowKeys="expandRowKeys"
-               :paginationLayout="paginationLayout"
-               :selectableFunc="selectableFunc"
-               :showColumnIndex="showColumnIndex">
-      <template #bottomBtn>
-        <slot name="bottomBtn"></slot>
-      </template>
-      <template #columnFormatter="scope">
-        <slot name="columnFormatter"
-              :row="scope.row"
-              :prop="scope.prop" />
-      </template>
-      <!-- 自定义右上角前置按钮 -->
-      <template #btnBarPrevBtn>
+    <div class="base-table">
+      <!-- 表格左侧标题 -->
+      <div class="table-title"
+           v-if="view.tableTitle && tableTitle">
+        <!-- 表格标题 -->
+        <h4>{{tableTitle}}</h4>
+      </div>
+      <!-- table右上角按钮 -->
+      <div class="btn-bar">
         <slot name="btnBarPrevBtn" />
         <!-- 批量删除按钮 -->
         <el-button v-if="view.btnDel"
@@ -56,55 +24,186 @@
                    type="primary"
                    size="mini"
                    icon="el-icon-delete">删除</el-button>
-      </template>
-      <template #columnHeader="scope"
-                v-if="view.btnAddOnColumnHeader">
         <!-- 添加按钮 -->
-        <el-button v-if="scope.slotName === 'actionColumn'"
+        <el-button v-if="view.btnAdd"
+                   slot="btnAdd"
+                   type="primary"
                    icon="el-icon-plus"
                    size="mini"
-                   type="primary"
-                   style="color:white"
-                   @click.stop="btnAdd()"></el-button>
+                   @click.stop="btnAdd()">{{text.add}}</el-button>
+      </div>
 
-      </template>
-      <!-- 操作列 -->
-      <template #actionColumn="scope">
-        <!-- 操作列-添加按钮 -->
-        <el-button v-if="view.actionColumnBtnAdd"
-                   icon="el-icon-plus"
-                   type="primary"
-                   size="mini"
-                   @click.stop="actionColumnAdd(scope.row)">{{text.add}}</el-button>
-        <!-- 操作列-编辑按钮 -->
-        <template v-if="actionColumnBtnEditVisible(scope.row)">
-          <!-- 正常编辑按钮 -->
-          <el-button type="success"
-                     size="mini"
-                     @click.stop="actionColumnEdit(scope.row)">{{text.edit}}</el-button>
+      <SearchForm ref="searchForm"
+                  v-if="view.searchForm"
+                  :columns="tableConfig.columns"
+                  @click="fetchHandler(false,true)"
+                  :searchFormCondition.sync="searchFormCondition"
+                  :remoteFuncs="remoteFuncs"
+                  :isLoading="loading"
+                  @clear="dataChangeHandler(true)">
+      </SearchForm>
+      <!-- 表格主体 -->
+      <el-table v-loading.lock="loading"
+                element-loading-text="加载中……"
+                ref="table"
+                :header-cell-style="{ background: '#f2f2f2', color: '#737373' }"
+                :data="tableData"
+                :border="border"
+                :size="size"
+                :stripe="stripe"
+                :height="tableHeight"
+                :max-height="maxHeight"
+                :fit="fit"
+                :show-header="showHeader"
+                :highlight-current-row="highlightCurrentRow"
+                :current-row-key="currentRowKey"
+                :row-class-name="rowClassName"
+                :row-style="rowStyle"
+                :cell-style="cellStyle"
+                :empty-text="emptyText"
+                :default-expand-all="defaultExpandAll"
+                :expand-row-keys="expandRowKeys"
+                :default-sort="defaultSort"
+                :tooltip-effect="tooltipEffect"
+                :show-summary="showSummary"
+                :sum-text="sumText"
+                :row-key="(row)=> row.id"
+                :summary-method="summaryMethod"
+                rowKey="id"
+                :style="tableStyle"
+                @select="(selection, row) => emitTableEvent('select', selection, row)"
+                @select-all="(selection) => emitTableEvent('select-all', selection)"
+                @selection-change="(selection) => handleSelectionChange(selection)"
+                @cell-mouse-enter="(row, column, cell, event) => emitTableEvent('cell-mouse-enter', row, column, cell, event)"
+                @cell-mouse-leave="(row, column, cell, event) => emitTableEvent('cell-mouse-leave', row, column, cell, event)"
+                @cell-click="(row, column, cell, event) => emitTableEvent('cell-click', row, column, cell, event)"
+                @cell-dblclick="(row, column, cell, event) => emitTableEvent('cell-dblclick', row, column, cell, event)"
+                @row-click="(row, event, column) => emitTableEvent('row-click', row, event, column)"
+                @row-dblclick="(row, event) => emitTableEvent('row-dblclick', row, event)"
+                @row-contextmenu="(row, event) => emitTableEvent('row-contextmenu', row, event)"
+                @header-click="(column, event) => emitTableEvent('header-click', column, event)"
+                @sort-change="(args) => sortChange(args)"
+                @filter-change="(filters) => emitTableEvent('filter-change', filters)"
+                @current-change="(currentRow, oldCurrentRow) => emitTableEvent('current-change', currentRow, oldCurrentRow)"
+                @header-dragend="(newWidth, oldWidth, column, event) => emitTableEvent('header-dragend', newWidth, oldWidth, column, event)"
+                @expand-change="(row, expanded) => emitTableEvent('expand-change', row, expanded)">
+        <template slot='empty'>
+          <svgIcon icon-class='table_empty'
+                   class="empty_icon"></svgIcon>
+          <span>暂无数据</span>
         </template>
-        <!-- 查看按钮 -->
-        <el-button v-if="actionColumnBtnDetailVisible(scope.row)"
-                   type="primary"
-                   size="mini"
-                   @click.stop="actionColumnDetail(scope.row)">{{text.detail}}</el-button>
-        <!-- 自定义按钮 -->
-        <slot name="btnCustom"
-              :row="scope.row" />
-        <!-- 操作列-删除按钮，支持传入btnDelVisibleFunc()用于判断按钮显示状态 -->
-        <el-button v-if="actionColumnBtnDelVisible(scope.row)"
-                   type="danger"
-                   size="mini"
-                   @click.stop="actionColumnDel(scope.row)">{{text.del}}</el-button>
-      </template>
-      <!-- 添加按钮 -->
-      <el-button v-if="view.btnAdd"
-                 slot="btnAdd"
-                 type="primary"
-                 icon="el-icon-plus"
-                 size="mini"
-                 @click.stop="btnAdd()">{{text.add}}</el-button>
-    </BaseTable>
+        <el-table-column v-if="isMultiple || view.btnDel"
+                         type="selection"
+                         reserve-selection
+                         align="center"
+                         header-align="center"
+                         width="55"
+                         :selectable="selectableFunc"> </el-table-column>
+        <el-table-column v-if="showColumnIndex"
+                         type="index"
+                         align="center"
+                         label="#"
+                         header-align="center"
+                         width="50"> </el-table-column>
+        <el-table-column v-for="(column, columnIndex) in tableConfig.columns"
+                         :key="columnIndex"
+                         :column-key="column.columnKey"
+                         :prop="column.prop"
+                         :label="column.label"
+                         :width="column.minWidth ? '-' : column.width || 140"
+                         :min-width="column.minWidth || column.width || 140"
+                         :fixed="column.fixed"
+                         :render-header="column.renderHeader"
+                         :sortable="column.sortable == 'false' ? false : column.sortable"
+                         :sort-by="column.sortBy"
+                         :sort-method="column.method"
+                         :resizable="column.resizable"
+                         :formatter="column.formatter"
+                         :show-overflow-tooltip="column.showOverflowTooltip"
+                         :align="column.align"
+                         :header-align="column.headerAlign || column.align"
+                         :class-name="column.className"
+                         :label-class-name="column.labelClassName"
+                         :selectable="column.selectable"
+                         :reserve-selection="column.reserveSelection"
+                         :filters="column.filters"
+                         :filter-placement="column.filterPlacement"
+                         :filter-multiple="column.filterMultiple"
+                         :filter-method="column.filterMethod"
+                         :filtered-value="column.filteredValue">
+          <!-- 此处暂时只考虑操作列表头的处理 -->
+          <template slot="header"
+                    v-if="view.btnAddOnColumnHeader && column.slotName === 'actionColumn'">
+            <!-- 添加按钮 -->
+            <el-button icon="el-icon-plus"
+                       size="mini"
+                       type="primary"
+                       style="color:white"
+                       @click.stop="btnAdd()"></el-button>
+          </template>
+
+          <template slot-scope="scope">
+            <span v-if="column.slotName === 'actionColumn'">
+              <!-- 自定义按钮 -->
+              <slot name="btnCustom"
+                    :row="scope.row" />
+              <!-- 操作列-添加按钮 -->
+              <el-button v-if="view.actionColumnBtnAdd"
+                         icon="el-icon-plus"
+                         type="primary"
+                         size="mini"
+                         @click.stop="actionColumnAdd(scope.row)">{{text.add}}</el-button>
+              <!-- 操作列-编辑按钮 -->
+              <template v-if="actionColumnBtnEditVisible(scope.row)">
+                <!-- 正常编辑按钮 -->
+                <el-button type="success"
+                           size="mini"
+                           @click.stop="actionColumnEdit(scope.row)">{{text.edit}}</el-button>
+              </template>
+              <!-- 查看按钮 -->
+              <el-button v-if="actionColumnBtnDetailVisible(scope.row)"
+                         type="primary"
+                         size="mini"
+                         @click.stop="actionColumnDetail(scope.row)">{{text.detail}}</el-button>
+
+              <!-- 操作列-删除按钮，支持传入btnDelVisibleFunc()用于判断按钮显示状态 -->
+              <el-button v-if="actionColumnBtnDelVisible(scope.row)"
+                         type="danger"
+                         size="mini"
+                         @click.stop="actionColumnDel(scope.row)">{{text.del}}</el-button>
+            </span>
+            <span v-else-if="column.slotName  && column.slotName !== 'actionColumn'">
+              <slot :name="column.slotName"
+                    :row="scope.row"
+                    :prop="column.prop"
+                    :$index="scope.$index" />
+            </span>
+            <span v-else>
+              {{ scope.row[column.prop] }}
+            </span>
+          </template>
+        </el-table-column>
+      </el-table>
+      <!-- 分页 -->
+      <div style="overflow:hidden;background:white"
+           class="mt-8">
+        <!-- 表格底部左侧功能按钮 -->
+        <div style="float:left">
+          <slot name="bottom-btn"></slot>
+        </div>
+        <el-pagination v-if="showPagination"
+                       :current-page="pagination.pageIndex"
+                       :page-sizes="pageSizes"
+                       :page-size="pagination.pageSize"
+                       :layout="paginationLayout"
+                       :pager-count="pagerCount"
+                       :small="pagerSmall"
+                       :total="total"
+                       @size-change="handleSizeChange"
+                       @current-change="handleCurrentChange"
+                       style="float:right" />
+      </div>
+    </div>
     <!-- 新增、编辑、查看按钮 弹出 表单-->
     <GenerateFormDialog ref="dialog"
                         :tableName="tableName"
@@ -115,9 +214,9 @@
                         :remoteFuncs="remoteFuncs"
                         :visibleList="view"
                         :setReadOnly="setReadOnly"
-                        :append-to-body="appendToBody"
-                        :close_on_click_modal="closeOnClickModal"
-                        :fullscreen="fullscreen"
+                        :append-to-body="dialogAppendToBody"
+                        :close_on_click_modal="dialogCloseOnClickModal"
+                        :fullscreen="dialogFullscreen"
                         @btnOnClick="formBtnOnClick">
     </GenerateFormDialog>
   </div>
@@ -129,9 +228,9 @@ import {
 } from 'vue-property-decorator';
 import { DML, crud } from '@/api/public/crud';
 import { getTableDetail, getFormDetail } from '@/api/system/form';
-import BaseTable from '@/components/BaseTable/BaseTable.vue';
 import GenerateFormDialog from '@/components/BaseDialog/GenerateFormDialog.vue';
 import { confirm } from '@/decorator/confirm';
+import SearchForm from './SearchForm.vue';
 
 const STATUS = {
   CREATE: 0,
@@ -141,46 +240,52 @@ const STATUS = {
 @Component({
   name: 'CrudTable',
   components: {
-    BaseTable,
     GenerateFormDialog,
+    SearchForm,
   },
 })
 export default class CrudTable extends Vue {
   // https://github.com/vuejs/vue-class-component/issues/94
   $refs!: {
-    BaseTable: HTMLFormElement;
+    table: HTMLFormElement;
     dialog: HTMLFormElement;
+    searchForm: HTMLFormElement;
   };
+
+  // 结果总数
+  total = 0;
+
+  // 是否在加载
+  loading = false;
+
+  // 排序参数
+  sortParams = {
+    orderCondition: '',
+  };
+
+  // 最大页码按钮数
+  pagerCount = 7;
+
+  // 是否显示小型分页
+  pagerSmall = false;
+
+  // 高级查询Condition
+  searchFormCondition = [];
+
+  // 表格最大高度
+  maxHeight: string | number = '100%';
+
+  // 表格高度
+  tableHeight: number | string = '100%';
 
   // 表格结构json，将来可能有多张表
   tableConfig = { columns: [] };
 
-  // 对话框保存时的参数
-  dialogParams = {};
-
-  // 对话框编辑或删除状态
-  dialogStatus = STATUS.CREATE;
-
-  // 从表格列的json获取要导出的字段
-  exportCondition: any | null = null;
-
   // 多选行选中项
   selectedRows: any = [];
 
-  // 跨页码多选仓库
-  selectedRowMap = {};
-
   // 表格数据
   tableData = [];
-
-  // 保存按钮Loading状态
-  btnSaveIsLoading = false;
-
-  // 表格行中的添加按钮点击事件
-  @Prop({ default: null, type: Function }) btnRowAddOnClick!: any;
-
-  // 展开行
-  @Prop(Array) expandRowKeys!: any;
 
   // listField
   @Prop({
@@ -192,17 +297,11 @@ export default class CrudTable extends Vue {
   // 设置只读
   @Prop({ default: null, type: Object }) setReadOnly!: any;
 
-  // 是否需要多选
-  @Prop({ default: false, type: Boolean }) isMultiple!: boolean;
-
-  // el-table emptyText
-  @Prop(String) emptyText!: string;
-
   // 添加对话框预填项
   @Prop({ default: null, type: Object }) prefill!: any;
 
   // 弹出表单appendToBody
-  @Prop({ default: false, type: Boolean }) appendToBody!: boolean;
+  @Prop({ default: false, type: Boolean }) dialogAppendToBody!: boolean;
 
   // 用于请求表格设计json的name
   @Prop({
@@ -210,13 +309,6 @@ export default class CrudTable extends Vue {
     default: null,
   })
   tableDesignerName!: string;
-
-  // 排序条件
-  @Prop({
-    type: String,
-    default: null,
-  })
-  orderCondition!: string;
 
   // 对话框内加载FormDesigner的表名
   @Prop({
@@ -242,9 +334,6 @@ export default class CrudTable extends Vue {
   })
   tableTitle!: string;
 
-  // 表格标题
-  @Prop([Object, Array]) tableParams!: any;
-
   // 按钮名字
   @Prop({ default: () => ({}), type: Object }) textMap!: any;
 
@@ -253,18 +342,6 @@ export default class CrudTable extends Vue {
 
   // 表格行中的添加按钮点击事件
   @Prop({ default: null, type: Function }) promiseForSelect!: any;
-
-  // 表格行中的添加按钮点击事件
-  @Prop({ default: null, type: Function }) promiseForAdd!: any;
-
-  // 表格行中的添加按钮点击事件
-  @Prop({ default: null, type: Function }) promiseForEdit!: any;
-
-  // 表格行中的添加按钮点击事件
-  @Prop({ default: null, type: Function }) promiseForExport!: any;
-
-  // 代理保存方法
-  @Prop({ default: null, type: Function }) promiseForSave!: any;
 
   // 表格行中的添加按钮点击事件
   @Prop({ default: null, type: Function }) btnDelVisibleFunc!: any;
@@ -284,17 +361,14 @@ export default class CrudTable extends Vue {
   // 表格行中的添加按钮点击事件
   @Prop({ default: null, type: Function }) btnDetailOnClick!: any;
 
+  // 表格行中的添加按钮点击事件
+  @Prop({ default: null, type: Function }) btnRowAddOnClick!: any;
+
   // 是否显示分页
   @Prop({ default: true, type: Boolean }) showPagination!: boolean;
 
   // 远程数据方法
   @Prop({ default: () => ({}), type: Object }) remoteFuncs!: any;
-
-  // 行的 className 的回调方法
-  @Prop([String, Function]) rowClassName!: any;
-
-  // 表格选中行的id
-  @Prop({ default: null, type: Function }) multipleExportField!: any;
 
   // 页码大小
   @Prop({ default: () => [20, 50, 100] }) pageSizes!: number[];
@@ -312,23 +386,17 @@ export default class CrudTable extends Vue {
   // 高度minus
   @Prop({ type: Number, default: 245 }) maxHeightMinus!: number;
 
-  // 高度minus
+  // el-table height
   @Prop(Number) height!: number;
 
-  // 选择行是否可选
-  @Prop({ default: null, type: Function }) selectableFunc: any;
-
   // 点击阴影弹框是否可以关闭
-  @Prop({ default: true, type: Boolean }) closeOnClickModal!: boolean;
+  @Prop({ default: true, type: Boolean }) dialogCloseOnClickModal!: boolean;
 
   // 表单是否全屏
-  @Prop({ default: false, type: Boolean }) fullscreen!: boolean;
+  @Prop({ default: false, type: Boolean }) dialogFullscreen!: boolean;
 
   // 是否显示序号列
   @Prop({ default: false }) showColumnIndex!: boolean;
-
-  // el-table expandModel
-  @Prop(Object) expandModel !:any;
 
   // 边框线
   @Prop({ type: Boolean, default: false }) border!: boolean;
@@ -360,9 +428,114 @@ export default class CrudTable extends Vue {
   // 操作列宽度
   @Prop({ type: Number, default: null }) actionColumnWidth!: number;
 
+  // 是否需要多选
+  @Prop({ default: true, type: Boolean }) isMultiple!: boolean;
+
+  // 排序条件
+  @Prop({ default: null, type: String }) orderCondition!: string;
+
+  // 远程数据方法
+  @Prop(String) size!: string;
+
+  // 远程数据方法
+  @Prop({
+    type: Boolean,
+    default: true,
+  })
+  fit!: boolean;
+
+  // el-table showHeader
+  @Prop({
+    type: Boolean,
+    default: true,
+  })
+  showHeader!: boolean;
+
+  // el-table highlightCurrentRow
+  @Prop(Boolean) highlightCurrentRow!: boolean;
+
+  // el-table currentRowKey
+  @Prop([String, Function]) currentRowKey!: any;
+
+  // el-table rowClassName
+  @Prop([String, Function]) rowClassName!: any;
+
+  // el-table rowKey
+  @Prop([String, Function]) rowKey!: any;
+
+  // el-table emptyText
+  @Prop(String) emptyText!: string;
+
+  // el-table defaultExpandAll
+  @Prop(Boolean) defaultExpandAll!: boolean;
+
+  // el-table expandRowKeys
+  @Prop(Array) expandRowKeys!: any;
+
+  // el-table defaultSort
+  @Prop(Object) defaultSort!: any;
+
+  // el-table tooltipEffect
+  @Prop(String) tooltipEffect!: string;
+
+  // el-table showSummary
+  @Prop(Boolean) showSummary!: boolean;
+
+  // el-table sumText
+  @Prop(String) sumText!: string;
+
+  // el-table summaryMethod
+  @Prop(Function) summaryMethod!: any;
+
+  // 自定义tableStyle
+  @Prop({
+    type: String,
+    default: 'width:100%;',
+  })
+  tableStyle!: string;
+
+  // totalField
+  @Prop({
+    type: String,
+    default: 'data.total',
+  })
+  totalField!: string;
+
+  // tableParams 预设查询参数
+  @Prop({
+    type: [Object, Array],
+    default: () => ({}),
+  })
+  tableParams!: any;
+
+  // pageIndexKey
+  @Prop({ default: 'pageIndex', type: String }) pageIndexKey!: string;
+
+  // pageSizeKey
+  @Prop({ default: 'pageSize', type: String }) pageSizeKey!: string;
+
+  // 选择行是否可选
+  @Prop({ default: null, type: Function }) selectableFunc: any;
+
+  // ---
+
+  // 分页
+  get pagination() {
+    return {
+      pageIndex: 1,
+      pageSize: ((): number => {
+        const { pageSizes } = this;
+        if (pageSizes.length > 0) {
+          return pageSizes[0];
+        }
+        return 20;
+      })(),
+    };
+  }
+
   // 表格数据源地址
   get tableUrl() {
-    return `${this.tableName.replace(/_/g, '/')}`;
+    return `${this.tableName}/list`;
   }
 
   // 文本映射
@@ -372,7 +545,6 @@ export default class CrudTable extends Vue {
       edit: '编辑',
       del: '删除',
       detail: '查看',
-      export: '导出xls',
       ...this.textMap,
     };
   }
@@ -380,18 +552,16 @@ export default class CrudTable extends Vue {
   // 内部元素显示控制
   get view() {
     return {
-      conditionTitle: true,
       searchForm: true,
       tableTitle: true,
       btnAdd: true,
+      btnDel: false,
       actionColumnBtnAdd: false,
       actionColumnBtnEdit: true,
       actionColumnBtnDetail: false,
       actionColumnBtnDel: true,
-      personInfo: false,
       actionColumn: true,
       btnAddOnColumnHeader: false,
-      btnDel: false,
       ...this.visibleList,
     };
   }
@@ -420,7 +590,7 @@ export default class CrudTable extends Vue {
 
   // 表格刷新
   tableReload() {
-    this.$refs.BaseTable.dataChangeHandler();
+    this.dataChangeHandler();
   }
 
   // 添加
@@ -462,11 +632,12 @@ export default class CrudTable extends Vue {
     if (this.btnEditOnClick) {
       this.btnEditOnClick(row);
     } else {
-      // 此处处理防止tree结构带有children属性造成保存bug
-      // 删除children属性
-      const clone = this.lodash.cloneDeep(row);
-      delete clone.children;
-      this.$refs.dialog.showDialog({ id: row.id }, STATUS.UPDATE, clone);
+      // 请求后台detail接口获取表单数据
+      crud(DML.DETAIL, this.tableName, {}, {
+        id: row.id,
+      }).then((res) => {
+        this.$refs.dialog.showDialog({ id: row.id }, STATUS.UPDATE, res.data);
+      });
     }
   }
 
@@ -475,7 +646,12 @@ export default class CrudTable extends Vue {
     if (this.btnDetailOnClick) {
       this.btnDetailOnClick(row);
     } else {
-      this.$refs.dialog.showDialog({ id: row.id }, STATUS.DETAIL, row);
+      // 请求后台detail接口获取表单数据
+      crud(DML.DETAIL, this.tableName, {}, {
+        id: row.id,
+      }).then((res) => {
+        this.$refs.dialog.showDialog({ id: row.id }, STATUS.DETAIL, res.data);
+      });
     }
   }
 
@@ -496,17 +672,11 @@ export default class CrudTable extends Vue {
           );
           promise.then(() => {
             this.tableReload();
-            this.$message({
-              type: 'success',
-              message: '批量删除成功',
-            });
+            this.$message.success('批量删除成功');
           });
         })
         .catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消删除',
-          });
+          this.$message.info('已取消删除');
         });
     } else {
       this.$message('请先选择删除项');
@@ -575,7 +745,7 @@ export default class CrudTable extends Vue {
   // 多选事件
   handleSelectionChange(selection) {
     this.selectedRows = selection;
-    this.$emit('selection', selection);
+    this.$emit('selection-change', selection);
   }
 
   // 生成的按钮点击
@@ -587,11 +757,235 @@ export default class CrudTable extends Vue {
   formChange(val) {
     this.$emit('formChange', val);
   }
+
+  mounted() {
+    // 初始化表格高度
+    this.setMaxHeight();
+    // 请求数据
+    this.fetchHandler(true);
+
+    // 自适应分页组件按钮;
+    window.addEventListener('resize', () => {
+      this.setPagerByWidth();
+      this.setMaxHeight();
+    });
+  }
+
+  setMaxHeight() {
+    const h = document.documentElement.clientHeight || document.body.clientHeight;
+    this.maxHeight = Math.max(0, h - this.maxHeightMinus);
+    this.tableHeight = this.fullHeight ? this.maxHeight : this.height;
+  }
+
+  // 根据表格宽度自动调整分页栏大小
+  setPagerByWidth() {
+    if (this.$refs.table && this.$refs.table.$el.clientWidth < 655) {
+      this.pagerCount = 5;
+      this.pagerSmall = true;
+    } else {
+      this.pagerCount = 7;
+      this.pagerSmall = false;
+    }
+  }
+
+  // pageSize改变事件
+  handleSizeChange(size) {
+    this.pagination.pageSize = size;
+    this.dataChangeHandler();
+  }
+
+  // pageIndex改变事件
+  handleCurrentChange(pageIndex) {
+    this.pagination.pageIndex = pageIndex;
+    this.dataChangeHandler();
+  }
+
+  dataChangeHandler(clearParams = false) {
+    this.fetchHandler(clearParams);
+  }
+
+  fetchHandler(clearParams = false, resetPageIndex = false) {
+    let searchCondition: any[] = [];
+    this.loading = true;
+    const {
+      tableUrl, showPagination, pageIndexKey, pageSizeKey, pagination, listField, totalField,
+    } = this;
+    const { tableParams, searchFormCondition } = this;
+    // 如果地址为空放弃请求
+    if (tableUrl == null) {
+      this.loading = false;
+      return;
+    }
+
+    // 如清空查询条件,则清空
+    if (clearParams) {
+      searchCondition = [];
+    } else {
+      searchCondition = searchCondition.concat(searchFormCondition);
+    }
+    // 此处为外部传入的tableParams,不做清空处理!
+    if (this.tableParams) {
+      Object.keys(tableParams).forEach((k) => {
+        searchCondition.push({
+          field: k,
+          operator: 'eq',
+          value: tableParams[k],
+        });
+      });
+      // 自定义表格参数合并到表单查询条件
+      if (Array.isArray(tableParams)) {
+        searchCondition = searchCondition.concat(tableParams);
+      }
+    }
+    // 是否resetPageIndex
+    if (resetPageIndex) {
+      this.pagination.pageIndex = 1;
+    }
+    // 由于后端实体类接收，发送前必须确保所有属性都在
+    const axiosParams = {
+      orderCondition: '',
+      searchCondition: [],
+      pageIndex: 0,
+      pageSize: 0,
+    };
+    Object.assign(axiosParams, { searchCondition });
+    // 合并用于分页的两个参数
+    if (showPagination) {
+      Object.assign(axiosParams, {
+        [pageIndexKey]: pagination.pageIndex,
+        [pageSizeKey]: pagination.pageSize,
+      });
+    }
+    // 合并排序参数
+    if (this.sortParams.orderCondition !== '') {
+      Object.assign(axiosParams, this.sortParams);
+    } else if (this.orderCondition) {
+      Object.assign(axiosParams, { orderCondition: this.orderCondition });
+    }
+    // 发起请求
+    const requestObject = this.promiseForSelect ? this.promiseForSelect(axiosParams, clearParams) : crud(DML.SELECT, this.tableName, axiosParams);
+
+    requestObject
+      .then((response) => {
+        let result = response;
+        // 此处判断返回的数据格式
+        // 和后台默认约束好的resultBean格式如下:
+        /**
+         * {
+         *    code: 200,
+         *    data: {
+         *      list: [],
+         *      total: 0,
+         *    };
+         *    message: SUCCESS
+         * }
+         */
+        if (response && !Array.isArray(response)) {
+          // 此处listField默认为 data.list
+          result = listField.split('.').reduce((res, key) => res[key], response);
+        }
+        // 判断拿到的list是否为Array
+        if (!result || !Array.isArray(result)) {
+          this.loading = false;
+          throw new Error(`The result of key:${listField} is not Array.`);
+        }
+        // 拿到list数据
+        this.tableData = result as any;
+        // 以下代码 获取该列表总数
+        let totalValue = response;
+        // 如果返回直接为list,则说明没有分页处理,直接统计length作为总数
+        if (Array.isArray(response)) {
+          totalValue = response.length;
+        } else if (typeof response === 'object') {
+          // 此处totalField默认为data.total
+          totalValue = totalField.split('.').reduce((res, key) => res[key], response);
+        } else {
+          totalValue = 0;
+        }
+        this.total = totalValue;
+        this.loading = false;
+        if (this.$refs.table) {
+          // 获取到数据后清空已选项
+          this.$refs.table.clearSelection();
+        }
+        this.$emit('done', this);
+      })
+      .catch((e) => {
+        // 如果list查询方法由外部传入,无法获取到真实请求的URL,故隐藏
+        let message = `URL：${tableUrl}，原因：${e.message}`;
+        if (this.promiseForSelect) {
+          message = `原因：${e.message}`;
+        }
+        this.$notify({
+          title: '表格数据请求失败',
+          message,
+          duration: 5000,
+        });
+        this.loading = false;
+      });
+  }
+
+  emitTableEvent(...args) {
+    this.$emit(args[0], ...Array.from(args).slice(1));
+  }
+
+  /**
+   * 排序条件发生变化的时候会触发该事件
+   *
+   * @param {Object} prop 当前列需要排序的数据
+   * @param {Object} order 排序的规则（升序、降序和默认[默认就是没排序]）
+   */
+  sortChange(args) {
+    const { prop, order } = args;
+    const fieldOrder = order === 'ascending' ? 'asc' : 'desc';
+    this.sortParams.orderCondition = prop ? `${prop} ${fieldOrder}` : '';
+    // emit sort-change
+    this.$emit('sort-change', args);
+    // table reload
+    this.dataChangeHandler();
+  }
 }
 </script>
-<style lang="scss" scoped>
+
+<style scoped>
+/* 修改暂无数据样式 */
+.base-table >>> .el-table__empty-text {
+  line-height: 10px;
+  margin-bottom: 15px;
+  color: rgba(0, 0, 0, 0.25) !important;
+  font-size: 14px;
+}
+.base-table >>> .empty_icon {
+  width: 4em;
+  height: 4em;
+  display: block;
+  margin: 0 auto;
+}
+</style>
+
+<style rel="stylesheet/scss" lang="scss" scoped>
 .CrudTable {
   background: white;
   padding: 10px;
+  .table-title {
+    float: left;
+    margin-left: 5px;
+    h4 {
+      margin: 2px 30px 0px 0px;
+      padding-left: 15px;
+      border-left: 7px solid #007bff;
+      font-weight: 500;
+      font-size: 20px;
+    }
+  }
+  .btn-bar {
+    float: right;
+    width: auto;
+    text-align: right;
+    & > div,
+    button {
+      float: right;
+    }
+  }
 }
 </style>
