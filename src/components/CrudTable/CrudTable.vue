@@ -20,13 +20,11 @@
         <!-- 批量删除按钮 -->
         <el-button v-if="view.btnDel"
                    @click="btnDeletesOnClick"
-                   slot="bottom-btn"
                    type="primary"
                    size="mini"
                    icon="el-icon-delete">删除</el-button>
         <!-- 添加按钮 -->
         <el-button v-if="view.btnAdd"
-                   slot="btnAdd"
                    type="primary"
                    icon="el-icon-plus"
                    size="mini"
