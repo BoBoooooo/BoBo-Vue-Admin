@@ -54,8 +54,8 @@
       <el-col :span="19">
         <CrudTable tableName="ad_codelist"
                    ref="codeListTable"
+                   orderCondition="timestamp desc"
                    fullHeight
-                   :maxHeightMinus="245"
                    :prefill="tableParams"
                    :tableParams="tableParams"
                    :remoteFuncs="remoteFuncs"

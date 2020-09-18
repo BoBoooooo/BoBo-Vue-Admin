@@ -10,6 +10,7 @@
                tableName="role"
                tableTitle="角色列表"
                fullHeight
+               orderCondition="timestamp desc"
                :visibleList="{
                  tableTitle:false,
                  btnDel:true,

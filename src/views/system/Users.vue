@@ -46,6 +46,7 @@
         <CrudTable ref="table"
                    table-name="users"
                    :tableTitle="tableTitle"
+                   orderCondition="timestamp desc"
                    :remoteFuncs="remoteFuncs"
                    fullHeight
                    :prefill="tableParams"

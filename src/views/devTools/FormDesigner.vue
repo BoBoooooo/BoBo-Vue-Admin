@@ -9,6 +9,7 @@
     <CrudTable ref="table"
                tableName="form"
                tableTitle="表单设计"
+               orderCondition="timestamp desc"
                :btnEditOnClick="btnEditOnClick"
                :btnAddOnClick="btnAddOnClick"
                :searchFormCondition="searchFormParams"

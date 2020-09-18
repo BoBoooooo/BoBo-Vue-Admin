@@ -9,6 +9,7 @@
     <CrudTable ref="dynamictables"
                tableName="dynamictables"
                tableTitle="表格设计"
+               orderCondition="timestamp desc"
                :btnEditOnClick="btnEditOnClick"
                :btnAddOnClick="btnAddOnClick"
                :searchFormCondition="searchFormParams"
