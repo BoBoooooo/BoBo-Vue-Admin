@@ -212,12 +212,12 @@
       </el-cascader>
     </template>
     <template v-if="widget.type == 'table'">
-      <CrudTable :closeOnClickModal="false"
+      <CrudTable :dialogCloseOnClickModal="false"
                  ref="table"
                  :tableName="widget.options.tableName"
                  :tableDesignerName="widget.options.tableDesignerName"
                  :dialogFormDesignerName="widget.options.dialogFormDesignerName"
-                 appendToBody
+                 dialogAppendToBody
                  :visibleList="visibleList"
                  :showPagination="widget.options.showPagination"
                  :tableParams="getTableParams"
