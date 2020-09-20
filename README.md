@@ -7,6 +7,8 @@
 
 配套后端地址 https://github.com/BoBoooooo/NestJS-API-Server.git (还在初期阶段)
 
+☠ 9.19号 vue 3已经发布,正在尝试迁移中.. ☠
+
 ## 0、核心功能
 
 * 基础三员管理(用户部门角色)
