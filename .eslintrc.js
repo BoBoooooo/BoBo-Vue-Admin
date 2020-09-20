@@ -10,9 +10,9 @@ module.exports = {
     node: true,
   },
   extends: [
-    'plugin:vue/essential',
+    'plugin:vue/vue3-essential',
     '@vue/airbnb',
-    '@vue/typescript',
+    '@vue/typescript/recommended',
   ],
   // 修改airbnb部分变态规则
   rules: {
@@ -40,9 +40,6 @@ module.exports = {
     'class-methods-use-this': 'off',
   },
   parserOptions: {
-    parser: '@typescript-eslint/parser',
-    ecmaFeatures: {
-      "legacyDecorators": true
-    }
+    ecmaVersion: 2020,
   },
 };
