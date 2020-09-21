@@ -3,7 +3,7 @@
 
 在线演示地址 http://server.boboooooo.top:9999/
 
-项目文档 https://wiki.anshare.com.cn/frameworks 。
+项目文档 https://github.com/BoBoooooo/BoBo-Vue-Admin/wiki/CrudTable-%E6%96%87%E6%A1%A3 
 
 配套后端地址 https://github.com/BoBoooooo/NestJS-API-Server.git (还在初期阶段)
 
