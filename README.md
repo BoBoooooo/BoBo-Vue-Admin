@@ -101,3 +101,7 @@ git config --global core.autocrlf input
 设置为区分大小写
 git config core.ignorecase false
 ```
+
+## 8. 致谢
+@ytyang <ie07@163.com> 
+@GavinZhuLei
