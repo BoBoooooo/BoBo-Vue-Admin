@@ -22,23 +22,20 @@ import '@/permission'; // 权限控制
 import '@/styles/index.scss'; // 全局样式
 import '@/icons/autoImportSvg'; // 自动导入src/icon目录下的svg图标
 
-const app = createApp(App).use(store).use(router).mount('#app');
+const app = createApp(App).use(store).use(router);
 
-// app.use(animated);
+app.use(animated);
 
-// app.component('CrudTable', CrudTable); // 全局注册用于增删改查的高级表格组件
+app.component('CrudTable', CrudTable); // 全局注册用于增删改查的高级表格组件
 
-// /* 这里改写原型链，将axios设置为Vue的原型属性，
-// 之后可以在组件的methods中使用this.axios发起请求。
-// 就算改写了原型链也无法在store中访问axios，
-// 必须在store中再次引入axios */
-// app.prototype.axios = axios;
-// // 改写原型链以全局支持this.lodash
-// app.prototype.lodash = lodash;
-// // 全局注册dayjs
-// app.prototype.dayjs = dayjs;
-
-// // 拼音匹配插件
-// app.prototype.$pinyinmatch = PinyinMatch;
+/* 全局引入axios */
+app.config.globalProperties.axios = axios;
+/* 全局引入lodash */
+app.config.globalProperties.lodash = lodash;
+/* 全局引入dayjs */
+app.config.globalProperties.dayjs = dayjs;
+/* 拼音匹配插件 */
+app.config.globalProperties.$pinyinmatch = PinyinMatch;
 // // 挂载EventBus
-// app.prototype.$EventBus = new Vue();
+app.config.globalProperties.$EventBus = createApp(App);
+app.mount('#app');

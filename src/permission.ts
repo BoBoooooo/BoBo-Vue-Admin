@@ -28,7 +28,7 @@ router.beforeEach(async (to, from, next) => {
         roleRouters: userInfo.roleAuthName.split(','),
         userName: userInfo.userName,
       });
-      router.addRoutes(store.getters.addRouters); // 动态添加可访问路由表
+      router.addRoute(store.getters.addRouters); // 动态添加可访问路由表
       // store.dispatch('initWebSocket', store.getters.name); // 建立ws连接
       next({ ...to, replace: true } as any);
     } else {

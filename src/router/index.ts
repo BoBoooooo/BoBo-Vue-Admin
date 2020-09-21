@@ -13,8 +13,7 @@
  * @author BoBo
  * @updateDate 2020年06月17日11:23:04
  */
-import Vue from 'vue';
-import Router from 'vue-router';
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import Layout from '../views/layout/Layout.vue';
 
 // const originalPush = Router.prototype.push;
@@ -24,47 +23,56 @@ import Layout from '../views/layout/Layout.vue';
 //   return (originalPush as any).apply(this, rest).catch(err => err);
 // };
 
-Vue.use(Router);
-
 // 用于多级菜单时候作为router-view入口用
-const RouteView = () => ({ render: h => h('router-view') });
-
+// const RouteView = () => ({ render: (h) => h('router-view') });
 
 interface RouterType {
-  path: string, // 路由path
-  component?: any, // 引用的组件
-  name?: string, // routerName,切勿重复
-  title?: string, // 此处title同时配置icon名称,如果有需求可自行新增icon属性,修改sidebaritem相关代码
-  hidden?: boolean, // 是否隐藏
-  redirect?: string, // 是否重定向
-  children?: any, // 是否含有二级路由
-  noDropdown?:boolean, // 不显示下拉列表,用于一级菜单的情况
-  meta?:object // 自定义属性
+  path: string; // 路由path
+  component?: any; // 引用的组件
+  name?: string; // routerName,切勿重复
+  title?: string; // 此处title同时配置icon名称,如果有需求可自行新增icon属性,修改sidebaritem相关代码
+  hidden?: boolean; // 是否隐藏
+  redirect?: string; // 是否重定向
+  children?: any; // 是否含有二级路由
+  noDropdown?: boolean; // 不显示下拉列表,用于一级菜单的情况
+  meta?: object; // 自定义属性
 }
 
-
 // 固定路由表
-export const constantRouterMap:RouterType[] = [
+export const constantRouterMap: Array<RouteRecordRaw> = [
   {
     path: '/',
     redirect: '/dashboard',
     component: () => import('@/views/layout/Layout.vue'),
-    hidden: true,
     name: 'dashboard',
+    meta: {
+      hidden: true,
+    },
   },
-  { path: '/login', component: () => import('@/views/public/Login.vue'), hidden: true },
   {
-    path: '/404', name: 'notFound', component: () => import('@/views/public/404.vue'), hidden: true,
+    path: '/login',
+    component: () => import('@/views/public/Login.vue'),
+    meta: {
+      hidden: true,
+    },
+  },
+  {
+    path: '/404',
+    name: 'notFound',
+    component: () => import('@/views/public/404.vue'),
+    meta: {
+      hidden: true,
+    },
   },
 ];
 
-export const router = new Router({
+export const router = createRouter({
+  history: createWebHashHistory(),
   routes: constantRouterMap,
 });
 
-
 // 异步路由
-const asyncRouter:RouterType[] = [
+const asyncRouter: RouterType[] = [
   {
     path: '/dashboard',
     component: Layout,
@@ -72,14 +80,16 @@ const asyncRouter:RouterType[] = [
     name: 'dashboardForUser',
     title: '首页',
     redirect: '/dashboard/dashboard',
-    children: [{
-      path: 'dashboard',
-      component: () => import('@/views/dashboard/Dashboard.vue'),
-      name: 'dashboardForUserIndex',
-      meta: {
-        title: '首页',
+    children: [
+      {
+        path: 'dashboard',
+        component: () => import('@/views/dashboard/Dashboard.vue'),
+        name: 'dashboardForUserIndex',
+        meta: {
+          title: '首页',
+        },
       },
-    }],
+    ],
   },
   {
     path: '/system',
@@ -134,7 +144,6 @@ const asyncRouter:RouterType[] = [
     ],
   },
   { path: '*', redirect: '/404', hidden: true },
-
 ];
 
 export const asyncRouterMap = asyncRouter;

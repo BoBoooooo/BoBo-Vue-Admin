@@ -38,6 +38,8 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     // 允许class中方法不使用this
     'class-methods-use-this': 'off',
+    // ts中允许使用any
+    '@typescript-eslint/no-explicit-any':'off'
   },
   parserOptions: {
     ecmaVersion: 2020,

@@ -8,7 +8,7 @@
 <template>
   <div class="menu-wrapper">
     <template v-for="item in routes">
-      <router-link v-if="!item.hidden&&item.children.length===1"
+      <router-link v-if="!item.meta.hidden&&item.children.length===1"
                    :key="item.name"
                    :to="item.path === '/' ? '/':item.path+'/'+item.children[0].path">
         <el-tooltip effect="dark"
@@ -21,16 +21,16 @@
           </el-menu-item>
         </el-tooltip>
       </router-link>
-      <el-submenu v-else-if="!item.noDropdown&&!item.hidden"
+      <el-submenu v-else-if="!item.meta.noDropdown&&!item.meta.hidden"
                   :index="item.name"
                   :key="item.name">
-        <template slot="title">
+        <template v-slot:title>
           <!-- <SvgIcon v-if="item.icon"
                     :icon-class="item.icon" /> {{ item.title }} -->
           <SvgIcon :icon-class="item.title" /> {{ item.title }}
         </template>
         <template v-for="child in item.children"
-                  v-if="!child.hidden">
+                  v-if="!child.meta.hidden">
           <navmenu-item v-if="child.children&&child.children.length>0"
                         :key="child.name"
                         :routes="[child]"
@@ -48,7 +48,6 @@
     </template>
   </div>
 </template>
-
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
