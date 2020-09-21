@@ -77,7 +77,14 @@ export default class MenuItem extends Vue {
   height: 22px !important;
   vertical-align: -0.4em !important;
 }
-
+.hideSidebar .SvgIcon {
+  width: 32px !important;
+  height: 32px !important;
+  margin-top: 25px;
+  margin-left: 0px;
+  margin-right: 50px;
+  vertical-align: -0.4em !important;
+}
 .hideSidebar .menu-indent {
   display: block;
   text-indent: 1em;

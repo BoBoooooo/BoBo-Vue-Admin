@@ -94,7 +94,7 @@ export default {
 <style lang="scss" scoped>
 .bread-container {
   display: block;
-  margin-bottom:8px;
+  margin-bottom: 20px;
   .icon {
     width: 18px;
     height: 18px;

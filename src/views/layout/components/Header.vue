@@ -7,14 +7,20 @@
 
 <template>
   <div>
-    <el-header height="80px"
-               class="navHeader"
-               style="background:#f0f3f7">
+    <el-header height="64px"
+               style="background:#fff">
       <div class="title-container">
         <img class="header_logo"
              src="@/assets/logo.png">
         <span class="title">{{title}}</span>
       </div>
+      <!-- 折叠侧边栏按钮 -->
+      <Hamburger :toggle-click="toggleSideBar"
+                 :is-active="!!sidebar"
+                 class="hamburger-container"
+                 :class="{
+                   isActive:!sidebar
+                 }" />
       <!-- 姓名及下拉菜单 -->
       <div class="user-container">
         <img :src="photo"
@@ -37,13 +43,13 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
-// import Hamburger from '@/components/Hamburger/Hamburger.vue';
+import Hamburger from '@/components/Hamburger/Hamburger.vue';
 import PersonInfoCard from './PersonInfoCard.vue';
 
 @Component({
   name: 'Header',
   components: {
-    // Hamburger,
+    Hamburger,
     PersonInfoCard,
   },
   computed: {
@@ -71,6 +77,10 @@ export default class Header extends Vue {
     this.$refs.personInfoCard.showDialog();
   }
 
+  toggleSideBar() {
+    this.$store.dispatch('ToggleSideBar');
+  }
+
   logOut() {
     this.$store.dispatch('clearToken');
   }
@@ -84,13 +94,13 @@ export default class Header extends Vue {
 <style rel="stylesheet/scss" lang="scss" scoped>
 .title-container {
   display: inline-block;
-  padding-left: 50px;
+  padding-left: 20px;
   text-align: center;
-  height: 80px;
-  line-height: 80px;
+  height: 64px;
+  line-height: 64px;
   .header_logo {
-    width: 3em;
-    height: 3em;
+    width: 42px;
+    height: 42px;
     vertical-align: -13px;
     margin-right: 20px;
     border-radius: 50%;
@@ -110,6 +120,12 @@ export default class Header extends Vue {
 .el-header {
   color: black;
   padding-left: 0px !important;
+  .hamburger-container {
+    display: block;
+    position: absolute;
+    top: 20px;
+    right: 280px;
+  }
   .logo {
     width: 2em;
     height: 2em;
@@ -120,14 +136,14 @@ export default class Header extends Vue {
 .elevator {
   float: right;
   line-height: 100px;
-  height: 80px;
+  height: 64px;
   margin-right: 50px;
 }
 // 姓名及下拉菜单
 .user-container {
-  height: 80px;
+  height: 64px;
   float: right;
-  line-height: 80px;
+  line-height: 64px;
   text-align: center;
   .photo {
     width: 3em;
