@@ -13,13 +13,21 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Options, Vue } from 'vue-class-component';
 import { mapGetters } from 'vuex';
 
-@Component({
+@Options<App>({
   name: 'App',
   computed: {
     ...mapGetters(['config']),
+  },
+  watch: {
+    config: {
+      deep: true,
+      handler: (val) => {
+        document.title = val && val.systemName;
+      },
+    },
   },
 })
 export default class App extends Vue {
@@ -29,9 +37,9 @@ export default class App extends Vue {
 
   count = 0;
 
-  config!:any;
+  config!: any;
 
-  $store:any;
+  $store: any;
 
   async created() {
     await this.$store.dispatch('initSystemConfig');
@@ -41,9 +49,8 @@ export default class App extends Vue {
     }
   }
 
-
   debounce(event, callback) {
-    let timer:any = null;
+    let timer: any = null;
     if (timer) {
       clearTimeout(timer);
     }
@@ -68,9 +75,9 @@ export default class App extends Vue {
 
   initTimeOutWatcher() {
     // 监听鼠标
-    document.onmousemove = event => this.debounce(event, this.mouseEvent);
+    document.onmousemove = (event) => this.debounce(event, this.mouseEvent);
     // 监听键盘
-    document.onkeydown = event => this.debounce(event, this.keyDownEvent);
+    document.onkeydown = (event) => this.debounce(event, this.keyDownEvent);
     const loop = window.setInterval(() => {
       const token = sessionStorage.getItem('token');
       if (token != null && token !== 'null') {
@@ -81,14 +88,6 @@ export default class App extends Vue {
         }
       }
     }, 1000);
-  }
-
-
-  @Watch('config', {
-    deep: true,
-  })
-  configOnChange(val) {
-    document.title = val && val.systemName;
   }
 }
 </script>

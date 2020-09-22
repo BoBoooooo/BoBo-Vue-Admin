@@ -10,7 +10,7 @@
   <el-dialog v-if="visible"
              ref="dialog"
              class="dialog"
-             :visible.sync="visible"
+             v-model="visible"
              fullscreen>
     <el-container style="height:100%">
       <!-- 左侧边栏 -->
@@ -92,7 +92,7 @@
             </el-col>
             <el-col :span="8">
               <el-button type='text'
-                         @click="btnSave_onClick"
+                         @click="btnSaveOnClick"
                          :loading="btnSaveIsLoading">保存</el-button>
               <el-button type="text"
                          size="medium"
@@ -114,7 +114,7 @@
         <el-main :class="{'widget-empty': widgetForm.list.length == 0}">
           <widget-form ref="widgetForm"
                        :data="widgetForm"
-                       :select.sync="widgetFormSelect"></widget-form>
+                       v-model="widgetFormSelect"></widget-form>
         </el-main>
       </el-container>
       <!-- 右侧边栏 -->
@@ -151,8 +151,8 @@
                        :remote="remoteFuncsForPreview"
                        :value="widgetModels"
                        ref="generateForm">
-          <template slot="blank"
-                    slot-scope="scope">
+          <template #blank="scope"
+                    >
             宽度：<el-input v-model="scope.model.blank.width"
                       style="width: 100px"></el-input>
             高度：<el-input v-model="scope.model.blank.height"
@@ -209,7 +209,6 @@
 <script>
 import Draggable from 'vuedraggable';
 import Icon from 'vue-awesome/components/Icon.vue';
-import JSONEditor from 'jsoneditor';
 import { getTables, getFormKey, getFormDetail } from '@/api/system/form';
 import { DML, crud } from '@/api/public/crud';
 import WidgetConfig from '@/components/FormDesigner/WidgetConfig.vue';
@@ -301,17 +300,6 @@ export default {
       formVisible: false,
       // 用于预览的下拉菜单数据
       remoteFuncsForPreview: {
-        func_test(resolve) {
-          setTimeout(() => {
-            const options = [
-              { id: '1', name: '1111' },
-              { id: '2', name: '2222' },
-              { id: '3', name: '3333' },
-            ];
-
-            resolve(options);
-          }, 2000);
-        },
       },
       widgetModels: {},
       blank: '',
@@ -328,7 +316,6 @@ export default {
       allTables: [],
     };
   },
-  created() {},
   methods: {
     // 自动生成表单,默认一行两列
     autoGenerateFormByBackend(rows) {
@@ -446,7 +433,7 @@ export default {
       this.$refs.generateForm
         .getData()
         .then((data) => {
-          this.$alert(data, '').catch(() => {});
+          this.$alert(data, '');
           this.$refs.widgetPreview.end();
         })
         .catch(() => {
@@ -539,7 +526,7 @@ export default {
       });
     },
     // 保存设计
-    btnSave_onClick() {
+    btnSaveOnClick() {
       this.btnSaveIsLoading = true;
       // 调用此方法验证表单数据和获取表单数据
       this.$refs.generateDialogForm
@@ -576,7 +563,7 @@ export default {
                 type: 'success',
                 message: msg,
               });
-              this.$emit('afterSave', {
+              this.$emit('after-save', {
                 status: this.dialogStatus,
                 dialogParams: this.dialogParams,
               });

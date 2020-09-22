@@ -28,28 +28,22 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { DML, crud } from '@/api/public/crud';
+import { Options, Vue } from 'vue-class-component';
 
-
-export default {
+@Options({
   name: 'Dept',
-  data() {
-    return {};
-  },
-  methods: {
-    // 表格查询代理
-    promiseForSelect() {
-      return new Promise((resolve, reject) => {
-        crud(DML.TREE, 'dept')
-          .then((res) => {
-            resolve(res);
-          })
-          .catch(err => reject(err));
-      });
-    },
-  },
-};
+})
+export default class Dept extends Vue {
+  promiseForSelect() {
+    return new Promise((resolve, reject) => {
+      crud(DML.TREE, 'dept')
+        .then((res) => {
+          resolve(res);
+        })
+        .catch((err) => reject(err));
+    });
+  }
+}
 </script>
-<style rel="stylesheet/scss" lang="scss" scoped>
-</style>

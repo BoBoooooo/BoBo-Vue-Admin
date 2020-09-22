@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import { Vue, Component } from 'vue-property-decorator';
+import { Options, Vue } from 'vue-class-component';
 
-@Component({
+@Options({
   name: 'Dashboard',
 })
 export default class Dashboard extends Vue {}

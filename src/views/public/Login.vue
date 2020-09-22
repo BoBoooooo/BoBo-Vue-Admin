@@ -41,13 +41,13 @@
                       name="password"
                       auto-complete="on"
                       placeholder="请输入密码(密码 123)"
-                      @keyup.enter.native="handleLogin" />
+                      @keyup.enter="handleLogin" />
           </el-form-item>
 
           <el-form-item>
             <el-button :loading="btnLoginIsLoading"
                        type="default"
-                       @click.native.prevent="handleLogin">
+                       @click.prevent="handleLogin">
               LOGIN
             </el-button>
           </el-form-item>
@@ -57,13 +57,12 @@
   </div>
 </template>
 
-
 <script>
-import { Component, Vue } from 'vue-property-decorator';
+import { Options, Vue } from 'vue-class-component';
 import ChangePasswordDialog from '@/components/ChangePasswordDialog/ChangePasswordDialog.vue';
 import { mapGetters } from 'vuex';
 
-@Component({
+@Options({
   components: {
     ChangePasswordDialog,
   },
@@ -71,7 +70,7 @@ import { mapGetters } from 'vuex';
     ...mapGetters(['config']),
   },
 })
-export default class Login {
+export default class Login extends Vue {
   loginForm = {
     username: '',
     password: '',
@@ -97,7 +96,7 @@ export default class Login {
       }
       this.$store
         .dispatch('setTokenByLogin', this.loginForm)
-        .then((res) => {
+        .then(() => {
           this.btnLoginIsLoading = false;
           // 进入内部页面
           this.$router
@@ -108,7 +107,7 @@ export default class Login {
               console.info(error.message);
             });
         })
-        .catch((error) => {
+        .catch(() => {
           this.btnLoginIsLoading = false;
         });
       return null;

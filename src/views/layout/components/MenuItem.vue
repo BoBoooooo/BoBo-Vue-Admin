@@ -50,17 +50,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Options, props } from 'vue-class-component';
 
-@Component({
+const Props = props({
+  count: {
+    routes: Array,
+    default: () => [],
+  },
+});
+
+@Options({
   name: 'MenuItem',
 })
-export default class MenuItem extends Vue {
-  @Prop({
-    type: Array,
-    default: () => [],
-  })
-  routes: any;
+export default class MenuItem extends Props {
 }
 </script>
 
@@ -76,7 +78,14 @@ export default class MenuItem extends Vue {
   height: 22px !important;
   vertical-align: -0.4em !important;
 }
-
+.hideSidebar .SvgIcon {
+  width: 32px !important;
+  height: 32px !important;
+  margin-top: 25px;
+  margin-left: 0px;
+  margin-right: 50px;
+  vertical-align: -0.4em !important;
+}
 .hideSidebar .menu-indent {
   display: block;
   text-indent: 1em;

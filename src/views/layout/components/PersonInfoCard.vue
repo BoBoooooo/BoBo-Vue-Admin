@@ -11,7 +11,8 @@
     <el-dialog v-if="visible"
                ref="actiondialog"
                title="个人信息"
-               :visible.sync="visible"
+               v-model:visible="visible"
+
                append-to-body
                width="30%"
                :before-close="()=>{visible=false}"
@@ -47,23 +48,24 @@
           <p>角色: {{ this.$store.getters.rolename }}</p>
         </el-col>
       </el-row>
-      <div slot="footer"
-           class="footer">
-        <div @click="changePassword">
-          <i class="el-icon-s-tools icon"></i>修改密码
+      <template v-slot:footer>
+        <div class="footer">
+          <div @click="changePassword">
+            <i class="el-icon-s-tools icon"></i>修改密码
+          </div>
         </div>
-      </div>
+      </template>
+
     </el-dialog>
 
     <ChangePasswordDialog ref="passwordDialog"></ChangePasswordDialog>
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
-import { mapGetters } from 'vuex';
+import { Options, Vue } from 'vue-class-component';
 import ChangePasswordDialog from '@/components/ChangePasswordDialog/ChangePasswordDialog.vue';
 
-@Component({
+@Options({
   name: 'PersonInfoCard',
   components: {
     ChangePasswordDialog,
@@ -100,7 +102,7 @@ export default class PersonInfoCard extends Vue {
     return `${process.env.VUE_APP_API_URL}users/uploadImage`;
   }
 
-  showDialog(param = {}) {
+  showDialog() {
     this.visible = true;
   }
 
@@ -108,7 +110,7 @@ export default class PersonInfoCard extends Vue {
     this.$refs.passwordDialog.showDialog();
   }
 
-  handleAvatarSuccess(res, file) {
+  handleAvatarSuccess(res) {
     this.imageUrl = res.data;
     this.$store.commit('SET_PHOTO', res.data);
   }

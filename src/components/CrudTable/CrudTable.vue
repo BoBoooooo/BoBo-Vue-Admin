@@ -35,7 +35,7 @@
                   v-if="view.searchForm"
                   :columns="tableConfig.columns"
                   @click="fetchHandler(false,true)"
-                  :searchFormCondition.sync="searchFormCondition"
+                  v-model="searchFormCondition"
                   :remoteFuncs="remoteFuncs"
                   :isLoading="loading"
                   @clear="dataChangeHandler(true)">
@@ -85,7 +85,7 @@
                 @current-change="(currentRow, oldCurrentRow) => emitTableEvent('current-change', currentRow, oldCurrentRow)"
                 @header-dragend="(newWidth, oldWidth, column, event) => emitTableEvent('header-dragend', newWidth, oldWidth, column, event)"
                 @expand-change="(row, expanded) => emitTableEvent('expand-change', row, expanded)">
-        <template slot='empty'>
+        <template v-slot:empty>
           <svgIcon icon-class='table_empty'
                    class="empty_icon"></svgIcon>
           <span>暂无数据</span>
@@ -130,7 +130,7 @@
                          :filter-method="column.filterMethod"
                          :filtered-value="column.filteredValue">
           <!-- 此处暂时只考虑操作列表头的处理 -->
-          <template slot="header"
+          <template v-slot:header
                     v-if="view.btnAddOnColumnHeader && column.slotName === 'actionColumn'">
             <!-- 添加按钮 -->
             <el-button icon="el-icon-plus"
@@ -140,7 +140,7 @@
                        @click.stop="btnAdd()"></el-button>
           </template>
 
-          <template slot-scope="scope">
+          <template v-slot="scope">
             <span v-if="column.slotName === 'actionColumn'">
               <!-- 自定义按钮 -->
               <slot name="btnCustom"
@@ -207,7 +207,7 @@
                         :tableName="tableName"
                         :dialogFormDesignerName="dialogFormDesignerName"
                         :tableParams="tableParams"
-                        @afterSave="tableReload"
+                        @after-save="tableReload"
                         @change="formChange"
                         :remoteFuncs="remoteFuncs"
                         :visibleList="view"
@@ -215,17 +215,16 @@
                         :append-to-body="dialogAppendToBody"
                         :close_on_click_modal="dialogCloseOnClickModal"
                         :fullscreen="dialogFullscreen"
-                        @btnOnClick="formBtnOnClick">
+                        @btn-on-click="formBtnOnClick">
     </GenerateFormDialog>
   </div>
 </template>
 
 <script lang="ts">
-import {
-  Component, Vue, Emit, Prop,
-} from 'vue-property-decorator';
+import { Options, Vue } from 'vue-class-component';
+import { Prop } from 'vue-property-decorator';
 import { DML, crud } from '@/api/public/crud';
-import { getTableDetail, getFormDetail } from '@/api/system/form';
+import { getTableDetail } from '@/api/system/form';
 import GenerateFormDialog from '@/components/BaseDialog/GenerateFormDialog.vue';
 import { confirm } from '@/decorator/confirm';
 import SearchForm from './SearchForm.vue';
@@ -235,7 +234,7 @@ const STATUS = {
   UPDATE: 1,
   DETAIL: 2,
 };
-@Component({
+@Options({
   name: 'CrudTable',
   components: {
     GenerateFormDialog,
@@ -382,7 +381,7 @@ export default class CrudTable extends Vue {
   @Prop({ type: Boolean, default: false }) fullHeight!: boolean;
 
   // 高度minus
-  @Prop({ type: Number, default: 245 }) maxHeightMinus!: number;
+  @Prop({ type: Number, default: 270 }) maxHeightMinus!: number;
 
   // el-table height
   @Prop(Number) height!: number;
@@ -666,7 +665,7 @@ export default class CrudTable extends Vue {
           const promise = crud(
             DML.DELETES,
             this.tableName,
-            this.selectedRows.map(item => item.id),
+            this.selectedRows.map((item) => item.id),
           );
           promise.then(() => {
             this.tableReload();
@@ -748,12 +747,12 @@ export default class CrudTable extends Vue {
 
   // 生成的按钮点击
   formBtnOnClick(widget) {
-    this.$emit('formBtnOnClick', widget);
+    this.$emit('form-btn-on-click', widget);
   }
 
   // 监听dialog中form对象改变
   formChange(val) {
-    this.$emit('formChange', val);
+    this.$emit('form-change', val);
   }
 
   mounted() {

@@ -6,26 +6,28 @@
 -->
 <template>
   <!-- 导航菜单+滚动条 -->
-  <el-menu collapse
+  <el-menu :collapse="!sidebar"
            :default-active="$route.path"
            unique-opened
            mode="vertical"
-           background-color="#f5e8e8"
-           text-color="#000"
-           active-text-color="#3f51b5"
-           class="menu">
+           background-color="#ebeef5"
+           text-color="#333"
+           active-text-color="#616dad"
+           class="menu"
+            :class="{
+         'hideSidebar':!sidebar
+       }">
     <!-- 菜单项组件 -->
     <MenuItem :routes="routers" />
   </el-menu>
 </template>
 
-
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Options, Vue } from 'vue-class-component';
 import { mapGetters } from 'vuex';
 import MenuItem from './MenuItem.vue';
 
-@Component({
+@Options({
   name: 'Menu',
   components: {
     MenuItem,
@@ -34,9 +36,10 @@ import MenuItem from './MenuItem.vue';
     ...mapGetters(['routers']),
   },
 })
-
 export default class Menu extends Vue {
-
+  get sidebar() {
+    return this.$store.getters.sidebar.opened;
+  }
 }
 </script>
 <style scoped>
@@ -46,18 +49,32 @@ export default class Menu extends Vue {
 </style>
 <style lang="scss" scoped>
 .menu {
-  overflow-x: hidden;
-  overflow-y: auto;
+  top: 64px;
+  width: 220px;
+  padding-left:15px;
+  bottom: 0;
+  left: 0 !important;
+  right: none !important;
+  overflow: auto;
   position: fixed;
-  left:0;
-  z-index:200;
-  width: 34px;
-  top: 100px;
-  max-height:80%;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-   &::-webkit-scrollbar {
-    display: none;
+  height: 100%;
+  .el-menu {
+    height: 100%;
+  }
+  &.hideSidebar {
+    width: 64px;
+    padding: 0;
+    /deep/.el-submenu__title,
+    /deep/.el-menu-item {
+      padding-left: 16px !important;
+      height: auto;
+    }
+     /deep/.el-submenu {
+      padding-left: 0 !important;
+    }
+    /deep/.el-submenu__icon-arrow {
+      display: none;
+    }
   }
 }
 </style>

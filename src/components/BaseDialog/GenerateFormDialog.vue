@@ -9,7 +9,7 @@
   <el-dialog v-if="visible"
              ref="dialog"
              :title="dialogTitle"
-             :visible.sync="visible"
+             v-model:visible="visible"
              :width="width"
              :append-to-body="appendToBody"
              :fullscreen="fullscreen"
@@ -20,24 +20,25 @@
                   :data="formDesign"
                   :setReadOnly="readOnly"
                   :remote="remoteFuncs"
-                  :entity.sync="entity"
+                  v-model="entity"
                   @btnonclick="btnOnClick"
                   :formTableConfig="formTableConfig" />
-    <el-row type="flex"
-            justify="end"
-            slot="footer">
-      <template v-if="readOnly">
-        <el-button @click="visible=false">关 闭</el-button>
-      </template>
-      <template v-else>
-        <el-button type="primary"
-                   icon="el-icon-check"
-                   @click="btnSaveOnClick()"
-                   :loading="btnSaveIsLoading">保存</el-button>
-        <el-button icon="el-icon-close"
-                   @click="btnCancelOnClick()">取消</el-button>
-      </template>
-    </el-row>
+    <template #footer>
+      <el-row type="flex"
+              justify="end">
+        <template v-if="readOnly">
+          <el-button @click="visible=false">关 闭</el-button>
+        </template>
+        <template v-else>
+          <el-button type="primary"
+                     icon="el-icon-check"
+                     @click="btnSaveOnClick()"
+                     :loading="btnSaveIsLoading">保存</el-button>
+          <el-button icon="el-icon-close"
+                     @click="btnCancelOnClick()">取消</el-button>
+        </template>
+      </el-row>
+    </template>
   </el-dialog>
 </template>
 
@@ -47,7 +48,7 @@ import { getFormDetail } from '@/api/system/form';
 import GenerateForm from '@/components/FormDesigner/GenerateForm.vue';
 import guid from '@/utils/generator';
 import {
-  Component, Vue, Emit, Watch, Prop,
+  Component, Vue, Watch, Prop,
 } from 'vue-property-decorator';
 
 const STATUS = {
@@ -200,7 +201,7 @@ export default class GenerateFormDialog extends Vue {
   }
 
   // 保存按钮点击
-  btnSaveOnClick(prefill = {}) {
+  btnSaveOnClick() {
     this.btnSaveIsLoading = true;
     // 调用此方法验证表单数据和获取表单数据
     this.$refs.generateDialogForm
@@ -251,7 +252,7 @@ export default class GenerateFormDialog extends Vue {
             type: 'success',
             message: msg,
           });
-          this.$emit('afterSave', {
+          this.$emit('after-save', {
             status: this.dialogStatus,
             dialogParams: this.dialogParams,
           });
@@ -271,7 +272,7 @@ export default class GenerateFormDialog extends Vue {
 
   // 生成的按钮点击
   btnOnClick(widget) {
-    this.$emit('btnOnClick', widget);
+    this.$emit('btn-on-click', widget);
   }
 
   @Watch('entity', { deep: true })

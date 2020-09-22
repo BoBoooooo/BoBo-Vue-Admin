@@ -15,9 +15,9 @@
   </section>
 </template>
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Options, Vue } from 'vue-class-component';
 
-@Component({
+@Options({
   name: 'AppMain',
 })
 export default class AppMain extends Vue {
@@ -26,7 +26,6 @@ export default class AppMain extends Vue {
   };
 
   scrollTop = 0;
-
 
   get cachedViews() {
     return this.$store.state.tagsView.cachedViews;

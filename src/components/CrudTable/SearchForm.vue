@@ -13,28 +13,30 @@
               @change="changeEvent"
               v-model="searchContent"
               class="input">
-      <div slot="suffix">
-        <el-tooltip class="item"
-                    effect="dark"
-                    content="查询"
-                    placement="top">
-          <i class="el-input__icon el-icon-search"
-             @click="btnSearchOnClick()"
-             style="display:inline"></i>
-        </el-tooltip>
-        <!-- 高级查询表单 -->
-        <SeniorSearchForm :remoteFuncs="remoteFuncs"
-                          @fetchSearch="getFetchParamsSearch"
-                          :columns="columns"> </SeniorSearchForm>
-        <el-tooltip class="item"
-                    effect="dark"
-                    content="清空"
-                    placement="top">
-          <i class="el-input__icon el-icon-refresh"
-             @click="clearEvent()"
-             style="display:inline;color:orange;"></i>
-        </el-tooltip>
-      </div>
+      <template #suffix>
+        <div>
+          <el-tooltip class="item"
+                      effect="dark"
+                      content="查询"
+                      placement="top">
+            <i class="el-input__icon el-icon-search"
+               @click="btnSearchOnClick()"
+               style="display:inline"></i>
+          </el-tooltip>
+          <!-- 高级查询表单 -->
+          <SeniorSearchForm :remoteFuncs="remoteFuncs"
+                            @fetchSearch="getFetchParamsSearch"
+                            :columns="columns"> </SeniorSearchForm>
+          <el-tooltip class="item"
+                      effect="dark"
+                      content="清空"
+                      placement="top">
+            <i class="el-input__icon el-icon-refresh"
+               @click="clearEvent()"
+               style="display:inline;color:orange;"></i>
+          </el-tooltip>
+        </div>
+      </template>
     </el-input>
     <div class="tips">
       <!-- 提示当前查询内容 -->
@@ -88,10 +90,10 @@ export default class SearchForm extends Vue {
 
   // 标签关闭事件
   handleClose(tag) {
-    this.paramsTips = this.paramsTips.filter(item => item.field !== tag.field);
+    this.paramsTips = this.paramsTips.filter((item) => item.field !== tag.field);
     this.$emit(
       'update:searchFormCondition',
-      this.paramsTips.map(item => ({
+      this.paramsTips.map((item) => ({
         field: item.field,
         value: item.value,
         operator: item.operator,
@@ -119,7 +121,7 @@ export default class SearchForm extends Vue {
   getParams() {
     let params: any = [];
     // 拿到所有字段
-    const props = this.columns.filter(item => item.searchable).map(item => item.prop);
+    const props = this.columns.filter((item) => item.searchable).map((item) => item.prop);
     const str = props.toString();
     if (this.searchContent) {
       params = [
@@ -167,11 +169,11 @@ export default class SearchForm extends Vue {
         }
       }
     });
-    this.paramsTips = params.map(item => ({
+    this.paramsTips = params.map((item) => ({
       field: item.field,
       value: item.value,
       operator: item.operator,
-      label: this.columns.find(s => s.prop === item.field).label,
+      label: this.columns.find((s) => s.prop === item.field).label,
     }));
 
     this.$emit('update:searchFormCondition', params);

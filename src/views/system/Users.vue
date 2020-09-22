@@ -29,16 +29,18 @@
                    :props="deptTree.mapping"
                    :node-key="deptTree.mapping.nodeKey"
                    :default-expanded-keys="deptTree.expandedKeys">
-            <span class="custom-tree-node"
-                  slot-scope="{ node }">
-              <div style="float:left">
-                <i v-if="node.isLeaf"
-                   class="el-icon el-icon-user-solid"></i>
-                <i v-else
-                   class="el-icon el-icon-s-home"></i>
-                <span>{{ node.label }}</span>
-              </div>
-            </span>
+            <template v-slot="{ node }">
+              <span class="custom-tree-node">
+                <div style="float:left">
+                  <i v-if="node.isLeaf"
+                     class="el-icon el-icon-user-solid"></i>
+                  <i v-else
+                     class="el-icon el-icon-s-home"></i>
+                  <span>{{ node.label }}</span>
+                </div>
+              </span>
+            </template>
+
           </el-tree>
         </div>
       </el-col>
@@ -80,8 +82,7 @@
             </template>
           </template>
           <template #btnCustom="{row}">
-            <el-button slot="btnCustom"
-                       icon="el-icon-edit-outline"
+            <el-button icon="el-icon-edit-outline"
                        type="warning"
                        size="mini"
                        @click="resetPassword(row)">重置密码</el-button>
@@ -144,7 +145,7 @@ export default {
         // 请求角色
         funcGetRole(resolve) {
           crud(DML.SELECT, 'role').then((res) => {
-            const options = res.data.list.map(item => ({
+            const options = res.data.list.map((item) => ({
               label: item.roleName,
               value: item.id,
             }));
@@ -162,7 +163,7 @@ export default {
     };
   },
   methods: {
-    handleAvatarSuccess(res, file) {
+    handleAvatarSuccess() {
       this.$refs.table.tableReload();
     },
     beforeAvatarUpload(file) {
@@ -203,7 +204,7 @@ export default {
     },
 
     // 请求部门树
-    loadDeptTree(data) {
+    loadDeptTree() {
       this.loading = true;
       crud(DML.TREE, 'dept').then((res) => {
         this.deptTree.data = [
@@ -221,11 +222,11 @@ export default {
     dialogOnClose() {
       this.$refs.table.tableReload();
     },
-    filterNode(value, data, node) {
+    filterNode(value, data) {
       if (!value) return true;
       return this.$pinyinmatch.match(data.name, value);
     },
-    nodeClick(data, node) {
+    nodeClick(data) {
       if (data.id === this.deptTree.rootId) {
         delete this.tableParams.deptid;
       } else {

@@ -22,12 +22,12 @@
 </template>
 
 <script>
-import { Component, Vue } from 'vue-property-decorator';
+import { Options, Vue } from 'vue-class-component';
 
-@Component({
+@Options({
   name: 'notFound',
 })
-export default class {
+export default class NotFound extends Vue {
   goLogin() {
     this.$store.commit('SET_TOKEN', null);
     window.location.reload();

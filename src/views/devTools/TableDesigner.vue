@@ -18,9 +18,8 @@
                  tableTitle:false,
                  btnDel:true,
                }">
-      <template slot="btnCustom"
-                slot-scope="scope">
-        <el-button slot="btnCustom"
+      <template #btnCustom="scope">
+        <el-button
                    type="primary"
                    size="mini"
                    @click="btnCopyOnClick(scope.row)">复制</el-button>
@@ -50,7 +49,7 @@ export default {
         getTablesOfDB(resolve) {
           // 请求表名列表
           getTables().then((res) => {
-            const options = res.data.map(item => ({
+            const options = res.data.map((item) => ({
               label: item.TABLE_NAME,
               value: item.TABLE_NAME,
             }));
