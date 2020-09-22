@@ -147,22 +147,22 @@
             <el-input size="mini"
                       style=""
                       v-model="data.options.remoteFunc">
-              <template slot="prepend">方法名</template>
+              <template v-slot:prepend>方法名</template>
             </el-input>
             <el-input size="mini"
                       style=""
                       v-model="data.options.props.value">
-              <template slot="prepend">值</template>
+              <template v-slot:prepend>值</template>
             </el-input>
             <el-input size="mini"
                       style=""
                       v-model="data.options.props.label">
-              <template slot="prepend">标签</template>
+              <template v-slot:prepend>标签</template>
             </el-input>
             <el-input size="mini"
                       style=""
                       v-model="data.options.props.rightLabel">
-              <template slot="prepend">右侧标签</template>
+              <template v-slot:prepend>右侧标签</template>
             </el-input>
           </div>
         </template>
@@ -172,22 +172,22 @@
             <el-input size="mini"
                       style=""
                       v-model="data.options.remoteSearchFunc">
-              <template slot="prepend">方法名</template>
+              <template v-slot:prepend>方法名</template>
             </el-input>
             <el-input size="mini"
                       style=""
                       v-model="data.options.props.value">
-              <template slot="prepend">值</template>
+              <template v-slot:prepend>值</template>
             </el-input>
             <el-input size="mini"
                       style=""
                       v-model="data.options.props.label">
-              <template slot="prepend">标签</template>
+              <template v-slot:prepend>标签</template>
             </el-input>
             <el-input size="mini"
                       style=""
                       v-model="data.options.props.rightLabel">
-              <template slot="prepend">右侧标签</template>
+              <template v-slot:prepend>右侧标签</template>
             </el-input>
           </div>
         </template>
@@ -624,7 +624,9 @@ export default {
     Draggable,
     Icon,
   },
-  props: ['data'],
+  props: {
+    data: Object,
+  },
   data() {
     return {
       // 字典类型
@@ -649,7 +651,7 @@ export default {
   created() {
     // 请求字典分类
     crud(DML.SELECT, 'ad_codelist_type').then((res) => {
-      this.dictType = res.data.list.map(item => ({
+      this.dictType = res.data.list.map((item) => ({
         label: item.codeName,
         value: item.codeValue,
       }));

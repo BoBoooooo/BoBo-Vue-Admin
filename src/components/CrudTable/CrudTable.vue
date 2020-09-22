@@ -221,19 +221,20 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import { Prop } from 'vue-property-decorator';
+import { Options, props } from 'vue-class-component';
 import { DML, crud } from '@/api/public/crud';
 import { getTableDetail } from '@/api/system/form';
 import GenerateFormDialog from '@/components/BaseDialog/GenerateFormDialog.vue';
 import { confirm } from '@/decorator/confirm';
 import SearchForm from './SearchForm.vue';
+import crudTableProps from './props';
 
 const STATUS = {
   CREATE: 0,
   UPDATE: 1,
   DETAIL: 2,
 };
+const Props = props(crudTableProps);
 @Options({
   name: 'CrudTable',
   components: {
@@ -241,7 +242,7 @@ const STATUS = {
     SearchForm,
   },
 })
-export default class CrudTable extends Vue {
+export default class CrudTable extends Props {
   // https://github.com/vuejs/vue-class-component/issues/94
   $refs!: {
     table: HTMLFormElement;
@@ -283,238 +284,6 @@ export default class CrudTable extends Vue {
 
   // 表格数据
   tableData = [];
-
-  // listField
-  @Prop({
-    type: String,
-    default: 'data.list',
-  })
-  listField!: string;
-
-  // 设置只读
-  @Prop({ default: null, type: Object }) setReadOnly!: any;
-
-  // 添加对话框预填项
-  @Prop({ default: null, type: Object }) prefill!: any;
-
-  // 弹出表单appendToBody
-  @Prop({ default: false, type: Boolean }) dialogAppendToBody!: boolean;
-
-  // 用于请求表格设计json的name
-  @Prop({
-    type: String,
-    default: null,
-  })
-  tableDesignerName!: string;
-
-  // 对话框内加载FormDesigner的表名
-  @Prop({
-    type: String,
-    default: null,
-  })
-  dialogFormDesignerName!: string;
-
-  // 内部元素显示控制
-  @Prop({ default: () => ({}), type: Object }) visibleList!: any;
-
-  // 表名
-  @Prop({
-    type: String,
-    default: '',
-  })
-  tableName!: string;
-
-  // 表格标题
-  @Prop({
-    type: String,
-    default: '',
-  })
-  tableTitle!: string;
-
-  // 按钮名字
-  @Prop({ default: () => ({}), type: Object }) textMap!: any;
-
-  // 表格行中的添加按钮点击事件
-  @Prop({ default: null, type: Function }) promiseForDel!: any;
-
-  // 表格行中的添加按钮点击事件
-  @Prop({ default: null, type: Function }) promiseForSelect!: any;
-
-  // 表格行中的添加按钮点击事件
-  @Prop({ default: null, type: Function }) btnDelVisibleFunc!: any;
-
-  // 表格行中的添加按钮点击事件
-  @Prop({ default: null, type: Function }) btnEditVisibleFunc!: any;
-
-  // 表格行中的添加按钮点击事件
-  @Prop({ default: null, type: Function }) btnDetailVisibleFunc!: any;
-
-  // 表格行中的添加按钮点击事件
-  @Prop({ default: null, type: Function }) btnAddOnClick!: any;
-
-  // 表格行中的添加按钮点击事件
-  @Prop({ default: null, type: Function }) btnEditOnClick!: any;
-
-  // 表格行中的添加按钮点击事件
-  @Prop({ default: null, type: Function }) btnDetailOnClick!: any;
-
-  // 表格行中的添加按钮点击事件
-  @Prop({ default: null, type: Function }) btnRowAddOnClick!: any;
-
-  // 是否显示分页
-  @Prop({ default: true, type: Boolean }) showPagination!: boolean;
-
-  // 远程数据方法
-  @Prop({ default: () => ({}), type: Object }) remoteFuncs!: any;
-
-  // 页码大小
-  @Prop({ default: () => [20, 50, 100] }) pageSizes!: number[];
-
-  // 分页显示
-  @Prop({
-    type: String,
-    default: 'total, prev, pager, next, jumper, sizes',
-  })
-  paginationLayout!: string;
-
-  // 是否自适应屏幕高度
-  @Prop({ type: Boolean, default: false }) fullHeight!: boolean;
-
-  // 高度minus
-  @Prop({ type: Number, default: 270 }) maxHeightMinus!: number;
-
-  // el-table height
-  @Prop(Number) height!: number;
-
-  // 点击阴影弹框是否可以关闭
-  @Prop({ default: true, type: Boolean }) dialogCloseOnClickModal!: boolean;
-
-  // 表单是否全屏
-  @Prop({ default: false, type: Boolean }) dialogFullscreen!: boolean;
-
-  // 是否显示序号列
-  @Prop({ default: false }) showColumnIndex!: boolean;
-
-  // 边框线
-  @Prop({ type: Boolean, default: false }) border!: boolean;
-
-  // 斑马纹
-  @Prop({ type: Boolean, default: true }) stripe!: boolean;
-
-  // 子表tableConfig 详情看GenerateFormItem中解释
-  @Prop({ default: () => ({}), type: Object }) formTableConfig!: any;
-
-  // 行样式
-  @Prop({
-    default: () => ({
-      height: '20px',
-    }),
-    type: Function,
-  })
-  rowStyle!: any;
-
-  // 单元格样式
-  @Prop({
-    default: () => ({
-      padding: '5px',
-    }),
-    type: Function,
-  })
-  cellStyle!: any;
-
-  // 操作列宽度
-  @Prop({ type: Number, default: null }) actionColumnWidth!: number;
-
-  // 是否需要多选
-  @Prop({ default: true, type: Boolean }) isMultiple!: boolean;
-
-  // 排序条件
-  @Prop({ default: null, type: String }) orderCondition!: string;
-
-  // 远程数据方法
-  @Prop(String) size!: string;
-
-  // 远程数据方法
-  @Prop({
-    type: Boolean,
-    default: true,
-  })
-  fit!: boolean;
-
-  // el-table showHeader
-  @Prop({
-    type: Boolean,
-    default: true,
-  })
-  showHeader!: boolean;
-
-  // el-table highlightCurrentRow
-  @Prop(Boolean) highlightCurrentRow!: boolean;
-
-  // el-table currentRowKey
-  @Prop([String, Function]) currentRowKey!: any;
-
-  // el-table rowClassName
-  @Prop([String, Function]) rowClassName!: any;
-
-  // el-table rowKey
-  @Prop([String, Function]) rowKey!: any;
-
-  // el-table emptyText
-  @Prop(String) emptyText!: string;
-
-  // el-table defaultExpandAll
-  @Prop(Boolean) defaultExpandAll!: boolean;
-
-  // el-table expandRowKeys
-  @Prop(Array) expandRowKeys!: any;
-
-  // el-table defaultSort
-  @Prop(Object) defaultSort!: any;
-
-  // el-table tooltipEffect
-  @Prop(String) tooltipEffect!: string;
-
-  // el-table showSummary
-  @Prop(Boolean) showSummary!: boolean;
-
-  // el-table sumText
-  @Prop(String) sumText!: string;
-
-  // el-table summaryMethod
-  @Prop(Function) summaryMethod!: any;
-
-  // 自定义tableStyle
-  @Prop({
-    type: String,
-    default: 'width:100%;',
-  })
-  tableStyle!: string;
-
-  // totalField
-  @Prop({
-    type: String,
-    default: 'data.total',
-  })
-  totalField!: string;
-
-  // tableParams 预设查询参数
-  @Prop({
-    type: [Object, Array],
-    default: () => ({}),
-  })
-  tableParams!: any;
-
-  // pageIndexKey
-  @Prop({ default: 'pageIndex', type: String }) pageIndexKey!: string;
-
-  // pageSizeKey
-  @Prop({ default: 'pageSize', type: String }) pageSizeKey!: string;
-
-  // 选择行是否可选
-  @Prop({ default: null, type: Function }) selectableFunc: any;
-
-  // ---
 
   // 分页
   get pagination() {

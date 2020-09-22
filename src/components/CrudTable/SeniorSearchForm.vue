@@ -15,49 +15,65 @@
       maxHeight:'70vh',
       overflow:'auto'
     }">
-      <div slot="header"
-           class="clearfix">
-        <i class="el-icon el-icon-search"
-           style="margin-right:10px"></i>
-        <span>高级查询</span>
-      </div>
+      <template #header>
+        <div class="clearfix">
+          <i class="el-icon el-icon-search"
+             style="margin-right:10px"></i>
+          <span>高级查询</span>
+        </div>
+      </template>
+
       <div>
         <GenerateForm ref="generateDialogForm"
                       :data="formDesign"
                       style="width:auto"
                       v-if="visible"
                       :remote="remoteFuncs"
-                      :entity.sync="entity" />
+                      v-model:entity="entity" />
       </div>
     </el-card>
-    <el-tooltip class="item"
-                slot="reference"
-                effect="dark"
-                content="高级查询"
-                placement="top">
-      <i style="color:green"
-         class="el-input__icon el-icon-zoom-in el-icon"
-         @click="visible = true"></i>
-    </el-tooltip>
+    <template #refrence>
+      <el-tooltip class="item"
+                  effect="dark"
+                  content="高级查询"
+                  placement="top">
+        <i style="color:green"
+           class="el-input__icon el-icon-zoom-in el-icon"
+           @click="visible = true"></i>
+      </el-tooltip>
+    </template>
+
   </el-popover>
 </template>
 
 <script lang="ts">
 import GenerateForm from '@/components/FormDesigner/GenerateForm.vue';
-import { DML, crud } from '@/api/public/crud';
-import { getFormDetail } from '@/api/system/form';
 
-import {
-  Component, Vue, Prop, Watch,
-} from 'vue-property-decorator';
+import { Options, props } from 'vue-class-component';
 
-@Component({
+const Props = props({
+  // 远程数据方法
+  remoteFuncs: Object,
+  columns: {
+    type: Array,
+    required: true,
+  },
+});
+@Options({
   components: {
     GenerateForm,
   },
+  watch: {
+    columns: {
+      deep: true,
+      handler() {
+        this.autoGenerateFormByBackend();
+      },
+    },
+  },
 })
-export default class SeniorSearchForm extends Vue {
-   $refs!: {
+export default class SeniorSearchForm extends Props {
+  $refs!: {
     generateDialogForm: HTMLFormElement;
   };
 
@@ -66,17 +82,6 @@ export default class SeniorSearchForm extends Vue {
   entity: any = {};
 
   formDesign = {};
-
-  @Prop({
-    type: Array,
-    default: () => [],
-    required: true,
-  })
-  columns;
-
-  // 远程数据方法
-  @Prop({ default: () => ({}), type: Object }) remoteFuncs!: any;
-
 
   created() {
     this.autoGenerateFormByBackend();
@@ -87,7 +92,7 @@ export default class SeniorSearchForm extends Vue {
   }
 
   getSearchFormData() {
-    this.$emit('fetchSearch', this.entity);
+    this.$emit('fetch-search', this.entity);
     this.visible = false;
   }
 
@@ -105,10 +110,10 @@ export default class SeniorSearchForm extends Vue {
       },
     };
 
-    for (const column of this.columns.filter(item => item.searchable)) {
+    for (const column of this.columns.filter((item) => item.searchable)) {
       const {
-        type, label, prop, option,
-      } = column;
+        label, prop, option,
+      } = column as any;
       const row: any = {
         type: 'grid',
         columns: [],
@@ -190,11 +195,6 @@ export default class SeniorSearchForm extends Vue {
       formJson.list.push(row);
     }
     this.formDesign = formJson;
-  }
-
-  @Watch('columns', { deep: true })
-  onChange() {
-    this.autoGenerateFormByBackend();
   }
 }
 </script>

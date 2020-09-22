@@ -14,17 +14,31 @@ import animated from 'animate.css';
 import CrudTable from '@/components/CrudTable/CrudTable.vue'; // 全局注册用于增删改查的高级表格组件
 import axios from '@/plugins/axios';// axios中统一设置Token
 import store from '@/store/index';// store内做了局部持久化
+import Element from 'element-plus';
+import SvgIcon from '@/components/SvgIcon/SvgIcon.vue';
 import App from './App.vue';// 下方$mount把App.vue挂载到public/index.html
 import { router } from './router';// router内启用了懒加载
 import 'normalize.css';// 重置css
-import '@/plugins/element';// vue-cli3.0以插件形式引入elementui
 import '@/permission'; // 权限控制
 import '@/styles/index.scss'; // 全局样式
-import '@/icons/autoImportSvg'; // 自动导入src/icon目录下的svg图标
+import 'element-plus/lib/theme-chalk/index.css';// 白垩主题，此文件在node_modules下的elementui包内
+import '@/styles/element-ui-override.scss';// 客制化elementui，我自己创建的
+import '@/styles/element-variables.scss'; // 自定义element ui主题颜色
 
-const app = createApp(App).use(store).use(router);
+// 全局注册SvgIcon组件
 
-app.use(animated);
+const requireAll = (requireContext) => requireContext.keys().map(requireContext);
+// 到同级svg目录下（不包含子目录）找所有文件名以.svg结尾且能被require的文件
+// require.context有三个参数：
+// - directory：说明需要检索的目录
+// - useSubdirectories：是否检索子目录
+// - regExp: 匹配文件的正则表达式
+const req = require.context('@/icons/svg', true, /\.svg$/);
+requireAll(req);
+
+const app = createApp(App).use(Element).use(animated).use(store)
+  .use(router);
+app.component('SvgIcon', SvgIcon);
 
 app.component('CrudTable', CrudTable); // 全局注册用于增删改查的高级表格组件
 

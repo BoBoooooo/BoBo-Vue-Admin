@@ -1,7 +1,7 @@
 <template>
   <el-dialog class="cus-dialog-container"
              :title="title"
-             :visible.sync="dialogVisible"
+             v-model:visible="dialogVisible"
              :close-on-click-modal="false"
              :width="width"
              ref="elDialog"
@@ -10,66 +10,74 @@
     <span v-if="show">
       <slot></slot>
     </span>
+    <template #footer>
+      <span v-if="action"
+            class="dialog-footer"
+            v-loading="loading"
+            :element-loading-text="loadingText">
+        <slot name="action">
+          <el-button @click="close">取消</el-button>
+          <el-button type="primary"
+                     @click="submit">确 定</el-button>
+        </slot>
+      </span>
+    </template>
 
-    <span v-if="action"
-          slot="footer"
-          class="dialog-footer"
-          v-loading="loading"
-          :element-loading-text="loadingText">
-      <slot name="action">
-        <el-button @click="close">取消</el-button>
-        <el-button type="primary"
-                   @click="submit">确 定</el-button>
-      </slot>
-    </span>
   </el-dialog>
 </template>
 
 <script lang="ts">
-import {
-  Component, Vue, Watch, Prop,
-} from 'vue-property-decorator';
+import { Options, props } from 'vue-class-component';
 
-@Component
-export default class CusDialog extends Vue {
+const Props = props({
+  visible: Boolean,
+  loadingText: {
+    type: String,
+    default: '',
+  },
+  title: {
+    type: String,
+    default: '预览',
+  },
+  width: {
+    type: String,
+    default: '600px',
+  },
+  form: {
+    type: Boolean,
+    default: true,
+  },
+  action: {
+    type: Boolean,
+    default: true,
+  },
+});
+
+@Options({
+  watch: {
+    dialogVisible(val) {
+      if (!val) {
+        this.loading = false;
+        this.$emit('on-close');
+        setTimeout(() => {
+          this.showForm = false;
+        }, 300);
+      } else {
+        this.showForm = true;
+      }
+    },
+    visible(val) {
+      this.dialogVisible = val;
+    },
+
+  },
+})
+export default class CusDialog extends Props {
   loading = false;
 
   id = `dialog ${new Date().getTime()}`;
 
   showForm = false;
-
-  @Prop(Boolean)
-  visible!: boolean;
-
-  @Prop({
-    type: String,
-    default: '',
-  })
-  loadingText!: string;
-
-  @Prop({
-    type: String,
-    default: '预览',
-  })
-  title!: string;
-
-  @Prop({
-    type: String,
-    default: '600px',
-  })
-  width!: string;
-
-  @Prop({
-    type: Boolean,
-    default: true,
-  })
-  form!: boolean;
-
-  @Prop({
-    type: Boolean,
-    default: true,
-  })
-  action!: boolean;
 
   dialogVisible = this.visible;
 
@@ -92,24 +100,6 @@ export default class CusDialog extends Vue {
 
   end() {
     this.loading = false;
-  }
-
-  @Watch('dialogVisible')
-  dialogVisibleChange(val) {
-    if (!val) {
-      this.loading = false;
-      this.$emit('on-close');
-      setTimeout(() => {
-        this.showForm = false;
-      }, 300);
-    } else {
-      this.showForm = true;
-    }
-  }
-
-  @Watch('visible')
-  visibleChange(val) {
-    this.dialogVisible = val;
   }
 }
 </script>

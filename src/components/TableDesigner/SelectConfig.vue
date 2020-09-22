@@ -42,15 +42,15 @@
       <div>
         <el-input style="margin:0 0 8px 0;"
                   v-model="localOption.remoteFunc">
-          <template slot="prepend">远端方法</template>
+          <template v-slot:prepend>远端方法</template>
         </el-input>
         <el-input style="margin:0 0 8px 0;"
                   v-model="localOption.props.value">
-          <template slot="prepend">值</template>
+          <template v-slot:prepend>值</template>
         </el-input>
         <el-input style="margin:0 0 8px 0;"
                   v-model="localOption.props.label">
-          <template slot="prepend">标签</template>
+          <template v-slot:prepend>标签</template>
         </el-input>
       </div>
     </template>
@@ -123,7 +123,7 @@ export default {
   created() {
     // 请求字典分类
     crud(DML.SELECT, 'ad_codelist_type').then((res) => {
-      this.dictType = res.data.list.map(item => ({
+      this.dictType = res.data.list.map((item) => ({
         label: item.codename,
         value: item.codevalue,
       }));

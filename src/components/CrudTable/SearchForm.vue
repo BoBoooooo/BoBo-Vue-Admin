@@ -25,7 +25,7 @@
           </el-tooltip>
           <!-- 高级查询表单 -->
           <SeniorSearchForm :remoteFuncs="remoteFuncs"
-                            @fetchSearch="getFetchParamsSearch"
+                            @fetchearch="getFetchParamsSearch"
                             :columns="columns"> </SeniorSearchForm>
           <el-tooltip class="item"
                       effect="dark"
@@ -59,25 +59,23 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Options, props } from 'vue-class-component';
 import SeniorSearchForm from './SeniorSearchForm.vue';
 
-@Component({
+const Props = props({
+  // 远程数据方法
+  remoteFuncs: Object,
+  columns: {
+    type: Array as any,
+    required: true,
+  },
+});
+@Options({
   components: {
     SeniorSearchForm,
   },
 })
-export default class SearchForm extends Vue {
-  // 远程数据方法
-  @Prop({ default: () => ({}), type: Object }) remoteFuncs!: any;
-
-  // 表格设计json
-  @Prop({
-    type: Array,
-    required: true,
-  })
-  columns: any;
-
+export default class SearchForm extends Props {
   // 查询输入框内容
   searchContent = '';
 
@@ -121,8 +119,8 @@ export default class SearchForm extends Vue {
   getParams() {
     let params: any = [];
     // 拿到所有字段
-    const props = this.columns.filter((item) => item.searchable).map((item) => item.prop);
-    const str = props.toString();
+    const fields = this.columns.filter((item) => item.searchable).map((item) => item.prop);
+    const str = fields.toString();
     if (this.searchContent) {
       params = [
         {

@@ -27,7 +27,7 @@
     </CrudTable>
     <TableDesignerDialog ref="dialog"
                          tableName="dynamictables"
-                         @afterSave="dialogOnClose"
+                         @after-save="dialogOnClose"
                          :remoteFuncs="remoteFuncs" />
   </div>
 </template>

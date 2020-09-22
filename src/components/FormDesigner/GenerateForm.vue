@@ -55,16 +55,15 @@
                 <!-- 正常组件通过GenerateFormItem生成 -->
                 <GenerateFormItem v-else
                                   :key="citem.key"
-                                  :models.sync="models"
+                                  v-model:models="models"
                                   :remote="remote"
                                   :rules="rules"
                                   :widget="citem"
                                   :readOnly="setReadOnly"
-                                  @btnOnClick="btnOnClick"
+                                  @btn-on-click="btnOnClick"
                                   v-show="!citem.hidden"
                                   :formTableConfig="formTableConfig">
-                  <template slot="tree-select-value-label"
-                            slot-scope="{ node }">
+                  <template #tree-select-value-label="{node}">
                     <slot name="tree-select-value-label"
                           :node="node"></slot>
                   </template>
@@ -87,12 +86,12 @@
         <!-- 普通行布局方式 -->
         <template v-else>
           <GenerateFormItem :key="item.key"
-                            :models.sync="models"
+                            v-model:models="models"
                             :rules="rules"
                             :readOnly="setReadOnly"
                             :widget="item"
                             :remote="remote"
-                            @btnOnClick="btnOnClick"
+                            @btn-on-click="btnOnClick"
                             v-show="!item.hidden"></GenerateFormItem>
         </template>
       </template>
@@ -101,78 +100,69 @@
 </template>
 
 <script lang="ts">
-import {
-  Component, Vue, Prop, Watch,
-} from 'vue-property-decorator';
+import { Options, props } from 'vue-class-component';
 import GenerateFormItem from './GenerateFormItem.vue';
 
-@Component({
+const Props = props({
+  entity: {
+    type: Object,
+    default: () => ({}),
+  },
+  value: {
+    type: Object,
+    default: () => ({}),
+  },
+  data: {
+    type: Object,
+    default: () => ({}),
+  },
+  remote: {
+    type: Object,
+    default: () => ({}),
+  },
+  formTableConfig: {
+    type: Object,
+    default: () => ({}),
+  },
+  setReadOnly: {
+    type: Object,
+    default: () => ({}),
+  },
+  setHidden: {
+    type: Object,
+    default: () => ({}),
+  },
+
+});
+
+@Options({
   components: {
     GenerateFormItem,
   },
+  watch: {
+    models: {
+      deep: true,
+      immediate: true,
+      handler(val) {
+        this.$emit('update:entity', val);
+      },
+    },
+    value: {
+      deep: true,
+      immediate: true,
+      handler(val) {
+        this.$nextTick(() => {
+          this.$refs.generateForm.clearValidate();
+        });
+        this.models = { ...this.models, ...val };
+      },
+    },
+  },
 })
-export default class GenerateForm extends Vue {
+export default class GenerateForm extends Props {
   $refs!: {
     generateForm: HTMLFormElement;
   };
-
-  @Prop({
-    type: Object,
-    default: () => ({}),
-  })
-  data: any;
-
-  // 表单初始值
-  @Prop({
-    type: Object,
-    default: () => ({}),
-  })
-  value: any;
-
-  // 表单当前实时对象
-
-  @Prop({
-    type: Object,
-    default: () => ({}),
-  })
-  entity: any;
-  /**
-   * 设置只读,默认Null为全部不只读,传{}为全部只读
-   * 以下是分别设置黑白名单
-   * {
-   *  whiteList:[],  //设置需要只读的
-   *  blackList:[]   //设置不需要只读的
-   * }
-   */
-  // 表单当前实时对象
-
-  @Prop({
-    type: Object,
-    default: null,
-  })
-  setReadOnly: any;
-
-  // 设置隐藏区域
-
-  @Prop({
-    type: Array,
-    default: () => [],
-  })
-  setHidden: any;
-  // 远端数据
-
-  @Prop({
-    type: Object,
-    default: () => ({}),
-  })
-  remote: any;
-
-  // 表格组件 tableParams以及prefill
-  @Prop({
-    type: Object,
-    default: () => ({}),
-  })
-  formTableConfig: any;
 
   models: any = {};
 
@@ -336,7 +326,7 @@ export default class GenerateForm extends Vue {
           // 校验失败时focus到文本框
           // 注意此处没有考虑textarea的情况,多行文本会失败
           setTimeout(() => {
-            const isError:any = document.getElementsByClassName('is-error');
+            const isError: any = document.getElementsByClassName('is-error');
             isError[0].querySelector('input').focus();
           }, 100);
           reject(new Error('请检查必填项是否填写').message);
@@ -352,12 +342,12 @@ export default class GenerateForm extends Vue {
 
   // 不经过验证直接获取表单内容
   getDataWithoutValidate() {
-    return new Promise(resolve => resolve(this.formValueToString()));
+    return new Promise((resolve) => resolve(this.formValueToString()));
   }
 
   // 生成的按钮点击
   btnOnClick(widget) {
-    this.$emit('btnOnClick', widget);
+    this.$emit('btn-on-click', widget);
   }
 
   // 表单默认值回填单独拉出来封装
@@ -381,25 +371,6 @@ export default class GenerateForm extends Vue {
       }
       this.models[config.model] = defaultValue;
     }
-  }
-
-  @Watch('value', {
-    deep: true,
-    immediate: true,
-  })
-  valueOnChange(val) {
-    this.$nextTick(() => {
-      this.$refs.generateForm.clearValidate();
-    });
-    this.models = { ...this.models, ...val };
-  }
-
-  @Watch('models', {
-    deep: true,
-    immediate: true,
-  })
-  modelsOnChange(val) {
-    this.$emit('update:entity', val);
   }
 }
 </script>

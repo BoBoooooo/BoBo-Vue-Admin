@@ -39,7 +39,9 @@ module.exports = {
     // 允许class中方法不使用this
     'class-methods-use-this': 'off',
     // ts中允许使用any
-    '@typescript-eslint/no-explicit-any':'off'
+    '@typescript-eslint/no-explicit-any': 'off',
+    'vue/no-mutating-props': 'off',
+    'vue/no-v-model-argument': 0
   },
   parserOptions: {
     ecmaVersion: 2020,

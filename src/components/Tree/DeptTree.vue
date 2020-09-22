@@ -26,22 +26,25 @@
              :props="deptTree.mapping"
              :node-key="deptTree.mapping.nodeKey"
              :default-expanded-keys="deptTree.expandedKeys">
-                <span class="custom-tree-node" slot-scope="{ node,data }">
-                  <div style="float:left">
-                    <i v-if="!data.parentid" style="color:#3F51B5" class="el-icon el-icon-user-solid"></i>
-                    <i v-else class="el-icon el-icon-s-home" style="color:#ff5722"></i>
-                     <span>{{ node.label }}</span>
-                 </div>
-
-      </span>
-
+      <template #default="{ node,data }">
+        <span class="custom-tree-node">
+          <div style="float:left">
+            <i v-if="!data.parentid"
+               style="color:#3F51B5"
+               class="el-icon el-icon-user-solid"></i>
+            <i v-else
+               class="el-icon el-icon-s-home"
+               style="color:#ff5722"></i>
+            <span>{{ node.label }}</span>
+          </div>
+        </span>
+      </template>
     </el-tree>
 
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'DeptTree',
   data() {
@@ -132,7 +135,7 @@ export default {
      *
      * @param {Object} deptTreeData 当前节点的数据
      */
-    deptTreeNodeCheck(deptTreeData, checkedKeys) {
+    deptTreeNodeCheck(deptTreeData) {
       if (this.isMultiple) {
         this.$emit('check', this.$refs.deptTree.getCheckedNodes(true), deptTreeData);
       }
@@ -149,7 +152,7 @@ export default {
         if (this.isMultiple) {
           let arr = this.$refs.deptTree.getCheckedNodes(true);
           if (node.checked) {
-            arr = arr.filter(item => item.id !== node.data.id);
+            arr = arr.filter((item) => item.id !== node.data.id);
           } else {
             arr.push(currentNode);
           }
@@ -171,7 +174,7 @@ export default {
 .deptTree {
   max-height: 450px;
   border-radius: 3px;
-  border:none;
+  border: none;
   overflow-y: auto;
   .custom-tree-node {
     flex: 1;

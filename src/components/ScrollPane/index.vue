@@ -27,9 +27,7 @@ export default {
       if (eventDelta > 0) {
         this.left = Math.min(0, this.left + eventDelta);
       } else if ($containerWidth - padding < $wrapperWidth) {
-        if (this.left < -($wrapperWidth - $containerWidth + padding)) {
-          this.left = this.left;
-        } else {
+        if (this.left >= -($wrapperWidth - $containerWidth + padding)) {
           this.left = Math.max(this.left + eventDelta, $containerWidth - $wrapperWidth - padding);
         }
       } else {

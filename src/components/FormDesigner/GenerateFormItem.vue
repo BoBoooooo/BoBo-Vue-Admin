@@ -17,8 +17,8 @@
                   v-if="widget.options.tips"
                   width="200"
                   trigger="hover">
-        <i class="el-icon el-icon-question"
-           slot="reference"></i>
+        <template #reference> <i class="el-icon el-icon-question"></i> </template>
+
         <div style="color:#8492a6"
              v-html="widget.options.tips"></div>
       </el-popover>
@@ -273,9 +273,8 @@
 </template>
 
 <script lang="ts">
-import {
-  Component, Vue, Prop, Watch,
-} from 'vue-property-decorator';
+import { Options, props } from 'vue-class-component';
+
 import TreeSelect from '@riophae/vue-treeselect';
 import Tinymce from '@/components/Tinymce/index.vue'; // 富文本编辑器
 import FileUpload from '@/components/FileUpload/FileUpload.vue';
@@ -283,56 +282,71 @@ import { DML, crud } from '@/api/public/crud';
 // 高级查询单个查询内容
 import '@riophae/vue-treeselect/dist/vue-treeselect.css';
 
-@Component({
+const Props = props({
+  widget: {
+    type: Object,
+    default: () => ({}),
+  },
+  models: {
+    type: Object,
+    default: () => ({}),
+  },
+  rules: {
+    type: Object,
+    default: () => ({}),
+  },
+  remote: {
+    type: Object,
+    default: () => ({}),
+  },
+  formTableConfig: {
+    type: Object,
+    default: () => ({}),
+  },
+  readOnly: {
+    type: Object,
+    default: () => ({}),
+  },
+});
+@Options({
   components: {
     TreeSelect,
     Tinymce,
     FileUpload,
   },
+  watch: {
+    dataModel(val) {
+      this.$emit('update:models', {
+        ...this.models,
+        [this.widget.model]: val,
+      });
+    },
+    models(val) {
+      if (this.widget.options.multiple || 'cascader,checkbox'.includes(this.widget.type)) {
+        const value = val[this.widget.model];
+        this.dataModel = typeof value === 'string' ? value.split(',') : value;
+      } else {
+        this.dataModel = val[this.widget.model];
+      }
+    },
+
+    getTableParams: {
+      deep: true,
+      handler(val, oldVal) {
+        if (JSON.stringify(val) !== JSON.stringify(oldVal)) {
+          this.$refs.table.tableReload();
+        }
+      },
+    },
+  },
 })
-export default class GenerateFormItem extends Vue {
-    $refs!: {
+export default class GenerateFormItem extends Props {
+  $refs!: {
     table: HTMLFormElement;
   };
 
-  @Prop({
-    type: Object,
-    default: () => ({}),
-  })
-  widget: any;
-
-  @Prop({
-    type: Object,
-    default: () => ({}),
-  })
-  models: any;
-
-  @Prop({
-    type: Object,
-    default: () => ({}),
-  })
-  rules: any;
-
-  @Prop({
-    type: Object,
-    default: () => ({}),
-  })
-  remote: any;
-
-  @Prop({
-    type: Object,
-    default: () => ({}),
-  })
-  formTableConfig: any;
-
-  @Prop({
-    type: Object,
-    default: () => ({}),
-  })
-  readOnly: any;
-
   // 当前组件对象
-  dataModel: any='';
+  dataModel: any = '';
 
   copyOption: any = []; // 备份一份初始选项
 
@@ -344,7 +358,7 @@ export default class GenerateFormItem extends Vue {
     let normalizer;
     if (this.widget.type === 'treeselect') {
       const { value, label } = this.widget.options.props;
-      normalizer = node => ({
+      normalizer = (node) => ({
         id: node[label],
         label: node[value],
       });
@@ -383,7 +397,7 @@ export default class GenerateFormItem extends Vue {
           },
         ],
       }).then((res) => {
-        const arr = res.data.list.map(t => t.codevalue);
+        const arr = res.data.list.map((t) => t.codevalue);
         if (new Set(arr).size !== arr.length) {
           this.$notify({
             title: `字典[${this.widget.name}]的key重复`,
@@ -396,7 +410,7 @@ export default class GenerateFormItem extends Vue {
           // 请求完成后再渲染组件
           this.visible = true;
         } else {
-          this.widget.options.remoteOptions = res.data.list.map(item => ({
+          this.widget.options.remoteOptions = res.data.list.map((item) => ({
             value: item.codeValue,
             label: item.codeName,
           }));
@@ -418,7 +432,7 @@ export default class GenerateFormItem extends Vue {
           // 请求完成后再渲染组件
           this.visible = true;
         } else {
-          this.widget.options.remoteOptions = data.map(item => ({
+          this.widget.options.remoteOptions = data.map((item) => ({
             value: item[this.widget.options.props.value],
             label: item[this.widget.options.props.label],
             rightLabel: item[this.widget.options.props.rightLabel] || '',
@@ -432,7 +446,7 @@ export default class GenerateFormItem extends Vue {
       // 根据默认值加载下拉菜单
       if (this.dataModel != null && this.dataModel !== '') {
         this.remote[`${this.widget.options.remoteSearchFunc}ForLoad`]((data) => {
-          this.widget.options.remoteOptions = data.map(item => ({
+          this.widget.options.remoteOptions = data.map((item) => ({
             value: item[this.widget.options.props.value],
             label: item[this.widget.options.props.label],
             rightLabel: item[this.widget.options.props.rightLabel],
@@ -465,7 +479,7 @@ export default class GenerateFormItem extends Vue {
 
   // 附件列表在只读模式下隐藏增删改按钮
   get fileVisibleList() {
-    const view:any = {};
+    const view: any = {};
     if (this.readOnly && Object.keys(this.readOnly).length === 0) {
       view.upload = false;
       view.btnEdit = false;
@@ -563,7 +577,8 @@ export default class GenerateFormItem extends Vue {
           const key = group.split(',');
           const [field, value] = key;
           // 如果包含中文则默认为直接传参,否则读取相关字段值
-          const result = this.isChinese(value) ? (obj[field] = value) : (obj[field] = this.models[value]);
+          // eslint-disable-next-line no-unused-expressions
+          this.isChinese(value) ? (obj[field] = value) : (obj[field] = this.models[value]);
         }
       }
     }
@@ -587,7 +602,8 @@ export default class GenerateFormItem extends Vue {
           const key = group.split(',');
           const [field, value] = key;
           // 如果包含中文则默认为直接传参,否则读取相关字段值
-          const result = this.isChinese(value) ? (obj[field] = value) : (obj[field] = this.models[value]);
+          // eslint-disable-next-line no-unused-expressions
+          this.isChinese(value) ? (obj[field] = value) : (obj[field] = this.models[value]);
         }
       }
     }
@@ -616,7 +632,7 @@ export default class GenerateFormItem extends Vue {
 
   // 按钮点击
   btnOnClick(widget) {
-    this.$emit('btnOnClick', widget);
+    this.$emit('btn-on-click', widget);
   }
 
   // 根据选中的key获取value
@@ -625,7 +641,7 @@ export default class GenerateFormItem extends Vue {
       return null;
     }
     // 根据key找到下拉列表项
-    const selected = this.optionsList.find(item => item.value === key);
+    const selected = this.optionsList.find((item) => item.value === key);
     let label;
     // 如果找到匹配列表项
     if (selected) {
@@ -643,7 +659,7 @@ export default class GenerateFormItem extends Vue {
   // 查询远端数据
   search(txt) {
     this.remote[this.widget.options.remoteSearchFunc]((data) => {
-      this.widget.options.remoteOptions = data.map(item => ({
+      this.widget.options.remoteOptions = data.map((item) => ({
         value: item[this.widget.options.props.value],
         label: item[this.widget.options.props.label],
         rightLabel: item.rightLabel,
@@ -653,44 +669,12 @@ export default class GenerateFormItem extends Vue {
 
   selectFilter(val) {
     if (val) {
-      const arr = this.copyOption.filter(item => this.$pinyinmatch.match(item.label || item.value, val));
+      const arr = this.copyOption.filter((item) => this.$pinyinmatch.match(item.label || item.value, val));
       this.widget.options.remoteOptions = arr;
       this.widget.options.options = arr;
     } else {
       this.widget.options.options = this.copyOption;
       this.widget.options.remoteOptions = this.copyOption;
-    }
-  }
-
-  @Watch('dataModel', {
-    // deep: true,
-  })
-  dataModelHandler(val) {
-    this.$emit('update:models', {
-      ...this.models,
-      [this.widget.model]: val,
-    });
-  }
-
-  @Watch('models', {
-    // deep: true,
-  })
-  modelsHandler(val) {
-    if (this.widget.options.multiple || 'cascader,checkbox'.includes(this.widget.type)) {
-      const value = val[this.widget.model];
-      this.dataModel = typeof value === 'string' ? value.split(',') : value;
-    } else {
-      this.dataModel = val[this.widget.model];
-    }
-  }
-
-  // 如果表格预设参数发生变化 自动刷新表格
-  @Watch('getTableParams', {
-    deep: true,
-  })
-  getTableParamsHandler(val, oldVal) {
-    if (JSON.stringify(val) !== JSON.stringify(oldVal)) {
-      this.$refs.table.tableReload();
     }
   }
 }

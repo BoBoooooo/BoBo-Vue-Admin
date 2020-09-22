@@ -7,7 +7,7 @@
 
 <template>
   <el-dialog :title="title"
-             :visible.sync="visible"
+             v-model:visible="visible"
              width="30%"
              :before-close="handleClose"
              :show-close="showClose">
@@ -50,40 +50,65 @@
         </div>
       </el-form-item>
     </el-form>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button type="primary"
+                   @click="submitForm('userForm')">提交</el-button>
+        <el-button @click="resetForm()">重置</el-button>
+      </span>
+    </template>
 
-    <span slot="footer"
-          class="dialog-footer">
-      <el-button type="primary"
-                 @click="submitForm('userForm')">提交</el-button>
-      <el-button @click="resetForm()">重置</el-button>
-    </span>
   </el-dialog>
 </template>
 
-
 <script lang="ts">
-import {
-  Component, Vue, Emit, Watch, Prop,
-} from 'vue-property-decorator';
+import { Options, props } from 'vue-class-component';
+
 import checkStrong from '@/utils/checkpassStrong';
 import { mapGetters } from 'vuex';
 
-@Component({
+const Props = props({
+  showClose: {
+    type: Boolean,
+    default: true,
+  },
+  title: {
+    type: String,
+    default: '修改密码',
+  },
+});
+
+@Options({
   computed: {
     ...mapGetters(['config', 'name']),
   },
+  watch: {
+    password(newValue) {
+      const msgText = checkStrong(newValue);
+      if (msgText > 1 || msgText === 1) {
+        this.span.color1 = true;
+        this.span.color2 = false;
+        this.span.color3 = false;
+      }
+      if (msgText > 2 || msgText === 2) {
+        this.span.color1 = true;
+        this.span.color2 = true;
+        this.span.color3 = false;
+      }
+      if (msgText === 4) {
+        this.span.color1 = true;
+        this.span.color2 = true;
+        this.span.color3 = true;
+      }
+      if (msgText === 0) {
+        this.span.color1 = false;
+        this.span.color2 = false;
+        this.span.color3 = false;
+      }
+    },
+  },
 })
-export default class ChangePasswordDialog extends Vue {
-  @Prop({
-    type: Boolean,
-    default: true,
-  })
-  showClose!: boolean;
-
-  @Prop({
-    type: String,
-    default: '修改密码',
-  })
+export default class ChangePasswordDialog extends Props {
   title!: string;
 
   config!: any;
@@ -98,8 +123,7 @@ export default class ChangePasswordDialog extends Vue {
     checkPass: '',
   };
 
-
-  rules = {}
+  rules = {};
 
   span = {
     color1: false,
@@ -175,31 +199,6 @@ export default class ChangePasswordDialog extends Vue {
 
   get password() {
     return this.userForm.pass;
-  }
-
-  @Watch('password')
-  onChange(newValue) {
-    const msgText = checkStrong(newValue);
-    if (msgText > 1 || msgText === 1) {
-      this.span.color1 = true;
-      this.span.color2 = false;
-      this.span.color3 = false;
-    }
-    if (msgText > 2 || msgText === 2) {
-      this.span.color1 = true;
-      this.span.color2 = true;
-      this.span.color3 = false;
-    }
-    if (msgText === 4) {
-      this.span.color1 = true;
-      this.span.color2 = true;
-      this.span.color3 = true;
-    }
-    if (msgText === 0) {
-      this.span.color1 = false;
-      this.span.color2 = false;
-      this.span.color3 = false;
-    }
   }
 }
 </script>

@@ -73,25 +73,28 @@
             <span class="el-dropdown-link">
               更多<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>
-                <i class="el-icon-download"
-                   @click="btnDownloadOnClick(scope)">
-                  <span class="dropLink">
-                    下载
-                  </span>
-                </i>
-              </el-dropdown-item>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item>
+                  <i class="el-icon-download"
+                     @click="btnDownloadOnClick(scope)">
+                    <span class="dropLink">
+                      下载
+                    </span>
+                  </i>
+                </el-dropdown-item>
 
-              <el-dropdown-item>
-                <i class="el-icon-delete"
-                   @click="btnDelOnClick(scope)">
-                  <span class="dropLink">
-                    删除
-                  </span>
-                </i>
-              </el-dropdown-item>
-            </el-dropdown-menu>
+                <el-dropdown-item>
+                  <i class="el-icon-delete"
+                     @click="btnDelOnClick(scope)">
+                    <span class="dropLink">
+                      删除
+                    </span>
+                  </i>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+
           </el-dropdown>
         </div>
       </template>
@@ -100,125 +103,83 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Options, props } from 'vue-class-component';
 import download from '@/utils/download';
 import { crud, DML } from '@/api/public/crud';
 
-@Component
-export default class FileUpload extends Vue {
+const Props = props({
+  fullHeight: {
+    type: Boolean,
+    default: false,
+  },
+  listField: {
+    type: String,
+    default: 'data.list',
+  },
+  accept: {
+    type: String,
+
+    default: '.doc,.docx,.xls,.xlsx,.PDF',
+  },
+  btnText: {
+    type: String,
+
+    default: '上传附件',
+  },
+  btnIcon: {
+    type: String,
+
+    default: '',
+  },
+  showPagination: {
+    type: Boolean,
+    default: false,
+  },
+  resourceid: {
+    type: String,
+    default: '',
+  },
+  visibleList: {
+    type: Object,
+    default: () => ({}),
+  },
+  tableTitle: {
+    type: String,
+    default: '',
+  },
+  uploadUrl: {
+    type: String,
+    default: `${process.env.VUE_APP_API_URL}file/upload`,
+  },
+  promiseForSelect: {
+    default: null,
+    type: Function,
+  },
+  tableName: {
+    type: String,
+    default: 'file',
+  },
+  paginationLayout: String,
+  isMultiple: Boolean,
+  rowClassName: [String, Function],
+  fileType: {
+    type: String,
+    default: '',
+  },
+  readOnly: {
+    type: Boolean,
+    default: false,
+  },
+});
+@Options({})
+export default class FileUpload extends Props {
   $refs!: {
     uploadBtn: HTMLFormElement;
-    table:HTMLFormElement;
+    table: HTMLFormElement;
   };
 
   // 保存按钮Loading状态
   btnSaveIsLoading = false;
-
-  @Prop({
-    type: Boolean,
-    default: false,
-  })
-  fullHeight!: boolean;
-
-  @Prop({
-    type: String,
-    default: 'data.list',
-  })
-  listField!: string;
-
-  @Prop({
-    type: String,
-    default: '.doc,.docx,.xls,.xlsx,.PDF',
-  })
-  accept!: string;
-
-  @Prop({
-    type: String,
-    default: '上传附件',
-  })
-  btnText!: string;
-
-  @Prop({
-    type: String,
-    default: '',
-  })
-  btnIcon!: string;
-
-  @Prop({
-    type: Boolean,
-    default: false,
-  })
-  showPagination!: boolean;
-
-  @Prop({
-    type: String,
-    default: '',
-  })
-  resourceid!: string;
-
-  @Prop({
-    type: Object,
-    default: () => ({}),
-  })
-  visibleList: any;
-
-  @Prop({
-    type: String,
-    default: '',
-  })
-  tableTitle!: string;
-
-  @Prop({
-    type: String,
-    default: `${process.env.VUE_APP_API_URL}file/upload`,
-  })
-  uploadUrl!: string;
-
-  @Prop({
-    default: null,
-    type: Function,
-  })
-  promiseForSelect: any;
-
-  @Prop({
-    type: String,
-    default: 'file',
-  })
-  tableName!: string;
-
-  // 分页显示内容
-  @Prop({
-    type: String,
-    default: 'sizes,total,prev, pager, next',
-  })
-  paginationLayout!: string;
-
-  // 是否开启多选
-  @Prop({
-    type: Boolean,
-    default: false,
-  })
-  isMultiple!: boolean;
-
-  // file列表行样式
-  @Prop({
-    type: [String, Function],
-    default: null,
-  })
-  rowClassName: any;
-
-  @Prop({
-    type: String,
-    default: '',
-  })
-  // 附件类型
-  fileType!: string;
-
-  @Prop({
-    type: Boolean,
-    default: false,
-  })
-  readOnly!: boolean;
 
   // 内部元素显示控制，默认只有上传人可以编辑删除
   get view() {
@@ -238,7 +199,7 @@ export default class FileUpload extends Vue {
   }
 
   get tableParams() {
-    const params:any = {};
+    const params: any = {};
     if (this.resourceid) {
       params.resourceid = this.resourceid;
     }
@@ -249,10 +210,8 @@ export default class FileUpload extends Vue {
   }
 
   get uploadParams() {
-    const {
-      resourceid, fileType,
-    } = this;
-    let params : any = {
+    const { resourceid } = this;
+    let params: any = {
       userid: this.$store.getters.userid,
     };
     if (resourceid) {
@@ -292,7 +251,7 @@ export default class FileUpload extends Vue {
       if (this.view.list) {
         this.tableReload();
       }
-      this.$emit('uploadSuccess');
+      this.$emit('upload-success');
     }
     this.btnSaveIsLoading = false;
   }
@@ -312,7 +271,7 @@ export default class FileUpload extends Vue {
       .then(() => {
         crud(DML.DELETE, this.tableName, {
           id: row.id,
-        }).then((res:any) => {
+        }).then((res: any) => {
           if (res.code === 200) {
             this.$message.success('删除成功');
             this.tableReload();

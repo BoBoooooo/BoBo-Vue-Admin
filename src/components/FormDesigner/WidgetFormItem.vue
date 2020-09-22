@@ -7,7 +7,7 @@
                   }"
                 :label="label"
                 :label-width="labelWidth"
-                @click.native.stop="handleSelectWidget(index)">
+                @click.stop="handleSelectWidget(index)">
     <template #label>
         <span v-html="label"></span>
        <i v-if="element.options.tips" class="el-icon el-icon-question"></i>
@@ -249,7 +249,7 @@ export default {
           ...cloneData,
           options: {
             ...cloneData.options,
-            options: cloneData.options.options.map(item => ({ ...item })),
+            options: cloneData.options.options.map((item) => ({ ...item })),
           },
         };
       }

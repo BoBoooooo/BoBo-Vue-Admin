@@ -21,7 +21,7 @@
                       :gutter="element.options.gutter ? element.options.gutter : 0"
                       :justify="element.options.justify"
                       :align="element.options.align"
-                      @click.native="handleSelectWidget(index)">
+                      @click="handleSelectWidget(index)">
                 <el-col v-for="(col, colIndex) in element.columns"
                         :key="colIndex"
                         :span="col.span ? col.span : 0">
@@ -37,7 +37,7 @@
                                         :key="el.key"
                                         v-if="el.key"
                                         :element="el"
-                                        :select.sync="selectWidget"
+                                        v-model:select="selectWidget"
                                         :index="i"
                                         :data="col"></widget-form-item>
                                                                 </transition-group>
@@ -70,7 +70,7 @@
             <widget-form-item v-if="element && element.key"
                               :key="element.key"
                               :element="element"
-                              :select.sync="selectWidget"
+                              v-model:select="selectWidget"
                               :index="index"
                               :data="data"></widget-form-item>
           </template>
@@ -85,7 +85,6 @@
 <script>
 import Draggable from 'vuedraggable';
 import WidgetFormItem from './WidgetFormItem.vue';
-
 
 export default {
   components: {
@@ -135,7 +134,7 @@ export default {
           ...this.data.list[newIndex],
           options: {
             ...this.data.list[newIndex].options,
-            options: this.data.list[newIndex].options.options.map(item => ({
+            options: this.data.list[newIndex].options.options.map((item) => ({
               ...item,
             })),
           },
@@ -145,7 +144,7 @@ export default {
       if (this.data.list[newIndex].type === 'grid') {
         this.$set(this.data.list, newIndex, {
           ...this.data.list[newIndex],
-          columns: this.data.list[newIndex].columns.map(item => ({ ...item })),
+          columns: this.data.list[newIndex].columns.map((item) => ({ ...item })),
         });
       }
 
@@ -190,7 +189,7 @@ export default {
           ...row.columns[colIndex].list[newIndex],
           options: {
             ...row.columns[colIndex].list[newIndex].options,
-            options: row.columns[colIndex].list[newIndex].options.options.map(o => ({
+            options: row.columns[colIndex].list[newIndex].options.options.map((o) => ({
               ...o,
             })),
           },

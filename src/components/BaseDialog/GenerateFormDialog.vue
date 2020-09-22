@@ -21,7 +21,7 @@
                   :setReadOnly="readOnly"
                   :remote="remoteFuncs"
                   v-model="entity"
-                  @btnonclick="btnOnClick"
+                  @btn-on-click="btnOnClick"
                   :formTableConfig="formTableConfig" />
     <template #footer>
       <el-row type="flex"
@@ -47,73 +47,69 @@ import { DML, crud } from '@/api/public/crud';
 import { getFormDetail } from '@/api/system/form';
 import GenerateForm from '@/components/FormDesigner/GenerateForm.vue';
 import guid from '@/utils/generator';
-import {
-  Component, Vue, Watch, Prop,
-} from 'vue-property-decorator';
+import { Options, props } from 'vue-class-component';
+
+const Props = props({
+  // 子表tableConfig 详情看GenerateFormItem中解释
+  formTableConfig: { default: () => ({}), type: Object },
+  // 设置只读
+  setReadOnly: { default: null, type: Object },
+  // 对话框内加载FormDesigner的表名
+  dialogFormDesignerName: {
+    type: String,
+    default: null,
+  },
+  // 内部元素显示控制
+  visibleList: { default: () => ({}), type: Object },
+  // 按钮名字
+  textMap: { default: () => ({}), type: Object },
+  // 对话框宽度
+  width: {
+    type: String,
+    default: '80%',
+  },
+  // 表名
+  tableName: {
+    type: String,
+    default: '',
+  },
+  // 表格参数
+  tableParams: [Object, Array],
+  // 代理保存方法
+  promiseForSave: { default: null, type: Function },
+  // 远程数据方法
+  remoteFuncs: { default: () => ({}), type: Object },
+  // 弹出表单appendToBody
+  appendToBody: { default: false, type: Boolean },
+  // 点击阴影关闭
+  closeOnClickModal: { default: true, type: Boolean },
+  // 全屏
+  fullscreen: { default: false, type: Boolean },
+});
 
 const STATUS = {
   CREATE: 0,
   UPDATE: 1,
   DETAIL: 2,
 };
-
-@Component({
+@Options({
   components: {
     GenerateForm,
   },
+  watch: {
+    entity: {
+      deep: true,
+      handler: (value) => {
+        // 抛出当前表单对象以及当前表单json
+        this.$emit('change', {
+          formEntity: value,
+          formDesign: this.formDesign,
+        });
+      },
+    },
+  },
 })
-export default class GenerateFormDialog extends Vue {
-  // 子表tableConfig 详情看GenerateFormItem中解释
-  @Prop({ default: () => ({}), type: Object }) formTableConfig!: any;
-
-  // 设置只读
-  @Prop({ default: null, type: Object }) setReadOnly!: any;
-
-  // 对话框内加载FormDesigner的表名
-  @Prop({
-    type: String,
-    default: null,
-  })
-  dialogFormDesignerName!: string;
-
-  // 内部元素显示控制
-  @Prop({ default: () => ({}), type: Object }) visibleList!: any;
-
-  // 按钮名字
-  @Prop({ default: () => ({}), type: Object }) textMap!: any;
-
-  // 对话框宽度
-  @Prop({
-    type: String,
-    default: '80%',
-  })
-  width!: string;
-
-  // 表名
-  @Prop({
-    type: String,
-    default: '',
-  })
-  tableName!: string;
-
-  // 表格参数
-  @Prop([Object, Array]) tableParams!: any;
-
-  // 代理保存方法
-  @Prop({ default: null, type: Function }) promiseForSave!: any;
-
-  // 远程数据方法
-  @Prop({ default: () => ({}), type: Object }) remoteFuncs!: any;
-
-  // 弹出表单appendToBody
-  @Prop({ default: false, type: Boolean }) appendToBody!: boolean;
-
-  // 点击阴影弹框是否可以关闭
-  @Prop({ default: true, type: Boolean }) closeOnClickModal!: boolean;
-
-  // 表单是否全屏
-  @Prop({ default: false, type: Boolean }) fullscreen!: boolean;
-
+export default class GenerateFormDialog extends Props {
   $refs!: {
     generateDialogForm: HTMLFormElement;
   };
@@ -273,15 +269,6 @@ export default class GenerateFormDialog extends Vue {
   // 生成的按钮点击
   btnOnClick(widget) {
     this.$emit('btn-on-click', widget);
-  }
-
-  @Watch('entity', { deep: true })
-  onDataChange(value: any) {
-    // 抛出当前表单对象以及当前表单json
-    this.$emit('change', {
-      formEntity: value,
-      formDesign: this.formDesign,
-    });
   }
 }
 </script>

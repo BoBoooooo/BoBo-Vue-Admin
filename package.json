@@ -22,6 +22,7 @@
     "conventional-changelog-cli": "^2.1.0",
     "core-js": "3.6.5",
     "dayjs": "1.8.20",
+    "element-plus": "^1.0.1-alpha.2",
     "element-ui": "^2.13.2",
     "inquirer": "^6.5.2",
     "jsoneditor": "8.5.3",

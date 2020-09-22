@@ -10,18 +10,18 @@
              ref="dialog"
              top="10vh"
              class="dialog"
-             :visible.sync="visible"
+             v-model:visible="visible"
              width="95%">
     <!-- 对话框内动态表单 -->
     <GenerateForm ref="generateDialogForm"
                   :value="formValues"
-                  :entity.sync="entity"
+                  v-model:entity="entity"
                   :data="formDesign"
                   :remote="remoteFuncs"
                   style="float:left;width:50%" />
     <!-- 菜单栏 -->
     <MenuBar style="float:right"
-             :designedJSON.sync="objJSON"
+             v-model:designedJSON="objJSON"
              :fieldConfig="fieldConfig"
              :minColumnWidth="minColumnWidth" />
     <table class="tableDesigner">
@@ -80,15 +80,15 @@
                         width="400"
                         trigger="click">
               <!-- 下拉菜单配置 -->
-              <SelectConfig :sourceOption.sync="item[column.field]" />
-              <el-button slot="reference"
-                         type="primary">
-                编辑菜单
-              </el-button>
+              <SelectConfig v-model:sourceOption="item[column.field]" />
+              <template #reference>
+                <el-button type="primary">
+                  编辑菜单
+                </el-button>
+              </template>
 
             </el-popover>
             <el-button v-else-if="column.is==='popover'"
-                       slot="reference"
                        @click="addOptionToColumn(index)">
               转为菜单
             </el-button>
@@ -119,10 +119,10 @@
             justify="end">
       <el-button type="primary"
                  icon="el-icon-check"
-                 @click="btnSave_onClick()"
+                 @click="btnSaveOnClick()"
                  :loading="btnSaveIsLoading">保存</el-button>
       <el-button icon="el-icon-close"
-                 @click="btnCancel_onClick()">取消</el-button>
+                 @click="btnCancelOnClick()">取消</el-button>
     </el-row>
   </el-dialog>
 </template>
@@ -218,12 +218,12 @@ export default {
       });
     },
     // 取消按钮点击
-    btnCancel_onClick() {
+    btnCancelOnClick() {
       this.visible = false;
       this.$emit('cancel');
     },
     // 保存按钮点击
-    btnSave_onClick() {
+    btnSaveOnClick() {
       this.btnSaveIsLoading = true;
       // 调用此方法验证表单数据和获取表单数据
       this.$refs.generateDialogForm
@@ -259,7 +259,7 @@ export default {
               type: 'success',
               message: msg,
             });
-            this.$emit('afterSave', {
+            this.$emit('after-save', {
               status: this.dialogStatus,
               dialogParams: this.dialogParams,
             });
