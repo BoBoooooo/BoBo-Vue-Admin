@@ -9,7 +9,6 @@ import Vue from 'vue';
 import lodash from 'lodash';
 import PinyinMatch from 'pinyin-match';// 拼音匹配
 import dayjs from 'dayjs';
-import animated from 'animate.css';
 import CrudTable from '@/components/CrudTable/CrudTable.vue'; // 全局注册用于增删改查的高级表格组件
 import axios from '@/plugins/axios';// axios中统一设置Token
 import store from '@/store/index';// store内做了局部持久化
@@ -20,8 +19,6 @@ import '@/plugins/element';// vue-cli3.0以插件形式引入elementui
 import '@/permission'; // 权限控制
 import '@/styles/index.scss'; // 全局样式
 import '@/icons/autoImportSvg'; // 自动导入src/icon目录下的svg图标
-
-Vue.use(animated);
 
 Vue.component('CrudTable', CrudTable); // 全局注册用于增删改查的高级表格组件
 
@@ -38,8 +35,7 @@ Vue.prototype.dayjs = dayjs;
 Vue.config.productionTip = false;
 // 拼音匹配插件
 Vue.prototype.$pinyinmatch = PinyinMatch;
-// 挂载EventBus
-Vue.prototype.$EventBus = new Vue();
+
 new Vue({
   router,
   store,

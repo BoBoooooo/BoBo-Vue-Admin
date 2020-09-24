@@ -12,5 +12,3 @@ declare module '*.vue' {
 
 declare module 'vuedraggable';
 declare module 'jsoneditor';
-declare module 'animate.css';
-declare module 'v-contextmenu';

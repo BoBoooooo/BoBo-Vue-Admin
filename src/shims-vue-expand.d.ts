@@ -8,7 +8,6 @@
 import VueRouter, { Route } from 'vue-router';
 
 import { Store } from 'vuex';
-import { ElMessage } from 'element-ui/types/message';
 
 // 扩充
 declare module 'vue/types/vue' {
@@ -16,13 +15,10 @@ declare module 'vue/types/vue' {
         $router: VueRouter;
         $route: Route;
         $store: Store<any>;
-        $api: any;
-        $message:ElMessage
         lodash:any;
         axios:any;
         dayjs:any;
         $pinyinmatch:any;
-        $EventBus:any;
     }
 }
 

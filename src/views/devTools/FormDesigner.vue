@@ -12,19 +12,17 @@
                orderCondition="timestamp desc"
                :btnEditOnClick="btnEditOnClick"
                :btnAddOnClick="btnAddOnClick"
-               :searchFormCondition="searchFormParams"
                fullHeight
                 :visibleList="{
                  tableTitle:false,
                  btnDel:true,
                }">
       <!-- 以后这里会改成form -->
-      <template slot="btnCustom"
-                slot-scope="scope">
+      <template #btnCustom="{row}">
         <el-button slot="btnCustom"
                    type="primary"
                    size="mini"
-                   @click="btnCopyOnClick(scope.row)">复制</el-button>
+                   @click="btnCopyOnClick(row)">复制</el-button>
       </template>
     </CrudTable>
     <FormDesignerDialog ref="dialog"
@@ -46,7 +44,6 @@ export default {
   },
   data() {
     return {
-      searchFormParams: [{ key: 'tableName', operator: 'like', value: '' }],
       remoteFuncs: {
         getTablesOfDB(resolve) {
           // 请求表名列表

@@ -5,8 +5,6 @@
  * @createDate 2018年11月13日10:58:43
  */
 
-import dayjs from 'dayjs';
-import Watermark from '@/plugins/watermark';
 import { router } from './router';
 import store from './store';
 // 白名单：不需要鉴权的地址
@@ -40,12 +38,5 @@ router.beforeEach(async (to, from, next) => {
   } else {
     // 如果不存在Token & 当前地址不在白名单内
     next('/login');
-  }
-});
-
-// 路由全局后置钩子，不接受next不改变导航
-router.afterEach((to) => {
-  if ('/login,/404'.includes(to.path) === false) {
-    Watermark.set(store.getters.realname, dayjs().format('YYYY年MM月DD日'));
   }
 });

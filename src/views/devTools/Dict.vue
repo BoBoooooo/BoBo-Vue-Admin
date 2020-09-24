@@ -27,28 +27,30 @@
                  highlight-current
                  :default-expanded-keys="['fe980574-2552-4754-88c8-366eb5a22861']"
                  @node-click="treeClick">
-          <span class="custom-tree-node"
-                slot-scope="{ node, data }">
-            <span>{{ node.label }}</span>
-            <span style="margin-left:8px">
-              <el-button type="text"
-                         size="mini"
-                         @click="() => add(data)">
-                添加
-              </el-button>
-              <el-button type="text"
-                         size="mini"
-                         @click="() => edit(data)">
-                修改
-              </el-button>
-              <el-button type="text"
-                         size="mini"
-                         v-if="data.parentId!=='0'"
-                         @click="() => remove(data)">
-                删除
-              </el-button>
+
+          <template v-slot="{ node, data }">
+            <span class="custom-tree-node">
+              <span>{{ node.label }}</span>
+              <span style="margin-left:8px">
+                <el-button type="text"
+                           size="mini"
+                           @click="() => add(data)">
+                  添加
+                </el-button>
+                <el-button type="text"
+                           size="mini"
+                           @click="() => edit(data)">
+                  修改
+                </el-button>
+                <el-button type="text"
+                           size="mini"
+                           v-if="data.parentId!=='0'"
+                           @click="() => remove(data)">
+                  删除
+                </el-button>
+              </span>
             </span>
-          </span>
+          </template>
         </el-tree>
       </el-col>
       <el-col :span="19">
@@ -68,7 +70,7 @@
 
     </el-row>
     <el-dialog :title="textMap[dialogStatus]"
-               :visible.sync="dialogFormVisible"
+               v-model="dialogFormVisible"
                width="80%">
 
       <el-form ref="form"
@@ -86,17 +88,17 @@
         </el-form-item>
 
       </el-form>
-
-      <div slot="footer"
-           class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button v-if="dialogStatus=== 0 "
-                   type="primary"
-                   @click="save">新 增</el-button>
-        <el-button v-else
-                   type="primary"
-                   @click="save">修 改</el-button>
-      </div>
+      <template v-slot:footer>
+        <div class="dialog-footer">
+          <el-button @click="dialogFormVisible = false">取 消</el-button>
+          <el-button v-if="dialogStatus=== 0 "
+                     type="primary"
+                     @click="save">新 增</el-button>
+          <el-button v-else
+                     type="primary"
+                     @click="save">修 改</el-button>
+        </div>
+      </template>
     </el-dialog>
 
   </div>
@@ -156,25 +158,25 @@ export default {
     };
   },
   methods: {
-    afterDropDown(node, end, position, event) {
+    afterDropDown(node, end, position) {
       if (position === 'inner') {
         const obj = node.data;
         obj.parentId = end.data.id;
-        crud(DML.UPDATE, 'ad_codelist_type', obj).then((res) => {
+        crud(DML.UPDATE, 'ad_codelist_type', obj).then(() => {
           this.$message.success('操作成功');
           this.fetchDictType();
         });
       } else if (position === 'before') {
         const obj = node.data;
         obj.codeorder = Number(end.data.codeorder) - 1;
-        crud(DML.UPDATE, 'ad_codelist_type', obj).then((res) => {
+        crud(DML.UPDATE, 'ad_codelist_type', obj).then(() => {
           this.$message.success('操作成功');
           this.fetchDictType();
         });
       } else if (position === 'after') {
         const obj = node.data;
         obj.codeorder = Number(end.data.codeorder) + 1;
-        crud(DML.UPDATE, 'ad_codelist_type', obj).then((res) => {
+        crud(DML.UPDATE, 'ad_codelist_type', obj).then(() => {
           this.$message.success('操作成功');
           this.fetchDictType();
         });
@@ -195,12 +197,12 @@ export default {
     save() {
       this.entity.codeValue = this.entity.codeName;
       if (this.dialogStatus === STATUS.CREATE) {
-        crud(DML.INSERT, 'ad_codelist_type', this.entity).then((res) => {
+        crud(DML.INSERT, 'ad_codelist_type', this.entity).then(() => {
           this.fetchDictType();
           this.dialogFormVisible = false;
         });
       } else {
-        crud(DML.UPDATE, 'ad_codelist_type', this.entity).then((res) => {
+        crud(DML.UPDATE, 'ad_codelist_type', this.entity).then(() => {
           this.fetchDictType();
           this.dialogFormVisible = false;
         });
@@ -234,7 +236,7 @@ export default {
       this.$refs.codeListTable.tableReload();
     },
     // 树节点过滤
-    filterNode(value, data, node) {
+    filterNode(value, data) {
       if (!value) return true;
       return this.$pinyinmatch.match(data.codeName, value);
     },

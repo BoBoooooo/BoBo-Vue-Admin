@@ -12,7 +12,6 @@
                orderCondition="timestamp desc"
                :btnEditOnClick="btnEditOnClick"
                :btnAddOnClick="btnAddOnClick"
-               :searchFormCondition="searchFormParams"
                fullHeight
                 :visibleList="{
                  tableTitle:false,
@@ -45,7 +44,6 @@ export default {
   },
   data() {
     return {
-      searchFormParams: [{ key: 'tableName', operator: 'like', value: '' }],
       remoteFuncs: {
         getTablesOfDB(resolve) {
           // 请求表名列表

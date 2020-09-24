@@ -10,7 +10,7 @@
            :default-active="$route.path"
            unique-opened
            mode="vertical"
-           background-color="#ebeef5"
+           background-color="#e6edff"
            text-color="#333"
            active-text-color="#616dad"
            class="menu"
