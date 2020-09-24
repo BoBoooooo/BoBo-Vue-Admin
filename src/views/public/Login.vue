@@ -32,7 +32,7 @@
                       name="username"
                       type="text"
                       auto-complete="on"
-                      placeholder="请输入用户名(演示账号 admin)" />
+                      placeholder="admin" />
           </el-form-item>
           <el-form-item prop="password">
 
@@ -40,7 +40,7 @@
                       type="password"
                       name="password"
                       auto-complete="on"
-                      placeholder="请输入密码(密码 123)"
+                      placeholder="123"
                       @keyup.enter.native="handleLogin" />
           </el-form-item>
 
