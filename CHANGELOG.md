@@ -1,13 +1,123 @@
-# 0.1.0 (2020-09-08)
+# 0.1.0 (2020-09-30)
+
+### 🌟 新功能
+范围|描述|commitId
+--|--|--
+ Calendar | 新增日历插件 | [50d7fee](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/50d7fee)
+ env | 修改开发环境地址,npm启动命令修改 | [280d716](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/280d716)
+ GenerateForm | 默认值逻辑调整 | [1fec7b9](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/1fec7b9)
+ icon | 新增icon | [f099de9](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/f099de9)
+ LICENSE | 补充LICENSE | [d3fc69c](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/d3fc69c)
+ lineChart | 柱状图补充点击事件 | [8569875](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/8569875)
+ lineChart | 纵坐标默认显示整数 | [182180d](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/182180d)
+ lineChart,pieChart | 升级图标配色 文字超出隐藏等 | [907ec24](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/907ec24)
+ NavMenu | change siderbar name | [2f1caaf](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/2f1caaf)
+ Tinymce | 还原富文本组件,表单设计器中需要使用 | [9ad0769](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/9ad0769)
+
+
+### 🎨 代码样式
+范围|描述|commitId
+--|--|--
+ bg | 删除loginbg、api等 | [27091ee](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/27091ee)
+ code | 代码风格调整 | [4b3bc2b](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/4b3bc2b)
+ code | 修改代码格式 | [5d61230](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/5d61230)
+ css | 修改部分样式 | [c95dca8](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/c95dca8)
+ fileName | vue文件命名规范调整 | [1d8a277](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/1d8a277)
+ layout | 调整UI布局 | [2108fcc](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/2108fcc)
+ layout | 修改菜单组件名称 | [d18d5f6](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/d18d5f6)
+ layout | 页面样式修改 | [5641a17](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/5641a17)
+ Login | 修改登录页背景 | [ddd31df](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/ddd31df)
+ Login | 修改登录页样式 | [921f57f](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/921f57f)
+ Login | 修改登录页ui | [3984d6c](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/3984d6c)
+ router | 移除参数管理页面 | [0361a2e](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/0361a2e)
+ svg | 调整svg目录 | [5f649ad](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/5f649ad)
+ ui | 修改框架整体布局颜色 | [c71e375](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/c71e375)
+ vue-class-component | 更改为class组件语法 | [2ce80ce](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/2ce80ce)
+
 
 ### 🐛 Bug 修复
 范围|描述|commitId
 --|--|--
+ bug | 修复网络错误情况下axios bug | [c029395](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/c029395)
+ bug | 修改entity 属性大小写 bug | [0930559](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/0930559)
+ CrudTable | fix slot bug | [93a8144](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/93a8144)
  router | 修复路由跳转报错 (vue-router version 3.4.3) | [f2c397b](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/f2c397b)
+
+
+### 📝 文档
+范围|描述|commitId
+--|--|--
+ des | 补充部分注释说明 | [a020c8e](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/a020c8e)
+ FormDesigner | 表单设计器补充版权说明 | [c1a3504](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/c1a3504)
+ README | 补充代码目录结构文档 | [b111ae3](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/b111ae3)
+ README | 补充TODO | [785e56f](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/785e56f)
+ README | 更新文档 | [1dceedd](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/1dceedd)
+ README | 更新在线演示地址 | [98c6d23](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/98c6d23)
+ README | 新增GIT提交规范相关说明 | [9b3844a](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/9b3844a)
+ README | 修改部分说明 | [b0ebab3](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/b0ebab3)
+ README | 修改部分说明 | [e43d9df](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/e43d9df)
+ README | 修改TODO | [d5e0c88](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/d5e0c88)
+ update | README | [56c3dba](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/56c3dba)
+
+
+### 🔧 测试
+范围|描述|commitId
+--|--|--
+ push | 测试提交 | [e9b2e50](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/e9b2e50)
+
+
+### 🚀 性能优化
+范围|描述|commitId
+--|--|--
+ axios | 优化axios部分逻辑 | [6f960c4](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/6f960c4)
+ BaseModule | 表单表格组件代码优化 | [acceaee](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/acceaee)
+ BaseTable | 去掉render formatter等基本不用的渲染方式 | [5457d54](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/5457d54)
+ code | 代码优化 | [77f08c0](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/77f08c0)
+ code | 代码优化,移除冗余代码 | [05e7d32](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/05e7d32)
+ crud,config | 传参路径调整 | [c7bc681](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/c7bc681)
+ CrudTable | 优化CrudTable部分代码 | [b946b7d](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/b946b7d)
+ dashboard | 修改首页,去掉snap过渡特效 | [a950e4b](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/a950e4b)
+ Dashboard | 修改首页 | [e375d6d](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/e375d6d)
+ echart | 移除echart模块 | [1d85b9e](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/1d85b9e)
+ Echart | 去掉自定义Chart组件 | [1bcb5e7](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/1bcb5e7)
+ env | 修改env环境变量 | [27b0793](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/27b0793)
+ GenerateFormDialog | 调整表单弹出宽度 | [3ec62a3](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/3ec62a3)
+ gitignore | 加入/dist | [956b283](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/956b283)
+ headers | headers auth 头改为 Authorization | [5ebdc7d](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/5ebdc7d)
+ index,css | 去掉index冗余css,修改页面ico cdn地址 | [d37f1e4](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/d37f1e4)
+ license | 开源协议修改为MIT协议 | [06611f8](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/06611f8)
+ license | 声明license: Apache-2.0 | [e1928db](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/e1928db)
+ log | 移除log模块 | [0914121](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/0914121)
+ Login | 更新placeholder | [9443d60](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/9443d60)
+ Login | 移除重新输入alert | [978d5e1](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/978d5e1)
+ orderCondition |  默认排序条件为timestamp desc | [1442013](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/1442013)
+ package | 移除crypto-js | [c63df1f](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/c63df1f)
+ page | 移除 | [1cdea97](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/1cdea97)
+ props | 修改属性名 | [460d05d](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/460d05d)
+ someChange | 代码优化,移除animated.css,watermark | [209ce39](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/209ce39)
+ someChange | some Change | [a6af9ff](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/a6af9ff)
+ style | 调整目录结构 | [cd9fe9e](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/cd9fe9e)
+ systemTitle | 系统标题读取配置项 | [966d10e](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/966d10e)
+ table | 移除导入导出模块 | [d777c79](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/d777c79)
+ token | 根据nest后台调整token鉴权相关逻辑 | [bde12f6](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/bde12f6)
+ users | 删除vuex store users多余属性 | [24555d7](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/24555d7)
+ Users,Dept,Role | 优化三员管理代码 | [5d6e93a](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/5d6e93a)
+ vue | 优化布局,几处细节调整 | [bcc149e](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/bcc149e)
+ vuex | 优化vuex相关module | [c75fb86](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/c75fb86)
 
 
 范围|描述|commitId
 --|--|--
+ - | Update README.md | [0a0bdae](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/0a0bdae)
+ - | Update README.md | [127c76b](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/127c76b)
+ - | Update README.md | [44ba47f](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/44ba47f)
+ - | Update README.md | [786eafd](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/786eafd)
+ - | Update README.md | [68f0962](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/68f0962)
+ - | Update README.md | [c3b06a4](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/c3b06a4)
+ - | Delete users.vue | [2c3cc9a](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/2c3cc9a)
+ - | Delete role.vue | [68fd38e](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/68fd38e)
+ - | Delete users.vue | [0190108](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/0190108)
+ - | Delete dept.vue | [f4be345](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/f4be345)
  - | Create LICENSE | [569627b](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/569627b)
  - | Update README.md | [1c433d7](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/1c433d7)
  - | [modify]{dict}: 修改宽度 | [c6e28b9](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/c6e28b9)
@@ -381,75 +491,19 @@
  - | Initial commit | [823892e](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/823892e)
 
 
-### 🌟 新功能
-范围|描述|commitId
---|--|--
- Calendar | 新增日历插件 | [50d7fee](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/50d7fee)
- env | 修改开发环境地址,npm启动命令修改 | [280d716](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/280d716)
- GenerateForm | 默认值逻辑调整 | [1fec7b9](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/1fec7b9)
- icon | 新增icon | [f099de9](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/f099de9)
- LICENSE | 补充LICENSE | [d3fc69c](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/d3fc69c)
- lineChart | 柱状图补充点击事件 | [8569875](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/8569875)
- lineChart | 纵坐标默认显示整数 | [182180d](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/182180d)
- lineChart,pieChart | 升级图标配色 文字超出隐藏等 | [907ec24](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/907ec24)
- Tinymce | 还原富文本组件,表单设计器中需要使用 | [9ad0769](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/9ad0769)
-
-
-### 🎨 代码样式
-范围|描述|commitId
---|--|--
- bg | 删除loginbg、api等 | [27091ee](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/27091ee)
- code | 修改代码格式 | [5d61230](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/5d61230)
- fileName | vue文件命名规范调整 | [1d8a277](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/1d8a277)
- layout | 调整UI布局 | [2108fcc](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/2108fcc)
-
-
-### 📝 文档
-范围|描述|commitId
---|--|--
- des | 补充部分注释说明 | [a020c8e](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/a020c8e)
- README | 补充代码目录结构文档 | [b111ae3](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/b111ae3)
- README | 补充TODO | [785e56f](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/785e56f)
- README | 更新文档 | [1dceedd](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/1dceedd)
- README | 修改部分说明 | [b0ebab3](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/b0ebab3)
- README | 修改部分说明 | [e43d9df](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/e43d9df)
- README | 修改TODO | [d5e0c88](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/d5e0c88)
-
-
-### 🔧 测试
-范围|描述|commitId
---|--|--
- push | 测试提交 | [e9b2e50](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/e9b2e50)
-
-
 ### 🔨 代码重构
 范围|描述|commitId
 --|--|--
  allProject | 同步本地最新代码,全部项目迁移typescript + vue class component | [f6c5288](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/f6c5288)
+ CrudTable | 重构CrudTable代码,移除BaseTable | [617b6c6](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/617b6c6)
  tinymce | 移除tinymce及部分其他代码 | [fa6b0ab](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/fa6b0ab)
-
-
-### 🚀 性能优化
-范围|描述|commitId
---|--|--
- BaseTable | 去掉render formatter等基本不用的渲染方式 | [5457d54](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/5457d54)
- crud,config | 传参路径调整 | [c7bc681](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/c7bc681)
- dashboard | 修改首页,去掉snap过渡特效 | [a950e4b](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/a950e4b)
- echart | 移除echart模块 | [1d85b9e](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/1d85b9e)
- Echart | 去掉自定义Chart组件 | [1bcb5e7](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/1bcb5e7)
- index,css | 去掉index冗余css,修改页面ico cdn地址 | [d37f1e4](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/d37f1e4)
- license | 开源协议修改为MIT协议 | [06611f8](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/06611f8)
- license | 声明license: Apache-2.0 | [e1928db](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/e1928db)
- log | 移除log模块 | [0914121](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/0914121)
- style | 调整目录结构 | [cd9fe9e](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/cd9fe9e)
- systemTitle | 系统标题读取配置项 | [966d10e](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/966d10e)
- token | 根据nest后台调整token鉴权相关逻辑 | [bde12f6](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/bde12f6)
- users | 删除vuex store users多余属性 | [24555d7](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/24555d7)
 
 
 ### chore
 范围|描述|commitId
 --|--|--
+ changelog | add changelog package | [41bedfa](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/41bedfa)
+ package.json | 移除[@types](https://github.com/types)/echart,修改build:dev命令 | [e882593](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/e882593)
  package.json | git message,eslint 加入git hook | [0ca4a55](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/0ca4a55)
  vue-cli update | 升级vue cli 3.x -> vue cli 4.x | [b8e62e0](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/b8e62e0)
 

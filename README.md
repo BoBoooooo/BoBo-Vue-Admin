@@ -38,7 +38,7 @@ npm start
 ## 2、git commit lint规范
 ```
  参考angularJs标准提交规范
- 输入git cz 提交
+ 输入npm run cz提交
 ```
 
 ## 3、eslint规范
@@ -89,8 +89,7 @@ confirmCallBack(){
 ```
 
 ## 6、TODO
-1. 部分老页面按vue-class-component重构
-2. 完善后端配套项目
+1. 完善后端配套项目
 
 ## 7. 拉取代码时注意事项
 ```
