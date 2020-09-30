@@ -106,147 +106,162 @@
 
 <script>
 import { DML, crud } from '@/api/public/crud';
+import { Vue, Component, Watch } from 'vue-property-decorator';
 
 const STATUS = {
   CREATE: 0,
   UPDATE: 1,
   DETAIL: 2,
 };
-export default {
+@Component({
   name: 'Dict',
+})
+export default class Dict extends Vue {
   created() {
     this.fetchDictType();
-  },
-  data() {
-    return {
-      // 搜索text
-      filterText: '',
-      typeList: [],
-      dialogFormVisible: false,
-      dialogStatus: 0,
-      defaultProps: {
-        children: 'children',
-        label: 'typeName',
-      },
-      textMap: {
-        1: '编辑',
-        0: '新增',
-      },
-      entity: {
-        id: '',
-        codeName: '',
-        codeValue: '',
-        parentId: '',
-        codeOrder: 0,
-        remark: '',
-      },
-      tableParams: {},
-      // 当前节点，字典类型的id
-      codeTypeId: '',
-      remoteFuncs: {
-        getDictType(resolve) {
-          // 请求字典分类
-          crud(DML.SELECT, 'ad_codelist_type').then((res) => {
-            const options = res.data.list.map(item => ({
-              label: item.typeName,
-              value: item.id,
-            }));
-            resolve(options);
-          });
-        },
-      },
-    };
-  },
-  methods: {
-    afterDropDown(node, end, position) {
-      if (position === 'inner') {
-        const obj = node.data;
-        obj.parentId = end.data.id;
-        crud(DML.UPDATE, 'ad_codelist_type', obj).then(() => {
-          this.$message.success('操作成功');
-          this.fetchDictType();
-        });
-      } else if (position === 'before') {
-        const obj = node.data;
-        obj.codeorder = Number(end.data.codeorder) - 1;
-        crud(DML.UPDATE, 'ad_codelist_type', obj).then(() => {
-          this.$message.success('操作成功');
-          this.fetchDictType();
-        });
-      } else if (position === 'after') {
-        const obj = node.data;
-        obj.codeorder = Number(end.data.codeorder) + 1;
-        crud(DML.UPDATE, 'ad_codelist_type', obj).then(() => {
-          this.$message.success('操作成功');
-          this.fetchDictType();
-        });
-      }
-    },
-    remove(data) {
-      this.$confirm('确认删除?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      }).then(() => {
-        crud(DML.DELETE, 'ad_codelist_type', {}, { id: data.id }).then(() => {
-          this.dialogFormVisible = false;
-          this.fetchDictType();
-        });
+  }
+
+  // 搜索text
+  filterText = '';
+
+  typeList = [];
+
+  dialogFormVisible = false;
+
+  dialogStatus = 0;
+
+  defaultProps = {
+    children: 'children',
+    label: 'typeName',
+  };
+
+  textMap = {
+    1: '编辑',
+    0: '新增',
+  };
+
+  entity = {
+    id: '',
+    codeName: '',
+    codeValue: '',
+    parentId: '',
+    codeOrder: 0,
+    remark: '',
+  };
+
+  tableParams = {};
+
+  // 当前节点，字典类型的id
+  codeTypeId = '';
+
+  remoteFuncs = {
+    getDictType(resolve) {
+      // 请求字典分类
+      crud(DML.SELECT, 'ad_codelist_type').then((res) => {
+        const options = res.data.list.map(item => ({
+          label: item.typeName,
+          value: item.id,
+        }));
+        resolve(options);
       });
     },
-    save() {
-      this.entity.codeValue = this.entity.codeName;
-      if (this.dialogStatus === STATUS.CREATE) {
-        crud(DML.INSERT, 'ad_codelist_type', this.entity).then(() => {
-          this.fetchDictType();
-          this.dialogFormVisible = false;
-        });
-      } else {
-        crud(DML.UPDATE, 'ad_codelist_type', this.entity).then(() => {
-          this.fetchDictType();
-          this.dialogFormVisible = false;
-        });
-      }
-    },
-    fetchDictType() {
-      crud(DML.TREE, 'ad_codelist_type').then((response) => {
-        this.typeList = response.data;
+  };
+
+  afterDropDown(node, end, position) {
+    if (position === 'inner') {
+      const obj = node.data;
+      obj.parentId = end.data.id;
+      crud(DML.UPDATE, 'ad_codelist_type', obj).then(() => {
+        this.$message.success('操作成功');
+        this.fetchDictType();
       });
-    },
-    add(data) {
-      this.dialogFormVisible = true;
-      Object.keys(this.entity).forEach((key) => {
-        this.entity[key] = '';
+    } else if (position === 'before') {
+      const obj = node.data;
+      obj.codeorder = Number(end.data.codeorder) - 1;
+      crud(DML.UPDATE, 'ad_codelist_type', obj).then(() => {
+        this.$message.success('操作成功');
+        this.fetchDictType();
       });
-      this.entity.parentId = data.id;
-      this.dialogStatus = STATUS.CREATE;
-    },
-    edit(data) {
-      this.dialogFormVisible = true;
-      this.entity = { ...data };
-      this.dialogStatus = STATUS.UPDATE;
-    },
-    treeClick(data) {
-      if (data.parentId === '0') {
-        delete this.tableParams.codeType;
-      } else {
-        this.codeTypeId = data.id || '';
-        this.tableParams.codeType = data.id;
-      }
-      this.$refs.codeListTable.tableReload();
-    },
-    // 树节点过滤
-    filterNode(value, data) {
-      if (!value) return true;
-      return this.$pinyinmatch.match(data.codeName, value);
-    },
-  },
-  watch: {
-    filterText(val) {
-      this.$refs.dicttypetree.filter(val);
-    },
-  },
-};
+    } else if (position === 'after') {
+      const obj = node.data;
+      obj.codeorder = Number(end.data.codeorder) + 1;
+      crud(DML.UPDATE, 'ad_codelist_type', obj).then(() => {
+        this.$message.success('操作成功');
+        this.fetchDictType();
+      });
+    }
+  }
+
+  remove(data) {
+    this.$confirm('确认删除?', '提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+    }).then(() => {
+      crud(DML.DELETE, 'ad_codelist_type', {}, { id: data.id }).then(() => {
+        this.dialogFormVisible = false;
+        this.fetchDictType();
+      });
+    });
+  }
+
+  save() {
+    this.entity.codeValue = this.entity.codeName;
+    if (this.dialogStatus === STATUS.CREATE) {
+      crud(DML.INSERT, 'ad_codelist_type', this.entity).then(() => {
+        this.fetchDictType();
+        this.dialogFormVisible = false;
+      });
+    } else {
+      crud(DML.UPDATE, 'ad_codelist_type', this.entity).then(() => {
+        this.fetchDictType();
+        this.dialogFormVisible = false;
+      });
+    }
+  }
+
+  fetchDictType() {
+    crud(DML.TREE, 'ad_codelist_type').then((response) => {
+      this.typeList = response.data;
+    });
+  }
+
+  add(data) {
+    this.dialogFormVisible = true;
+    Object.keys(this.entity).forEach((key) => {
+      this.entity[key] = '';
+    });
+    this.entity.parentId = data.id;
+    this.dialogStatus = STATUS.CREATE;
+  }
+
+  edit(data) {
+    this.dialogFormVisible = true;
+    this.entity = { ...data };
+    this.dialogStatus = STATUS.UPDATE;
+  }
+
+  treeClick(data) {
+    if (data.parentId === '0') {
+      delete this.tableParams.codeType;
+    } else {
+      this.codeTypeId = data.id || '';
+      this.tableParams.codeType = data.id;
+    }
+    this.$refs.codeListTable.tableReload();
+  }
+
+  // 树节点过滤
+  filterNode(value, data) {
+    if (!value) return true;
+    return this.$pinyinmatch.match(data.codeName, value);
+  }
+
+  @Watch('filterText')
+  filterTextChange(val) {
+    this.$refs.dicttypetree.filter(val);
+  }
+}
 </script>
 <style lang="scss" scoped>
 .tree {

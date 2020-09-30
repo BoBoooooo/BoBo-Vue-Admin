@@ -93,154 +93,166 @@
 </template>
 
 <script>
+import { Component, Vue, Watch } from 'vue-property-decorator';
+
 import { DML, crud } from '@/api/public/crud';
 import { mapGetters } from 'vuex';
 
-export default {
+@Component({
   name: 'Users',
-
-  created() {
-    this.loadDeptTree();
-  },
   computed: {
-    getToken() {
-      return this.$store.getters.token;
-    },
-    uploadUrl() {
-      return `${process.env.VUE_APP_API_URL}users/uploadImage`;
-    },
     ...mapGetters(['config']),
   },
-  data() {
-    return {
-      imageUrl: '',
-      // loading
-      loading: false,
-      // 搜索text
-      tableTitle: '',
-      filterText: '',
-      userid: '',
-      tableParams: {},
-      // 部门树
-      deptTree: {
-        // 部门树数据源
-        data: [],
-        // 部门树数据源属性映射关系
-        mapping: {
-          children: 'children',
-          label: 'name',
-          nodeKey: 'id',
-          isLeaf: 'leaf',
-          disabled: 'parentid',
-        },
-        // 根节点id
-        rootId: '-1',
-        // 根节点parentid
-        rootParentid: 0,
-        // 默认展开的节点
-        expandedKeys: ['-1'],
-      },
-      remoteFuncs: {
-        // 请求角色
-        funcGetRole(resolve) {
-          crud(DML.SELECT, 'role').then((res) => {
-            const options = res.data.list.map(item => ({
-              label: item.roleName,
-              value: item.id,
-            }));
-            resolve(options);
-          });
-        },
-        // 请求部门tree
-        funcGetDeptTree: (resolve) => {
-          // 此处暂时写死 admin权限的账号可以看到全部部门
-          crud(DML.TREE, 'dept').then((res) => {
-            resolve(res.data);
-          });
-        },
-      },
-    };
-  },
-  methods: {
-    handleAvatarSuccess(res, file) {
-      this.$refs.table.tableReload();
-    },
-    beforeAvatarUpload(file) {
-      const isJPG = 'image/jpeg,image/png'.includes(file.type);
-      const isLt2M = file.size / 1024 / 1024 < 2;
+})
+export default class Users extends Vue {
+  created() {
+    this.loadDeptTree();
+  }
 
-      if (!isJPG) {
-        this.$message.error('上传图片只能是 JPG/PNG 格式!');
-      }
-      if (!isLt2M) {
-        this.$message.error('上传图片大小不能超过 2MB!');
-      }
-      return isJPG && isLt2M;
-    },
-    resetPassword(user) {
-      const { initialPassword } = this.config;
-      this.$confirm(`确认重置到初始密码${initialPassword}`, '提示', {
-        confirmButtonText: '重置',
-        cancelButtonText: '取消',
-        type: 'warning',
-      })
-        .then(() => {
-          const data = { ...user };
-          data.password = initialPassword;
-          crud(DML.UPDATE, 'users', data).then((res) => {
-            if (res.code === 200) {
-              this.$message('重置成功');
-              this.$refs.table.tableReload();
-            }
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消重置',
-          });
-        });
-    },
+  get getToken() {
+    return this.$store.getters.token;
+  }
 
-    // 请求部门树
-    loadDeptTree(data) {
-      this.loading = true;
-      crud(DML.TREE, 'dept').then((res) => {
-        this.deptTree.data = [
-          {
-            name: '全部',
-            id: '-1',
-            children: res.data,
-          },
-        ];
-        this.loading = false;
-        this.deptTree.expandedKeys.push(this.deptTree.rootId);
+  get uploadUrl() {
+    return `${process.env.VUE_APP_API_URL}users/uploadImage`;
+  }
+
+  imageUrl = '';
+
+  // loading
+  loading = false;
+
+  // 搜索text
+  tableTitle = '';
+
+  filterText = '';
+
+  userid = '';
+
+  tableParams = {};
+
+  // 部门树
+  deptTree = {
+    // 部门树数据源
+    data: [],
+    // 部门树数据源属性映射关系
+    mapping: {
+      children: 'children',
+      label: 'name',
+      nodeKey: 'id',
+      isLeaf: 'leaf',
+      disabled: 'parentid',
+    },
+    // 根节点id
+    rootId: '-1',
+    // 根节点parentid
+    rootParentid: 0,
+    // 默认展开的节点
+    expandedKeys: ['-1'],
+  };
+
+  remoteFuncs = {
+    // 请求角色
+    funcGetRole(resolve) {
+      crud(DML.SELECT, 'role').then((res) => {
+        const options = res.data.list.map(item => ({
+          label: item.roleName,
+          value: item.id,
+        }));
+        resolve(options);
       });
     },
+    // 请求部门tree
+    funcGetDeptTree: (resolve) => {
+      // 此处暂时写死 admin权限的账号可以看到全部部门
+      crud(DML.TREE, 'dept').then((res) => {
+        resolve(res.data);
+      });
+    },
+  };
 
-    dialogOnClose() {
-      this.$refs.table.tableReload();
-    },
-    filterNode(value, data, node) {
-      if (!value) return true;
-      return this.$pinyinmatch.match(data.name, value);
-    },
-    nodeClick(data, node) {
-      if (data.id === this.deptTree.rootId) {
-        delete this.tableParams.deptid;
-      } else {
-        this.tableParams.deptid = data.id;
-      }
-      this.tableTitle = data.name;
-      this.$refs.table.tableReload();
-    },
-  },
-  watch: {
-    filterText(val) {
-      this.$refs.deptTree.filter(val);
-    },
-  },
-};
+  handleAvatarSuccess(res, file) {
+    this.$refs.table.tableReload();
+  }
+
+  beforeAvatarUpload(file) {
+    const isJPG = 'image/jpeg,image/png'.includes(file.type);
+    const isLt2M = file.size / 1024 / 1024 < 2;
+
+    if (!isJPG) {
+      this.$message.error('上传图片只能是 JPG/PNG 格式!');
+    }
+    if (!isLt2M) {
+      this.$message.error('上传图片大小不能超过 2MB!');
+    }
+    return isJPG && isLt2M;
+  }
+
+  resetPassword(user) {
+    const { initialPassword } = this.config;
+    this.$confirm(`确认重置到初始密码${initialPassword}`, '提示', {
+      confirmButtonText: '重置',
+      cancelButtonText: '取消',
+      type: 'warning',
+    })
+      .then(() => {
+        const data = { ...user };
+        data.password = initialPassword;
+        crud(DML.UPDATE, 'users', data).then((res) => {
+          if (res.code === 200) {
+            this.$message('重置成功');
+            this.$refs.table.tableReload();
+          }
+        });
+      })
+      .catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消重置',
+        });
+      });
+  }
+
+  // 请求部门树
+  loadDeptTree(data) {
+    this.loading = true;
+    crud(DML.TREE, 'dept').then((res) => {
+      this.deptTree.data = [
+        {
+          name: '全部',
+          id: '-1',
+          children: res.data,
+        },
+      ];
+      this.loading = false;
+      this.deptTree.expandedKeys.push(this.deptTree.rootId);
+    });
+  }
+
+  dialogOnClose() {
+    this.$refs.table.tableReload();
+  }
+
+  filterNode(value, data, node) {
+    if (!value) return true;
+    return this.$pinyinmatch.match(data.name, value);
+  }
+
+  nodeClick(data, node) {
+    if (data.id === this.deptTree.rootId) {
+      delete this.tableParams.deptid;
+    } else {
+      this.tableParams.deptid = data.id;
+    }
+    this.tableTitle = data.name;
+    this.$refs.table.tableReload();
+  }
+
+  @Watch('filterText')
+  filterTextChange(val) {
+    this.$refs.deptTree.filter(val);
+  }
+}
 </script>
 <style lang="scss" scoped>
 .avatar-uploader {

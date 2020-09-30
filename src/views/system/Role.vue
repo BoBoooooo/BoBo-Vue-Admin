@@ -19,7 +19,11 @@
 </template>
 
 <script>
-export default {
+import { Component, Vue, Watch } from 'vue-property-decorator';
+
+@Component({
   name: 'Role',
-};
+})
+export default class Role extends Vue {
+}
 </script>

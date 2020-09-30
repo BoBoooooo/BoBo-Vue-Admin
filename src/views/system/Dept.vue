@@ -23,7 +23,6 @@
                  parentId:'id'
                }"
                :promiseForSelect="promiseForSelect"
-
                fullHeight />
   </div>
 </template>
@@ -31,25 +30,22 @@
 <script>
 import { DML, crud } from '@/api/public/crud';
 
+import { Component, Vue, Watch } from 'vue-property-decorator';
 
-export default {
+@Component({
   name: 'Dept',
-  data() {
-    return {};
-  },
-  methods: {
-    // 表格查询代理
-    promiseForSelect() {
-      return new Promise((resolve, reject) => {
-        crud(DML.TREE, 'dept')
-          .then((res) => {
-            resolve(res);
-          })
-          .catch(err => reject(err));
-      });
-    },
-  },
-};
+})
+export default class Dept extends Vue {
+  promiseForSelect() {
+    return new Promise((resolve, reject) => {
+      crud(DML.TREE, 'dept')
+        .then((res) => {
+          resolve(res);
+        })
+        .catch(err => reject(err));
+    });
+  }
+}
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
 </style>

@@ -33,117 +33,131 @@
 <script>
 import ScrollPane from '@/components/ScrollPane/index.vue';
 
-export default {
+import { Component, Vue, Watch } from 'vue-property-decorator';
+
+@Component({
   name: 'TagsView',
   components: {
     ScrollPane,
   },
-  data() {
-    return {
-      visible: false,
-      top: 0,
-      left: 0,
-      selectedTag: {},
-    };
-  },
-  computed: {
-    visitedViews() {
-      return this.$store.state.tagsView.visitedViews;
-    },
-    sidebar() {
-      return this.$store.getters.sidebar.opened;
-    },
-  },
-  watch: {
-    $route() {
-      this.addViewTags();
-      this.moveToCurrentTag();
-    },
-    visible(value) {
-      if (value) {
-        window.addEventListener('click', this.closeMenu);
-      } else {
-        window.removeEventListener('click', this.closeMenu);
-      }
-    },
-  },
+})
+export default class TagsView extends Vue {
+  visible = false;
+
+  top = 0;
+
+  left = 0;
+
+  selectedTag = {};
+
+  get visitedViews() {
+    return this.$store.state.tagsView.visitedViews;
+  }
+
+  get sidebar() {
+    return this.$store.getters.sidebar.opened;
+  }
+
   mounted() {
     this.addViewTags();
-  },
-  methods: {
-    toggleSideBar() {
-      this.$store.dispatch('ToggleSideBar');
-      // 侧边栏隐藏后要重新触发resize让图表自适应
-      setTimeout(() => {
-        window.dispatchEvent(new Event('resize'));
-      }, 250);
-    },
-    generateRoute() {
-      if (this.$route.name) {
-        return this.$route;
-      }
+  }
+
+  toggleSideBar() {
+    this.$store.dispatch('ToggleSideBar');
+    // 侧边栏隐藏后要重新触发resize让图表自适应
+    setTimeout(() => {
+      window.dispatchEvent(new Event('resize'));
+    }, 250);
+  }
+
+  generateRoute() {
+    if (this.$route.name) {
+      return this.$route;
+    }
+    return false;
+  }
+
+  isActive(route) {
+    return route.path === this.$route.path || route.name === this.$route.name;
+  }
+
+  addViewTags() {
+    const route = this.generateRoute();
+    if (!route) {
       return false;
-    },
-    isActive(route) {
-      return route.path === this.$route.path || route.name === this.$route.name;
-    },
-    addViewTags() {
-      const route = this.generateRoute();
-      if (!route) {
-        return false;
-      }
-      this.$store.dispatch('addVisitedViews', route);
-      return null;
-    },
-    moveToCurrentTag() {
-      const tags = this.$refs.tag;
-      this.$nextTick(() => {
-        for (const tag of tags) {
-          if (tag.to === this.$route.path) {
-            this.$refs.scrollPane.moveToTarget(tag.$el);
-            break;
-          }
+    }
+    this.$store.dispatch('addVisitedViews', route);
+    return null;
+  }
+
+  moveToCurrentTag() {
+    const tags = this.$refs.tag;
+    this.$nextTick(() => {
+      for (const tag of tags) {
+        if (tag.to === this.$route.path) {
+          this.$refs.scrollPane.moveToTarget(tag.$el);
+          break;
         }
-      });
-    },
-    closeSelectedTag(view) {
-      this.$store.dispatch('delVisitedViews', view).then((views) => {
-        if (this.isActive(view)) {
-          const latestView = views.slice(-1)[0];
-          if (latestView) {
-            // 打开最后访问的选项卡
-            this.$router.push(latestView.path);
-          } else {
-            this.$router.push('/');
-          }
-        }
-      });
-    },
-    closeOthersTags() {
-      this.$router.push(this.selectedTag.path);
-      this.$store.dispatch('delOthersViews', this.selectedTag).then(() => {
-        this.moveToCurrentTag();
-      });
-    },
-    closeAllTags() {
-      this.$store.dispatch('delAllViews');
-      this.$router.push('/');
-    },
-    openMenu(tag, e) {
-      this.visible = true;
-      this.selectedTag = tag;
-      if (!this.sidebar) {
-        this.left = e.clientX - 40;
-      } else {
-        this.left = e.clientX - 180;
       }
-      this.top = e.clientY - 28;
-    },
-    closeMenu() {
-      this.visible = false;
-    },
-  },
-};
+    });
+  }
+
+  closeSelectedTag(view) {
+    this.$store.dispatch('delVisitedViews', view).then((views) => {
+      if (this.isActive(view)) {
+        const latestView = views.slice(-1)[0];
+        if (latestView) {
+          // 打开最后访问的选项卡
+          this.$router.push(latestView.path);
+        } else {
+          this.$router.push('/');
+        }
+      }
+    });
+  }
+
+  closeOthersTags() {
+    this.$router.push(this.selectedTag.path);
+    this.$store.dispatch('delOthersViews', this.selectedTag).then(() => {
+      this.moveToCurrentTag();
+    });
+  }
+
+  closeAllTags() {
+    this.$store.dispatch('delAllViews');
+    this.$router.push('/');
+  }
+
+  openMenu(tag, e) {
+    this.visible = true;
+    this.selectedTag = tag;
+    if (!this.sidebar) {
+      this.left = e.clientX - 40;
+    } else {
+      this.left = e.clientX - 180;
+    }
+    this.top = e.clientY - 28;
+  }
+
+  closeMenu() {
+    this.visible = false;
+  }
+
+  @Watch('$route')
+  routerChange() {
+    this.addViewTags();
+    this.moveToCurrentTag();
+  }
+
+  @Watch('$visible')
+  visibleChange(value) {
+    if (value) {
+      window.addEventListener('click', this.closeMenu);
+    } else {
+      window.removeEventListener('click', this.closeMenu);
+    }
+  }
+}
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
@@ -173,14 +187,14 @@ export default {
         margin-left: 15px;
       }
       &.active {
-       background: #f2f2f2;
-    color: #000;
-    margin-top: 5px;
-    border: 1px solid #002140;
-    border-radius: 2px;
-    padding: 4px 13px 0 13px;
-    height: 30px;
-    box-sizing: border-box;
+        background: #f2f2f2;
+        color: #000;
+        margin-top: 5px;
+        border: 1px solid #002140;
+        border-radius: 2px;
+        padding: 4px 13px 0 13px;
+        height: 30px;
+        box-sizing: border-box;
         .el-icon-close {
           color: #333;
         }
@@ -212,7 +226,6 @@ export default {
 </style>
 
 <style rel="stylesheet/scss" lang="scss">
-
 .tags-view-wrapper {
   .tags-view-item {
     .el-icon-close {
