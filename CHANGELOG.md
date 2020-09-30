@@ -67,6 +67,14 @@
  push | 测试提交 | [e9b2e50](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/e9b2e50)
 
 
+### 🔨 代码重构
+范围|描述|commitId
+--|--|--
+ allProject | 同步本地最新代码,全部项目迁移typescript + vue class component | [f6c5288](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/f6c5288)
+ CrudTable | 重构CrudTable代码,移除BaseTable | [617b6c6](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/617b6c6)
+ tinymce | 移除tinymce及部分其他代码 | [fa6b0ab](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/fa6b0ab)
+
+
 ### 🚀 性能优化
 范围|描述|commitId
 --|--|--
@@ -105,6 +113,16 @@
  Users,Dept,Role | 优化三员管理代码 | [5d6e93a](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/5d6e93a)
  vue | 优化布局,几处细节调整 | [bcc149e](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/bcc149e)
  vuex | 优化vuex相关module | [c75fb86](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/c75fb86)
+
+
+### chore
+范围|描述|commitId
+--|--|--
+ changelog | add changelog package | [41bedfa](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/41bedfa)
+ package | changelog包移到devDep | [8275b40](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/8275b40)
+ package.json | 移除[@types](https://github.com/types)/echart,修改build:dev命令 | [e882593](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/e882593)
+ package.json | git message,eslint 加入git hook | [0ca4a55](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/0ca4a55)
+ vue-cli update | 升级vue cli 3.x -> vue cli 4.x | [b8e62e0](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/b8e62e0)
 
 
 范围|描述|commitId
@@ -490,21 +508,4 @@
  - | 1 | [c35651e](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/c35651e)
  - | 同步本地代码 | [53c7d50](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/53c7d50)
  - | Initial commit | [823892e](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/823892e)
-
-
-### 🔨 代码重构
-范围|描述|commitId
---|--|--
- allProject | 同步本地最新代码,全部项目迁移typescript + vue class component | [f6c5288](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/f6c5288)
- CrudTable | 重构CrudTable代码,移除BaseTable | [617b6c6](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/617b6c6)
- tinymce | 移除tinymce及部分其他代码 | [fa6b0ab](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/fa6b0ab)
-
-
-### chore
-范围|描述|commitId
---|--|--
- changelog | add changelog package | [41bedfa](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/41bedfa)
- package.json | 移除[@types](https://github.com/types)/echart,修改build:dev命令 | [e882593](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/e882593)
- package.json | git message,eslint 加入git hook | [0ca4a55](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/0ca4a55)
- vue-cli update | 升级vue cli 3.x -> vue cli 4.x | [b8e62e0](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/b8e62e0)
 
