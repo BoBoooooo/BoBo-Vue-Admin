@@ -87,6 +87,7 @@
         <!-- 普通行布局方式 -->
         <template v-else>
           <GenerateFormItem :key="item.key"
+                            :formTableConfig="formTableConfig"
                             :models.sync="models"
                             :rules="rules"
                             :readOnly="setReadOnly"
