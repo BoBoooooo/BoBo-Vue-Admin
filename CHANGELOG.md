@@ -1,4 +1,4 @@
-# 0.1.0 (2020-09-30)
+# 0.1.0 (2020-10-09)
 
 ### 🌟 新功能
 范围|描述|commitId
@@ -26,6 +26,7 @@
  layout | 调整UI布局 | [2108fcc](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/2108fcc)
  layout | 修改菜单组件名称 | [d18d5f6](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/d18d5f6)
  layout | 页面样式修改 | [5641a17](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/5641a17)
+ lint | eslint --fix | [b373fc5](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/b373fc5)
  Login | 修改登录页背景 | [ddd31df](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/ddd31df)
  Login | 修改登录页样式 | [921f57f](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/921f57f)
  Login | 修改登录页ui | [3984d6c](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/3984d6c)

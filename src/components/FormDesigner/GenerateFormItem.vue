@@ -311,12 +311,6 @@ export default class GenerateFormItem extends Vue {
     type: Object,
     default: () => ({}),
   })
-  rules: any;
-
-  @Prop({
-    type: Object,
-    default: () => ({}),
-  })
   remote: any;
 
   @Prop({
@@ -332,7 +326,7 @@ export default class GenerateFormItem extends Vue {
   readOnly: any;
 
   // 当前组件对象
-  dataModel: any='';
+  dataModel: any= '';
 
   copyOption: any = []; // 备份一份初始选项
 
