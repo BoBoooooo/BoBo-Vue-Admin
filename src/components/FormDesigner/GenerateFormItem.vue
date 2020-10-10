@@ -377,14 +377,6 @@ export default class GenerateFormItem extends Vue {
           },
         ],
       }).then((res) => {
-        const arr = res.data.list.map(t => t.codevalue);
-        if (new Set(arr).size !== arr.length) {
-          this.$notify({
-            title: `字典[${this.widget.name}]的key重复`,
-            message: '请勿添加重复的字典key',
-            duration: 20000,
-          });
-        }
         if (this.widget.type === 'cascader') {
           this.widget.options.remoteOptions = JSON.parse(res.data.list[0].codevalue);
           // 请求完成后再渲染组件
