@@ -116,6 +116,9 @@ export default class CusDialog extends Vue {
 
 <style lang="scss">
 .cus-dialog-container {
+  .el-dialog__body{
+    overflow: auto;
+  }
   .el-dialog__footer {
     // margin: 0 20px;
     // border-top: 1px dashed #ccc;

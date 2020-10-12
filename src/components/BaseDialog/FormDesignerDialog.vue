@@ -1,6 +1,6 @@
 <!--
 @file 动态表单设计器
-      依赖jsoneditor、vue-awesome、vuedraggable
+      依赖vue-awesome、vuedraggable
 @author BoBo
 @copyright NanJing Anshare Tech .Com
 @createDate 2018年11月15日16:11:09
@@ -209,7 +209,6 @@
 <script>
 import Draggable from 'vuedraggable';
 import Icon from 'vue-awesome/components/Icon.vue';
-import JSONEditor from 'jsoneditor';
 import { getTables, getFormKey, getFormDetail } from '@/api/system/form';
 import { DML, crud } from '@/api/public/crud';
 import WidgetConfig from '@/components/FormDesigner/WidgetConfig.vue';
@@ -243,7 +242,6 @@ import 'vue-awesome/icons/tree';
 import 'vue-awesome/icons/random';
 import 'vue-awesome/icons/text-width';
 import 'vue-awesome/icons/mouse-pointer';
-import 'jsoneditor/dist/jsoneditor.min.css';
 
 export default {
   name: 'FormDesignerDialog',
@@ -458,12 +456,6 @@ export default {
       this.jsonVisible = true;
       // 生成后的json赋值给json编辑器
       this.jsonTemplate = this.widgetForm;
-      // 对话框生成后
-      this.$nextTick(() => {
-        // 初始化编辑器？
-        // eslint-disable-next-line
-        const editor = ace.edit('jsoneditor');
-      });
     },
     // 自动同步后端key
     async handleGenerateKey(generateForm = false) {
