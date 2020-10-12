@@ -8,11 +8,15 @@
 <template>
   <div>
     <el-header height="64px"
-               style="background:#fff">
+               :style="{
+                 background:themeColor.header.backgroundColor
+               }">
       <div class="title-container">
         <img class="header_logo"
              src="@/assets/logo.png">
-        <span class="title">{{title}}</span>
+        <span class="title" :style="{
+          color:themeColor.header.textColor
+        }">{{title}}</span>
       </div>
       <!-- 折叠侧边栏按钮 -->
       <Hamburger :toggle-click="toggleSideBar"
@@ -44,6 +48,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
 import Hamburger from '@/components/Hamburger/Hamburger.vue';
+import themeColor from '@/styles/theme';
 import PersonInfoCard from './PersonInfoCard.vue';
 
 @Component({
@@ -57,13 +62,13 @@ import PersonInfoCard from './PersonInfoCard.vue';
   },
 })
 export default class Header extends Vue {
-  visibleMember = false;
-
-  config!: any;
-
   $refs!: {
     personInfoCard: HTMLFormElement;
   };
+
+  config!: any;
+
+  themeColor = themeColor;
 
   get sidebar() {
     return this.$store.getters.sidebar.opened;
@@ -110,7 +115,6 @@ export default class Header extends Vue {
     font-family: 'YaHei';
     font-size: 24px;
     text-shadow: 1px 1px 1px #9e9e9e;
-    color: #3f51b5;
   }
   .icon {
     text-shadow: 3px 3px 3px #000;

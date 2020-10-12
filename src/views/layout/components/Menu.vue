@@ -10,9 +10,9 @@
            :default-active="$route.path"
            unique-opened
            mode="vertical"
-           background-color="#e6edff"
-           text-color="#333"
-           active-text-color="#616dad"
+           :background-color="themeColor.sidebar.backgroundColor"
+           :text-color="themeColor.sidebar.textColor"
+           :active-text-color="themeColor.sidebar.activeTextColor"
            class="menu"
             :class="{
          'hideSidebar':!sidebar
@@ -26,6 +26,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { mapGetters } from 'vuex';
+import themeColor from '@/styles/theme';
 import MenuItem from './MenuItem.vue';
 
 @Component({
@@ -38,6 +39,8 @@ import MenuItem from './MenuItem.vue';
   },
 })
 export default class Menu extends Vue {
+  themeColor = themeColor;
+
   get sidebar() {
     return this.$store.getters.sidebar.opened;
   }
