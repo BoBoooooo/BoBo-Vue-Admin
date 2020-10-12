@@ -9,24 +9,24 @@
 import axios from '@/plugins/axios';
 
 interface optionsType {
-  url:string; // 请求地址
-  method:string; // 请求方法 post / get
-  data?:object; // body报体内容
-  params?:object; // queryString内容
-  headers?:any // 自定义头,用于设置是否加密请求
+  url: string; // 请求地址
+  method: string; // 请求方法 post / get
+  data?: object; // body报体内容
+  params?: object; // queryString内容
+  headers?: any; // 自定义头,用于设置是否加密请求
 }
 
 /**
  * 操作类型枚举
  */
 export enum DML {
-  INSERT= 'add',
-  UPDATE= 'update',
-  DELETE= 'delete',
-  SELECT= 'list',
-  TREE= 'tree',
-  DETAIL= 'detail',
-  DELETES='deleteByIds',
+  INSERT = 'add',
+  UPDATE = 'update',
+  DELETE = 'delete',
+  SELECT = 'list',
+  TREE = 'tree',
+  DETAIL = 'detail',
+  DELETES = 'deleteByIds',
 }
 
 /**
@@ -36,8 +36,8 @@ export enum DML {
  * @param data body data
  * @param params query Params
  */
-export function crud(dml:DML, tableName:string, data:object = {}, params:any = null) {
-  const options:optionsType = {
+export function crud(dml: DML, tableName: string, data: object = {}, params: any = null) {
+  const options: optionsType = {
     url: `/${tableName}/${dml}`, // 例如users表的查询接口为  /users/list
     method: 'post',
   };
