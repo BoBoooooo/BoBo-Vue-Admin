@@ -11,14 +11,13 @@ import { Store } from 'vuex';
 
 // 扩充
 declare module 'vue/types/vue' {
-    interface Vue {
-        $router: VueRouter;
-        $route: Route;
-        $store: Store<any>;
-        lodash:any;
-        axios:any;
-        dayjs:any;
-        $pinyinmatch:any;
-    }
+  interface Vue {
+    $router: VueRouter;
+    $route: Route;
+    $store: Store<any>;
+    lodash: any;
+    axios: any;
+    dayjs: any;
+    $pinyinmatch: any;
+  }
 }
-
