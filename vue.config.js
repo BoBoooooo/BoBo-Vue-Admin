@@ -7,7 +7,6 @@
  */
 // eslint-disable-next-line import/no-extraneous-dependencies
 const path = require('path');
-const { IgnorePlugin } = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -37,8 +36,6 @@ module.exports = {
   // vue-cli3内部的webpack配置通过webpack-chain维护
   // 链式操作可参考 https://cli.vuejs.org/zh/guide/webpack.html
   chainWebpack: (config) => {
-    // vue inspect --rules 列出所有规则，可以看到svg是第三个
-    // vue inspect module.rules.2 可以列出默认svg规则配置
     // 从默认svg规则中排除src/icons路径，因为会当做图标自动加载
     config.module.rule('svg').exclude.add(resolve('src/icons'));
     // 添加svg-sprite-loader加载器
@@ -77,8 +74,6 @@ module.exports = {
       options[0].title = PROJECT_NAME;
       return options;
     });
-    // 移除fetch,提高首屏速度
-    config.plugins.delete('prefetch');
     // 是否在打包时输出分析报告
     if (process.env.IS_REPORT) {
       config.plugin('webpack-report').use(BundleAnalyzerPlugin, [
