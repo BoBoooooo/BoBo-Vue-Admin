@@ -67,6 +67,8 @@ module.exports = {
       option[0]['process.env'].PROJECT_NAME = JSON.stringify(PROJECT_NAME);
       return option;
     });
+    // 移除prefecth 提高首屏速度
+    config.plugins.delete('prefetch');
     // 关闭自动注入，手动在index.html按需加载
     // 会导致菜单切换时请求新资源，但可提高30%首屏渲染速度
     config.plugin('html').tap((options) => {
