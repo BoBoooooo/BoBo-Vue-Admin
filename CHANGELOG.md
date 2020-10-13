@@ -1,8 +1,9 @@
-# 0.1.0 (2020-10-09)
+# 0.1.0 (2020-10-13)
 
 ### 🌟 新功能
 范围|描述|commitId
 --|--|--
+ - | header,menu css样式抽离至@/styles/theme.ts | [c7bf3af](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/c7bf3af)
  Calendar | 新增日历插件 | [50d7fee](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/50d7fee)
  env | 修改开发环境地址,npm启动命令修改 | [280d716](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/280d716)
  GenerateForm | 默认值逻辑调整 | [1fec7b9](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/1fec7b9)
@@ -18,6 +19,8 @@
 ### 🎨 代码样式
 范围|描述|commitId
 --|--|--
+ - | code style perf | [4083144](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/4083144)
+ - | perf some code | [bfffe42](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/bfffe42)
  bg | 删除loginbg、api等 | [27091ee](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/27091ee)
  code | 代码风格调整 | [4b3bc2b](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/4b3bc2b)
  code | 修改代码格式 | [5d61230](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/5d61230)
@@ -39,6 +42,7 @@
 ### 🐛 Bug 修复
 范围|描述|commitId
 --|--|--
+ - | delete prefetch | [31b42a7](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/31b42a7)
  bug | 修复网络错误情况下axios bug | [c029395](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/c029395)
  bug | 修改entity 属性大小写 bug | [0930559](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/0930559)
  CrudTable | fix slot bug | [93a8144](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/93a8144)
@@ -62,6 +66,13 @@
  update | README | [56c3dba](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/56c3dba)
 
 
+### 📦 持续集成
+范围|描述|commitId
+--|--|--
+ - | remove IgnorePlugin ,  recovery prefetch | [09d9485](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/09d9485)
+ - | remove JSONEditor | [831ff2f](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/831ff2f)
+
+
 ### 🔧 测试
 范围|描述|commitId
 --|--|--
@@ -71,6 +82,7 @@
 ### 🔨 代码重构
 范围|描述|commitId
 --|--|--
+ - | 移除多余props | [87d1035](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/87d1035)
  allProject | 同步本地最新代码,全部项目迁移typescript + vue class component | [f6c5288](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/f6c5288)
  CrudTable | 重构CrudTable代码,移除BaseTable | [617b6c6](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/617b6c6)
  tinymce | 移除tinymce及部分其他代码 | [fa6b0ab](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/fa6b0ab)
@@ -91,6 +103,8 @@
  echart | 移除echart模块 | [1d85b9e](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/1d85b9e)
  Echart | 去掉自定义Chart组件 | [1bcb5e7](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/1bcb5e7)
  env | 修改env环境变量 | [27b0793](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/27b0793)
+ GenerateForm | 补充formTableConfig属性 | [7d38b81](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/7d38b81)
+ GenerateForm | 代码优化 | [7a8da09](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/7a8da09)
  GenerateFormDialog | 调整表单弹出宽度 | [3ec62a3](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/3ec62a3)
  gitignore | 加入/dist | [956b283](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/956b283)
  headers | headers auth 头改为 Authorization | [5ebdc7d](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/5ebdc7d)
