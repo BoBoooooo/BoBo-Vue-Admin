@@ -761,12 +761,13 @@ export default class CrudTable extends Vue {
     this.setMaxHeight();
     // 请求数据
     this.fetchHandler(true);
-
     // 自适应分页组件按钮;
-    window.addEventListener('resize', () => {
-      this.setPagerByWidth();
-      this.setMaxHeight();
-    });
+    window.addEventListener('resize', this.resizeHandler);
+  }
+
+  resizeHandler() {
+    this.setPagerByWidth();
+    this.setMaxHeight();
   }
 
   setMaxHeight() {
@@ -941,6 +942,10 @@ export default class CrudTable extends Vue {
     this.$emit('sort-change', args);
     // table reload
     this.dataChangeHandler();
+  }
+
+  beforeDestroy() {
+    window.removeEventListener('resize', this.resizeHandler);
   }
 }
 </script>
