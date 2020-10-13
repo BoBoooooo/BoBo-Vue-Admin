@@ -25,6 +25,7 @@ export enum DML {
   DELETE = 'delete',
   SELECT = 'list',
   TREE = 'tree',
+  TREE_LAZY = 'treeByParentID',
   DETAIL = 'detail',
   DELETES = 'deleteByIds',
 }
@@ -42,7 +43,7 @@ export function crud(dml: DML, tableName: string, data: object = {}, params: any
     method: 'post',
   };
   // 以下请求通过包体传参
-  if ('list'.includes(dml)) {
+  if ('list,treeByParentID'.includes(dml)) {
     // list接口高级查询条件拼接
     options.data = {
       orderCondition: '',

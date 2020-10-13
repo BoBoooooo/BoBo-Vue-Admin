@@ -68,6 +68,9 @@
                 :row-key="(row)=> row.id"
                 :summary-method="summaryMethod"
                 rowKey="id"
+                :lazy="lazy"
+                :load="treeload"
+                :tree-props="{children: 'children', hasChildren: 'flag'}"
                 :style="tableStyle"
                 @select="(selection, row) => emitTableEvent('select', selection, row)"
                 @select-all="(selection) => emitTableEvent('select-all', selection)"
@@ -249,6 +252,9 @@ export default class CrudTable extends Vue {
     dialog: HTMLFormElement;
     searchForm: HTMLFormElement;
   };
+
+  // 当前点击行
+  currentRow: any = {};
 
   // 结果总数
   total = 0;
@@ -515,7 +521,8 @@ export default class CrudTable extends Vue {
   // 选择行是否可选
   @Prop({ default: null, type: Function }) selectableFunc: any;
 
-  // ---
+  // 是否懒加载
+  @Prop(Boolean) lazy!: boolean;
 
   // 分页
   get pagination() {
@@ -607,6 +614,8 @@ export default class CrudTable extends Vue {
 
   // 操作列-添加
   actionColumnAdd(row) {
+    // 添加成功后需要刷新当前结点的子节点,此处特殊处理
+    this.currentRow.parentid = this.lodash.cloneDeep(row).id;
     if (this.btnRowAddOnClick) {
       this.btnRowAddOnClick(row);
     } else if (this.prefill) {
@@ -627,6 +636,7 @@ export default class CrudTable extends Vue {
 
   // 操作列-编辑
   actionColumnEdit(row) {
+    this.currentRow = row;
     if (this.btnEditOnClick) {
       this.btnEditOnClick(row);
     } else {
@@ -641,6 +651,7 @@ export default class CrudTable extends Vue {
 
   // 操作列-查看
   actionColumnDetail(row) {
+    this.currentRow = row;
     if (this.btnDetailOnClick) {
       this.btnDetailOnClick(row);
     } else {
@@ -684,6 +695,7 @@ export default class CrudTable extends Vue {
   // 操作列-删除
   @confirm('确认删除?', '提示')
   actionColumnDel(row) {
+    this.currentRow = row;
     // 如果prop传入了promiseForDel说明需要回调自定义删除
     const promise = this.promiseForDel ? this.promiseForDel({ id: row.id }) : crud(DML.DELETE, this.tableName, {}, { id: row.id });
     promise.then(() => {
@@ -761,6 +773,7 @@ export default class CrudTable extends Vue {
     this.setMaxHeight();
     // 请求数据
     this.fetchHandler(true);
+
     // 自适应分页组件按钮;
     window.addEventListener('resize', this.resizeHandler);
   }
@@ -816,6 +829,15 @@ export default class CrudTable extends Vue {
       return;
     }
 
+    // 已加载完成, tree lazy table 局部刷新.
+    if (this.lazy && this.tableData.length > 0) {
+      this.treeload({
+        id: this.currentRow.parentid,
+      });
+      this.loading = false;
+      return;
+    }
+
     // 如清空查询条件,则清空
     if (clearParams) {
       searchCondition = [];
@@ -862,7 +884,12 @@ export default class CrudTable extends Vue {
       Object.assign(axiosParams, { orderCondition: this.orderCondition });
     }
     // 发起请求
-    const requestObject = this.promiseForSelect ? this.promiseForSelect(axiosParams, clearParams) : crud(DML.SELECT, this.tableName, axiosParams);
+    // eslint-disable-next-line no-nested-ternary
+    const requestObject = this.promiseForSelect
+      ? this.promiseForSelect(axiosParams, clearParams)
+      : this.lazy
+        ? crud(DML.TREE_LAZY, this.tableName, axiosParams)
+        : crud(DML.SELECT, this.tableName, axiosParams);
 
     requestObject
       .then((response) => {
@@ -922,6 +949,27 @@ export default class CrudTable extends Vue {
         });
         this.loading = false;
       });
+  }
+
+  /** 懒加载树 */
+  treeload(tree, treeNode?: any, resolve?: any) {
+    const { tableName } = this;
+    const data = {
+      searchCondition: [
+        {
+          field: 'parentid',
+          operator: 'eq',
+          value: tree.id,
+        },
+      ],
+    };
+    crud(DML.TREE_LAZY, this.tableName, data).then((res) => {
+      if (resolve) {
+        resolve(res.data);
+      }
+      // 强制更新已渲染子结点
+      this.$set(this.$refs.table.store.states.lazyTreeNodeMap, tree.id, res.data);
+    });
   }
 
   emitTableEvent(...args) {
