@@ -429,7 +429,6 @@ export default class GenerateFormItem extends Vue {
     }
   }
 
-  // 子表在只读模式下隐藏增删改按钮
   get visibleList() {
     const view = {
       conditionTitle: false,
@@ -439,7 +438,7 @@ export default class GenerateFormItem extends Vue {
       btnAddOnColumnHeader: this.widget.options.visibleList.btnAdd,
       btnImport: this.widget.options.visibleList.btnImport,
     };
-    if (this.readOnly && Object.keys(this.readOnly).length === 0) {
+    if ((this.readOnly && Object.keys(this.readOnly).length === 0) || this.widget.options.readonly) {
       view.btnAddOnColumnHeader = false;
       view.actionColumnBtnDel = false;
       view.actionColumnBtnEdit = false;
@@ -451,8 +450,8 @@ export default class GenerateFormItem extends Vue {
 
   // 附件列表在只读模式下隐藏增删改按钮
   get fileVisibleList() {
-    const view:any = {};
-    if (this.readOnly && Object.keys(this.readOnly).length === 0) {
+    const view = {};
+    if ((this.readOnly && Object.keys(this.readOnly).length === 0) || this.widget.options.readonly) {
       view.upload = false;
       view.btnEdit = false;
       view.btnDel = false;
