@@ -35,6 +35,13 @@ npm i
 npm start   
 ````
 
+TIPS: 若只启动前端项目,本地运行可以先将后端api地址修改为
+``` 
+// .env.dev
++ VUE_APP_API_URL=http://47.100.164.86:7788/
+- VUE_APP_API_URL=http://localhost:3000/
+```
+
 ## 2、git commit lint规范
 ```
  参考angularJs标准提交规范
