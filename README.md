@@ -1,14 +1,14 @@
-# 🌅 BoBo's Vue Admin 🌅
+# BoBo's Vue Admin  
 
-(🚀 9.19号 vue 3已经发布,正在尝试迁移中.. ☠)
+( 🚀  9.19号 vue 3已经发布,正在尝试迁移中.)
 
 本项目基于 [Vue CLI 4.x](https://cli.vuejs.org/config/) 构建。
 
-🍌 在线演示地址 http://server.boboooooo.top:9999/
+🍌   在线演示地址 http://server.boboooooo.top:9999/
 
-🍉 项目文档 https://github.com/BoBoooooo/BoBo-Vue-Admin/wiki/CrudTable-%E6%96%87%E6%A1%A3 
+🍉   项目文档 https://github.com/BoBoooooo/BoBo-Vue-Admin/wiki/CrudTable-%E6%96%87%E6%A1%A3 
 
-🍏 配套后端地址 https://github.com/BoBoooooo/NestJS-API-Server.git (还在初期阶段)
+🍏   配套后端地址 https://github.com/BoBoooooo/NestJS-API-Server.git (还在初期阶段)
 
 
 ## 0、核心功能
