@@ -450,7 +450,7 @@ export default class GenerateFormItem extends Vue {
 
   // 附件列表在只读模式下隐藏增删改按钮
   get fileVisibleList() {
-    const view = {};
+    const view: any = {};
     if ((this.readOnly && Object.keys(this.readOnly).length === 0) || this.widget.options.readonly) {
       view.upload = false;
       view.btnEdit = false;
