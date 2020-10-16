@@ -126,10 +126,8 @@ git config core.ignorecase false
   - `test` 测试相关
   - `docs` 文档/注释
   - `chore` 依赖更新/脚手架配置修改等
-  - `workflow` 工作流改进
   - `ci` 持续集成
-  - `mod` 不确定分类的修改
-  - `wip` 删除文件
+  
 ## 0、 致谢
 @ytyang <ie07@163.com> 
 
