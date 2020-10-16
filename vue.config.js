@@ -20,6 +20,7 @@ function resolve(dir) {
 
 // 系统标题统一在环境变量中配置
 const PROJECT_NAME = process.env.VUE_APP_NAME;
+const isDev = process.env.NODE_ENV === 'development';
 
 module.exports = {
   // 为方便多项目部署，打包时使用项目名称
@@ -54,19 +55,15 @@ module.exports = {
       .loader('svgo-loader')
       .end();
     // ============压缩图片 start============
-    config.module
-      .rule('images')
-      .use('image-webpack-loader')
-      .loader('image-webpack-loader')
-      .options({ bypassOnDebug: true })
-      .end();
+    if (!isDev) {
+      config.module
+        .rule('images')
+        .use('image-webpack-loader')
+        .loader('image-webpack-loader')
+        .options({ bypassOnDebug: true })
+        .end();
+    }
     // ============压缩图片 end============
-
-    // 添加开发常量PROJECT_NAME_PINGYIN
-    config.plugin('define').tap((option) => {
-      option[0]['process.env'].PROJECT_NAME = JSON.stringify(PROJECT_NAME);
-      return option;
-    });
     // 移除prefecth 提高首屏速度
     config.plugins.delete('prefetch');
     // 关闭自动注入，手动在index.html按需加载
@@ -125,12 +122,14 @@ module.exports = {
     }
   },
   configureWebpack: (config) => {
-    // 开启gzip压缩
-    config.plugins.push(new CompressionWebpackPlugin({
-      algorithm: 'gzip',
-      test: new RegExp(`\\.(${productionGzipExtensions.join('|')})$`),
-      threshold: 10240,
-      minRatio: 0.8,
-    }));
+    if (!isDev) {
+      // 开启gzip压缩
+      config.plugins.push(new CompressionWebpackPlugin({
+        algorithm: 'gzip',
+        test: new RegExp(`\\.(${productionGzipExtensions.join('|')})$`),
+        threshold: 10240,
+        minRatio: 0.8,
+      }));
+    }
   },
 };
