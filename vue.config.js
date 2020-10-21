@@ -71,6 +71,9 @@ module.exports = {
     config.plugin('html').tap((options) => {
       options[0].inject = false;
       options[0].title = PROJECT_NAME;
+      // 向html模板注入 服务端URL地址,用于生产环境动态修改
+      options[0].HOST_URL = process.env.VUE_APP_HOST_URL;
+      options[0].PREFIX_URL = process.env.VUE_APP_API_URL;
       return options;
     });
     // 是否在打包时输出分析报告

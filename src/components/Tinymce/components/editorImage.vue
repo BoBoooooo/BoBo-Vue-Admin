@@ -43,7 +43,7 @@ export default {
   },
   computed: {
     uploadUrl() {
-      return `${process.env.VUE_APP_API_URL}file/uploadImage`;
+      return `${this.API_URL}file/uploadImage`;
     },
     getToken() {
       return this.$store.getters.token;

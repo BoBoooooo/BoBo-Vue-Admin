@@ -17,7 +17,7 @@ NProgress.configure({ showSpinner: false });
 
 // 创建axios实例
 const service = axios.create({
-  baseURL: process.env.VUE_APP_API_URL, // 后端接口根路径
+  baseURL: window.__HOST__URL__ + window.__PREFIX__URL__, // 后端接口根路径
   timeout: 60 * 1000, // 请求超时时间
 });
 

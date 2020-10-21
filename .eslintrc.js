@@ -38,6 +38,8 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     // 允许class中方法不使用this
     'class-methods-use-this': 'off',
+    // 允许下划线变量命名
+    'no-underscore-dangle': 'off',
   },
   parserOptions: {
     parser: '@typescript-eslint/parser',

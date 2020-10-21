@@ -19,5 +19,15 @@ declare module 'vue/types/vue' {
     axios: any;
     dayjs: any;
     $pinyinmatch: any;
+    HOST_URL: any;
+    API_URL: any;
   }
 }
+
+declare global {
+  interface Window  {
+    __HOST__URL__: string;
+    __PREFIX__URL__: string;
+  }
+}
+

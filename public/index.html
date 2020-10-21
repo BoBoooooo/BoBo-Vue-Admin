@@ -12,6 +12,18 @@
     <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet" />
     <% } %>
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <!-- 服务器地址 -->
+    <% if (htmlWebpackPlugin.options.HOST_URL) { %>
+    <script>
+      window.__HOST__URL__ = '<%= htmlWebpackPlugin.options.HOST_URL%>';
+    </script>
+    <% } %>
+    <!-- 后端地址 -->
+    <% if (htmlWebpackPlugin.options.PREFIX_URL) { %>
+    <script>
+      window.__PREFIX__URL__ = '<%= htmlWebpackPlugin.options.PREFIX_URL%>';
+    </script>
+    <% } %>
   </head>
   <body>
     <noscript>

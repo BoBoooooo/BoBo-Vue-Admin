@@ -30,6 +30,22 @@
 * **表格设计器** `基于表单设计json自动生成列表json,可视化配置`
 * **CrudTable** `基于el-table封装,结合表单、表格设计器,动态配置,解放生产力`
 
+* **后端地址可配置** 
+  ``` javascript
+    // index.html 生产环境下支持动态修改后端地址,避免重复打包
+
+    <!-- 服务器地址 -->
+    <script>
+      window.__HOST__URL__ = 'http://localhost:3000';
+    </script>
+    <!-- 后端地址 -->
+    <script>
+      window.__PREFIX__URL__ = '/';
+    </script>
+
+    // 最后请求的地址即为 http://localhost:3000/
+  ```
+
 ## 2. 开始使用
 * 使用npm安装依赖包
 ```
@@ -43,8 +59,9 @@ npm start
 TIPS: 若只启动前端项目,本地运行可以先将后端api地址修改为
 ``` 
 // .env.dev
-+ VUE_APP_API_URL=http://47.100.164.86:7788/
-- VUE_APP_API_URL=http://localhost:3000/
+
++ VUE_APP_HOST_URL=http://47.100.164.86:7788
+- VUE_APP_HOST_URL=http://localhost:3000
 ```
 
 ## 3. eslint规范

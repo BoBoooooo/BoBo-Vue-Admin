@@ -1,8 +1,10 @@
-# 0.1.0 (2020-10-13)
+# 0.1.0 (2020-10-21)
 
 ### 🌟 新功能
 范围|描述|commitId
 --|--|--
+ CrudTable | support tree table lazy load | [4539b49](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/4539b49)
+ - | add eslint ignore config (public/*) | [f23a2e4](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/f23a2e4)
  - | header,menu css样式抽离至@/styles/theme.ts | [c7bf3af](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/c7bf3af)
  Calendar | 新增日历插件 | [50d7fee](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/50d7fee)
  env | 修改开发环境地址,npm启动命令修改 | [280d716](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/280d716)
@@ -43,6 +45,7 @@
 范围|描述|commitId
 --|--|--
  - | delete prefetch | [31b42a7](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/31b42a7)
+ - | fix type bug | [a7163ee](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/a7163ee)
  bug | 修复网络错误情况下axios bug | [c029395](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/c029395)
  bug | 修改entity 属性大小写 bug | [0930559](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/0930559)
  CrudTable | fix slot bug | [93a8144](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/93a8144)
@@ -52,6 +55,7 @@
 ### 📝 文档
 范围|描述|commitId
 --|--|--
+ - | update ReadME | [5098e77](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/5098e77)
  des | 补充部分注释说明 | [a020c8e](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/a020c8e)
  FormDesigner | 表单设计器补充版权说明 | [c1a3504](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/c1a3504)
  README | 补充代码目录结构文档 | [b111ae3](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/b111ae3)
@@ -69,34 +73,24 @@
 ### 📦 持续集成
 范围|描述|commitId
 --|--|--
+ - | 移除多余依赖 | [6053408](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/6053408)
+ - | dev port 8888 | [b923308](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/b923308)
  - | remove IgnorePlugin ,  recovery prefetch | [09d9485](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/09d9485)
  - | remove JSONEditor | [831ff2f](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/831ff2f)
-
-
-### 🔧 测试
-范围|描述|commitId
---|--|--
- push | 测试提交 | [e9b2e50](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/e9b2e50)
-
-
-### 🔨 代码重构
-范围|描述|commitId
---|--|--
- - | 移除多余props | [87d1035](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/87d1035)
- allProject | 同步本地最新代码,全部项目迁移typescript + vue class component | [f6c5288](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/f6c5288)
- CrudTable | 重构CrudTable代码,移除BaseTable | [617b6c6](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/617b6c6)
- tinymce | 移除tinymce及部分其他代码 | [fa6b0ab](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/fa6b0ab)
 
 
 ### 🚀 性能优化
 范围|描述|commitId
 --|--|--
+ - | 调整文件位置 | [4782df6](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/4782df6)
+ - | 附件,表格组件支持只读属性 | [195baa9](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/195baa9)
  axios | 优化axios部分逻辑 | [6f960c4](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/6f960c4)
  BaseModule | 表单表格组件代码优化 | [acceaee](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/acceaee)
  BaseTable | 去掉render formatter等基本不用的渲染方式 | [5457d54](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/5457d54)
  code | 代码优化 | [77f08c0](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/77f08c0)
  code | 代码优化,移除冗余代码 | [05e7d32](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/05e7d32)
  crud,config | 传参路径调整 | [c7bc681](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/c7bc681)
+ CrudTable | 销毁组件时移除resize事件监听 | [447d0ae](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/447d0ae)
  CrudTable | 优化CrudTable部分代码 | [b946b7d](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/b946b7d)
  dashboard | 修改首页,去掉snap过渡特效 | [a950e4b](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/a950e4b)
  Dashboard | 修改首页 | [e375d6d](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/e375d6d)
@@ -130,18 +124,12 @@
  vuex | 优化vuex相关module | [c75fb86](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/c75fb86)
 
 
-### chore
 范围|描述|commitId
 --|--|--
- changelog | add changelog package | [41bedfa](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/41bedfa)
- package | changelog包移到devDep | [8275b40](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/8275b40)
- package.json | 移除[@types](https://github.com/types)/echart,修改build:dev命令 | [e882593](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/e882593)
- package.json | git message,eslint 加入git hook | [0ca4a55](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/0ca4a55)
- vue-cli update | 升级vue cli 3.x -> vue cli 4.x | [b8e62e0](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/b8e62e0)
-
-
-范围|描述|commitId
---|--|--
+ - | Update README.md | [b3d2afb](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/b3d2afb)
+ - | Update README.md | [856202c](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/856202c)
+ - | Update README.md | [1de64c8](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/1de64c8)
+ - | Update README.md | [b914fbf](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/b914fbf)
  - | Update README.md | [0a0bdae](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/0a0bdae)
  - | Update README.md | [127c76b](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/127c76b)
  - | Update README.md | [44ba47f](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/44ba47f)
@@ -523,4 +511,30 @@
  - | 1 | [c35651e](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/c35651e)
  - | 同步本地代码 | [53c7d50](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/53c7d50)
  - | Initial commit | [823892e](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/823892e)
+
+
+### 🔧 测试
+范围|描述|commitId
+--|--|--
+ push | 测试提交 | [e9b2e50](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/e9b2e50)
+
+
+### 🔨 代码重构
+范围|描述|commitId
+--|--|--
+ - | 移除多余props | [87d1035](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/87d1035)
+ allProject | 同步本地最新代码,全部项目迁移typescript + vue class component | [f6c5288](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/f6c5288)
+ CrudTable | 重构CrudTable代码,移除BaseTable | [617b6c6](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/617b6c6)
+ tinymce | 移除tinymce及部分其他代码 | [fa6b0ab](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/fa6b0ab)
+
+
+### chore
+范围|描述|commitId
+--|--|--
+ - | 本地开发移除图片压缩,gzip压缩 | [2358c0a](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/2358c0a)
+ changelog | add changelog package | [41bedfa](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/41bedfa)
+ package | changelog包移到devDep | [8275b40](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/8275b40)
+ package.json | 移除[@types](https://github.com/types)/echart,修改build:dev命令 | [e882593](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/e882593)
+ package.json | git message,eslint 加入git hook | [0ca4a55](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/0ca4a55)
+ vue-cli update | 升级vue cli 3.x -> vue cli 4.x | [b8e62e0](https://github.com/BoBoooooo/Anshare_Vue_Admin/commit/b8e62e0)
 

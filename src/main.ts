@@ -35,6 +35,9 @@ Vue.prototype.dayjs = dayjs;
 Vue.config.productionTip = false;
 // 拼音匹配插件
 Vue.prototype.$pinyinmatch = PinyinMatch;
+// 注入全局HOST_URL地址
+Vue.prototype.HOST_URL = window.__HOST__URL__;
+Vue.prototype.API_URL = window.__HOST__URL__ + window.__PREFIX__URL__;
 
 new Vue({
   router,

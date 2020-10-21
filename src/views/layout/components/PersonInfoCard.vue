@@ -97,7 +97,7 @@ export default class PersonInfoCard extends Vue {
   }
 
   get uploadUrl() {
-    return `${process.env.VUE_APP_API_URL}users/uploadImage`;
+    return `${window.__HOST__URL__ + window.__PREFIX__URL__}users/uploadImage`;
   }
 
   showDialog(param = {}) {

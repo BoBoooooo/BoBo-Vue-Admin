@@ -170,7 +170,7 @@ export default class FileUpload extends Vue {
 
   @Prop({
     type: String,
-    default: `${process.env.VUE_APP_API_URL}file/upload`,
+    default: `${window.__HOST__URL__ + window.__PREFIX__URL__}file/upload`,
   })
   uploadUrl!: string;
 
@@ -299,7 +299,7 @@ export default class FileUpload extends Vue {
 
   // 下载
   btnDownloadOnClick(scope) {
-    download(`${process.env.VUE_APP_API_URL}file/download`, scope.row.filename, { id: scope.row.id });
+    download(`${this.API_URL}file/download`, scope.row.filename, { id: scope.row.id });
   }
 
   // 删除按钮代理
