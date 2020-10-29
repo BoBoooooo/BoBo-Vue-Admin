@@ -37,43 +37,16 @@
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
-    <!-- 选择表单名称以进行后续操作 -->
-    <el-tooltip class="item"
-                effect="dark"
-                content="如需拉取表单，请输入表单名称。"
-                placement="top">
-      <el-select v-model="selectedForm"
-                size="small"
-                 v-if="formList.length>0"
-                 placeholder="请选择表单"
-                 filterable>
-        <el-option v-for="(form, index) in formList"
-                   :key="index"
-                   :label="form.tableName"
-                   :value="form.tableName"></el-option>
-      </el-select>
-    </el-tooltip>
-    <el-popover placement="bottom-start"
-                width="430"
-                trigger="click">
-      <div class="viewColumn">
-        <h2>功能列
-          <span>{{fieldConfig.filter(c=>c.show).length}}/{{fieldConfig.length}}</span>
-        </h2>
-        <div class="chk-container">
-          <el-checkbox v-for="(column) in fieldConfig"
-                       :key="column.name"
-                       v-model="column.show"
-                       class="chkColumn"
-                       border>
-            {{column.name}}
-          </el-checkbox>
-        </div>
-      </div>
-      <el-button slot="reference" size="small">
-        可视功能<i class="el-icon-arrow-down el-icon--right"></i>
-      </el-button>
-    </el-popover>
+    <el-select v-model="selectedForm"
+              size="small"
+                v-if="formList.length>0"
+                placeholder="请选择表单"
+                filterable>
+      <el-option v-for="(form, index) in formList"
+                  :key="index"
+                  :label="form.tableName"
+                  :value="form.tableName"></el-option>
+    </el-select>
   </el-container>
 </template>
 
@@ -98,11 +71,6 @@ export default {
       default: () => ({
         columns: [],
       }),
-    },
-    // 设计列隐藏
-    fieldConfig: {
-      type: Array,
-      default: () => [],
     },
     minColumnWidth: {
       type: Number,

@@ -22,7 +22,6 @@
     <!-- 菜单栏 -->
     <MenuBar style="float:right"
              :designedJSON.sync="objJSON"
-             :fieldConfig="fieldConfig"
              :minColumnWidth="minColumnWidth" />
     <table class="tableDesigner">
       <thead>
@@ -109,10 +108,8 @@
     </table>
     <code>
       <b>表格配置规则</b><br>
-      1.插槽请勿随意修改，插槽的设置必须与JS代码配合，详细原理请参考BaseTable.vue组件<br>
-      2.表格宽度足够时，以列宽为准。表格字段过多时，设置列宽没有意义，设置最小宽度才能生效。<br>
-      3.请勿把插槽列设置为可检索。客户端排序未开发。从表单获取的options字典信息暂未开发编辑功能。<br>
-      4.请勿随意修改列的顺序，必须严格参考需求文档，如手误修改顺序可以刷新页面放弃修改。<br>
+      1.操作列插槽默认为actionColumn,自定义列插槽为:columnFormatter<br>
+      2.支持通过表单设计json自动生成表格
     </code>
     <!-- 底部按钮栏 -->
     <el-row type="flex"
