@@ -20,7 +20,7 @@
     "compressing": "^1.4.0",
     "core-js": "3.6.5",
     "dayjs": "1.8.20",
-    "element-pro-crud": "^0.1.0-2",
+    "element-pro-crud": "^0.1.1",
     "element-ui": "^2.13.2",
     "inquirer": "^6.5.2",
     "lodash": "^4.17.14",
