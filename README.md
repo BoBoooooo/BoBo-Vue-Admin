@@ -18,17 +18,19 @@
 
 * **权限模块**
 
-* **表单设计器** (基于[vue-form-making](https://github.com/GavinZhuLei/vue-form-making) 开源版本二次开发,感谢大佬!)
-  * 新增下列组件
-  * `附件组件 (FileUpload)`
-  * `文本组件 (h3)`
-  * `按钮组件 (el-button)`
-  * `表格组件 (CrudTable)`
-  * `级联选择器 (el-cascader)`
-  * `富文本编辑器 (Tinymce)`
-  * `树形下拉选择框 (tree-select)`
-* **表格设计器** `基于表单设计json自动生成列表json,可视化配置`
-* **CrudTable** `基于el-table封装,结合表单、表格设计器,动态配置,解放生产力`
+* **[element-pro-crud](https://github.com/BoBoooooo/Element-Pro-Crud.git) 一键Crud插件**
+
+  * **表单设计器** (基于[vue-form-making](https://github.com/GavinZhuLei/vue-form-making) 开源版本二次开发,感谢大佬!)
+    * 新增下列组件
+    * `附件组件 (FileUpload)`
+    * `文本组件 (h3)`
+    * `按钮组件 (el-button)`
+    * `表格组件 (CrudTable)`
+    * `级联选择器 (el-cascader)`
+    * `富文本编辑器 (Tinymce)`
+    * `树形下拉选择框 (tree-select)`
+  * **表格设计器** `基于表单设计json自动生成列表json,可视化配置`
+  * **CrudTable** `基于el-table封装,结合表单、表格设计器,动态配置,解放生产力`
 
 * **后端地址可配置** 
   ``` javascript
