@@ -101,19 +101,19 @@ module.exports = {
       config.plugin('html-assets').use(HtmlWebpackIncludeAssetsPlugin, [
         {
           assets: [
-            '/vue/2.6.11/vue.min.js',
-            '/vuex/3.5.1/vuex.min.js',
-            '/vue-router/3.4.3/vue-router.min.js',
-            '/element-ui/2.13.0/index.js',
-            '/element-ui/2.13.0/theme-chalk/index.css',
-            '/axios/0.19.0-beta.1/axios.min.js',
-            '/lodash.js/4.17.11/lodash.min.js',
-            '/jsoneditor/7.0.5/jsoneditor.min.css',
-            '/jsoneditor/7.0.5/jsoneditor.min.js',
-            '/core-js/2.6.5/shim.min.js',
+            '/vue@2.6.11/dist/vue.min.js',
+            '/vuex@3.5.1/dist/vuex.min.js',
+            '/vue-router@3.4.3/dist/vue-router.min.js',
+            '/element-ui@2.13.2/lib/index.js',
+            '/element-ui@2.13.2/lib/theme-chalk/index.css',
+            '/axios@0.19.2/dist/axios.min.js',
+            '/lodash@4.17.14/lodash.min.js',
+            '/core-js@2.6.5/client/shim.min.js',
+            '/element-pro-crud@0.1.0-2/lib/ProCrud.umd.min.js',
+            '/element-pro-crud@0.1.0-2/lib/ProCrud.css',
           ],
           append: false,
-          publicPath: 'https://cdn.bootcss.com',
+          publicPath: 'https://cdn.jsdelivr.net/npm',
         },
       ]);
     } else {

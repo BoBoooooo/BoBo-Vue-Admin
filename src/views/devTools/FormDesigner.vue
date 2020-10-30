@@ -27,7 +27,7 @@
     </CrudTable>
     <FormDesignerDialog ref="dialog"
                         tableName="dynamictables"
-                        @afterSave="dialogOnClose"
+                        @after-save="dialogOnClose"
                         :remoteFuncs="remoteFuncs" />
   </div>
 </template>
@@ -35,15 +35,11 @@
 <script>
 import { DML, crud } from '@/api/public/crud';
 import { getTables } from '@/api/system/form';
-import FormDesignerDialog from '@/components/BaseDialog/FormDesignerDialog.vue';
 
 import { Vue, Component } from 'vue-property-decorator';
 
 @Component({
   name: 'FormDesigner',
-  components: {
-    FormDesignerDialog,
-  },
 })
 export default class FormDesigner extends Vue {
   remoteFuncs = {
