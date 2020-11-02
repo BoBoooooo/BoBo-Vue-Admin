@@ -9,6 +9,3 @@ declare module '*.vue' {
 
   export default Vue;
 }
-
-declare module 'vuedraggable';
-declare module 'element-pro-crud';

@@ -7,7 +7,6 @@
  */
 import Vue from 'vue';
 import lodash from 'lodash';
-import PinyinMatch from 'pinyin-match';// 拼音匹配
 import dayjs from 'dayjs';
 import axios from '@/plugins/axios';// axios中统一设置Token
 import store from '@/store/index';// store内做了局部持久化
@@ -35,8 +34,6 @@ Vue.prototype.lodash = lodash;
 Vue.prototype.dayjs = dayjs;
 // 阻止vue在启动时生成生产提示
 Vue.config.productionTip = false;
-// 拼音匹配插件
-Vue.prototype.$pinyinmatch = PinyinMatch;
 // 注入全局HOST_URL地址
 Vue.prototype.HOST_URL = window.__HOST__URL__;
 Vue.prototype.API_URL = window.__HOST__URL__ + window.__PREFIX__URL__;
