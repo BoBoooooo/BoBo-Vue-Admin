@@ -13,8 +13,7 @@
     "noImplicitAny": false,
     "baseUrl": ".",
     "types": [
-      "webpack-env",
-      "./../element-ui/types"
+      "webpack-env"
     ],
     "paths": {
       "@/*": [
@@ -31,9 +30,7 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "src/**/*.vue"
   ],
   "exclude": [
     "node_modules"
