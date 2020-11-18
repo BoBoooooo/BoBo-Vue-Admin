@@ -1,40 +1,41 @@
-# BoBo's Vue Admin  
+# BoBo's Vue Admin
 
-( 🚀  `9.19号 Vue3发布`, 本项目暂不考虑迁移)
+( 🚀 `9.19号 Vue3发布`, 本项目暂不考虑迁移)
 
 本项目基于 [Vue CLI 4.x](https://cli.vuejs.org/config/) 构建。
 
 🍌 [在线演示地址](http://server.boboooooo.top:9999/)
 
-🍉   [项目文档](https://github.com/BoBoooooo/BoBo-Vue-Admin/wiki/CrudTable-%E6%96%87%E6%A1%A3/)
+🍉 [项目文档](https://github.com/BoBoooooo/BoBo-Vue-Admin/wiki/CrudTable-%E6%96%87%E6%A1%A3/)
 
-🍏   [配套后端地址](https://github.com/BoBoooooo/NestJS-API-Server.git) (初期阶段)
+🍏 [配套后端地址](https://github.com/BoBoooooo/NestJS-API-Server.git) (初期阶段)
 
 ## 1. 核心功能
 
-* **三员管理** `用户部门角色`
+- **三员管理** `用户部门角色`
 
-* **字典管理**
+- **字典管理**
 
-* **权限模块**
+- **权限模块**
 
-* **[element-pro-crud](https://github.com/BoBoooooo/Element-Pro-Crud.git) 一键Crud插件**
+- **[element-pro-crud](https://github.com/BoBoooooo/Element-Pro-Crud.git) 一键 Crud 插件**
 
-  * **表单设计器(TableDesigner)** (基于[vue-form-making](https://github.com/GavinZhuLei/vue-form-making) 开源版本二次开发,感谢大佬!)
-    * 新增下列组件
-    * `附件组件 (FileUpload)`
-    * `文本组件 (h3)`
-    * `按钮组件 (el-button)`
-    * `表格组件 (CrudTable)`
-    * `级联选择器 (el-cascader)`
-    * `富文本编辑器 (Tinymce)`
-    * `树形下拉选择框 (tree-select)`
-  * **表格设计器(FormDesigner)** `基于表单设计json自动生成列表json,可视化配置`
-  * **CrudTable** `基于el-table封装,结合表单、表格设计器,动态配置,解放生产力`
-  * **GenerateForm** `根据表单设计器json动态渲染表单`
+  - **表单设计器(TableDesigner)** (基于[vue-form-making](https://github.com/GavinZhuLei/vue-form-making) 开源版本二次开发,感谢大佬!)
+    - 新增下列组件
+    - `附件组件 (FileUpload)`
+    - `文本组件 (h3)`
+    - `按钮组件 (el-button)`
+    - `表格组件 (CrudTable)`
+    - `级联选择器 (el-cascader)`
+    - `富文本编辑器 (Tinymce)`
+    - `树形下拉选择框 (tree-select)`
+  - **表格设计器(FormDesigner)** `基于表单设计json自动生成列表json,可视化配置`
+  - **CrudTable** `基于el-table封装,结合表单、表格设计器,动态配置,解放生产力`
+  - **GenerateForm** `根据表单设计器json动态渲染表单`
 
-* **后端地址可配置** 
-  ``` javascript
+- **后端地址可配置**
+
+  ```javascript
     // index.html 生产环境下支持动态修改后端地址,避免重复打包
 
     <!-- 服务器地址 -->
@@ -50,40 +51,46 @@
   ```
 
 ## 2. 开始使用
-* 使用npm安装依赖包
+
+- 使用 npm 安装依赖包
+
 ```
 npm i
 ```
-* 开发环境编译启动及部署
-```
-npm start   
-````
 
-TIPS: 若只启动前端项目,本地运行可以先将后端api地址修改为
-``` 
+- 开发环境编译启动及部署
+
+```
+npm start
+```
+
+TIPS: 若只启动前端项目,本地运行可以先将后端 api 地址修改为
+
+```
 // .env.dev
 
 + VUE_APP_HOST_URL=http://47.100.164.86:7788
 - VUE_APP_HOST_URL=http://localhost:3000
 ```
 
-## 3. eslint规范
+## 3. eslint 规范
 
-默认采用airbnb规范,规则详见 .eslintrc.js
+默认采用 airbnb 规范,规则详见 .eslintrc.js
 
 ## 4. 内置装饰器
+
 有些场景使用装饰器比在代码里面硬编码显得更简单，比如防抖节流，确认提示等等，当前框架内置了一小部分装饰器，更多装饰器正在完善中。
 
 详见 @/decorator
 
-``` javascript
+```javascript
 使用方法 eq:
 
 @confirm('请输入内容','提示')
 confirmCallBack(){
   console.log('我是确认回调');
 }
- 
+
 ```
 
 ## 5. 目录结构
@@ -115,18 +122,20 @@ confirmCallBack(){
 ```
 
 ## 6. 拉取代码时注意事项
+
 ```
 // 提交时转换为LF，检出时不转换
 git config --global core.autocrlf input
 ```
+
 ```
 // 设置为区分大小写
 git config core.ignorecase false
 ```
 
-## 7. Git提交规范
+## 7. Git 提交规范
 
-``` 
+```
 npm run cz
 ```
 
@@ -142,7 +151,14 @@ npm run cz
   - `docs` 文档/注释
   - `chore` 依赖更新/脚手架配置修改等
   - `ci` 持续集成
-  
+
+**如果提示找不到 commitlint 命令,请先全局安装**
+
+```
+cnpm install commitizen -g
+cnpm install @commitlint/config-conventional @commitlint/cli -g
+```
+
 ## 8. 致谢
 
 @ytyang
