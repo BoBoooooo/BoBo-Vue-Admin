@@ -71,7 +71,7 @@ import { mapGetters } from 'vuex';
     ...mapGetters(['config']),
   },
 })
-export default class Login {
+export default class Login extends Vue {
   loginForm = {
     username: '',
     password: '',

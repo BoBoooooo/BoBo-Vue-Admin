@@ -27,7 +27,7 @@ import { Component, Vue } from 'vue-property-decorator';
 @Component({
   name: 'notFound',
 })
-export default class {
+export default class notFound extends Vue {
   goLogin() {
     this.$store.commit('SET_TOKEN', null);
     window.location.reload();

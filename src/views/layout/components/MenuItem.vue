@@ -8,30 +8,26 @@
 <template>
   <div class="menu-wrapper">
     <template v-for="item in routes">
-      <router-link v-if="!item.hidden&&item.children.length===1"
+      <router-link v-if="!item.meta.hidden && item.children && item.children.length===1"
                    :key="item.name"
-                   :to="item.path === '/' ? '/':item.path+'/'+item.children[0].path">
+                   :to="{name:item.children[0].name}">
         <el-tooltip effect="dark"
                     :content="item.children[0].meta.title"
                     placement="right">
-          <el-menu-item :index="item.path === '/' ? '/':item.path+'/'+item.children[0].path">
-            <!-- <SvgIcon v-if="item.icon"
-                    :icon-class="item.icon" /> {{ item.children[0].meta.title }} -->
-            <SvgIcon :icon-class="item.title" /> {{ item.children[0].meta.title }}
+        <el-menu-item :index="item.children[0].name">
+            <SvgIcon :icon-class="item.meta.title" /> {{ item.children[0].meta.title }}
           </el-menu-item>
         </el-tooltip>
       </router-link>
-      <el-submenu v-else-if="!item.noDropdown&&!item.hidden"
+      <el-submenu v-else-if="!item.meta.hidden && item.children"
                   :index="item.name"
                   :key="item.name">
         <template slot="title">
-          <!-- <SvgIcon v-if="item.icon"
-                    :icon-class="item.icon" /> {{ item.title }} -->
-          <SvgIcon :icon-class="item.title" /> {{ item.title }}
+          <SvgIcon :icon-class="item.meta.title" /> {{ item.meta.title }}
         </template>
-        <template v-for="child in item.children"
-                  v-if="!child.hidden">
-          <navmenu-item v-if="child.children&&child.children.length>0"
+              <template v-for="child in item.children.filter(s=> !s.meta.hidden)">
+
+       <menu-item v-if="child.children && child.children.length>0"
                         :key="child.name"
                         :routes="[child]"
                         class="menu-indent" />
@@ -52,6 +48,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import { RouteConfig } from 'vue-router';
 
 @Component({
   name: 'MenuItem',
@@ -59,9 +56,10 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 export default class MenuItem extends Vue {
   @Prop({
     type: Array,
+    required: true,
     default: () => [],
   })
-  routes: any;
+  private routes!: RouteConfig;
 }
 </script>
 

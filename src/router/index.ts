@@ -4,7 +4,6 @@
  *       路由表中属性的作用：
  *       hidden: true 在侧边栏隐藏该菜单
  *       redirect: noredirect 不重定向
- *       noDropdown: true 表示没有子菜单
  *       name: 路由名称，必须设置，用于<keep-alive>
  *       title: 在菜单栏和面包屑上显示的标题
  *       icon: svgIcon icon-class名称等于菜单名称,详见icons/svg/menu
@@ -14,63 +13,43 @@
  * @updateDate 2020年06月17日11:23:04
  */
 import Vue from 'vue';
-import Router from 'vue-router';
+import VueRouter, { RouteConfig } from 'vue-router';
 import Layout from '../views/layout/Layout.vue';
 
-// const originalPush = Router.prototype.push;
-
-// // 处理路由跳转会报错的问题
-// Router.prototype.push = function push(...rest) {
-//   return (originalPush as any).apply(this, rest).catch(err => err);
-// };
-
-Vue.use(Router);
+Vue.use(VueRouter);
 
 // 用于多级菜单时候作为router-view入口用
 const RouteView = () => ({ render: h => h('router-view') });
 
-
-interface RouterType {
-  path: string, // 路由path
-  component?: any, // 引用的组件
-  name?: string, // routerName,切勿重复
-  title?: string, // 此处title同时配置icon名称,如果有需求可自行新增icon属性,修改sidebaritem相关代码
-  hidden?: boolean, // 是否隐藏
-  redirect?: string, // 是否重定向
-  children?: any, // 是否含有二级路由
-  noDropdown?:boolean, // 不显示下拉列表,用于一级菜单的情况
-  meta?:object // 自定义属性
-}
-
-
 // 固定路由表
-export const constantRouterMap:RouterType[] = [
+export const constantRouterMap:RouteConfig[] = [
   {
     path: '/',
     redirect: '/dashboard',
     component: () => import('@/views/layout/Layout.vue'),
-    hidden: true,
+    meta: { hidden: true },
     name: 'dashboard',
   },
-  { path: '/login', component: () => import('@/views/public/Login.vue'), hidden: true },
+  { path: '/login', component: () => import('@/views/public/Login.vue'), meta: { hidden: true } },
   {
-    path: '/404', name: 'notFound', component: () => import('@/views/public/404.vue'), hidden: true,
+    path: '/404', name: 'notFound', component: () => import('@/views/public/404.vue'), meta: { hidden: true },
   },
 ];
 
-export const router = new Router({
+export const router = new VueRouter({
   routes: constantRouterMap,
 });
 
 
 // 异步路由
-const asyncRouter:RouterType[] = [
+const asyncRouter:RouteConfig[] = [
   {
     path: '/dashboard',
     component: Layout,
-    noDropdown: true,
     name: 'dashboardForUser',
-    title: '首页',
+    meta: {
+      title: '首页',
+    },
     redirect: '/dashboard/dashboard',
     children: [{
       path: 'dashboard',
@@ -85,7 +64,9 @@ const asyncRouter:RouterType[] = [
     path: '/system',
     component: Layout,
     name: 'System',
-    title: '系统管理',
+    meta: {
+      title: '系统管理',
+    },
     children: [
       {
         path: 'users',
@@ -111,7 +92,9 @@ const asyncRouter:RouterType[] = [
     path: '/dev-tools',
     component: Layout,
     name: 'DevTools',
-    title: '开发人员工具',
+    meta: {
+      title: '开发人员工具',
+    },
     children: [
       {
         path: 'form-designer',
@@ -133,7 +116,11 @@ const asyncRouter:RouterType[] = [
       },
     ],
   },
-  { path: '*', redirect: '/404', hidden: true },
+  {
+    path: '*',
+    redirect: '/404',
+    meta: { hidden: true },
+  },
 
 ];
 
