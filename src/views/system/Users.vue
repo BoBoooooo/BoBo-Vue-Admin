@@ -96,15 +96,14 @@
 import { Component, Vue, Watch } from 'vue-property-decorator';
 
 import { DML, crud } from '@/api/public/crud';
-import { mapGetters } from 'vuex';
+import { Getter } from 'vuex-class';
 
 @Component({
   name: 'Users',
-  computed: {
-    ...mapGetters(['config']),
-  },
 })
 export default class Users extends Vue {
+  @Getter config;
+
   created() {
     this.loadDeptTree();
   }

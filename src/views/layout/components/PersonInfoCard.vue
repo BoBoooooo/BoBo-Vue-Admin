@@ -60,7 +60,7 @@
 </template>
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { mapGetters } from 'vuex';
+import { Getter } from 'vuex-class';
 import ChangePasswordDialog from '@/components/ChangePasswordDialog/ChangePasswordDialog.vue';
 
 @Component({
@@ -70,6 +70,12 @@ import ChangePasswordDialog from '@/components/ChangePasswordDialog/ChangePasswo
   },
 })
 export default class PersonInfoCard extends Vue {
+  @Getter photo!: string;
+
+  @Getter userid!: string;
+
+  @Getter token!: string;
+
   $refs!: {
     passwordDialog: HTMLFormElement;
   };
@@ -84,17 +90,6 @@ export default class PersonInfoCard extends Vue {
     this.imageUrl = this.photo;
   }
 
-  get photo() {
-    return this.$store.getters.photo;
-  }
-
-  get userid() {
-    return this.$store.getters.userid;
-  }
-
-  get token() {
-    return this.$store.getters.token;
-  }
 
   get uploadUrl() {
     return `${window.__HOST__URL__ + window.__PREFIX__URL__}users/uploadImage`;

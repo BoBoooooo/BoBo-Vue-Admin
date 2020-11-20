@@ -14,22 +14,19 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator';
-import { mapGetters } from 'vuex';
+import { Getter } from 'vuex-class';
 
 @Component({
   name: 'App',
-  computed: {
-    ...mapGetters(['config']),
-  },
 })
 export default class App extends Vue {
+  @Getter config!: SystemConfig;
+
   x = 0;
 
   y = 0;
 
   count = 0;
-
-  config!:any;
 
   $store:any;
 
@@ -38,6 +35,7 @@ export default class App extends Vue {
     if (this.config.clientTimeOut && +this.config.clientTimeOut !== 0) {
       // 全局计时器判断客户端是否长时间未操作,需要可以开启
       this.initTimeOutWatcher();
+      console.log(this.config);
     }
   }
 

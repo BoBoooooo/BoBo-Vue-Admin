@@ -25,8 +25,9 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { mapGetters } from 'vuex';
+import { Getter } from 'vuex-class';
 import themeColor from '@/styles/theme';
+import { RouteConfig } from 'vue-router';
 import MenuItem from './MenuItem.vue';
 
 @Component({
@@ -34,11 +35,10 @@ import MenuItem from './MenuItem.vue';
   components: {
     MenuItem,
   },
-  computed: {
-    ...mapGetters(['routers']),
-  },
 })
 export default class Menu extends Vue {
+  @Getter routers!: RouteConfig;
+
   themeColor = themeColor;
 
   get sidebar() {

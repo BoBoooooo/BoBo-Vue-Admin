@@ -66,14 +66,14 @@ import {
   Component, Vue, Emit, Watch, Prop,
 } from 'vue-property-decorator';
 import checkStrong from '@/utils/checkpassStrong';
-import { mapGetters } from 'vuex';
+import { Getter } from 'vuex-class';
 
-@Component({
-  computed: {
-    ...mapGetters(['config', 'name']),
-  },
-})
+@Component
 export default class ChangePasswordDialog extends Vue {
+  @Getter config!: SystemConfig;
+
+  @Getter name!: string;
+
   @Prop({
     type: Boolean,
     default: true,
@@ -85,10 +85,6 @@ export default class ChangePasswordDialog extends Vue {
     default: '修改密码',
   })
   title!: string;
-
-  config!: any;
-
-  name!: any;
 
   visible = false;
 

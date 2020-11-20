@@ -61,17 +61,16 @@
 <script>
 import { Component, Vue } from 'vue-property-decorator';
 import ChangePasswordDialog from '@/components/ChangePasswordDialog/ChangePasswordDialog.vue';
-import { mapGetters } from 'vuex';
+import { Getter } from 'vuex-class';
 
 @Component({
   components: {
     ChangePasswordDialog,
   },
-  computed: {
-    ...mapGetters(['config']),
-  },
 })
 export default class Login extends Vue {
+  @Getter config;
+
   loginForm = {
     username: '',
     password: '',

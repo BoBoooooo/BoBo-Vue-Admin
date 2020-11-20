@@ -46,7 +46,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { mapGetters } from 'vuex';
+import { Getter } from 'vuex-class';
 import Hamburger from '@/components/Hamburger/Hamburger.vue';
 import themeColor from '@/styles/theme';
 import PersonInfoCard from './PersonInfoCard.vue';
@@ -57,16 +57,16 @@ import PersonInfoCard from './PersonInfoCard.vue';
     Hamburger,
     PersonInfoCard,
   },
-  computed: {
-    ...mapGetters(['menuNum', 'photo', 'config']),
-  },
 })
 export default class Header extends Vue {
+  @Getter config!: SystemConfig;
+
+  @Getter photo!: string;
+
   $refs!: {
     personInfoCard: HTMLFormElement;
   };
 
-  config!: any;
 
   themeColor = themeColor;
 
