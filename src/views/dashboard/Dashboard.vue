@@ -7,7 +7,7 @@
 
 <template>
   <div class="dashboard-container">
-   <iframe width="100%" height="100%" frameborder="0" src="/js/three/index.html"></iframe>
+   <iframe width="100%" height="100%" frameborder="0" src="./js/three/index.html"></iframe>
   </div>
 </template>
 
