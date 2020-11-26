@@ -113,6 +113,7 @@ module.exports = {
             '/element-pro-crud/lib/ProCrud.css',
           ],
           append: false,
+          hash: true,
           publicPath: 'https://cdn.jsdelivr.net/npm',
         },
       ]);
