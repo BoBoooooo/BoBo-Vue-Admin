@@ -1,8 +1,9 @@
-# 0.1.0 (2020-11-20)
+# 0.1.0 (2020-11-26)
 
 ### 🌟 新功能
 范围|描述|commitId
 --|--|--
+ - | 引入vuex-class语法糖 | [0046645](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/0046645)
  axios | 打包后支持动态修改api地址 | [29d6e34](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/29d6e34)
  CrudTable | support tree table lazy load | [4539b49](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/4539b49)
  - | add eslint ignore config (public/*) | [f23a2e4](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/f23a2e4)
@@ -56,6 +57,7 @@
 ### 📝 文档
 范围|描述|commitId
 --|--|--
+ - | 更新线上预览地址 | [cd337e4](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/cd337e4)
  - | update ReadME | [5098e77](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/5098e77)
  - | update README git lint | [d1885dd](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/d1885dd)
  des | 补充部分注释说明 | [a020c8e](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/a020c8e)
@@ -101,8 +103,10 @@
 ### 🚀 性能优化
 范围|描述|commitId
 --|--|--
+ - | 版本升级至[@0](https://github.com/0).3.0 | [77e1643](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/77e1643)
  - | 调整文件位置 | [4782df6](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/4782df6)
  - | 附件,表格组件支持只读属性 | [195baa9](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/195baa9)
+ - | 首页引用改为相对路径 | [9dcd89e](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/9dcd89e)
  - | 新增types文件夹定义全局type | [d8d37b2](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/d8d37b2)
  - | 移除表格设计器多余代码 | [2b90ad8](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/2b90ad8)
  - | change dropdown button | [a3ce816](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/a3ce816)
