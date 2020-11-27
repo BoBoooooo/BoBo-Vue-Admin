@@ -1,4 +1,4 @@
-# 0.1.0 (2020-11-26)
+# 0.1.0 (2020-11-27)
 
 ### 🌟 新功能
 范围|描述|commitId
@@ -158,16 +158,20 @@
 ### chore
 范围|描述|commitId
 --|--|--
+ - | 本地开发移除图片压缩,gzip压缩 | [2358c0a](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/2358c0a)
+ - | element-pro-crud^0.3 | [f1dbab2](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/f1dbab2)
+ - | HtmlWebpackIncludeAssetsPlugin新增hash避免静态资源被缓存 | [9c8e2aa](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/9c8e2aa)
+ - | jsdelivr [@latest](https://github.com/latest) 获取最新版本 | [69a432b](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/69a432b)
+ ElementProCrud | 移除cdn版本号,默认最新版本,升级至0.3.1 | [2ab9d89](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/2ab9d89)
  - | update crud version to 0.2.3 | [e373a68](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/e373a68)
  - | update element-pro-crud version to 0.1.6 | [1713fc4](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/1713fc4)
  changelog | add changelog package | [41bedfa](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/41bedfa)
  package | changelog包移到devDep | [8275b40](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/8275b40)
  package.json | 移除[@types](https://github.com/types)/echart,修改build:dev命令 | [e882593](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/e882593)
  package.json | 移除多余依赖 | [7e63e12](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/7e63e12)
- tsconfig.json | 移除element-ui types | [3782a04](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/3782a04)
- - | 本地开发移除图片压缩,gzip压缩 | [2358c0a](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/2358c0a)
- - | update element-pro-crud@0.1.1 | [6ead449](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/6ead449)
  package.json | git message,eslint 加入git hook | [0ca4a55](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/0ca4a55)
+ tsconfig.json | 移除element-ui types | [3782a04](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/3782a04)
+ - | update element-pro-crud@0.1.1 | [6ead449](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/6ead449)
  vue-cli update | 升级vue cli 3.x -> vue cli 4.x | [b8e62e0](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/b8e62e0)
 
 
