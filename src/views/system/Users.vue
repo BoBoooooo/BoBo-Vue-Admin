@@ -44,7 +44,7 @@
       </el-col>
       <el-col :span="20">
         <CrudTable ref="table"
-                   table-name="users"
+                   tableName="users"
                    :tableTitle="tableTitle"
                    orderCondition="timestamp desc"
                    :remoteFuncs="remoteFuncs"
