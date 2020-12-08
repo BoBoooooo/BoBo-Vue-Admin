@@ -14,7 +14,6 @@
                :btnAddOnClick="btnAddOnClick"
                fullHeight
                :visibleList="{
-                 tableTitle:false,
                  btnDel:true,
                }">
       <template slot="btnCustom"

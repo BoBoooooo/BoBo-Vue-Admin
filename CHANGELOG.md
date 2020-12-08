@@ -1,4 +1,4 @@
-# 0.1.0 (2020-11-27)
+# 0.1.0 (2020-12-08)
 
 ### 🌟 新功能
 范围|描述|commitId
@@ -24,6 +24,7 @@
 范围|描述|commitId
 --|--|--
  - | code style perf | [4083144](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/4083144)
+ - | fix prop name | [d52c563](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/d52c563)
  - | perf some code | [bfffe42](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/bfffe42)
  bg | 删除loginbg、api等 | [27091ee](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/27091ee)
  code | 代码风格调整 | [4b3bc2b](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/4b3bc2b)
@@ -77,6 +78,7 @@
 ### 📦 持续集成
 范围|描述|commitId
 --|--|--
+ env | 修改dev后台端口号 | [e8f5b5c](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/e8f5b5c)
  - | 升级element-pro-crud 至 0.1.2版本 | [f0e397c](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/f0e397c)
  - | 移除多余依赖 | [6053408](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/6053408)
  - | dev port 8888 | [b923308](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/b923308)
@@ -113,6 +115,7 @@
  - | CRUD插件版本更新至[@0](https://github.com/0).2.7 | [654adc2](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/654adc2)
  - | Element-Pro-Crud Update to 0.2.4 | [c68eb99](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/c68eb99)
  - | remove crud component | [46b322e](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/46b322e)
+ - | remove GenerateFormDialog | [537c157](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/537c157)
  - | router typescript 支持 | [da9bcdb](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/da9bcdb)
  - | update version to 0.2.1 | [99076b5](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/99076b5)
  axios | 优化axios部分逻辑 | [6f960c4](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/6f960c4)

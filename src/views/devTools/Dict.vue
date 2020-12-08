@@ -62,7 +62,6 @@
                    :tableParams="tableParams"
                    :remoteFuncs="remoteFuncs"
                    :visibleList="{
-                      tableTitle:false,
                       btnDel:true,
                     }">
         </CrudTable>

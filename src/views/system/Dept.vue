@@ -15,7 +15,6 @@
                  btnExport: false,
                  btnAdd: false,
                  btnDel:true,
-                 tableTitle:false,
                  conditionTitle: false,
                  actionColumnBtnAdd: true,
                }"

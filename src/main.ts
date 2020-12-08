@@ -10,10 +10,10 @@ import lodash from 'lodash';
 import dayjs from 'dayjs';
 import axios from '@/plugins/axios';// axios中统一设置Token
 import store from '@/store/index';// store内做了局部持久化
-import ElementProCrud from 'element-pro-crud';
 import App from './App.vue';// 下方$mount把App.vue挂载到public/index.html
 import { router } from './router';// router内启用了懒加载
 import 'normalize.css';// 重置css
+import '@/plugins/element-pro-crud';// 引入element-pro-crud
 import 'element-pro-crud/lib/ProCrud.css'; // 此处css引入需要放到element-ui css引入之前,避免样式覆盖问题
 
 import '@/plugins/element';// vue-cli3.0以插件形式引入elementui
@@ -21,7 +21,6 @@ import '@/permission'; // 权限控制
 import '@/styles/index.scss'; // 全局样式
 import '@/icons/autoImportSvg'; // 自动导入src/icon目录下的svg图标
 
-Vue.use(ElementProCrud);
 
 /* 这里改写原型链，将axios设置为Vue的原型属性，
 之后可以在组件的methods中使用this.axios发起请求。

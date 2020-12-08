@@ -14,7 +14,6 @@
                :btnAddOnClick="btnAddOnClick"
                fullHeight
                :visibleList="{
-                 tableTitle:false,
                  btnDel:true,
                }">
       <!-- 以后这里会改成form -->
@@ -27,8 +26,7 @@
     </CrudTable>
     <FormDesignerDialog ref="dialog"
                         tableName="dynamictables"
-                        @after-save="dialogOnClose"
-                        :remoteFuncs="remoteFuncs" />
+                        @after-save="dialogOnClose"/>
   </div>
 </template>
 
@@ -42,19 +40,6 @@ import { Vue, Component } from 'vue-property-decorator';
   name: 'FormDesigner',
 })
 export default class FormDesigner extends Vue {
-  remoteFuncs = {
-    getTablesOfDB(resolve) {
-      // 请求表名列表
-      getTables().then((res) => {
-        const options = res.data.map(item => ({
-          label: item.TABLE_NAME,
-          value: item.TABLE_NAME,
-        }));
-        resolve(options);
-      });
-    },
-  };
-
   // 添加按钮点击事件
   btnAddOnClick() {
     this.$refs.dialog.showDialog();

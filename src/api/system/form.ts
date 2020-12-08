@@ -32,6 +32,10 @@ export function getTableDetail(tablename) {
   });
 }
 
+/**
+ * 获取所有表单设计json
+ * @param tablename
+ */
 export function getFormDetail(tablename) {
   return axios({
     url: '/form/detail',
@@ -41,7 +45,7 @@ export function getFormDetail(tablename) {
 }
 
 /**
- *
+ * 获取表中所有字段信息
  * @param {String} tablename
  */
 export function getFormKey(tablename) {
