@@ -1,6 +1,6 @@
 {
   "name": "bobo-vue-adimn",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "author": "BoBo <boboooooo159@gmail.com>",
   "license": "MIT",
@@ -18,7 +18,7 @@
     "axios": "^0.19.2",
     "core-js": "3.6.5",
     "dayjs": "1.8.20",
-    "element-pro-crud": "^0.5",
+    "element-pro-crud": "^0.5.3",
     "element-ui": "^2.13.2",
     "inquirer": "^6.5.2",
     "lodash": "^4.17.14",

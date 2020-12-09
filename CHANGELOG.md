@@ -1,4 +1,4 @@
-# 0.1.0 (2020-12-08)
+# 1.0.0 (2020-12-09)
 
 ### 🌟 新功能
 范围|描述|commitId
@@ -161,6 +161,7 @@
 ### chore
 范围|描述|commitId
 --|--|--
+ ElementProCrud | 修改ProCrud引入方式,升级版本至[@0](https://github.com/0).5.0 | [390c7cd](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/390c7cd)
  - | 本地开发移除图片压缩,gzip压缩 | [2358c0a](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/2358c0a)
  - | element-pro-crud^0.3 | [f1dbab2](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/f1dbab2)
  - | HtmlWebpackIncludeAssetsPlugin新增hash避免静态资源被缓存 | [9c8e2aa](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/9c8e2aa)
@@ -172,9 +173,9 @@
  package | changelog包移到devDep | [8275b40](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/8275b40)
  package.json | 移除[@types](https://github.com/types)/echart,修改build:dev命令 | [e882593](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/e882593)
  package.json | 移除多余依赖 | [7e63e12](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/7e63e12)
- package.json | git message,eslint 加入git hook | [0ca4a55](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/0ca4a55)
  tsconfig.json | 移除element-ui types | [3782a04](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/3782a04)
  - | update element-pro-crud@0.1.1 | [6ead449](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/6ead449)
+ package.json | git message,eslint 加入git hook | [0ca4a55](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/0ca4a55)
  vue-cli update | 升级vue cli 3.x -> vue cli 4.x | [b8e62e0](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/b8e62e0)
 
 
