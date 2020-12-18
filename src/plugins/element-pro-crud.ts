@@ -1,7 +1,7 @@
 /*
  * @file: pro crud 组件注册
  * @author: BoBo
- * @copyright: NanJing Anshare Tech .Com
+ * @copyright: BoBo
  * @Date: 2020-12-08 14:31:55
  */
 import Vue from 'vue';

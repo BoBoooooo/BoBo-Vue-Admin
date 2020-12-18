@@ -1,6 +1,6 @@
 /*
  * @file: websocket
- * @copyright: NanJing Anshare Tech .Com
+ * @copyright: BoBo
  * @author: BoBo
  * @Date: 2019-07-15 12:48:33
  */

@@ -1,6 +1,6 @@
 /*
  * @file: 节流装饰器
- * @copyright: NanJing Anshare Tech .Com
+ * @copyright: BoBo
  * @author: BoBo
  * @Date: 2020年08月19 17:53:46
  */

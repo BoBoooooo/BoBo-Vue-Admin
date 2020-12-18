@@ -61,6 +61,22 @@ const asyncRouter:RouteConfig[] = [
     }],
   },
   {
+    path: '/person',
+    component: Layout,
+    name: 'Person',
+    meta: {
+      title: '员工管理',
+    },
+    children: [
+      {
+        path: 'index',
+        name: 'PersonIndex',
+        component: () => import(/* webpackChunkName: "system" */ '@/views/person/Person.vue'),
+        meta: { title: '员工管理' },
+      },
+    ],
+  },
+  {
     path: '/system',
     component: Layout,
     name: 'System',

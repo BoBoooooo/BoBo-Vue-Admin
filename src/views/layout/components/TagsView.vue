@@ -1,6 +1,6 @@
 <!--
  * @file: tabs
- * @copyright: NanJing Anshare Tech .Com
+ * @copyright: BoBo
  * @author: BoBo
  * @Date: 2020年09月14 18:01:58
 -->

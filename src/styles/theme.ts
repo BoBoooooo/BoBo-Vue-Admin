@@ -1,6 +1,6 @@
 /*
  * @file: 主题色 (siderbar,header)
- * @copyright: NanJing Anshare Tech .Com
+ * @copyright: BoBo
  * @author: BoBo
  * @Date: 2020年10月12 16:13:17
  */

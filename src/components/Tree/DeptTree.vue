@@ -1,6 +1,6 @@
 <!--
  * @file: 部门树结构
- * @copyright: NanJing Anshare Tech .Com
+ * @copyright: BoBo
  * @author: BoBo
  * @Date: 2019-04-08 09:52:18
  -->

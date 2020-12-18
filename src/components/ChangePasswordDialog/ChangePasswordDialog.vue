@@ -1,6 +1,6 @@
 <!--
  * @file: 修改密码弹窗
- * @copyright: NanJing Anshare Tech .Com
+ * @copyright: BoBo
  * @author: BoBo
  * @Date: 2019年10月16 14:42:32
  -->

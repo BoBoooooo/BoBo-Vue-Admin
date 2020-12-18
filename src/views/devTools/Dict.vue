@@ -1,6 +1,6 @@
 <!--
  * @file: 重构字典模块
- * @copyright: NanJing Anshare Tech .Com
+ * @copyright: BoBo
  * @author: BoBo
  * @Date: 2019年12月16日17:33:54
  -->

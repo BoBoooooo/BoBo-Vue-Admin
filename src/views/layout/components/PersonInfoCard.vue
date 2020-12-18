@@ -1,6 +1,6 @@
 <!--
  * @file: 当前用户个人信息card
- * @copyright: NanJing Anshare Tech .Com
+ * @copyright: BoBo
  * @author: BoBo
  * @Date: 2020年02月20 10:02:20
  -->
