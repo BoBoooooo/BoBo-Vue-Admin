@@ -14,7 +14,7 @@
              style="overflow:auto">
           <el-input placeholder="请输入查询内容"
                     v-model="filterText"
-                    size="small"
+                    size="mini"
                     prefix-icon="el-icon-search"> </el-input>
           <!-- 部门树 -->
           <el-tree v-loading="loading"

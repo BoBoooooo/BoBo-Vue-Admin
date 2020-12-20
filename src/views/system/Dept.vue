@@ -12,10 +12,8 @@
                listField="data"
                :visibleList="{
                  searchForm: false,
-                 btnExport: false,
                  btnAdd: false,
                  btnDel:true,
-                 conditionTitle: false,
                  actionColumnBtnAdd: true,
                }"
                :prefill="{

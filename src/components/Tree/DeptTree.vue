@@ -7,7 +7,7 @@
 
 <template>
   <div>
-    <el-input placeholder="请输入查询内容"
+    <el-input size="mini" placeholder="请输入查询内容"
               v-model="filterText"
               prefix-icon="el-icon-search">
     </el-input>

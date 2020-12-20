@@ -70,9 +70,9 @@ export default class MenuItem extends Vue {
 </style>
 <style rel="stylesheet/scss" lang="scss" scoped>
 .SvgIcon {
-  margin-left: -13px;
   width: 22px !important;
   height: 22px !important;
+  margin-right: 5px;
   vertical-align: -0.4em !important;
 }
 .hideSidebar .SvgIcon {

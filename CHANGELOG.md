@@ -1,14 +1,15 @@
-# 1.0.0 (2020-12-09)
+# 1.0.0 (2020-12-20)
 
 ### 🌟 新功能
 范围|描述|commitId
 --|--|--
+ Person | 新增员工管理模块 | [e582fee](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/e582fee)
  - | 引入vuex-class语法糖 | [0046645](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/0046645)
  axios | 打包后支持动态修改api地址 | [29d6e34](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/29d6e34)
+ Calendar | 新增日历插件 | [50d7fee](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/50d7fee)
  CrudTable | support tree table lazy load | [4539b49](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/4539b49)
  - | add eslint ignore config (public/*) | [f23a2e4](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/f23a2e4)
  - | header,menu css样式抽离至@/styles/theme.ts | [c7bf3af](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/c7bf3af)
- Calendar | 新增日历插件 | [50d7fee](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/50d7fee)
  env | 修改开发环境地址,npm启动命令修改 | [280d716](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/280d716)
  GenerateForm | 默认值逻辑调整 | [1fec7b9](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/1fec7b9)
  icon | 新增icon | [f099de9](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/f099de9)
@@ -23,6 +24,7 @@
 ### 🎨 代码样式
 范围|描述|commitId
 --|--|--
+ - | change copyright info | [dd61125](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/dd61125)
  - | code style perf | [4083144](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/4083144)
  - | fix prop name | [d52c563](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/d52c563)
  - | perf some code | [bfffe42](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/bfffe42)
@@ -31,13 +33,13 @@
  code | 修改代码格式 | [5d61230](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/5d61230)
  css | 修改部分样式 | [c95dca8](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/c95dca8)
  fileName | vue文件命名规范调整 | [1d8a277](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/1d8a277)
- layout | 调整UI布局 | [2108fcc](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/2108fcc)
  layout | 修改菜单组件名称 | [d18d5f6](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/d18d5f6)
+ layout | 调整UI布局 | [2108fcc](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/2108fcc)
  layout | 页面样式修改 | [5641a17](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/5641a17)
  lint | eslint --fix | [b373fc5](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/b373fc5)
- Login | 修改登录页背景 | [ddd31df](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/ddd31df)
- Login | 修改登录页样式 | [921f57f](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/921f57f)
  Login | 修改登录页ui | [3984d6c](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/3984d6c)
+ Login | 修改登录页样式 | [921f57f](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/921f57f)
+ Login | 修改登录页背景 | [ddd31df](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/ddd31df)
  router | 移除参数管理页面 | [0361a2e](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/0361a2e)
  svg | 调整svg目录 | [5f649ad](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/5f649ad)
  ui | 修改框架整体布局颜色 | [c71e375](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/c71e375)
@@ -58,20 +60,20 @@
 ### 📝 文档
 范围|描述|commitId
 --|--|--
- - | 更新线上预览地址 | [cd337e4](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/cd337e4)
  - | update ReadME | [5098e77](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/5098e77)
  - | update README git lint | [d1885dd](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/d1885dd)
+ - | 更新线上预览地址 | [cd337e4](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/cd337e4)
  des | 补充部分注释说明 | [a020c8e](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/a020c8e)
  FormDesigner | 表单设计器补充版权说明 | [c1a3504](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/c1a3504)
- README | 补充代码目录结构文档 | [b111ae3](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/b111ae3)
- README | 补充TODO | [785e56f](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/785e56f)
- README | 更新文档 | [1dceedd](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/1dceedd)
- README | 更新在线演示地址 | [98c6d23](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/98c6d23)
- README | 更新TODO,git提交命令 | [70cd2c1](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/70cd2c1)
- README | 新增GIT提交规范相关说明 | [9b3844a](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/9b3844a)
+ README | 修改TODO | [d5e0c88](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/d5e0c88)
  README | 修改部分说明 | [b0ebab3](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/b0ebab3)
  README | 修改部分说明 | [e43d9df](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/e43d9df)
- README | 修改TODO | [d5e0c88](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/d5e0c88)
+ README | 新增GIT提交规范相关说明 | [9b3844a](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/9b3844a)
+ README | 更新TODO,git提交命令 | [70cd2c1](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/70cd2c1)
+ README | 更新在线演示地址 | [98c6d23](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/98c6d23)
+ README | 更新文档 | [1dceedd](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/1dceedd)
+ README | 补充TODO | [785e56f](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/785e56f)
+ README | 补充代码目录结构文档 | [b111ae3](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/b111ae3)
  update | README | [56c3dba](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/56c3dba)
 
 
@@ -79,11 +81,11 @@
 范围|描述|commitId
 --|--|--
  env | 修改dev后台端口号 | [e8f5b5c](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/e8f5b5c)
- - | 升级element-pro-crud 至 0.1.2版本 | [f0e397c](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/f0e397c)
- - | 移除多余依赖 | [6053408](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/6053408)
  - | dev port 8888 | [b923308](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/b923308)
  - | remove IgnorePlugin ,  recovery prefetch | [09d9485](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/09d9485)
  - | remove JSONEditor | [831ff2f](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/831ff2f)
+ - | 升级element-pro-crud 至 0.1.2版本 | [f0e397c](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/f0e397c)
+ - | 移除多余依赖 | [6053408](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/6053408)
 
 
 ### 🔧 测试
@@ -95,8 +97,8 @@
 ### 🔨 代码重构
 范围|描述|commitId
 --|--|--
- - | 移除多余props | [87d1035](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/87d1035)
  - | CRUD插件版本更新至0.2.6 | [a803397](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/a803397)
+ - | 移除多余props | [87d1035](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/87d1035)
  allProject | 同步本地最新代码,全部项目迁移typescript + vue class component | [f6c5288](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/f6c5288)
  CrudTable | 重构CrudTable代码,移除BaseTable | [617b6c6](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/617b6c6)
  tinymce | 移除tinymce及部分其他代码 | [fa6b0ab](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/fa6b0ab)
@@ -105,12 +107,6 @@
 ### 🚀 性能优化
 范围|描述|commitId
 --|--|--
- - | 版本升级至[@0](https://github.com/0).3.0 | [77e1643](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/77e1643)
- - | 调整文件位置 | [4782df6](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/4782df6)
- - | 附件,表格组件支持只读属性 | [195baa9](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/195baa9)
- - | 首页引用改为相对路径 | [9dcd89e](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/9dcd89e)
- - | 新增types文件夹定义全局type | [d8d37b2](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/d8d37b2)
- - | 移除表格设计器多余代码 | [2b90ad8](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/2b90ad8)
  - | change dropdown button | [a3ce816](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/a3ce816)
  - | CRUD插件版本更新至[@0](https://github.com/0).2.7 | [654adc2](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/654adc2)
  - | Element-Pro-Crud Update to 0.2.4 | [c68eb99](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/c68eb99)
@@ -118,27 +114,33 @@
  - | remove GenerateFormDialog | [537c157](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/537c157)
  - | router typescript 支持 | [da9bcdb](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/da9bcdb)
  - | update version to 0.2.1 | [99076b5](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/99076b5)
+ - | 新增types文件夹定义全局type | [d8d37b2](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/d8d37b2)
+ - | 版本升级至[@0](https://github.com/0).3.0 | [77e1643](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/77e1643)
+ - | 移除表格设计器多余代码 | [2b90ad8](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/2b90ad8)
+ - | 调整文件位置 | [4782df6](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/4782df6)
+ - | 附件,表格组件支持只读属性 | [195baa9](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/195baa9)
+ - | 首页引用改为相对路径 | [9dcd89e](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/9dcd89e)
  axios | 优化axios部分逻辑 | [6f960c4](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/6f960c4)
  BaseModule | 表单表格组件代码优化 | [acceaee](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/acceaee)
  BaseTable | 去掉render formatter等基本不用的渲染方式 | [5457d54](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/5457d54)
  code | 代码优化 | [77f08c0](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/77f08c0)
  code | 代码优化,移除冗余代码 | [05e7d32](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/05e7d32)
  crud,config | 传参路径调整 | [c7bc681](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/c7bc681)
- CrudTable | 销毁组件时移除resize事件监听 | [447d0ae](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/447d0ae)
  CrudTable | 优化CrudTable部分代码 | [b946b7d](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/b946b7d)
+ CrudTable | 销毁组件时移除resize事件监听 | [447d0ae](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/447d0ae)
  dashboard | 修改首页,去掉snap过渡特效 | [a950e4b](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/a950e4b)
  Dashboard | 修改首页 | [e375d6d](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/e375d6d)
  echart | 移除echart模块 | [1d85b9e](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/1d85b9e)
  Echart | 去掉自定义Chart组件 | [1bcb5e7](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/1bcb5e7)
  env | 修改env环境变量 | [27b0793](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/27b0793)
- GenerateForm | 补充formTableConfig属性 | [7d38b81](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/7d38b81)
  GenerateForm | 代码优化 | [7a8da09](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/7a8da09)
+ GenerateForm | 补充formTableConfig属性 | [7d38b81](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/7d38b81)
  GenerateFormDialog | 调整表单弹出宽度 | [3ec62a3](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/3ec62a3)
  gitignore | 加入/dist | [956b283](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/956b283)
  headers | headers auth 头改为 Authorization | [5ebdc7d](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/5ebdc7d)
  index,css | 去掉index冗余css,修改页面ico cdn地址 | [d37f1e4](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/d37f1e4)
- license | 开源协议修改为MIT协议 | [06611f8](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/06611f8)
  license | 声明license: Apache-2.0 | [e1928db](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/e1928db)
+ license | 开源协议修改为MIT协议 | [06611f8](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/06611f8)
  log | 移除log模块 | [0914121](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/0914121)
  Login | 更新placeholder | [9443d60](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/9443d60)
  Login | 移除重新输入alert | [978d5e1](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/978d5e1)
@@ -146,8 +148,8 @@
  package | 移除crypto-js | [c63df1f](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/c63df1f)
  page | 移除 | [1cdea97](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/1cdea97)
  props | 修改属性名 | [460d05d](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/460d05d)
- someChange | 代码优化,移除animated.css,watermark | [209ce39](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/209ce39)
  someChange | some Change | [a6af9ff](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/a6af9ff)
+ someChange | 代码优化,移除animated.css,watermark | [209ce39](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/209ce39)
  style | 调整目录结构 | [cd9fe9e](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/cd9fe9e)
  systemTitle | 系统标题读取配置项 | [966d10e](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/966d10e)
  table | 移除导入导出模块 | [d777c79](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/d777c79)
@@ -161,8 +163,9 @@
 ### chore
 范围|描述|commitId
 --|--|--
+ - | element-pro-crud version update to 0.5.4 | [65d81db](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/65d81db)
  ElementProCrud | 修改ProCrud引入方式,升级版本至[@0](https://github.com/0).5.0 | [390c7cd](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/390c7cd)
- - | 本地开发移除图片压缩,gzip压缩 | [2358c0a](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/2358c0a)
+ ElementProCrud | 升级版本0.5.3 | [56d7e1c](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/56d7e1c)
  - | element-pro-crud^0.3 | [f1dbab2](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/f1dbab2)
  - | HtmlWebpackIncludeAssetsPlugin新增hash避免静态资源被缓存 | [9c8e2aa](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/9c8e2aa)
  - | jsdelivr [@latest](https://github.com/latest) 获取最新版本 | [69a432b](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/69a432b)
@@ -171,11 +174,12 @@
  - | update element-pro-crud version to 0.1.6 | [1713fc4](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/1713fc4)
  changelog | add changelog package | [41bedfa](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/41bedfa)
  package | changelog包移到devDep | [8275b40](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/8275b40)
+ package.json | git message,eslint 加入git hook | [0ca4a55](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/0ca4a55)
  package.json | 移除[@types](https://github.com/types)/echart,修改build:dev命令 | [e882593](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/e882593)
  package.json | 移除多余依赖 | [7e63e12](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/7e63e12)
  tsconfig.json | 移除element-ui types | [3782a04](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/3782a04)
  - | update element-pro-crud@0.1.1 | [6ead449](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/6ead449)
- package.json | git message,eslint 加入git hook | [0ca4a55](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/0ca4a55)
+ - | 本地开发移除图片压缩,gzip压缩 | [2358c0a](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/2358c0a)
  vue-cli update | 升级vue cli 3.x -> vue cli 4.x | [b8e62e0](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/b8e62e0)
 
 

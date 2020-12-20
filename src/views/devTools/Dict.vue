@@ -7,45 +7,34 @@
 
 <template>
   <div class="full-height page-container">
-    <el-row :gutter="15"
-            style="height:90%">
-      <el-col :span="5"
-              class="full-height">
-        <el-input placeholder="请输入查询内容"
-                  v-model="filterText"
-                  size="small"
-                  prefix-icon="el-icon-search"></el-input>
-        <el-tree ref="dicttypetree"
-                 class="full-height tree"
-                 :data="typeList"
-                 draggable
-                 @node-drop="afterDropDown"
-                 :props="defaultProps"
-                 :filterNodeMethod="filterNode"
-                 :allow-drag="node=> node.data.parentId !== '0'"
-                 node-key="id"
-                 highlight-current
-                 :default-expanded-keys="['fe980574-2552-4754-88c8-366eb5a22861']"
-                 @node-click="treeClick">
-
+    <el-row :gutter="15" style="height:90%">
+      <el-col :span="5" class="full-height">
+        <el-input  placeholder="请输入查询内容" v-model="filterText" size="mini" prefix-icon="el-icon-search"></el-input>
+        <el-tree
+          ref="dicttypetree"
+          class="full-height tree"
+          :data="typeList"
+          draggable
+          @node-drop="afterDropDown"
+          :props="defaultProps"
+          :filterNodeMethod="filterNode"
+          :allow-drag="(node) => node.data.parentId !== '0'"
+          node-key="id"
+          highlight-current
+          :default-expanded-keys="['fe980574-2552-4754-88c8-366eb5a22861']"
+          @node-click="treeClick"
+        >
           <template v-slot="{ node, data }">
             <span class="custom-tree-node">
               <span>{{ node.label }}</span>
               <span style="margin-left:8px">
-                <el-button type="text"
-                           size="mini"
-                           @click="() => add(data)">
+                <el-button type="text" size="mini" @click="() => add(data)">
                   添加
                 </el-button>
-                <el-button type="text"
-                           size="mini"
-                           @click="() => edit(data)">
+                <el-button type="text" size="mini" @click="() => edit(data)">
                   修改
                 </el-button>
-                <el-button type="text"
-                           size="mini"
-                           v-if="data.parentId!=='0'"
-                           @click="() => remove(data)">
+                <el-button type="text" size="mini" v-if="data.parentId !== '0'" @click="() => remove(data)">
                   删除
                 </el-button>
               </span>
@@ -54,52 +43,41 @@
         </el-tree>
       </el-col>
       <el-col :span="19">
-        <CrudTable tableName="ad_codelist"
-                   ref="codeListTable"
-                   orderCondition="timestamp desc"
-                   fullHeight
-                   :prefill="tableParams"
-                   :tableParams="tableParams"
-                   :remoteFuncs="remoteFuncs"
-                   :visibleList="{
-                      btnDel:true,
-                    }">
+        <CrudTable
+          tableName="ad_codelist"
+          ref="codeListTable"
+          orderCondition="timestamp desc"
+          fullHeight
+          :prefill="tableParams"
+          :tableParams="tableParams"
+          :remoteFuncs="remoteFuncs"
+          :visibleList="{
+            btnDel: true,
+          }"
+        >
         </CrudTable>
       </el-col>
-
     </el-row>
-    <el-dialog :title="textMap[dialogStatus]"
-               v-model="dialogFormVisible"
-               width="80%">
-
-      <el-form ref="form"
-               :model="entity"
-               label-width="80px">
+    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible" width="80%">
+      <el-form ref="form" :model="entity" label-width="80px">
         <el-form-item label="类目名">
-          <el-input v-model="entity.codeName"></el-input>
+          <el-input v-model="entity.typeName"></el-input>
         </el-form-item>
         <el-form-item label="排序码">
           <el-input-number v-model="entity.codeOrder"></el-input-number>
         </el-form-item>
         <el-form-item label="备注">
-          <el-input type="textarea"
-                    v-model="entity.remark"></el-input>
+          <el-input type="textarea" v-model="entity.remark"></el-input>
         </el-form-item>
-
       </el-form>
       <template v-slot:footer>
         <div class="dialog-footer">
           <el-button @click="dialogFormVisible = false">取 消</el-button>
-          <el-button v-if="dialogStatus=== 0 "
-                     type="primary"
-                     @click="save">新 增</el-button>
-          <el-button v-else
-                     type="primary"
-                     @click="save">修 改</el-button>
+          <el-button v-if="dialogStatus === 0" type="primary" @click="save">新 增</el-button>
+          <el-button v-else type="primary" @click="save">修 改</el-button>
         </div>
       </template>
     </el-dialog>
-
   </div>
 </template>
 
@@ -141,7 +119,7 @@ export default class Dict extends Vue {
 
   entity = {
     id: '',
-    codeName: '',
+    typeName: '',
     codeValue: '',
     parentId: '',
     codeOrder: 0,

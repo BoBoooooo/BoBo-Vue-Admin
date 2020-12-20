@@ -127,7 +127,7 @@ export default class Header extends Vue {
   .hamburger-container {
     display: block;
     position: absolute;
-    top: 20px;
+    top: 22px;
     right: 280px;
   }
   .logo {

@@ -167,10 +167,6 @@ export default class TagsView extends Vue {
   position: relative;
   z-index: 4;
   background-color: white;
-  .hamburger-container {
-    float: left;
-    padding: 10px 0 0 11px;
-  }
   .tags-view-wrapper {
     background: #fff;
     height: 40px;

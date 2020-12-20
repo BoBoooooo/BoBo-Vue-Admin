@@ -271,13 +271,6 @@ export default class ChangePasswordDialog extends Vue {
     position: relative;
     top: 0.5em;
   }
-  .hamburger-container {
-    display: block;
-    position: absolute;
-    top: 1.3em;
-    left: 3em;
-    color: #fff;
-  }
 }
 
 // 姓名及下拉菜单

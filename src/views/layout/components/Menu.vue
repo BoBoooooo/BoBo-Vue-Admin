@@ -55,7 +55,6 @@ export default class Menu extends Vue {
 .menu {
   top: 64px;
   width: 220px;
-  padding-left:15px;
   bottom: 0;
   left: 0 !important;
   right: none !important;
