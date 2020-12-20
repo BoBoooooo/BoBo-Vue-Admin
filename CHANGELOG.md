@@ -99,6 +99,7 @@
 --|--|--
  - | CRUD插件版本更新至0.2.6 | [a803397](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/a803397)
  - | 移除多余props | [87d1035](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/87d1035)
+ - | 移除部分冗余代码 | [862cce1](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/862cce1)
  allProject | 同步本地最新代码,全部项目迁移typescript + vue class component | [f6c5288](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/f6c5288)
  CrudTable | 重构CrudTable代码,移除BaseTable | [617b6c6](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/617b6c6)
  tinymce | 移除tinymce及部分其他代码 | [fa6b0ab](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/fa6b0ab)

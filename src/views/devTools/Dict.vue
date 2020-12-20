@@ -46,7 +46,7 @@
         <CrudTable
           tableName="ad_codelist"
           ref="codeListTable"
-          orderCondition="timestamp desc"
+          orderCondition="codeOrder asc"
           fullHeight
           :prefill="tableParams"
           :tableParams="tableParams"
