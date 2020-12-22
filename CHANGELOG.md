@@ -1,4 +1,4 @@
-# 1.0.0 (2020-12-20)
+# 1.0.0 (2020-12-22)
 
 ### 🌟 新功能
 范围|描述|commitId
@@ -164,6 +164,7 @@
 ### chore
 范围|描述|commitId
 --|--|--
+ Element-Pro-Crud | 升级插件版本[@0](https://github.com/0).7.0,新增dev开发人员模式支持动态修改表单表格,修复已知bug | [eaa6d4f](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/eaa6d4f)
  - | element-pro-crud version update to 0.5.4 | [65d81db](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/65d81db)
  ElementProCrud | 修改ProCrud引入方式,升级版本至[@0](https://github.com/0).5.0 | [390c7cd](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/390c7cd)
  ElementProCrud | 升级版本0.5.3 | [56d7e1c](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/56d7e1c)

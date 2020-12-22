@@ -143,7 +143,7 @@ export default class PersonInfoCard extends Vue {
   cursor: pointer;
 }
 .avatar-uploader {
-  /deep/.el-upload {
+  ::v-deep.el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;
     cursor: pointer;

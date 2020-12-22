@@ -67,15 +67,15 @@ export default class Menu extends Vue {
   &.hideSidebar {
     width: 64px;
     padding: 0;
-    /deep/.el-submenu__title,
-    /deep/.el-menu-item {
+    ::v-deep.el-submenu__title,
+    ::v-deep.el-menu-item {
       padding-left: 16px !important;
       height: auto;
     }
-     /deep/.el-submenu {
+     ::v-deep.el-submenu {
       padding-left: 0 !important;
     }
-    /deep/.el-submenu__icon-arrow {
+    ::v-deep.el-submenu__icon-arrow {
       display: none;
     }
   }

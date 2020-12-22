@@ -36,19 +36,19 @@
     "vuex-persistedstate": "3.1.0"
   },
   "devDependencies": {
-    "conventional-changelog-cli": "^2.1.0",
-    "compression-webpack-plugin": "^4.0.0",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",
     "@vue/cli-plugin-babel": "4.5.4",
     "@vue/cli-plugin-eslint": "4.5.4",
     "@vue/cli-plugin-typescript": "4.5.4",
     "@vue/cli-plugin-unit-mocha": "4.5.4",
-    "@vue/cli-service": "^3.9.2",
+    "@vue/cli-service": "^4.5.4",
     "@vue/eslint-config-airbnb": "^4.0.1",
     "@vue/eslint-config-typescript": "^5.0.2",
     "babel-eslint": "^10.0.2",
     "chai": "^4.2.0",
+    "compression-webpack-plugin": "^4.0.0",
+    "conventional-changelog-cli": "^2.1.0",
     "eslint": "^6.0.1",
     "eslint-plugin-import": "^2.18.0",
     "eslint-plugin-vue": "^5.2.3",
@@ -56,8 +56,9 @@
     "husky": "^3.1.0",
     "image-webpack-loader": "^6.0.0",
     "lint-staged": "^9.2.0",
-    "node-sass": "^4.12.0",
-    "sass-loader": "^7.1.0",
+    "right-pad": "^1.0.1",
+    "sass": "^1.30.0",
+    "sass-loader": "10.1.0",
     "svgo-loader": "2.2.1",
     "typescript": "~3.8.3",
     "vue-cli-plugin-axios": "0.0.4",
@@ -65,8 +66,7 @@
     "vue-cli-plugin-element": "^1.0.1",
     "vue-template-compiler": "2.6.11",
     "webpack": "^4.35.3",
-    "webpack-bundle-analyzer": "^3.3.2",
-    "right-pad": "^1.0.1"
+    "webpack-bundle-analyzer": "^3.3.2"
   },
   "husky": {
     "hooks": {

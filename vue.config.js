@@ -96,6 +96,7 @@ module.exports = {
         lodash: '_',
         jsoneditor: 'JSONEditor',
         'core-js': 'core',
+        'element-pro-crud': 'ProCrud',
       });
       // 向模板插入资源
       config.plugin('html-assets').use(HtmlWebpackIncludeAssetsPlugin, [
@@ -135,5 +136,13 @@ module.exports = {
         minRatio: 0.8,
       }));
     }
+  },
+  css: {
+    loaderOptions: {
+      sass: {
+        // eslint-disable-next-line global-require
+        implementation: require('sass'), // This line must in sass option
+      },
+    },
   },
 };
