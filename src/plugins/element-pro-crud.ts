@@ -9,7 +9,13 @@ import ElementProCrud from 'element-pro-crud';
 import { crud } from '@/api/public/crud';
 import * as pluginsApi from '@/api/system/form';
 
-Vue.use(ElementProCrud, {
+const $PROCRUD_OPTION = {
   ...pluginsApi,
   crud,
-});
+};
+// 通过cdn挂载插件时无法传入指定options,直接挂在原型链
+if (process.env.VUE_APP_CDN === 'true') {
+  Vue.prototype.$PROCRUD = $PROCRUD_OPTION;
+} else {
+  Vue.use(ElementProCrud, $PROCRUD_OPTION);
+}
