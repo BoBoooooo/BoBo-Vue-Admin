@@ -74,6 +74,7 @@ module.exports = {
       // 向html模板注入 服务端URL地址,用于生产环境动态修改
       options[0].HOST_URL = process.env.VUE_APP_HOST_URL;
       options[0].PREFIX_URL = process.env.VUE_APP_API_URL;
+      options[0].CHAT_URL = process.env.VUE_APP_CHAT_URL;
       return options;
     });
     // 是否在打包时输出分析报告

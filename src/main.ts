@@ -36,6 +36,7 @@ Vue.config.productionTip = false;
 // 注入全局HOST_URL地址
 Vue.prototype.HOST_URL = window.__HOST__URL__;
 Vue.prototype.API_URL = window.__HOST__URL__ + window.__PREFIX__URL__;
+Vue.prototype.CHAT_URL = window.__CHAT__URL__;
 
 new Vue({
   router,

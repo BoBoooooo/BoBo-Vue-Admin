@@ -25,6 +25,8 @@
                  :class="{
                    isActive:!sidebar
                  }" />
+      <!-- 即时通讯 -->
+      <OnlineChat></OnlineChat>
       <!-- 姓名及下拉菜单 -->
       <div class="user-container">
         <img :src="photo"
@@ -49,6 +51,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import { Getter } from 'vuex-class';
 import Hamburger from '@/components/Hamburger/Hamburger.vue';
 import themeColor from '@/styles/theme';
+import OnlineChat from '@/components/OnlineChat/OnlineChat.vue';
 import PersonInfoCard from './PersonInfoCard.vue';
 
 @Component({
@@ -56,6 +59,7 @@ import PersonInfoCard from './PersonInfoCard.vue';
   components: {
     Hamburger,
     PersonInfoCard,
+    OnlineChat,
   },
 })
 export default class Header extends Vue {
@@ -128,7 +132,7 @@ export default class Header extends Vue {
     display: block;
     position: absolute;
     top: 22px;
-    right: 280px;
+    right: 240px;
   }
   .logo {
     width: 2em;

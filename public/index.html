@@ -24,6 +24,12 @@
       window.__PREFIX__URL__ = '<%= htmlWebpackPlugin.options.PREFIX_URL%>';
     </script>
     <% } %>
+    <!-- IM地址 -->
+    <% if (htmlWebpackPlugin.options.CHAT_URL) { %>
+    <script>
+      window.__CHAT__URL__ = '<%= htmlWebpackPlugin.options.CHAT_URL%>';
+    </script>
+    <% } %>
   </head>
   <body>
     <noscript>

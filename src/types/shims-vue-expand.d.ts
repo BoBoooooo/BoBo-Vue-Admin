@@ -21,6 +21,7 @@ declare module 'vue/types/vue' {
     $pinyinmatch: any;
     HOST_URL: any;
     API_URL: any;
+    CHAT_URL: any;
   }
 }
 
@@ -28,6 +29,7 @@ declare global {
   interface Window  {
     __HOST__URL__: string;
     __PREFIX__URL__: string;
+    __CHAT__URL__: string;
   }
 }
 
