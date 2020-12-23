@@ -1,7 +1,7 @@
 /**
  * @file vuex.vuejs.org/zh
  * @author BoBo
- * @copyright NanJing Anshare Tech .Com
+ * @copyright BoBo
  * @createDate 2018年11月13日18:09:59
  */
 import Vue from 'vue';

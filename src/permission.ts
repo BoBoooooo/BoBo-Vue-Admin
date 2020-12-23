@@ -1,7 +1,7 @@
 /**
  * @file 全局请求权限控制，本文件在main.js中引用
  * @author BoBo
- * @copyright NanJing Anshare Tech .Com
+ * @copyright BoBo
  * @createDate 2018年11月13日10:58:43
  */
 

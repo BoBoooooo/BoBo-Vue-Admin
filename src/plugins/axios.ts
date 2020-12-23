@@ -1,7 +1,7 @@
 /**
  * @file 封装原生axios，在main.ts和api层引用本文件
  * @author BoBo
- * @copyright NanJing Anshare Tech .Com
+ * @copyright BoBo
  * @createDate 2018年11月13日10:52:32
  */
 import axios from 'axios';

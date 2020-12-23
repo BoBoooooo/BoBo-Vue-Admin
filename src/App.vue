@@ -3,7 +3,7 @@
       main.js中new Vue时将本文件渲染到public/index.html模板中
       注意使用vue-cli3安装插件时备份本文件，官方提示其可能会被覆盖
 @author BoBo
-@copyright NanJing Anshare Tech .Com
+@copyright BoBo
 @createDate 2018年11月13日11:17:17
 -->
 <template>

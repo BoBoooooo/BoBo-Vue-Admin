@@ -1,7 +1,7 @@
 <!--
 @file 顶部收缩按钮
 @author BoBo
-@copyright NanJing Anshare Tech .Com
+@copyright BoBo
 @createDate 2018年12月23日19:29:43
 -->
 <!-- eslint-disable -->

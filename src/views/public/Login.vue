@@ -1,7 +1,7 @@
 <!--
 @file 登录页
 @author BoBo
-@copyright NanJing Anshare Tech .Com
+@copyright BoBo
 @createDate 2020年09月10日10:50:36
 -->
 <template>

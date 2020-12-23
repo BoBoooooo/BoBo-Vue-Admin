@@ -1,7 +1,7 @@
 /**
  * @file 用户数据
  * @author BoBo
- * @copyright NanJing Anshare Tech .Com
+ * @copyright BoBo
  * @createDate 2018年11月13日20:24:53
  */
 import {

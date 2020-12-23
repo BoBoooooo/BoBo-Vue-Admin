@@ -2,7 +2,7 @@
  * @file webpack入口文件，主要作用是初始化vue实例并挂载插件
  *       vue-cli3约定大于配置，@vue/cli-service默认读取本文件配置传递给webpack
  * @author BoBo
- * @copyright NanJing Anshare Tech .Com
+ * @copyright BoBo
  * @createDate 2018年11月13日10:56:55
  */
 import Vue from 'vue';

@@ -2,7 +2,7 @@
  * @file vue自定义配置，如果存在会被@vue/cli-service自动加载
  *       https://cli.vuejs.org/zh/config/#vue-config-js
  * @author BoBo
- * @copyright NanJing Anshare Tech .Com
+ * @copyright BoBo
  * @createDate 2018年11月13日16:49:39
  */
 // eslint-disable-next-line import/no-extraneous-dependencies

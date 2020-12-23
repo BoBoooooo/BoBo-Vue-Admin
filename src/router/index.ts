@@ -8,7 +8,7 @@
  *       title: 在菜单栏和面包屑上显示的标题
  *       icon: svgIcon icon-class名称等于菜单名称,详见icons/svg/menu
  *       noCache: true 不缓存页面，默认缓存
- * @copyright NanJing Anshare Tech .Com
+ * @copyright BoBo
  * @author BoBo
  * @updateDate 2020年06月17日11:23:04
  */

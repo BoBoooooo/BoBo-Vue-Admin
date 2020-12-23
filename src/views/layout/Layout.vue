@@ -1,7 +1,7 @@
 <!--
 @file 框架页布局
 @author BoBo
-@copyright NanJing Anshare Tech .Com
+@copyright BoBo
 @createDate 2018年11月13日14:50:08
 -->
 <template>

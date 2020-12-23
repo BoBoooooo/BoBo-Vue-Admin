@@ -2,7 +2,7 @@
 @file 本页面用于加载其他二级路由对应的子页面，被layout/layout.vue引用
       嵌套顺序App.vue->Layout.vue->AppMain.vue
 @author ytyang
-@copyright NanJing Anshare Tech .Com
+@copyright BoBo
 @createDate 2018年11月13日14:48:28
 -->
 <template>

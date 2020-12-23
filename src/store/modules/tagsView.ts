@@ -1,7 +1,7 @@
 /**
  * @file 顶部标签页切换组件数据
  * @author BoBo
- * @copyright NanJing Anshare Tech .Com
+ * @copyright BoBo
  * @createDate 2018年11月13日20:28:55
  */
 import forEach from 'lodash/forEach';

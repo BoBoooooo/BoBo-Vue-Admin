@@ -1,7 +1,7 @@
 /**
  * @file 文件下载
  * @author BoBo
- * @copyright NanJing Anshare Tech .Com
+ * @copyright BoBo
  * @createDate 2018年11月18日08:13:10
  */
 import axios from '@/plugins/axios';

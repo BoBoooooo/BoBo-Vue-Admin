@@ -1,7 +1,7 @@
 <!--
 @file 菜单
 @author BoBo
-@copyright NanJing Anshare Tech .Com
+@copyright BoBo
 @createDate 2019-09-05 21:55:47
 -->
 <template>

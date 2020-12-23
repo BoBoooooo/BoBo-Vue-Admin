@@ -1,7 +1,7 @@
 <!--
 @file 动态表单设计器
 @author BoBo
-@copyright NanJing Anshare Tech .Com
+@copyright BoBo
 @createDate 2018年12月13日21:06:23
 -->
 <template>

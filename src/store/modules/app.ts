@@ -1,7 +1,7 @@
 /**
  * @file 框架页数据
  * @author BoBo
- * @copyright NanJing Anshare Tech .Com
+ * @copyright BoBo
  * @createDate 2018年11月13日20:35:59
  */
 import getSystemConfig from '@/api/system/config';
