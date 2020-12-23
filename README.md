@@ -18,7 +18,9 @@
 
 - **权限模块**
 
-- **[element-pro-crud](https://github.com/BoBoooooo/Element-Pro-Crud.git) 一键 Crud 插件**
+- **[在线聊天(Tyloo-Chat)](http://server.boboooooo.top:9999)**
+
+- **[Element-Pro-Crud](https://github.com/BoBoooooo/Element-Pro-Crud.git) 一键 Crud 插件**
 
   - **表单设计器(TableDesigner)** (基于[vue-form-making](https://github.com/GavinZhuLei/vue-form-making) 开源版本二次开发,感谢大佬!)
     - 新增下列组件
@@ -162,5 +164,4 @@ cnpm install @commitlint/config-conventional @commitlint/cli -g
 ## 8. 致谢
 
 @ytyang
-
 @GavinZhuLei
