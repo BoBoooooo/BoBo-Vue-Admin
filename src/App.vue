@@ -35,7 +35,6 @@ export default class App extends Vue {
     if (this.config.clientTimeOut && +this.config.clientTimeOut !== 0) {
       // 全局计时器判断客户端是否长时间未操作,需要可以开启
       this.initTimeOutWatcher();
-      console.log(this.config);
     }
   }
 
