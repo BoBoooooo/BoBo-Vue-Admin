@@ -104,7 +104,6 @@ export default class Login extends Vue {
               path: '/',
             })
             .catch((error) => {
-              console.info(error.message);
             });
         })
         .catch((error) => {
