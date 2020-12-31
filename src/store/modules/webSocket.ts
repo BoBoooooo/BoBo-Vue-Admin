@@ -30,16 +30,14 @@ const webSocket = {
       let ws = new WebSocket(wsuri);
       commit('SET_WEBSOCKET', ws);
       ws.onopen = () => {
-        console.log('WebSocket连接成功');
         setInterval(() => {
-          console.log('ping');
           ws.send('ping');
         }, 180000);
       };
       ws.onmessage = (e) => {
         // success代表服务器通信成功(心跳包检测)
         if (e.data.includes('success')) {
-          console.log(e.data);
+          // console.log(e.data);
         } else {
           commit('RESET_DATA');
           commit('SET_DATA', e.data);
