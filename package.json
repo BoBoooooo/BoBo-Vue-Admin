@@ -6,9 +6,8 @@
   "license": "MIT",
   "scripts": {
     "start": "vue-cli-service serve --mode dev",
-    "build:out": "vue-cli-service build --mode out",
-    "build:dev": "vue-cli-service build --mode dev",
-    "report:out": "vue-cli-service build --mode report",
+    "build": "vue-cli-service build --mode out",
+    "report": "vue-cli-service build --mode report",
     "lint": "vue-cli-service lint --mode dev",
     "inspect": "vue-cli-service inspect --mode out>webpackConfig.txt",
     "log": "conventional-changelog --config ./node_modules/vue-cli-plugin-commitlint/lib/log -i CHANGELOG.md -s -r 0",
