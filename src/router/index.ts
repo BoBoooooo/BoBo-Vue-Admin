@@ -114,14 +114,14 @@ const asyncRouter:RouteConfig[] = [
     children: [
       {
         path: 'form-designer',
-        name: 'FormDesigner',
-        component: () => import(/* webpackChunkName: "dev" */ '@/views/devTools/FormDesigner.vue'),
+        name: 'FormDesignerModule',
+        component: () => import(/* webpackChunkName: "dev" */ '@/views/devTools/FormDesignerModule.vue'),
         meta: { title: '表单设计' },
       },
       {
         path: 'table-designer',
-        name: 'TableDesigner',
-        component: () => import(/* webpackChunkName: "dev" */ '@/views/devTools/TableDesigner.vue'),
+        name: 'TableDesignerModule',
+        component: () => import(/* webpackChunkName: "dev" */ '@/views/devTools/TableDesignerModule.vue'),
         meta: { title: '表格设计' },
       },
       {
