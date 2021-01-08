@@ -24,7 +24,7 @@
     </CrudTable>
     <!-- 对话框 -->
     <el-dialog v-if="visible" ref="dialog" top="10vh" class="dialog" :visible.sync="visible" width="95%" append-to-body>
-      <TableDesigner :allTables="allTables" ref="tableDesigner" />
+      <TableDesigner :formList="formList" :allTables="allTables" ref="tableDesigner" />
 
       <!-- 底部按钮栏 -->
       <el-row type="flex" justify="end">
@@ -53,6 +53,8 @@ export default class TableDesignerModule extends Vue {
 
   allTables = [];
 
+  formList = [];
+
   btnSaveIsLoading = false;
 
   formValues = {};
@@ -63,6 +65,9 @@ export default class TableDesignerModule extends Vue {
         label: item.TABLE_NAME,
         value: item.TABLE_NAME,
       }));
+    });
+    crud(DML.SELECT, 'form').then((res) => {
+      this.formList = res.data.list;
     });
   }
 
@@ -100,7 +105,9 @@ export default class TableDesignerModule extends Vue {
       type = DML.UPDATE;
       msg = '编辑成功';
     }
-
+    tableDesignerJson.name = tableDesignerJson.name || this.formValues.tableName;
+    tableDesignerJson.position = tableDesignerJson.position || this.formValues.position;
+    console.log(tableDesignerJson);
     crud(type, 'dynamictables', {
       ...this.formValues,
       tableName: tableDesignerJson.name,
