@@ -24,7 +24,7 @@
     </CrudTable>
     <!-- 对话框 -->
     <el-dialog v-if="visible" ref="dialog" top="10vh" class="dialog" :visible.sync="visible" width="95%" append-to-body>
-      <TableDesigner :formList="formList" :allTables="allTables" ref="tableDesigner" />
+      <TableDesigner :dictList="dictList" :formList="formList" :allTables="allTables" ref="tableDesigner" />
 
       <!-- 底部按钮栏 -->
       <el-row type="flex" justify="end">
@@ -55,6 +55,8 @@ export default class TableDesignerModule extends Vue {
 
   formList = [];
 
+  dictList = [];
+
   btnSaveIsLoading = false;
 
   formValues = {};
@@ -68,6 +70,12 @@ export default class TableDesignerModule extends Vue {
     });
     crud(DML.SELECT, 'form').then((res) => {
       this.formList = res.data.list;
+    });
+    crud(DML.SELECT, 'ad_codelist_type').then((res) => {
+      this.dictList = res.data.list.map(item => ({
+        label: item.typeName,
+        value: item.codeValue,
+      }));
     });
   }
 
