@@ -16,7 +16,14 @@
       :visibleList="{
         btnDel: true,
       }"
-    />
+    >
+      <template #column_jobno="{row}">
+        <el-tag>{{ row.jobno }}</el-tag>
+      </template>
+      <template #column_personname="{row}">
+        <span><i class="el-icon el-icon-user" style="color: red"></i>{{ row.personname }}</span>
+      </template>
+    </CrudTable>
   </div>
 </template>
 
