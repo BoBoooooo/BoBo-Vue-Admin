@@ -115,7 +115,6 @@ export default class TableDesignerModule extends Vue {
     }
     tableDesignerJson.name = tableDesignerJson.name || this.formValues.tableName;
     tableDesignerJson.position = tableDesignerJson.position || this.formValues.position;
-    console.log(tableDesignerJson);
     crud(type, 'dynamictables', {
       ...this.formValues,
       tableName: tableDesignerJson.name,
