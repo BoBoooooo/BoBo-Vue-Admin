@@ -15,6 +15,7 @@
       orderCondition="timestamp desc"
       :visibleList="{
         btnDel: true,
+        tableTitle: true
       }"
     >
       <template #column_jobno="{row}">

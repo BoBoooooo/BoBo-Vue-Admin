@@ -74,7 +74,7 @@ export default class TableDesignerModule extends Vue {
     crud(DML.SELECT, 'ad_codelist_type').then((res) => {
       this.dictList = res.data.list.map(item => ({
         label: item.typeName,
-        value: item.codeValue,
+        value: item.id,
       }));
     });
   }
