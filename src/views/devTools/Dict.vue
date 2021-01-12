@@ -64,7 +64,7 @@
           <el-input v-model="entity.typeName"></el-input>
         </el-form-item>
         <el-form-item label="排序码">
-          <el-input-number v-model="entity.codeOrder"></el-input-number>
+          <el-input-number v-model="entity.order"></el-input-number>
         </el-form-item>
         <el-form-item label="备注">
           <el-input type="textarea" v-model="entity.remark"></el-input>
@@ -183,14 +183,15 @@ export default class Dict extends Vue {
   }
 
   save() {
-    this.entity.codeValue = this.entity.codeName;
+    const opt = JSON.parse(JSON.stringify(this.entity));
+    delete opt.children;
     if (this.dialogStatus === STATUS.CREATE) {
-      crud(DML.INSERT, 'ad_codelist_type', this.entity).then(() => {
+      crud(DML.INSERT, 'ad_codelist_type', opt).then(() => {
         this.fetchDictType();
         this.dialogFormVisible = false;
       });
     } else {
-      crud(DML.UPDATE, 'ad_codelist_type', this.entity).then(() => {
+      crud(DML.UPDATE, 'ad_codelist_type', opt).then(() => {
         this.fetchDictType();
         this.dialogFormVisible = false;
       });
