@@ -25,7 +25,7 @@
     <el-dialog v-if="visible" ref="dialog" fullscreen class="dialog" :visible.sync="visible" append-to-body>
       <FormDesigner ref="formDesigner" :getFormKey="getFormKey" :allTables="allTables">
         <template #custom-btn>
-          <el-button type="text" size="small" @click="btnSaveOnClick" :loading="btnSaveIsLoading">保存</el-button>
+          <el-button type="normal" size="small" @click="btnSaveOnClick" :loading="btnSaveIsLoading">保存</el-button>
         </template>
       </FormDesigner>
     </el-dialog>
