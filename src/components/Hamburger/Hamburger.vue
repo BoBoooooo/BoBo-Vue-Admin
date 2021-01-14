@@ -49,9 +49,9 @@ export default {
 .hamburger {
   display: inline-block;
   cursor: pointer;
-  width: 20px;
+  width: 16px;
   fill:currentColor;
-  height: 20px;
+  height: 16px;
   transform: rotate(90deg);
   transition: 0.38s;
   transform-origin: 50% 50%;

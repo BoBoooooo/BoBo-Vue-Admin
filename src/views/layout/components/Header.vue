@@ -21,12 +21,17 @@
       <!-- 折叠侧边栏按钮 -->
       <Hamburger :toggle-click="toggleSideBar"
                  :is-active="!!sidebar"
+                 :style="{
+          color:themeColor.header.textColor
+        }"
                  class="hamburger-container"
                  :class="{
                    isActive:!sidebar
                  }" />
       <!-- 即时通讯 -->
-      <OnlineChat></OnlineChat>
+      <OnlineChat :style="{
+          color:themeColor.header.textColor
+        }"></OnlineChat>
       <!-- 姓名及下拉菜单 -->
       <div class="user-container">
         <img :src="photo"
@@ -37,8 +42,12 @@
                  v-else
                  icon-class="header_user"
                  @click.native="showCard"></svgIcon>
-        <span class="userName el-dropdown-link"> {{ this.$store.getters.realname }}</span>
-        <i class="el-icon-switch-button icon"
+        <span :style="{
+          color:themeColor.header.textColor
+        }" class="userName el-dropdown-link"> {{ this.$store.getters.realname }}</span>
+        <i :style="{
+          color:themeColor.header.textColor
+        }" class="el-icon-switch-button icon"
            @click="logOut"></i>
       </div>
     </el-header>
@@ -111,17 +120,15 @@ export default class Header extends Vue {
     width: 42px;
     height: 42px;
     vertical-align: -13px;
-    margin-right: 20px;
+    margin-right: 10px;
     border-radius: 50%;
   }
   .title {
     font-weight: 500;
     font-family: 'YaHei';
     font-size: 24px;
-    text-shadow: 1px 1px 1px #9e9e9e;
   }
   .icon {
-    text-shadow: 3px 3px 3px #000;
     color: yellow;
   }
 }
@@ -161,7 +168,6 @@ export default class Header extends Vue {
     cursor: pointer;
   }
   .userName {
-    color: #777777;
     text-align: center;
     vertical-align: middle;
     margin-left: 10px;
@@ -169,7 +175,6 @@ export default class Header extends Vue {
     font-size: 18px;
   }
   .icon {
-    color: #707070;
     font-size: 18px;
     display: inline;
     outline: none;

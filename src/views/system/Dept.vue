@@ -10,6 +10,7 @@
                tableName="dept"
                tableTitle="部门列表"
                listField="data"
+               border
                :visibleList="{
                  searchForm: false,
                  btnAdd: false,

@@ -46,7 +46,7 @@ export default class OnlineChat extends Vue {
   position: absolute;
   cursor: pointer;
   right: 280px;
-  top: 20px;
-  font-size: 26px;
+  top: 21px;
+  font-size: 18px;
 }
 </style>
