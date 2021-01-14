@@ -10,7 +10,7 @@ const app = {
   state: {
     sidebar: {
       // 侧边栏隐藏状态
-      opened: 0,
+      opened: 1,
     },
     config: {
       // 密码长度
