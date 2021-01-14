@@ -6,13 +6,13 @@
  -->
 <template>
   <div class="bread-container">
-    <i class="el-icon-s-home icon"></i>
-    <span class="el-breadcrumb__separator">-</span>
     <el-breadcrumb class="app-breadcrumb"
-                   separator="-">
+                   separator=">">
       <transition-group name="breadcrumb">
         <el-breadcrumb-item v-for="(item,index) in levelList"
                             :key="item.path">
+          <SvgIcon :icon-class="item.meta.title"
+                   class="icon" />
           <span v-if="item.redirect==='noRedirect'||index==levelList.length-1"
                 class="no-redirect">{{ item.meta.title }}</span>
           <a v-else
@@ -87,19 +87,24 @@ export default {
 }
 .app-breadcrumb >>> .el-breadcrumb__inner.is-link,
 .el-breadcrumb__inner a {
-  color: #3f51b5;
+  color: #515a6e;
+  font-weight: 400;
   cursor: pointer;
 }
 </style>
 <style lang="scss" scoped>
 .bread-container {
-  display: block;
-  margin-bottom: 20px;
+  display: inline-block;
+  margin-left: 30px;
+  height: 60px;
+  line-height: 60px;
   .icon {
     width: 18px;
     height: 18px;
-    margin-left: 8px;
     color: rgba(0, 0, 0, 0.54);
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: -4px;
   }
   .el-breadcrumb__separator {
     color: rgba(0, 0, 0, 0.38);

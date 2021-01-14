@@ -16,8 +16,6 @@
     }">
       <!-- TAB标签页 -->
       <!-- <TagsView /> -->
-      <!-- 面包屑导航 -->
-      <Breadcrumb></Breadcrumb>
       <!-- 二级路由 -->
       <AppMain />
     </div>
@@ -27,7 +25,6 @@
 </template>
 
 <script>
-import Breadcrumb from '@/components/Breadcrumb/index.vue';
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { AppMain, Header, Menu } from './components/index.ts';
 
@@ -37,7 +34,6 @@ import { AppMain, Header, Menu } from './components/index.ts';
     AppMain,
     // TagsView,
     Header,
-    Breadcrumb,
     Menu,
   },
 })
@@ -52,16 +48,18 @@ export default class Layout extends Vue {
 @import 'src/styles/mixin.scss';
 .app-wrapper {
   @include clearfix;
-  overflow: auto;
+  overflow: hidden;
   height: 100%;
   background: #f0f3f7;
   // 主体区域
   .main-container {
     background: #f0f3f7;
     margin-left: 220px;
-    padding: 20px 30px 30px;
+    padding: 20px;
+      overflow: auto;
     box-sizing: border-box;
-    height: calc(100% - 64px);
+    height: calc(100% - 40px);
+    margin-top: 60px;
     &.hideSidebar {
       margin-left: 80px;
     }

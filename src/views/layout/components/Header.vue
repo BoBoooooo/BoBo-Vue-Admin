@@ -7,17 +7,11 @@
 
 <template>
   <div>
-    <el-header height="64px"
+    <el-header height="60px"
                :style="{
                  background:themeColor.header.backgroundColor
-               }">
-      <div class="title-container">
-        <img class="header_logo"
-             src="@/assets/logo.png">
-        <span class="title" :style="{
-          color:themeColor.header.textColor
-        }">{{title}}</span>
-      </div>
+               }"
+               class="header">
       <!-- 折叠侧边栏按钮 -->
       <Hamburger :toggle-click="toggleSideBar"
                  :is-active="!!sidebar"
@@ -28,27 +22,34 @@
                  :class="{
                    isActive:!sidebar
                  }" />
-      <!-- 即时通讯 -->
-      <OnlineChat :style="{
+      <!-- 面包屑导航 -->
+      <Breadcrumb></Breadcrumb>
+
+      <div class="header-right-container">
+        <!-- 即时通讯 -->
+        <OnlineChat :style="{
           color:themeColor.header.textColor
         }"></OnlineChat>
-      <!-- 姓名及下拉菜单 -->
-      <div class="user-container">
-        <img :src="photo"
-             v-if="photo"
-             class="photo"
-             @click="showCard">
-        <svgIcon class="photo"
-                 v-else
-                 icon-class="header_user"
-                 @click.native="showCard"></svgIcon>
-        <span :style="{
+        <!-- 姓名及下拉菜单 -->
+        <div class="user-container">
+          <img :src="photo"
+               v-if="photo"
+               class="photo"
+               @click="showCard">
+          <svgIcon class="photo"
+                   v-else
+                   icon-class="header_user"
+                   @click.native="showCard"></svgIcon>
+          <span :style="{
           color:themeColor.header.textColor
-        }" class="userName el-dropdown-link"> {{ this.$store.getters.realname }}</span>
-        <i :style="{
+        }"
+                class="userName el-dropdown-link"> {{ this.$store.getters.realname }}</span>
+          <i :style="{
           color:themeColor.header.textColor
-        }" class="el-icon-switch-button icon"
-           @click="logOut"></i>
+        }"
+             class="el-icon-switch-button icon"
+             @click="logOut"></i>
+        </div>
       </div>
     </el-header>
     <PersonInfoCard ref="personInfoCard"></PersonInfoCard>
@@ -61,6 +62,7 @@ import { Getter } from 'vuex-class';
 import Hamburger from '@/components/Hamburger/Hamburger.vue';
 import themeColor from '@/styles/theme';
 import OnlineChat from '@/components/OnlineChat/OnlineChat.vue';
+import Breadcrumb from '@/components/Breadcrumb/index.vue';
 import PersonInfoCard from './PersonInfoCard.vue';
 
 @Component({
@@ -69,6 +71,7 @@ import PersonInfoCard from './PersonInfoCard.vue';
     Hamburger,
     PersonInfoCard,
     OnlineChat,
+    Breadcrumb,
   },
 })
 export default class Header extends Vue {
@@ -80,15 +83,10 @@ export default class Header extends Vue {
     personInfoCard: HTMLFormElement;
   };
 
-
   themeColor = themeColor;
 
   get sidebar() {
     return this.$store.getters.sidebar.opened;
-  }
-
-  get title() {
-    return this.config.systemName || process.env.VUE_APP_NAME;
   }
 
   showCard() {
@@ -110,36 +108,16 @@ export default class Header extends Vue {
 }
 </style>
 <style rel="stylesheet/scss" lang="scss" scoped>
-.title-container {
-  display: inline-block;
-  padding-left: 20px;
-  text-align: center;
-  height: 64px;
-  line-height: 64px;
-  .header_logo {
-    width: 42px;
-    height: 42px;
-    vertical-align: -13px;
-    margin-right: 10px;
-    border-radius: 50%;
-  }
-  .title {
-    font-weight: 500;
-    font-family: 'YaHei';
-    font-size: 24px;
-  }
-  .icon {
-    color: yellow;
-  }
-}
 .el-header {
+  position: fixed;
+  left: 220px;
+  right: 0;
   color: black;
-  padding-left: 0px !important;
+  box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
   .hamburger-container {
-    display: block;
-    position: absolute;
-    top: 22px;
-    right: 240px;
+    display: inline-block;
+    height: 60px;
+    line-height: 60px;
   }
   .logo {
     width: 2em;
@@ -154,42 +132,48 @@ export default class Header extends Vue {
   height: 64px;
   margin-right: 50px;
 }
-// 姓名及下拉菜单
-.user-container {
-  height: 64px;
+.header-right-container {
+  align-items: center;
+  justify-content: flex-end;
   float: right;
-  line-height: 64px;
-  text-align: center;
-  .photo {
-    width: 3em;
-    height: 3em;
-    vertical-align: -15px;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-  .userName {
+  display: flex;
+  height: 60px;
+  // 姓名及下拉菜单
+  .user-container {
+    height: 64px;
+    float: right;
+    line-height: 64px;
     text-align: center;
-    vertical-align: middle;
-    margin-left: 10px;
-    margin-right: 5px;
-    font-size: 18px;
-  }
-  .icon {
-    font-size: 18px;
-    display: inline;
-    outline: none;
-    cursor: pointer;
-    vertical-align: -2px;
-  }
-  .user_icon {
-    width: 28px;
-    height: 28px;
-    margin-top: 10px;
-    margin-bottom: 8px;
-    display: block;
-    cursor: pointer;
-    margin-left: auto;
-    margin-right: auto;
+    .photo {
+      width: 40px;
+      height: 40px;
+      vertical-align: -17px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .userName {
+      text-align: center;
+      vertical-align: middle;
+      margin-left: 10px;
+      margin-right: 5px;
+      font-size: 14px;
+    }
+    .icon {
+      font-size: 14px;
+      display: inline;
+      outline: none;
+      cursor: pointer;
+    }
+    .user_icon {
+      width: 28px;
+      height: 28px;
+      margin-top: 10px;
+      margin-bottom: 8px;
+      display: block;
+      cursor: pointer;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 }
 </style>

@@ -9,7 +9,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-size:15px;
+  font-size: 15px;
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
 }
 
@@ -106,54 +106,48 @@ code {
 
 // 公用页面样式
 .page-container {
-  height:100%;
+  height: 100%;
   background: white;
-  padding:10px 20px;
+  padding: 10px 20px;
   border-radius: 6px;
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
 }
-.CrudTable .cell a {
-  color: #409eff;
-  text-decoration: none;
-  &:hover {
-    text-decoration: underline;
-  }
+.el-input.is-disabled .el-input__inner {
+  background-color: white !important;
+  color: unset !important;
 }
-.el-input.is-disabled .el-input__inner{
-  background-color: white!important;
-  color: unset!important;
-}
-.el-textarea.is-disabled .el-textarea__inner{
-  background-color: white!important;
-  color: unset!important;
+.el-textarea.is-disabled .el-textarea__inner {
+  background-color: white !important;
+  color: unset !important;
 }
 
-input{
-  background-color: none!important;
+input {
+  background-color: none !important;
 }
 
-.el-checkbox__inner{
-  border: 1px solid #409EFF;
+.el-checkbox__inner {
+  border: 1px solid #409eff;
 }
 
-.shadow{
+.shadow {
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
-.msgBox{
-  width:60%!important;
-  max-height:80%;
-  overflow:auto;
+.msgBox {
+  width: 60% !important;
+  max-height: 80%;
+  overflow: auto;
 }
 
 //工作留表单字号大小
-@each $fontSize in 14px, 16px, 18px{
+@each $fontSize in 14px, 16px, 18px {
   .font-size-#{$fontSize} {
-    .table-form-wrapper{
-      .el-form-item__label,.el-input__inner,.el-textarea__inner{
-        font-size: #{$fontSize}!important
+    .table-form-wrapper {
+      .el-form-item__label,
+      .el-input__inner,
+      .el-textarea__inner {
+        font-size: #{$fontSize} !important;
       }
     }
   }
 }
-

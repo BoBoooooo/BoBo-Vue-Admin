@@ -58,17 +58,6 @@ body .el-table::before {
   margin: 0 auto;
 }
 
-//文章页textarea修改样式
-.article-textarea {
-  textarea {
-    padding-right: 40px;
-    resize: none;
-    border: none;
-    border-radius: 0px;
-    border-bottom: 1px solid #bfcbd9;
-  }
-}
-
 //element ui upload
 .upload-container {
   .el-upload {
@@ -105,65 +94,14 @@ body .el-table::before {
     width: 100%;
   }
 }
-.el-table td {
-  padding: 6px 0;
-}
-
-.el-table th {
-  background: #f5f7fa;
-  padding: 7px 0;
-}
-
-.el-table thead {
-  color: #414242;
-}
-
 .el-tooltip__popper {
   max-width: 70%;
   line-height: 1.4em;
 }
-.el-button {
-  // will-change: box-shadow;
-  // box-shadow: 0 3px 1px -2px rgba(0,0,0,.15), 0 2px 2px 0 rgba(0,0,0,.10), 0 1px 3px 0 rgba(0,0,0,.1);
-  border-radius: 0px !important;
-}
-.el-table td,
-.el-table th.is-leaf,
-.el-table--border,
-.el-table--group {
-  border-color: #e8e8e8;
-}
 .el-radio__label {
   margin-left: 6px;
 }
-.el-card__header {
-  padding: 13px 20px !important;
-  height: 39px;
-}
-.el-table__header tr,
-.el-table__header th {
-  color: rgba(0, 0, 0, 0.85) !important;
-  font-weight: 500 !important;
-  background: #f5f7f9 !important;
-  padding: 0 !important;
-  height: 30px !important;
-}
 
-.el-table .success-row {
-  background: #32cd32;
-}
-
-.el-table .danger-row {
-  background: #fbeeee;
-}
-
-.el-table .warning-row {
-  background: #f9efe0;
-}
-
-.el-table .primary-row {
-  background: #00bfff;
-}
 
 .el-submenu__title {
   padding: 0 20px !important;

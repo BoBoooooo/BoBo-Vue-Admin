@@ -43,10 +43,7 @@ export default class OnlineChat extends Vue {
 
 <style lang="scss" scoped>
 .chat-icon {
-  position: absolute;
-  cursor: pointer;
-  right: 280px;
-  top: 21px;
   font-size: 18px;
+  margin-right: 10px;
 }
 </style>
