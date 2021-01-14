@@ -122,8 +122,8 @@ export default class FormDesignerModule extends Vue {
     crud(type, 'form', {
       ...this.formValues,
       formJson: JSON.stringify(formValues),
-      tableName: formValues.name,
-      position: formValues.position,
+      tableName: formValues.config.name,
+      position: formValues.config.position,
     })
       .then(() => {
         this.btnSaveIsLoading = false;
