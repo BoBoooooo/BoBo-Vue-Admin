@@ -4,7 +4,7 @@
 
 本项目基于 [Vue CLI 4.x](https://cli.vuejs.org/config/) 构建。
 
-🍌 [在线演示地址](http://server.boboooooo.top:9999/admin)
+🍌 [在线演示地址](http://server.boboooooo.top:9998)
 
 🍉 [项目文档](https://github.com/BoBoooooo/BoBo-Vue-Admin/wiki/CrudTable-%E6%96%87%E6%A1%A3/)
 
