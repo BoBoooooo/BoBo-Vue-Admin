@@ -8,23 +8,40 @@
 <template>
   <div class="dashboard-container">
     <el-row :gutter="15">
-      <el-col :span="12">
-        <el-card shadow="never"> 你好 {{ realname }} </el-card>
-      </el-col>
-      <el-col :span="12">
-        <el-card shadow="never"> 增删改查示例 </el-card>
+      <el-col :span="24">
+        <el-card
+          shadow="never"
+          :body-style="{
+            display: 'flex',
+            'flex-wrap': 'wrap',
+            'align-items': 'center',
+          }"
+        >
+          <SvgIcon icon-class="teacher" class="icon"></SvgIcon>
+          <div class="tips">
+            <h2>你好 {{ realname }}</h2>
+            <div>
+              作者寄语：希望我们每个人无论过程怎样，结局都是美好的。
+            </div>
+          </div>
+        </el-card>
       </el-col>
     </el-row>
     <el-card class="mt-15">
       <div slot="header" class="clearfix">
-        <span>我的开源项目</span>
+        <span>
+          <SvgIcon icon-class="banner"></SvgIcon>
+          我的开源项目</span
+        >
       </div>
       <div class="demo-container">
-        <div v-for="o in 9" :key="o" class="item">
-          <el-card :body-style="{ padding: '0px' }">
-            <img src="http://img1.mukewang.com/szimg/5fd343d9093a7d0e05400304.png" class="image" />
-            <div style="padding: 14px;">
-              <span>开源项目 {{o}}</span>
+        <div v-for="(project, index) in data" :key="index" class="item">
+          <el-card :body-style="{ padding: '0px' }"  shadow="hover">
+            <SvgIcon icon-class="item" class="image"></SvgIcon>
+            <div style="padding: 14px;" class="item-tips">
+              <el-link class="name" target="_blank" type="primary" :href="project.url">{{ project.name }}</el-link>
+              <el-link class="preview" target="_blank" type="danger" :href="project.demo">在线预览</el-link>
+              <span class="des">{{ project.des }}</span>
             </div>
           </el-card>
         </div>
@@ -36,26 +53,62 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import { Getter } from 'vuex-class';
+import data from './data/github';
 
 @Component({
   name: 'Dashboard',
 })
 export default class Dashboard extends Vue {
   @Getter realname!: string;
+
+  data = data;
 }
 </script>
 <style lang="scss" scoped>
 .dashboard-container {
   height: 100%;
   width: 100%;
+  .icon {
+    flex-basis: 60px;
+    width: 60px;
+    height: 60px;
+    margin-right: 20px;
+  }
+  .tips {
+    flex: 1;
+  }
   .demo-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
     .item {
+      &:hover {
+        .image {
+          transform: scale(1.1);
+        }
+      }
       margin: 15px;
       .image {
+        padding: 20px;
+        transition: transform 0.5s;
         height: 152px;
+        width: 100%;
+      }
+      .name,
+      .preview {
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .preview {
+        margin-left: 10px;
+        float: right;
+        color: rgb(238, 72, 72);
+      }
+      .des {
+        display: block;
+        margin-top: 10px;
+        font-size: 14px;
+        color: rgb(109, 109, 109);
       }
     }
   }
