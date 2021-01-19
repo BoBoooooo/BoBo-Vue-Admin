@@ -42,7 +42,7 @@
         <!-- 姓名及下拉菜单 -->
         <div class="user-container">
           <img :src="photo" v-if="photo" class="photo" @click="showCard" />
-          <svgIcon class="photo" v-else icon-class="header_user" @click.native="showCard"></svgIcon>
+          <svgIcon class="photo" v-else icon-class="teacher" @click.native="showCard"></svgIcon>
           <span
             :style="{
               color: themeColor.header.textColor,

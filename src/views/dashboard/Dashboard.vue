@@ -21,32 +21,40 @@
           <div class="tips">
             <h2>你好 {{ realname }}</h2>
             <div>
-              作者寄语：希望我们每个人无论过程怎样，结局都是美好的。
+              作者寄语：能见众生便是如来，不易匠心方得始终。 除去繁华，愿匠心安在。
             </div>
           </div>
         </el-card>
       </el-col>
     </el-row>
-    <el-card class="mt-15">
-      <div slot="header" class="clearfix">
-        <span>
-          <SvgIcon icon-class="banner"></SvgIcon>
-          我的开源项目</span
-        >
-      </div>
-      <div class="demo-container">
-        <div v-for="(project, index) in data" :key="index" class="item">
-          <el-card :body-style="{ padding: '0px' }"  shadow="hover">
-            <SvgIcon icon-class="item" class="image"></SvgIcon>
-            <div style="padding: 14px;" class="item-tips">
-              <el-link class="name" target="_blank" type="primary" :href="project.url">{{ project.name }}</el-link>
-              <el-link class="preview" target="_blank" type="danger" :href="project.demo">在线预览</el-link>
-              <span class="des">{{ project.des }}</span>
-            </div>
-          </el-card>
-        </div>
-      </div>
-    </el-card>
+    <el-row :gutter="15">
+      <el-col :span="24">
+        <el-card class="mt-15">
+          <div slot="header" class="clearfix">
+            <span>
+              <SvgIcon icon-class="banner"></SvgIcon>
+              我的开源项目</span
+            >
+          </div>
+          <div class="demo-container">
+            <el-row :gutter="15" class="row">
+              <el-col :span="8" v-for="(project, index) in data" :key="index" class="item">
+                <div>
+                  <el-card :body-style="{ padding: '0px' }" shadow="hover">
+                    <SvgIcon icon-class="item" class="image"></SvgIcon>
+                    <div style="padding: 14px;" class="item-tips text-ellipsis">
+                      <el-link class="name text-ellipsis" target="_blank" type="primary" :href="project.url"><i class="el-icon el-icon-star-on"></i> {{ project.name }}</el-link>
+                      <el-link class="preview text-ellipsis" target="_blank" type="danger" :href="project.demo">在线预览</el-link>
+                      <span class="des text-ellipsis">{{ project.des }}</span>
+                    </div>
+                  </el-card>
+                </div>
+              </el-col>
+            </el-row>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -78,20 +86,17 @@ export default class Dashboard extends Vue {
     flex: 1;
   }
   .demo-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
     .item {
+      margin-bottom: 15px;
       &:hover {
         .image {
           transform: scale(1.1);
         }
       }
-      margin: 15px;
       .image {
-        padding: 20px;
+        padding: 10px;
         transition: transform 0.5s;
-        height: 152px;
+        height: 100px;
         width: 100%;
       }
       .name,
@@ -107,8 +112,12 @@ export default class Dashboard extends Vue {
       .des {
         display: block;
         margin-top: 10px;
+        margin-left: 20px;
         font-size: 14px;
         color: rgb(109, 109, 109);
+      }
+      .el-icon{
+        color: rgb(255, 174, 0);
       }
     }
   }

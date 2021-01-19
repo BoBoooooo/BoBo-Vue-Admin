@@ -50,4 +50,16 @@ export default [
     url: `${prefix}vue-snake-timeline`,
     demo: `${prefix}vue-snake-timeline`,
   },
+  {
+    name: 'vite_vue3_demo',
+    des: 'vite + vue3 + antd demo',
+    url: `${prefix}vite_vue3_demo`,
+    demo: `${prefix}vite_vue3_demo`,
+  },
+  {
+    name: 'BoBo-Vant-Demo',
+    des: '基于Vant移动端框架',
+    url: `${prefix}BoBo-Vant-Demo`,
+    demo: `${prefix}BoBo-Vant-Demo`,
+  },
 ];
