@@ -13,6 +13,6 @@ export default Object.freeze({
   sidebar: {
     backgroundColor: '#282c34', // 侧边栏菜单颜色
     textColor: '#fff', // 侧边栏字体颜色
-    activeTextColor: '#616dad', // 侧边栏高亮文字颜色
+    activeTextColor: '#cddc39', // 侧边栏高亮文字颜色
   },
 });

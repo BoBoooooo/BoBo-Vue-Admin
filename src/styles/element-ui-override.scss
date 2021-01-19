@@ -7,109 +7,6 @@
 
 $font-size: 15px;
 
-.el-upload {
-  input[type='file'] {
-    display: none !important;
-  }
-}
-
-body .el-table::before {
-  z-index: inherit;
-}
-.el-upload__input {
-  display: none;
-}
-
-.cell {
-  .el-tag {
-    margin-right: 0px;
-  }
-}
-
-.small-padding {
-  .cell {
-    padding-left: 5px;
-    padding-right: 5px;
-  }
-}
-
-.fixed-width {
-  .el-button--mini {
-    padding: 7px 10px;
-    width: 60px;
-  }
-}
-
-.status-col {
-  .cell {
-    padding: 0 10px;
-    text-align: center;
-    .el-tag {
-      margin-right: 0px;
-    }
-  }
-}
-
-//暂时性解决dialog 问题 https://github.com/ElemeFE/element/issues/2461
-.el-dialog {
-  transform: none;
-  left: 0;
-  position: relative;
-  margin: 0 auto;
-}
-
-//element ui upload
-.upload-container {
-  .el-upload {
-    .el-upload-dragger {
-      width: 100%;
-      height: 200px;
-    }
-  }
-}
-
-//dropdown
-.el-dropdown-menu {
-  padding: 5px 0;
-  border-radius: 2px;
-  a {
-    display: block;
-  }
-}
-
-// 动态表单中的宽度自适应
-.el-form-item {
-  .el-date-editor {
-    width: 100%;
-  }
-}
-
-.el-input__inner:focus {
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 51, 102, 0.27);
-}
-
-.el-form {
-  clear: both;
-  .el-select {
-    width: 100%;
-  }
-}
-.el-tooltip__popper {
-  max-width: 70%;
-  line-height: 1.4em;
-}
-.el-radio__label {
-  margin-left: 6px;
-}
-
-
-.el-submenu__title {
-  padding: 0 20px !important;
-}
-.el-button--text {
-  box-shadow: none !important;
-}
-
 // .el-loading-spinner .circular{
 //   display: none;
 // }
@@ -124,26 +21,7 @@ body .el-table::before {
 // .el-loading-text{
 //   display: none;
 // }
-.el-tab-pane > .page-container {
-  box-shadow: none !important;
-  padding:0;
-}
-.el-input__icon.el-icon-search {
-  color: #ff5722;
-}
-.cell.el-tooltip {
-  div {
-    overflow: hidden;
-  }
-}
-.cell {
-  button {
-    padding: 7px 10px !important;
-  }
-  span {
-    margin: 0 !important;
-  }
-}
+
 .dialogNoPadding {
   .el-dialog__body {
     padding: 10px 0 0 0;
@@ -168,43 +46,16 @@ body .el-table::before {
   right: 12px !important;
 }
 
-.is-in-pagination {
-  input {
-    border-radius: 0 !important;
-  }
-}
-.el-pagination .el-select .el-input .el-input__inner {
-  border-radius: 0 !important;
-}
-
-.el-table--striped .el-table__body tr.el-table__row--striped td {
-  background: #f5f7f9 !important;
-}
-.el-table__body tr.hover-row > td,
-.el-table__body tr.hover-row.current-row > td,
-.el-table__body tr.hover-row.el-table__row--striped > td,
-.el-table__body tr.hover-row.el-table__row--striped.current-row > td {
-  background-color: #ebf7ff !important;
-}
-.el-tabs--border-card {
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  border-radius: 6px;
-}
-
-.el-tabs--border-card .el-card__header {
-  border-radius: 6px;
-}
-
 // 覆盖message样式
 .el-message__content {
   color: #657180 !important;
-  font-size:14px!important;
+  font-size: 14px !important;
 }
 .el-message {
-  min-width:unset!important;
+  min-width: unset !important;
   border-radius: 4px;
   border: none;
-  padding:10px 16px!important;
+  padding: 10px 16px !important;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
   background: white !important;
 }
@@ -212,59 +63,43 @@ body .el-table::before {
 .is-disabled {
   color: #606266;
 }
- .el-radio__input.is-disabled + span.el-radio__label {
-  color: #606266!important;
-  font-weight: normal!important;
+
+.el-radio__input.is-disabled + span.el-radio__label {
+  color: #606266 !important;
+  font-weight: normal !important;
 }
- .el-checkbox-group.is-disabled + span.el-checkbox__label {
-  color: #606266!important;
-  font-weight: normal!important;
+.el-checkbox-group.is-disabled + span.el-checkbox__label {
+  color: #606266 !important;
+  font-weight: normal !important;
 }
-.el-checkbox__input.is-disabled + span.el-checkbox__label{
-  color: #606266!important;
-  font-weight: normal!important;
+.el-checkbox__input.is-disabled + span.el-checkbox__label {
+  color: #606266 !important;
+  font-weight: normal !important;
 }
-.el-cascader__label{
-  color: #606266!important;
-  font-weight: normal!important;
+.el-cascader__label {
+  color: #606266 !important;
+  font-weight: normal !important;
 }
-.el-checkbox__input.is-disabled.is-checked{
+.el-checkbox__input.is-disabled.is-checked {
   display: none !important;
 }
- .el-checkbox.is-disabled {
+.el-checkbox.is-disabled {
   display: none !important;
 }
- .el-checkbox.is-disabled.is-checked {
+.el-checkbox.is-disabled.is-checked {
   display: inline-block !important;
-  padding:0px;
+  padding: 0px;
 }
-.is-disabled>.el-input__suffix{
+.is-disabled > .el-input__suffix {
   display: none !important;
 }
- .el-radio__input.is-disabled.is-checked {
+.el-radio__input.is-disabled.is-checked {
   display: none !important;
 }
-.el-checkbox-group{
-  min-height:32px;
+.el-checkbox-group {
+  min-height: 32px;
 }
-.is-disabled .el-checkbox__label,.el-radio__label{
-  padding-left:0px!important;
-}
-
-.el-date-editor.el-input{
-  width:100%!important;
-}
-.el-badge__content.is-dot{
-  width:6px!important;
-  height:6px!important;
-}
-.el-badge__content{
-  border:none!important;
-}
-.el-transfer-panel__item.el-checkbox{
-  display: block;
-}
-
-.el-radio-group {
-  padding-left: 10px;
+.is-disabled .el-checkbox__label,
+.el-radio__label {
+  padding-left: 0px !important;
 }

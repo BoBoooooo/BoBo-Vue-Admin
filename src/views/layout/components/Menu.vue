@@ -6,35 +6,43 @@
 -->
 <template>
   <div>
-    <div class="title-container"
-         :style="{
-                backgroundColor: themeColor.sidebar.backgroundColor
-    }">
-      <img class="header_logo"
-           src="@/assets/logo.png">
-      <span class="title"
-            :style="{
-          color:themeColor.sidebar.textColor,
-        }">{{title}}</span>
+    <div
+      class="title-container"
+      :style="{
+        backgroundColor: themeColor.sidebar.backgroundColor,
+      }"
+      :class="{
+        hideSidebar: !sidebar,
+      }"
+    >
+      <img class="header_logo" src="@/assets/logo.png" />
+      <span
+        class="title"
+        :style="{
+          color: themeColor.sidebar.textColor,
+        }"
+        >{{ title }}</span
+      >
     </div>
     <!-- 导航菜单+滚动条 -->
-    <el-menu :collapse="!sidebar"
-             :default-active="$route.path"
-             unique-opened
-             mode="vertical"
-             :background-color="themeColor.sidebar.backgroundColor"
-             :text-color="themeColor.sidebar.textColor"
-             :active-text-color="themeColor.sidebar.activeTextColor"
-             class="menu"
-             :class="{
-         'hideSidebar':!sidebar
-       }">
+    <el-menu
+      :collapse="!sidebar"
+      :default-active="$route.path"
+      unique-opened
+      mode="vertical"
+      :background-color="themeColor.sidebar.backgroundColor"
+      :text-color="themeColor.sidebar.textColor"
+      :active-text-color="themeColor.sidebar.activeTextColor"
+      class="menu"
+      :class="{
+        hideSidebar: !sidebar,
+      }"
+    >
       <!-- 菜单项组件 -->
       <MenuItem :routes="routers" />
     </el-menu>
   </div>
 </template>
-
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
@@ -95,6 +103,16 @@ export default class Menu extends Vue {
   }
   .icon {
     color: yellow;
+  }
+  &.hideSidebar {
+    width: 63px;
+    padding: 0;
+    .title{
+      display: none;
+    }
+    .header_logo{
+      margin: 0 auto;
+    }
   }
 }
 .menu {

@@ -7,48 +7,57 @@
 
 <template>
   <div>
-    <el-header height="60px"
-               :style="{
-                 background:themeColor.header.backgroundColor
-               }"
-               class="header">
+    <el-header
+      height="60px"
+      :style="{
+        background: themeColor.header.backgroundColor,
+      }"
+      class="header"
+      :class="{
+        hideSidebar: !sidebar,
+      }"
+    >
       <!-- 折叠侧边栏按钮 -->
-      <Hamburger :toggle-click="toggleSideBar"
-                 :is-active="!!sidebar"
-                 :style="{
-          color:themeColor.header.textColor
+      <Hamburger
+        :toggle-click="toggleSideBar"
+        :is-active="!!sidebar"
+        :style="{
+          color: themeColor.header.textColor,
         }"
-                 class="hamburger-container"
-                 :class="{
-                   isActive:!sidebar
-                 }" />
+        class="hamburger-container"
+        :class="{
+          isActive: !sidebar,
+        }"
+      />
       <!-- 面包屑导航 -->
       <Breadcrumb></Breadcrumb>
 
       <div class="header-right-container">
         <!-- 即时通讯 -->
-        <OnlineChat :style="{
-          color:themeColor.header.textColor
-        }"></OnlineChat>
+        <OnlineChat
+          :style="{
+            color: themeColor.header.textColor,
+          }"
+        ></OnlineChat>
         <!-- 姓名及下拉菜单 -->
         <div class="user-container">
-          <img :src="photo"
-               v-if="photo"
-               class="photo"
-               @click="showCard">
-          <svgIcon class="photo"
-                   v-else
-                   icon-class="header_user"
-                   @click.native="showCard"></svgIcon>
-          <span :style="{
-          color:themeColor.header.textColor
-        }"
-                class="userName el-dropdown-link"> {{ this.$store.getters.realname }}</span>
-          <i :style="{
-          color:themeColor.header.textColor
-        }"
-             class="el-icon-switch-button icon"
-             @click="logOut"></i>
+          <img :src="photo" v-if="photo" class="photo" @click="showCard" />
+          <svgIcon class="photo" v-else icon-class="header_user" @click.native="showCard"></svgIcon>
+          <span
+            :style="{
+              color: themeColor.header.textColor,
+            }"
+            class="userName el-dropdown-link"
+          >
+            {{ this.$store.getters.realname }}</span
+          >
+          <i
+            :style="{
+              color: themeColor.header.textColor,
+            }"
+            class="el-icon-switch-button icon"
+            @click="logOut"
+          ></i>
         </div>
       </div>
     </el-header>
@@ -114,6 +123,9 @@ export default class Header extends Vue {
   right: 0;
   color: black;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+  &.hideSidebar {
+    left: 64px;
+  }
   .hamburger-container {
     display: inline-block;
     height: 60px;
