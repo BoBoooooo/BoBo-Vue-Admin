@@ -23,7 +23,7 @@
       </template>
     </CrudTable>
     <!-- 对话框 -->
-    <el-dialog v-if="visible" ref="dialog" top="10vh" class="dialog" :visible.sync="visible" width="95%" append-to-body>
+    <el-dialog v-if="visible" ref="dialog" top="10vh" class="dialog" :visible.sync="visible" width="1400px" append-to-body>
       <TableDesigner :dictList="dictList" :formList="formList" :allTables="allTables" ref="tableDesigner" />
 
       <!-- 底部按钮栏 -->
@@ -113,8 +113,7 @@ export default class TableDesignerModule extends Vue {
       type = DML.UPDATE;
       msg = '编辑成功';
     }
-    tableDesignerJson.name = tableDesignerJson.name || this.formValues.tableName;
-    tableDesignerJson.position = tableDesignerJson.position || this.formValues.position;
+
     crud(type, 'dynamictables', {
       ...this.formValues,
       tableName: tableDesignerJson.name,
@@ -127,6 +126,7 @@ export default class TableDesignerModule extends Vue {
         type: 'success',
         message: msg,
       });
+      this.$refs.dynamictables.tableReload();
     });
   }
 
