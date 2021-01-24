@@ -18,11 +18,9 @@
         tableTitle: true
       }"
     >
-      <template #column_jobno="{row}">
-        <el-tag>{{ row.jobno }}</el-tag>
-      </template>
-      <template #column_personname="{row}">
-        <span><i class="el-icon el-icon-user" style="color: red"></i>{{ row.personname }}</span>
+       <template #columnFormatter="{row,prop}">
+        <el-tag v-if="prop === 'jobno'">{{ row.jobno }}</el-tag>
+        <span v-if="prop === 'personname'"><i class="el-icon el-icon-user" style="color: red"></i>{{ row.personname }}</span>
       </template>
     </CrudTable>
   </div>
