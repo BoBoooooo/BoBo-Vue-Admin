@@ -15,12 +15,14 @@
       orderCondition="timestamp desc"
       :visibleList="{
         btnDel: true,
-        tableTitle: true
       }"
     >
-       <template #columnFormatter="{row,prop}">
+      <template #columnFormatter="{row,prop}">
         <el-tag v-if="prop === 'jobno'">{{ row.jobno }}</el-tag>
         <span v-if="prop === 'personname'"><i class="el-icon el-icon-user" style="color: red"></i>{{ row.personname }}</span>
+        <el-avatar fit="fill" v-if="prop === 'avatar'" shape="square" :src="row.avatar">
+          <img src="@/assets/404.png" />
+        </el-avatar>
       </template>
     </CrudTable>
   </div>
