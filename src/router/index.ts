@@ -67,6 +67,7 @@ const asyncRouter:RouteConfig[] = [
     meta: {
       title: '员工管理',
     },
+    redirect: '/person/index',
     children: [
       {
         path: 'index',
@@ -83,6 +84,7 @@ const asyncRouter:RouteConfig[] = [
     meta: {
       title: '系统管理',
     },
+    redirect: '/system/users',
     children: [
       {
         path: 'users',
@@ -111,6 +113,7 @@ const asyncRouter:RouteConfig[] = [
     meta: {
       title: '开发人员工具',
     },
+    redirect: '/dev-tools/form-designer',
     children: [
       {
         path: 'form-designer',

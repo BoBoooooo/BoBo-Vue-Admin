@@ -11,7 +11,7 @@
         <el-breadcrumb-item v-for="(item, index) in levelList" :key="item.path">
           <SvgIcon :icon-class="item.meta.title" v-if="!item.parent" class="icon" />
           <span
-            v-if="item.redirect === 'noRedirect' || index == levelList.length - 1"
+            v-if="item.redirect || index == levelList.length - 1"
             class="no-redirect"
             :style="{
               verticalAlign: item.parent ? '-4.5px' : '0px',

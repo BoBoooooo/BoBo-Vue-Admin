@@ -232,7 +232,7 @@ export default class Dict extends Vue {
   // 树节点过滤
   filterNode(value, data) {
     if (!value) return true;
-    return this.$pinyinmatch.match(data.codeName, value);
+    return data.typeName.includes(value);
   }
 
   @Watch('filterText')

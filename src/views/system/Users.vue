@@ -234,7 +234,7 @@ export default class Users extends Vue {
 
   filterNode(value, data, node) {
     if (!value) return true;
-    return this.$pinyinmatch.match(data.name, value);
+    return data.name.includes(value);
   }
 
   nodeClick(data, node) {
