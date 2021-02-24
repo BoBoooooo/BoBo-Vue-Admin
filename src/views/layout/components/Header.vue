@@ -147,7 +147,8 @@ export default class Header extends Vue {
 .header-right-container {
   align-items: center;
   justify-content: flex-end;
-  float: right;
+  right: 30px;
+  position: absolute;
   display: flex;
   height: 60px;
   // 姓名及下拉菜单
