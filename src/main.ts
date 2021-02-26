@@ -14,8 +14,6 @@ import App from './App.vue';// 下方$mount把App.vue挂载到public/index.html
 import { router } from './router';// router内启用了懒加载
 import 'normalize.css';// 重置css
 import '@/plugins/element-pro-crud';// 引入element-pro-crud
-import 'element-pro-crud/lib/ProCrud.css'; // 此处css引入需要放到element-ui css引入之前,避免样式覆盖问题
-
 import '@/plugins/element';// vue-cli3.0以插件形式引入elementui
 import '@/permission'; // 权限控制
 import '@/styles/index.scss'; // 全局样式

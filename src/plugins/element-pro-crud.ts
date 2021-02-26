@@ -6,6 +6,7 @@
  */
 import Vue from 'vue';
 import ElementProCrud from 'element-pro-crud';
+import 'element-pro-crud/lib/ProCrud.css'; // 此处css引入需要放到element-ui css引入之前,避免样式覆盖问题
 import { crud } from '@/api/public/crud';
 import * as pluginsApi from '@/api/system/form';
 
