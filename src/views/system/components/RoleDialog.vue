@@ -163,7 +163,6 @@ export default {
       this.$refs.generateDialogForm
         .getData()
         .then((formValue) => {
-          console.log(formValue);
           let type;
           let msg;
           // 根据对话框状态判断保存或编辑
