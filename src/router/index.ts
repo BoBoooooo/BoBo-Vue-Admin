@@ -53,7 +53,7 @@ const asyncRouter:RouteConfig[] = [
     redirect: '/dashboard/dashboard',
     children: [{
       path: 'dashboard',
-      component: () => import('@/views/dashboard/Dashboard.vue'),
+      component: () => import(/* webpackChunkName: "dashboard" */'@/views/dashboard/Dashboard.vue'),
       name: 'dashboardForUserIndex',
       meta: {
         title: '首页',
@@ -72,7 +72,7 @@ const asyncRouter:RouteConfig[] = [
       {
         path: 'index',
         name: 'PersonIndex',
-        component: () => import(/* webpackChunkName: "system" */ '@/views/person/Person.vue'),
+        component: () => import(/* webpackChunkName: "person" */ '@/views/person/Person.vue'),
         meta: { title: '员工管理' },
       },
     ],
@@ -89,19 +89,19 @@ const asyncRouter:RouteConfig[] = [
       {
         path: 'users',
         name: 'Users',
-        component: () => import(/* webpackChunkName: "system" */ '@/views/system/Users.vue'),
+        component: () => import(/* webpackChunkName: "users" */ '@/views/system/Users.vue'),
         meta: { title: '用户管理' },
       },
       {
         path: 'role',
         name: 'Role',
-        component: () => import(/* webpackChunkName: "system" */ '@/views/system/Role.vue'),
+        component: () => import(/* webpackChunkName: "role" */ '@/views/system/Role.vue'),
         meta: { title: '角色管理' },
       },
       {
         path: 'dept',
         name: 'Dept',
-        component: () => import(/* webpackChunkName: "system" */ '@/views/system/Dept.vue'),
+        component: () => import(/* webpackChunkName: "dept" */ '@/views/system/Dept.vue'),
         meta: { title: '部门管理' },
       },
     ],
@@ -118,19 +118,19 @@ const asyncRouter:RouteConfig[] = [
       {
         path: 'form-designer',
         name: 'FormDesignerModule',
-        component: () => import(/* webpackChunkName: "dev" */ '@/views/devTools/FormDesignerModule.vue'),
+        component: () => import(/* webpackChunkName: "formDesignerModule" */ '@/views/devTools/FormDesignerModule.vue'),
         meta: { title: '表单设计' },
       },
       {
         path: 'table-designer',
         name: 'TableDesignerModule',
-        component: () => import(/* webpackChunkName: "dev" */ '@/views/devTools/TableDesignerModule.vue'),
+        component: () => import(/* webpackChunkName: "tableDesignerModule" */ '@/views/devTools/TableDesignerModule.vue'),
         meta: { title: '表格设计' },
       },
       {
         path: 'dict',
         name: 'Dict',
-        component: () => import(/* webpackChunkName: "dev" */ '@/views/devTools/Dict.vue'),
+        component: () => import(/* webpackChunkName: "dict" */ '@/views/devTools/Dict.vue'),
         meta: { title: '字典管理' },
       },
     ],
