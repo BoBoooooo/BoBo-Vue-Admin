@@ -1,4 +1,4 @@
-# 1.0.0 (2021-03-10)
+# 1.0.0 (2021-03-12)
 
 ### 🌟 新功能
 范围|描述|commitId
@@ -200,6 +200,8 @@
 ### chore
 范围|描述|commitId
 --|--|--
+ - | 修改webpackChunkName | [9dcd66e](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/9dcd66e)
+ element-pro-crud | update to 0.9.0 | [0a5fb23](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/0a5fb23)
  - | 本地开发移除图片压缩,gzip压缩 | [2358c0a](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/2358c0a)
  - | 插件升级至0.8.7 | [ef86ca5](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/ef86ca5)
  - | change cdn url | [26e1168](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/26e1168)
@@ -219,28 +221,28 @@
  - | update crud plugin version | [a2769ae](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/a2769ae)
  - | update element pro crud version to 0.8.8-1 | [be9d5de](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/be9d5de)
  - | update element-pro-crud version | [4b93056](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/4b93056)
+ - | update element-pro-crud version to 0.1.6 | [1713fc4](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/1713fc4)
+ - | update element-pro-crud@0.1.1 | [6ead449](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/6ead449)
  - | update element-pro-crud@0.8.8-2 | [a4d6332](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/a4d6332)
  - | update plugin version | [b9f003d](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/b9f003d)
+ - | update version 0.8.8-16 | [ee1b0c1](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/ee1b0c1)
+ Element-Pro-Crud | 升级插件版本[@0](https://github.com/0).7.0,新增dev开发人员模式支持动态修改表单表格,修复已知bug | [eaa6d4f](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/eaa6d4f)
+ ElementProCrud | 修改ProCrud引入方式,升级版本至[@0](https://github.com/0).5.0 | [390c7cd](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/390c7cd)
+ plugin | 升级element-ui@2.15.0,升级elemenet-pro-crud@0.8.6-2 | [f615a16](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/f615a16)
  - | update plugin version | [5ff16d6](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/5ff16d6)
  - | update plugin version to 53 beta | [cf9ddcb](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/cf9ddcb)
- - | update version 0.8.8-16 | [ee1b0c1](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/ee1b0c1)
- changelog | add changelog package | [41bedfa](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/41bedfa)
- Element-Pro-Crud | 升级插件版本[@0](https://github.com/0).7.0,新增dev开发人员模式支持动态修改表单表格,修复已知bug | [eaa6d4f](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/eaa6d4f)
+ - | update version to 0.8.6 | [ba3c188](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/ba3c188)
  ElementProCrud | 更新CRUD插件[@0](https://github.com/0).8.0-1 | [2fc0929](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/2fc0929)
  ElementProCrud | 升级版本0.5.3 | [56d7e1c](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/56d7e1c)
- ElementProCrud | 修改ProCrud引入方式,升级版本至[@0](https://github.com/0).5.0 | [390c7cd](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/390c7cd)
  ElementProCrud | 移除cdn版本号,默认最新版本,升级至0.3.1 | [2ab9d89](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/2ab9d89)
  node-sass,vue-cli | node-sass改为sass,[@vue](https://github.com/vue)/cli-service升级至4.5.4,修改全局/deep/语法 | [733f7a3](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/733f7a3)
- package.json | git message,eslint 加入git hook | [0ca4a55](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/0ca4a55)
- plugin | 升级element-ui@2.15.0,升级elemenet-pro-crud@0.8.6-2 | [f615a16](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/f615a16)
  - | update crud version to 0.2.3 | [e373a68](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/e373a68)
- - | update element-pro-crud version to 0.1.6 | [1713fc4](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/1713fc4)
- - | update version to 0.8.6 | [ba3c188](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/ba3c188)
+ changelog | add changelog package | [41bedfa](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/41bedfa)
  package | changelog包移到devDep | [8275b40](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/8275b40)
  package.json | 移除[@types](https://github.com/types)/echart,修改build:dev命令 | [e882593](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/e882593)
  package.json | 移除多余依赖 | [7e63e12](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/7e63e12)
+ package.json | git message,eslint 加入git hook | [0ca4a55](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/0ca4a55)
  tsconfig.json | 移除element-ui types | [3782a04](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/3782a04)
- - | update element-pro-crud@0.1.1 | [6ead449](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/6ead449)
  vue-cli update | 升级vue cli 3.x -> vue cli 4.x | [b8e62e0](https://github.com/BoBoooooo/BoBo-Vue-Admin/commit/b8e62e0)
 
 
