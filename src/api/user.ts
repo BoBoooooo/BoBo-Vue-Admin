@@ -39,19 +39,3 @@ export function update(data) {
     params: data,
   });
 }
-
-/**
- * 按username查询用户
- * username
- * @param {String} names
- */
-
-export function findByNames(names) {
-  return axios({
-    url: '/userss/findByNames',
-    method: 'post',
-    params: {
-      names,
-    },
-  });
-}
