@@ -8,7 +8,12 @@
 
 🍉 [项目文档](https://github.com/BoBoooooo/BoBo-Vue-Admin/wiki/CrudTable-%E6%96%87%E6%A1%A3/)
 
-🍏 [配套后端地址](https://github.com/BoBoooooo/NestJS-API-Server.git) (初期阶段)
+🍏 [配套后端项目地址](https://github.com/BoBoooooo/NestJS-API-Server.git)
+
+🍉 [服务端渲染项目地址](https://github.com/BoBoooooo/BoBo-Nuxt-Template.git)
+
+🍌 [服务端渲染在线演示地址](http://server.boboooooo.top:9990/)
+
 
 ## 1. 核心功能
 
