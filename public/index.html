@@ -11,6 +11,7 @@
     <% } %> <% for (var css in htmlWebpackPlugin.files.css) { %>
     <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet" />
     <% } %>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@riophae/vue-treeselect@0.4.0/dist/vue-treeselect.min.css">
     <title><%= htmlWebpackPlugin.options.title %></title>
     <!-- 服务器地址 -->
     <% if (htmlWebpackPlugin.options.HOST_URL) { %>
@@ -37,7 +38,8 @@
     </noscript>
 
     <div id="app"></div>
-    <script src="<%= BASE_URL %>js/tinymce4.7.5/tinymce.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@riophae/vue-treeselect@0.4.0/dist/vue-treeselect.umd.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/tinymce/4.7.5/tinymce.min.js"></script> 
     <% for (var js in htmlWebpackPlugin.files.js) { %>
     <script src="<%= htmlWebpackPlugin.files.js[js] %>"></script>
     <% } %> <% if (htmlWebpackPlugin.options.devServer) { %>

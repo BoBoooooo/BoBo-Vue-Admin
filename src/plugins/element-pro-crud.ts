@@ -20,3 +20,7 @@ if (process.env.VUE_APP_CDN === 'true') {
 } else {
   Vue.use(ElementProCrud, $PROCRUD_OPTION);
 }
+
+
+// VueTreeselect为cdn引入 需要注册成全局组件
+Vue.component('treeselect', window.VueTreeselect.Treeselect);

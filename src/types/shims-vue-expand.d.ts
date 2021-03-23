@@ -30,6 +30,7 @@ declare global {
     __HOST__URL__: string;
     __PREFIX__URL__: string;
     __CHAT__URL__: string;
+    VueTreeselect: any;
   }
 }
 
