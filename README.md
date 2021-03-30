@@ -14,6 +14,8 @@
 
 🍌 [服务端渲染在线演示地址](http://server.boboooooo.top:9990/)
 
+🍌 [Vite+Vue3+Element-Plus地址](http://server.boboooooo.top:9995/)
+
 
 ## 1. 核心功能
 
