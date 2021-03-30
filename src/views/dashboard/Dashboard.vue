@@ -20,9 +20,7 @@
           <SvgIcon icon-class="teacher" class="icon"></SvgIcon>
           <div class="tips">
             <h2>你好 {{ realname }}</h2>
-            <div>
-              作者寄语：能见众生便是如来，不易匠心方得始终。 除去繁华，愿匠心安在。
-            </div>
+            <div>作者寄语：能见众生便是如来，不易匠心方得始终。 除去繁华，愿匠心安在。</div>
           </div>
         </el-card>
       </el-col>
@@ -42,7 +40,7 @@
                 <div>
                   <el-card :body-style="{ padding: '0px' }" shadow="hover">
                     <SvgIcon icon-class="item" class="image"></SvgIcon>
-                    <div style="padding: 14px;" class="item-tips text-ellipsis">
+                    <div style="padding: 14px" class="item-tips text-ellipsis">
                       <el-link class="name text-ellipsis" target="_blank" type="primary" :href="project.url"><i class="el-icon el-icon-star-on"></i> {{ project.name }}</el-link>
                       <el-link class="preview text-ellipsis" target="_blank" type="danger" :href="project.demo">在线预览</el-link>
                       <span class="des text-ellipsis">{{ project.des }}</span>
@@ -116,7 +114,7 @@ export default class Dashboard extends Vue {
         font-size: 14px;
         color: rgb(109, 109, 109);
       }
-      .el-icon{
+      .el-icon {
         color: rgb(255, 174, 0);
       }
     }

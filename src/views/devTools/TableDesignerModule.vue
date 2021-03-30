@@ -63,7 +63,7 @@ export default class TableDesignerModule extends Vue {
 
   created() {
     getTables().then((res) => {
-      this.allTables = res.data.map(item => ({
+      this.allTables = res.data.map((item) => ({
         label: item.TABLE_NAME,
         value: item.TABLE_NAME,
       }));
@@ -72,7 +72,7 @@ export default class TableDesignerModule extends Vue {
       this.formList = res.data.list;
     });
     crud(DML.SELECT, 'ad_codelist_type').then((res) => {
-      this.dictList = res.data.list.map(item => ({
+      this.dictList = res.data.list.map((item) => ({
         label: item.typeName,
         value: item.id,
       }));

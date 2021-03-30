@@ -1,7 +1,7 @@
 <template>
   <div ref="scrollContainer" class="scroll-container" @wheel.prevent="handleScroll">
-    <div ref="scrollWrapper" :style="{left: left + 'px'}" class="scroll-wrapper">
-      <slot/>
+    <div ref="scrollWrapper" :style="{ left: left + 'px' }" class="scroll-wrapper">
+      <slot />
     </div>
   </div>
 </template>
@@ -45,8 +45,7 @@ export default {
       if ($targetLeft < -this.left) {
         // tag in the left
         this.left = -$targetLeft + padding;
-      } else if ($targetLeft + padding > -this.left
-      && $targetLeft + $targetWidth < -this.left + $containerWidth - padding) {
+      } else if ($targetLeft + padding > -this.left && $targetLeft + $targetWidth < -this.left + $containerWidth - padding) {
         // tag in the current view
         // eslint-disable-line
       } else {
@@ -64,7 +63,7 @@ export default {
   position: relative;
   overflow: hidden;
   width: 100%;
-  z-index:1;
+  z-index: 1;
   .scroll-wrapper {
     position: absolute;
   }

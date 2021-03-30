@@ -28,7 +28,7 @@ export default class App extends Vue {
 
   count = 0;
 
-  $store:any;
+  $store: any;
 
   async created() {
     await this.$store.dispatch('initSystemConfig');
@@ -38,9 +38,8 @@ export default class App extends Vue {
     }
   }
 
-
   debounce(event, callback) {
-    let timer:any = null;
+    let timer: any = null;
     if (timer) {
       clearTimeout(timer);
     }
@@ -65,9 +64,9 @@ export default class App extends Vue {
 
   initTimeOutWatcher() {
     // 监听鼠标
-    document.onmousemove = event => this.debounce(event, this.mouseEvent);
+    document.onmousemove = (event) => this.debounce(event, this.mouseEvent);
     // 监听键盘
-    document.onkeydown = event => this.debounce(event, this.keyDownEvent);
+    document.onkeydown = (event) => this.debounce(event, this.keyDownEvent);
     const loop = window.setInterval(() => {
       const token = sessionStorage.getItem('token');
       if (token != null && token !== 'null') {
@@ -79,7 +78,6 @@ export default class App extends Vue {
       }
     }, 1000);
   }
-
 
   @Watch('config', {
     deep: true,

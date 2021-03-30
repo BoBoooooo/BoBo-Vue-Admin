@@ -17,7 +17,7 @@
         btnDel: true,
       }"
     >
-      <template #columnFormatter="{row,prop}">
+      <template #columnFormatter="{ row, prop }">
         <el-tag v-if="prop === 'jobno'">{{ row.jobno }}</el-tag>
         <span v-if="prop === 'personname'"><i class="el-icon el-icon-user" style="color: red"></i>{{ row.personname }}</span>
         <el-image style="width: 50px; height: 50px" fit="fill" v-if="prop === 'avatar'" :src="getAvatarUrl(row)" :preview-src-list="[getAvatarUrl(row)]">

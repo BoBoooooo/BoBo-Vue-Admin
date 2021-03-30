@@ -4,11 +4,8 @@
  * @copyright BoBo
  * @createDate 2018年11月13日20:24:53
  */
-import {
-  login, getInfo, update,
-} from '@/api/user';
+import { login, getInfo, update } from '@/api/user';
 import { MessageBox } from 'element-ui';
-
 
 const user = {
   state: {
@@ -100,10 +97,7 @@ const user = {
       });
     },
     // 修改密码
-    async changePassword({ commit }, {
-      username,
-      password,
-    }) {
+    async changePassword({ commit }, { username, password }) {
       const promise = await update({
         username,
         password,

@@ -1,4 +1,3 @@
-
 /**
  * 密码校验
  * @param {String} sValue
@@ -21,6 +20,7 @@ export default function checkStrong(sValue) {
     case 3:
     case 4:
       return sValue.length < 12 ? 3 : 4;
-    default: return modes;
+    default:
+      return modes;
   }
 }

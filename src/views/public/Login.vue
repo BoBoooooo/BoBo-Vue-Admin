@@ -7,56 +7,30 @@
 <template>
   <div class="login-container">
     <el-row>
-      <el-col :span="12"
-              class="wallpaper">
+      <el-col :span="12" class="wallpaper">
         <div @click="redirectToGitHub">
-          <svg-icon icon-class="banner"
-                    class="banner"></svg-icon>
-          <p class="author">
-            © Awesome Crud Framework By BoBo
-          </p>
+          <svg-icon icon-class="banner" class="banner"></svg-icon>
+          <p class="author">© Awesome Crud Framework By BoBo</p>
         </div>
       </el-col>
       <el-col :span="12">
-        <el-form ref="loginForm"
-                 :model="loginForm"
-                 class="login-form"
-                 auto-complete="on"
-                 label-position="left">
-          <h5 class="title">
-            Welcome 🎯
-          </h5>
+        <el-form ref="loginForm" :model="loginForm" class="login-form" auto-complete="on" label-position="left">
+          <h5 class="title">Welcome 🎯</h5>
           <el-form-item prop="username">
-
-            <el-input v-model="loginForm.username"
-                      name="username"
-                      type="text"
-                      auto-complete="on"
-                      placeholder="admin" />
+            <el-input v-model="loginForm.username" name="username" type="text" auto-complete="on" placeholder="admin" />
           </el-form-item>
           <el-form-item prop="password">
-
-            <el-input v-model="loginForm.password"
-                      type="password"
-                      name="password"
-                      auto-complete="on"
-                      placeholder="123"
-                      @keyup.enter.native="handleLogin" />
+            <el-input v-model="loginForm.password" type="password" name="password" auto-complete="on" placeholder="123" @keyup.enter.native="handleLogin" />
           </el-form-item>
 
           <el-form-item>
-            <el-button :loading="btnLoginIsLoading"
-                       type="default"
-                       @click.native.prevent="handleLogin">
-              LOGIN
-            </el-button>
+            <el-button :loading="btnLoginIsLoading" type="default" @click.native.prevent="handleLogin"> LOGIN </el-button>
           </el-form-item>
         </el-form>
       </el-col>
     </el-row>
   </div>
 </template>
-
 
 <script>
 import { Component, Vue } from 'vue-property-decorator';
@@ -103,8 +77,7 @@ export default class Login extends Vue {
             .push({
               path: '/',
             })
-            .catch((error) => {
-            });
+            .catch((error) => {});
         })
         .catch((error) => {
           this.btnLoginIsLoading = false;
@@ -114,8 +87,7 @@ export default class Login extends Vue {
   }
 }
 </script>
-<style scoped>
-</style>
+<style scoped></style>
 <style rel="stylesheet/scss" lang="scss" scoped>
 .login-container {
   position: fixed;

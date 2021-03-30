@@ -19,10 +19,10 @@ import Layout from '../views/layout/Layout.vue';
 Vue.use(VueRouter);
 
 // 用于多级菜单时候作为router-view入口用
-const RouteView = () => ({ render: h => h('router-view') });
+const RouteView = () => ({ render: (h) => h('router-view') });
 
 // 固定路由表
-export const constantRouterMap:RouteConfig[] = [
+export const constantRouterMap: RouteConfig[] = [
   {
     path: '/',
     redirect: '/dashboard',
@@ -32,7 +32,10 @@ export const constantRouterMap:RouteConfig[] = [
   },
   { path: '/login', component: () => import('@/views/public/Login.vue'), meta: { hidden: true } },
   {
-    path: '/404', name: 'notFound', component: () => import('@/views/public/404.vue'), meta: { hidden: true },
+    path: '/404',
+    name: 'notFound',
+    component: () => import('@/views/public/404.vue'),
+    meta: { hidden: true },
   },
 ];
 
@@ -40,9 +43,8 @@ export const router = new VueRouter({
   routes: constantRouterMap,
 });
 
-
 // 异步路由
-const asyncRouter:RouteConfig[] = [
+const asyncRouter: RouteConfig[] = [
   {
     path: '/dashboard',
     component: Layout,
@@ -51,14 +53,16 @@ const asyncRouter:RouteConfig[] = [
       title: '首页',
     },
     redirect: '/dashboard/dashboard',
-    children: [{
-      path: 'dashboard',
-      component: () => import(/* webpackChunkName: "dashboard" */'@/views/dashboard/Dashboard.vue'),
-      name: 'dashboardForUserIndex',
-      meta: {
-        title: '首页',
+    children: [
+      {
+        path: 'dashboard',
+        component: () => import(/* webpackChunkName: "dashboard" */ '@/views/dashboard/Dashboard.vue'),
+        name: 'dashboardForUserIndex',
+        meta: {
+          title: '首页',
+        },
       },
-    }],
+    ],
   },
   {
     path: '/person',
@@ -140,7 +144,6 @@ const asyncRouter:RouteConfig[] = [
     redirect: '/404',
     meta: { hidden: true },
   },
-
 ];
 
 export const asyncRouterMap = asyncRouter;

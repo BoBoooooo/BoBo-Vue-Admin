@@ -14,7 +14,7 @@ import { asyncRouterMap, constantRouterMap } from '@/router/index';
  */
 function hasPermission(roles, route) {
   if (route.name) {
-    return roles.some(role => route.name === role);
+    return roles.some((role) => route.name === role);
   }
   return true;
 }
@@ -44,7 +44,6 @@ const permission = {
     routers: constantRouterMap,
     addRouters: [],
     menuNum: {},
-
   },
   mutations: {
     SET_ROUTERS: (state, routers) => {

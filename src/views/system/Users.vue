@@ -6,36 +6,29 @@
 -->
 <template>
   <div class="page-container">
-    <el-row :gutter="15"
-            class="full-height">
-      <el-col :span="4"
-              class="full-height">
-        <div class="full-height"
-             style="overflow:auto">
-          <el-input placeholder="请输入查询内容"
-                    v-model="filterText"
-                    size="mini"
-                    prefix-icon="el-icon-search"> </el-input>
+    <el-row :gutter="15" class="full-height">
+      <el-col :span="4" class="full-height">
+        <div class="full-height" style="overflow: auto">
+          <el-input placeholder="请输入查询内容" v-model="filterText" size="mini" prefix-icon="el-icon-search"> </el-input>
           <!-- 部门树 -->
-          <el-tree v-loading="loading"
-                   class="deptTree"
-                   ref="deptTree"
-                   highlight-current
-                   accordion
-                   :data="deptTree.data"
-                   @node-click="nodeClick"
-                   :filter-node-method="filterNode"
-                   check-strictly
-                   :props="deptTree.mapping"
-                   :node-key="deptTree.mapping.nodeKey"
-                   :default-expanded-keys="deptTree.expandedKeys">
-            <span class="custom-tree-node"
-                  slot-scope="{ node }">
-              <div style="float:left">
-                <i v-if="node.isLeaf"
-                   class="el-icon el-icon-user-solid"></i>
-                <i v-else
-                   class="el-icon el-icon-s-home"></i>
+          <el-tree
+            v-loading="loading"
+            class="deptTree"
+            ref="deptTree"
+            highlight-current
+            accordion
+            :data="deptTree.data"
+            @node-click="nodeClick"
+            :filter-node-method="filterNode"
+            check-strictly
+            :props="deptTree.mapping"
+            :node-key="deptTree.mapping.nodeKey"
+            :default-expanded-keys="deptTree.expandedKeys"
+          >
+            <span class="custom-tree-node" slot-scope="{ node }">
+              <div style="float: left">
+                <i v-if="node.isLeaf" class="el-icon el-icon-user-solid"></i>
+                <i v-else class="el-icon el-icon-s-home"></i>
                 <span>{{ node.label }}</span>
               </div>
             </span>
@@ -43,48 +36,42 @@
         </div>
       </el-col>
       <el-col :span="20">
-        <CrudTable ref="table"
-                   tableName="users"
-                   :tableTitle="tableTitle"
-                   orderCondition="timestamp desc"
-                   :remoteFuncs="remoteFuncs"
-                   fullHeight
-                   :prefill="tableParams"
-                   :actionColumnWidth="300"
-                   :tableParams="tableParams"
-                   :visibleList="{
-                      tableTitle: true,
-                      btnDel:true,
-                    }">
-          <template #columnFormatter="{row,prop}">
+        <CrudTable
+          ref="table"
+          tableName="users"
+          :tableTitle="tableTitle"
+          orderCondition="timestamp desc"
+          :remoteFuncs="remoteFuncs"
+          fullHeight
+          :prefill="tableParams"
+          :actionColumnWidth="300"
+          :tableParams="tableParams"
+          :visibleList="{
+            tableTitle: true,
+            btnDel: true,
+          }"
+        >
+          <template #columnFormatter="{ row, prop }">
             <!-- 头像上传 -->
             <template v-if="prop === 'photo'">
-              <el-upload class="avatar-uploader"
-                         :action="uploadUrl"
-                         :show-file-list="false"
-                         :headers="{ Authorization: getToken }"
-                         :data="{
-                           userid:userid
-                         }"
-                         :on-success="handleAvatarSuccess"
-                         :before-upload="beforeAvatarUpload">
-                <img v-if="row.photo"
-                     :src="row.photo"
-                     class="avatar"
-                     @click="userid = row.id">
-                <i v-else
-                   class="el-icon el-icon-plus avatar-uploader-icon"
-                   @click="userid = row.id"></i>
-
+              <el-upload
+                class="avatar-uploader"
+                :action="uploadUrl"
+                :show-file-list="false"
+                :headers="{ Authorization: getToken }"
+                :data="{
+                  userid: userid,
+                }"
+                :on-success="handleAvatarSuccess"
+                :before-upload="beforeAvatarUpload"
+              >
+                <img v-if="row.photo" :src="row.photo" class="avatar" @click="userid = row.id" />
+                <i v-else class="el-icon el-icon-plus avatar-uploader-icon" @click="userid = row.id"></i>
               </el-upload>
             </template>
           </template>
-          <template #btnCustom="{row}">
-            <el-button slot="btnCustom"
-                       icon="el-icon-edit-outline"
-                       type="warning"
-                       size="mini"
-                       @click="resetPassword(row)">重置密码</el-button>
+          <template #btnCustom="{ row }">
+            <el-button slot="btnCustom" icon="el-icon-edit-outline" type="warning" size="mini" @click="resetPassword(row)">重置密码</el-button>
           </template>
         </CrudTable>
       </el-col>
@@ -154,7 +141,7 @@ export default class Users extends Vue {
     // 请求角色
     funcGetRole(resolve) {
       crud(DML.SELECT, 'role').then((res) => {
-        const options = res.data.list.map(item => ({
+        const options = res.data.list.map((item) => ({
           label: item.roleName,
           value: item.id,
         }));

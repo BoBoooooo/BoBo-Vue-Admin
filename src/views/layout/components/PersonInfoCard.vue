@@ -7,51 +7,48 @@
 
 <!-- 组件说明 -->
 <template>
-  <div class='container'>
-    <el-dialog v-if="visible"
-               ref="actiondialog"
-               title="个人信息"
-               :visible.sync="visible"
-               append-to-body
-               width="30%"
-               :before-close="()=>{visible=false}"
-               class="dialog">
-      <el-row class="row-container"
-              :gutter="15">
-        <el-col :span="11"
-                class="col"
-                :offset="1">
-          <el-upload class="avatar-uploader"
-                     :action="uploadUrl"
-                     :show-file-list="false"
-                     :headers="{ auth: token }"
-                     :data="{
-                           type:'1',
-                           userid:userid
-                         }"
-                     :on-success="handleAvatarSuccess"
-                     :before-upload="beforeAvatarUpload">
-            <img v-if="imageUrl"
-                 :src="imageUrl"
-                 class="avatar">
-            <i v-else
-               class="el-icon-plus avatar-uploader-icon"></i>
+  <div class="container">
+    <el-dialog
+      v-if="visible"
+      ref="actiondialog"
+      title="个人信息"
+      :visible.sync="visible"
+      append-to-body
+      width="30%"
+      :before-close="
+        () => {
+          visible = false;
+        }
+      "
+      class="dialog"
+    >
+      <el-row class="row-container" :gutter="15">
+        <el-col :span="11" class="col" :offset="1">
+          <el-upload
+            class="avatar-uploader"
+            :action="uploadUrl"
+            :show-file-list="false"
+            :headers="{ auth: token }"
+            :data="{
+              type: '1',
+              userid: userid,
+            }"
+            :on-success="handleAvatarSuccess"
+            :before-upload="beforeAvatarUpload"
+          >
+            <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-col>
-        <el-col :span="11"
-                class="col">
-          <svgIcon class="icon"
-                   icon-class="dashboard-person"></svgIcon>
-          <p style="margin-top:0">用户: {{ this.$store.getters.realname }}</p>
-          <p>部门: {{$store.getters.deptname}}</p>
+        <el-col :span="11" class="col">
+          <svgIcon class="icon" icon-class="dashboard-person"></svgIcon>
+          <p style="margin-top: 0">用户: {{ this.$store.getters.realname }}</p>
+          <p>部门: {{ $store.getters.deptname }}</p>
           <p>角色: {{ this.$store.getters.rolename }}</p>
         </el-col>
       </el-row>
-      <div slot="footer"
-           class="footer">
-        <div @click="changePassword">
-          <i class="el-icon-s-tools icon"></i>修改密码
-        </div>
+      <div slot="footer" class="footer">
+        <div @click="changePassword"><i class="el-icon-s-tools icon"></i>修改密码</div>
       </div>
     </el-dialog>
 
@@ -90,7 +87,6 @@ export default class PersonInfoCard extends Vue {
     this.imageUrl = this.photo;
   }
 
-
   get uploadUrl() {
     return `${window.__HOST__URL__ + window.__PREFIX__URL__}users/uploadImage`;
   }
@@ -123,7 +119,7 @@ export default class PersonInfoCard extends Vue {
 }
 </script>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .row-container {
   height: 120px;
   .col {

@@ -7,9 +7,9 @@
 
 <template>
   <div class="full-height page-container">
-    <el-row :gutter="15" style="height:90%">
+    <el-row :gutter="15" style="height: 90%">
       <el-col :span="5" class="full-height">
-        <el-input  placeholder="请输入查询内容" v-model="filterText" size="mini" prefix-icon="el-icon-search"></el-input>
+        <el-input placeholder="请输入查询内容" v-model="filterText" size="mini" prefix-icon="el-icon-search"></el-input>
         <el-tree
           ref="dicttypetree"
           class="full-height tree"
@@ -27,16 +27,10 @@
           <template v-slot="{ node, data }">
             <span class="custom-tree-node">
               <span>{{ node.label }}</span>
-              <span style="margin-left:8px">
-                <el-button type="text" size="mini" @click="() => add(data)">
-                  添加
-                </el-button>
-                <el-button type="text" size="mini" @click="() => edit(data)">
-                  修改
-                </el-button>
-                <el-button type="text" size="mini" v-if="data.parentId !== '0'" @click="() => remove(data)">
-                  删除
-                </el-button>
+              <span style="margin-left: 8px">
+                <el-button type="text" size="mini" @click="() => add(data)"> 添加 </el-button>
+                <el-button type="text" size="mini" @click="() => edit(data)"> 修改 </el-button>
+                <el-button type="text" size="mini" v-if="data.parentId !== '0'" @click="() => remove(data)"> 删除 </el-button>
               </span>
             </span>
           </template>
@@ -135,7 +129,7 @@ export default class Dict extends Vue {
     getDictType(resolve) {
       // 请求字典分类
       crud(DML.SELECT, 'ad_codelist_type').then((res) => {
-        const options = res.data.list.map(item => ({
+        const options = res.data.list.map((item) => ({
           label: item.typeName,
           value: item.id,
         }));

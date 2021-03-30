@@ -35,7 +35,7 @@ export default class OnlineChat extends Vue {
       url,
       name,
       `height=${iHeight},,innerHeight=${iHeight},width=${iWidth},innerWidth=${iWidth},top=${iTop},left=${iLeft},
-      toolbar=no,menubar=no,scrollbars=auto,resizeable=no,location=no,status=no`,
+      toolbar=no,menubar=no,scrollbars=auto,resizeable=no,location=no,status=no`
     );
   }
 }

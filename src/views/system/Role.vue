@@ -18,10 +18,8 @@
         btnDel: true,
       }"
     />
-      <!-- 角色编辑对话框 -->
-    <RoleDialog ref="dialog"
-                tableName="role"
-                @afterSave="roleDialogOnClose" />
+    <!-- 角色编辑对话框 -->
+    <RoleDialog ref="dialog" tableName="role" @afterSave="roleDialogOnClose" />
   </div>
 </template>
 

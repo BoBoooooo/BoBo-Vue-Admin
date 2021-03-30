@@ -10,7 +10,7 @@
     <!-- 对话框内动态表单 -->
     <el-row>
       <el-col :span="12">
-        <GenerateForm ref="generateDialogForm" :value="formValues" :data="formDesign"/>
+        <GenerateForm ref="generateDialogForm" :value="formValues" :data="formDesign" />
       </el-col>
       <el-col :span="12">
         <el-form size="small" label-position="right" label-width="100px">
@@ -103,7 +103,7 @@ export default {
   created() {
     // 从路由获取菜单树
     this.roleTreeData = asyncRouterMap
-      .filter(item => !item.meta.hidden)
+      .filter((item) => !item.meta.hidden)
       .map((lev1) => {
         lev1.title = lev1.meta.title;
         if (lev1.children) {
@@ -150,7 +150,7 @@ export default {
           this.formValues = { ...formValues };
           // 等待页面渲染完毕
           this.$nextTick(() => {
-            this.$refs.tree.setCheckedKeys(formValues.roleAuthName.split(',').filter(name => this.endNodeKey.includes(name)));
+            this.$refs.tree.setCheckedKeys(formValues.roleAuthName.split(',').filter((name) => this.endNodeKey.includes(name)));
           });
         } else {
           this.formValues = {};
@@ -178,14 +178,11 @@ export default {
             ...formValue,
             ...this.dialog.params,
           };
-          opt.roleAuthName = this.$refs.tree
-            .getCheckedKeys()
-            .concat(this.$refs.tree.getHalfCheckedKeys())
-            .join(',');
+          opt.roleAuthName = this.$refs.tree.getCheckedKeys().concat(this.$refs.tree.getHalfCheckedKeys()).join(',');
           opt.roleAuthNameDict = this.$refs.tree
             .getCheckedNodes()
-            .filter(menu => this.endNodeKey.includes(menu.name))
-            .map(menu => menu.title)
+            .filter((menu) => this.endNodeKey.includes(menu.name))
+            .map((menu) => menu.title)
             .join(',');
           crud(type, this.tableName, opt).then(() => {
             this.dialog.visible = false;

@@ -7,41 +7,36 @@
 
 <template>
   <div>
-    <el-input size="mini" placeholder="请输入查询内容"
-              v-model="filterText"
-              prefix-icon="el-icon-search">
-    </el-input>
+    <el-input size="mini" placeholder="请输入查询内容" v-model="filterText" prefix-icon="el-icon-search"> </el-input>
     <!-- 部门树 -->
-    <el-tree v-loading="loading"
-             class="deptTree"
-             ref="deptTree"
-             highlight-current
-             accordion
-             :data="deptTree.data"
-             :show-checkbox="isMultiple"
-             @node-click="nodeClick"
-             :filterNodeMethod="filterNode"
-             check-on-click-node
-             @check="deptTreeNodeCheck"
-             :props="deptTree.mapping"
-             :node-key="deptTree.mapping.nodeKey"
-             :default-expanded-keys="deptTree.expandedKeys">
-                <span class="custom-tree-node" slot-scope="{ node,data }">
-                  <div style="float:left">
-                    <i v-if="!data.parentid" style="color:#3F51B5" class="el-icon el-icon-user-solid"></i>
-                    <i v-else class="el-icon el-icon-s-home" style="color:#ff5722"></i>
-                     <span>{{ node.label }}</span>
-                 </div>
-
+    <el-tree
+      v-loading="loading"
+      class="deptTree"
+      ref="deptTree"
+      highlight-current
+      accordion
+      :data="deptTree.data"
+      :show-checkbox="isMultiple"
+      @node-click="nodeClick"
+      :filterNodeMethod="filterNode"
+      check-on-click-node
+      @check="deptTreeNodeCheck"
+      :props="deptTree.mapping"
+      :node-key="deptTree.mapping.nodeKey"
+      :default-expanded-keys="deptTree.expandedKeys"
+    >
+      <span class="custom-tree-node" slot-scope="{ node, data }">
+        <div style="float: left">
+          <i v-if="!data.parentid" style="color: #3f51b5" class="el-icon el-icon-user-solid"></i>
+          <i v-else class="el-icon el-icon-s-home" style="color: #ff5722"></i>
+          <span>{{ node.label }}</span>
+        </div>
       </span>
-
     </el-tree>
-
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'DeptTree',
   data() {
@@ -149,7 +144,7 @@ export default {
         if (this.isMultiple) {
           let arr = this.$refs.deptTree.getCheckedNodes(true);
           if (node.checked) {
-            arr = arr.filter(item => item.id !== node.data.id);
+            arr = arr.filter((item) => item.id !== node.data.id);
           } else {
             arr.push(currentNode);
           }
@@ -171,7 +166,7 @@ export default {
 .deptTree {
   max-height: 450px;
   border-radius: 3px;
-  border:none;
+  border: none;
   overflow-y: auto;
   .custom-tree-node {
     flex: 1;

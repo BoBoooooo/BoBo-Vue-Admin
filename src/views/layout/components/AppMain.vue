@@ -6,12 +6,8 @@
 @createDate 2018年11月13日14:48:28
 -->
 <template>
-  <section class="app-main"
-           ref="appmain"
-           @scroll="handleScroll">
-    <router-view :scrollTop="scrollTop"
-                 :key="key"
-                 @viewScroll="viewScroll" />
+  <section class="app-main" ref="appmain" @scroll="handleScroll">
+    <router-view :scrollTop="scrollTop" :key="key" @viewScroll="viewScroll" />
   </section>
 </template>
 <script lang="ts">
@@ -26,7 +22,6 @@ export default class AppMain extends Vue {
   };
 
   scrollTop = 0;
-
 
   get cachedViews() {
     return this.$store.state.tagsView.cachedViews;

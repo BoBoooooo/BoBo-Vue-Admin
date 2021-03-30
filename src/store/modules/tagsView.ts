@@ -16,7 +16,7 @@ const tagsView = {
   },
   mutations: {
     ADD_VISITED_VIEWS: (state, view) => {
-      if (state.visitedViews.some(v => v.path === view.path)) return;
+      if (state.visitedViews.some((v) => v.path === view.path)) return;
       state.visitedViews.push({
         name: view.name,
         path: view.path,
@@ -65,7 +65,7 @@ const tagsView = {
     // 打开新标签页
     openNewTab({ dispatch }, routerObj) {
       // 根据传入的name查找包含path的对象
-      let view :any = null;
+      let view: any = null;
       const { name, queryJsonString } = routerObj;
       forEach(asyncRouterMap as any, (l1) => {
         forEach(l1.children, (l2) => {
@@ -85,7 +85,7 @@ const tagsView = {
         // 等待keep-alive:include响应cachedViews变化后再开页面
         // 路由跳转支持传参
         setTimeout(() => {
-          const next:any = { name: view.name };
+          const next: any = { name: view.name };
           if (queryJsonString) {
             const queryJson = JSON.parse(queryJsonString);
             next.params = queryJson;

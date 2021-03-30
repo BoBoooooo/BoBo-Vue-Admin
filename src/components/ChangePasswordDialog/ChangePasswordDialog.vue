@@ -6,41 +6,31 @@
  -->
 
 <template>
-  <el-dialog :title="title"
-             :visible.sync="visible"
-             width="30%"
-             :before-close="handleClose"
-             :show-close="showClose">
-    <el-form :model="userForm"
-             status-icon
-             :rules="rules"
-             ref="userForm"
-             label-width="80px"
-             class="demo-userForm">
-      <el-form-item label="密码"
-                    prop="pass">
-        <el-input type="password"
-                  v-model="userForm.pass"
-                  autocomplete="new-password"></el-input>
+  <el-dialog :title="title" :visible.sync="visible" width="30%" :before-close="handleClose" :show-close="showClose">
+    <el-form :model="userForm" status-icon :rules="rules" ref="userForm" label-width="80px" class="demo-userForm">
+      <el-form-item label="密码" prop="pass">
+        <el-input type="password" v-model="userForm.pass" autocomplete="new-password"></el-input>
       </el-form-item>
-      <el-form-item label="确认密码"
-                    prop="checkPass">
-        <el-input type="password"
-                  v-model="userForm.checkPass"
-                  autocomplete="new-password"></el-input>
+      <el-form-item label="确认密码" prop="checkPass">
+        <el-input type="password" v-model="userForm.checkPass" autocomplete="new-password"></el-input>
       </el-form-item>
-      <el-form-item label="强度"
-                    prop="">
+      <el-form-item label="强度" prop="">
         <div class="input_span">
-          <span :class="{
+          <span
+            :class="{
               color1: span.color1,
-            }"></span>
-          <span :class="{
+            }"
+          ></span>
+          <span
+            :class="{
               color2: span.color2,
-            }"></span>
-          <span :class="{
+            }"
+          ></span>
+          <span
+            :class="{
               color3: span.color3,
-            }"></span>
+            }"
+          ></span>
         </div>
 
         <div id="font">
@@ -51,20 +41,15 @@
       </el-form-item>
     </el-form>
 
-    <span slot="footer"
-          class="dialog-footer">
-      <el-button type="primary"
-                 @click="submitForm('userForm')">提交</el-button>
+    <span slot="footer" class="dialog-footer">
+      <el-button type="primary" @click="submitForm('userForm')">提交</el-button>
       <el-button @click="resetForm()">重置</el-button>
     </span>
   </el-dialog>
 </template>
 
-
 <script lang="ts">
-import {
-  Component, Vue, Emit, Watch, Prop,
-} from 'vue-property-decorator';
+import { Component, Vue, Emit, Watch, Prop } from 'vue-property-decorator';
 import checkStrong from '@/utils/checkpassStrong';
 import { Getter } from 'vuex-class';
 
@@ -94,8 +79,7 @@ export default class ChangePasswordDialog extends Vue {
     checkPass: '',
   };
 
-
-  rules = {}
+  rules = {};
 
   span = {
     color1: false,

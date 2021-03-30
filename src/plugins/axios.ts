@@ -40,7 +40,7 @@ service.interceptors.request.use(
       duration: 5 * 1000,
     });
     Promise.reject(error);
-  },
+  }
 );
 
 // 拦截响应
@@ -93,7 +93,7 @@ service.interceptors.response.use(
     });
 
     return Promise.reject(error);
-  },
+  }
 );
 
 export default service;

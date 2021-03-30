@@ -18,7 +18,7 @@
         btnDel: true,
       }"
     >
-      <template #btnCustom="{row}">
+      <template #btnCustom="{ row }">
         <el-button slot="btnCustom" type="primary" size="mini" @click="btnCopyOnClick(row)">复制</el-button>
       </template>
     </CrudTable>
@@ -54,98 +54,98 @@ export default class FormDesignerModule extends Vue {
 
   formValues = {};
 
-dictType = [];
+  dictType = [];
 
-created() {
-  crud(DML.SELECT, 'ad_codelist_type').then((res) => {
-    this.dictType = res.data.list.map(item => ({
-      label: item.typeName,
-      value: item.id,
-    }));
-  });
-  getTables().then((res) => {
-    this.allTables = res.data.map(item => ({
-      label: item.TABLE_NAME,
-      value: item.TABLE_NAME,
-    }));
-  });
-}
-
-getFormKey(tablename) {
-  return getFormKey(tablename);
-}
-
-// 添加按钮点击事件
-btnAddOnClick() {
-  this.formValues = {};
-  this.visible = true;
-}
-
-// 编辑按钮点击事件
-btnEditOnClick(row) {
-  this.formValues = { ...row };
-  this.visible = true;
-  this.$nextTick(() => {
-    this.$refs.formDesigner.setJSON(JSON.parse(row.formJson));
-  });
-}
-
-// 复制表单设计json
-btnCopyOnClick(row) {
-  const r = { ...row };
-  r.tableName += '_复制';
-  delete r.id;
-  crud(DML.INSERT, 'form', r).then((res) => {
-    if (res.code !== 200) {
-      this.$message({
-        type: 'error',
-        message: `保存失败，原因：${res.message}`,
-      });
-      return;
-    }
-    this.$message({
-      type: 'success',
-      message: '复制成功',
+  created() {
+    crud(DML.SELECT, 'ad_codelist_type').then((res) => {
+      this.dictType = res.data.list.map((item) => ({
+        label: item.typeName,
+        value: item.id,
+      }));
     });
-    this.$refs.table.tableReload();
-  });
-}
-
-// 保存设计
-btnSaveOnClick() {
-  const formValues = this.$refs.formDesigner.getData();
-  this.btnSaveIsLoading = true;
-  // 调用此方法验证表单数据和获取表单数据
-  let type;
-  let msg;
-  // 根据对话框状态判断保存或编辑
-  if (this.dialogStatus === STATUS.CREATE) {
-    type = DML.INSERT;
-    msg = '添加成功';
-  } else {
-    type = DML.UPDATE;
-    msg = '编辑成功';
+    getTables().then((res) => {
+      this.allTables = res.data.map((item) => ({
+        label: item.TABLE_NAME,
+        value: item.TABLE_NAME,
+      }));
+    });
   }
-  // 如果有代理的保存方法
-  crud(type, 'form', {
-    ...this.formValues,
-    formJson: JSON.stringify(formValues),
-    tableName: formValues.config.name,
-    position: formValues.config.position,
-  })
-    .then(() => {
-      this.btnSaveIsLoading = false;
+
+  getFormKey(tablename) {
+    return getFormKey(tablename);
+  }
+
+  // 添加按钮点击事件
+  btnAddOnClick() {
+    this.formValues = {};
+    this.visible = true;
+  }
+
+  // 编辑按钮点击事件
+  btnEditOnClick(row) {
+    this.formValues = { ...row };
+    this.visible = true;
+    this.$nextTick(() => {
+      this.$refs.formDesigner.setJSON(JSON.parse(row.formJson));
+    });
+  }
+
+  // 复制表单设计json
+  btnCopyOnClick(row) {
+    const r = { ...row };
+    r.tableName += '_复制';
+    delete r.id;
+    crud(DML.INSERT, 'form', r).then((res) => {
+      if (res.code !== 200) {
+        this.$message({
+          type: 'error',
+          message: `保存失败，原因：${res.message}`,
+        });
+        return;
+      }
       this.$message({
         type: 'success',
-        message: msg,
+        message: '复制成功',
       });
-      this.visible = false;
       this.$refs.table.tableReload();
-    })
-    .catch(() => {
-      this.btnSaveIsLoading = false;
     });
-}
+  }
+
+  // 保存设计
+  btnSaveOnClick() {
+    const formValues = this.$refs.formDesigner.getData();
+    this.btnSaveIsLoading = true;
+    // 调用此方法验证表单数据和获取表单数据
+    let type;
+    let msg;
+    // 根据对话框状态判断保存或编辑
+    if (this.dialogStatus === STATUS.CREATE) {
+      type = DML.INSERT;
+      msg = '添加成功';
+    } else {
+      type = DML.UPDATE;
+      msg = '编辑成功';
+    }
+    // 如果有代理的保存方法
+    crud(type, 'form', {
+      ...this.formValues,
+      formJson: JSON.stringify(formValues),
+      tableName: formValues.config.name,
+      position: formValues.config.position,
+    })
+      .then(() => {
+        this.btnSaveIsLoading = false;
+        this.$message({
+          type: 'success',
+          message: msg,
+        });
+        this.visible = false;
+        this.$refs.table.tableReload();
+      })
+      .catch(() => {
+        this.btnSaveIsLoading = false;
+      });
+  }
 }
 </script>
 <style lang="scss" scoped>

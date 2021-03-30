@@ -107,10 +107,10 @@ export default class Menu extends Vue {
   &.hideSidebar {
     width: 63px;
     padding: 0;
-    .title{
+    .title {
       display: none;
     }
-    .header_logo{
+    .header_logo {
       margin: 0 auto;
     }
   }

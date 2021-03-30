@@ -8,34 +8,17 @@
 <template>
   <div class="menu-wrapper">
     <template v-for="item in routes">
-      <router-link v-if="!item.meta.hidden && item.children && item.children.length===1"
-                   :key="item.name"
-                   :to="{name:item.children[0].name}">
-        <el-tooltip effect="dark"
-                    :content="item.children[0].meta.title"
-                    placement="right">
-        <el-menu-item :index="item.children[0].name">
-            <SvgIcon :icon-class="item.meta.title" /> {{ item.children[0].meta.title }}
-          </el-menu-item>
+      <router-link v-if="!item.meta.hidden && item.children && item.children.length === 1" :key="item.name" :to="{ name: item.children[0].name }">
+        <el-tooltip effect="dark" :content="item.children[0].meta.title" placement="right">
+          <el-menu-item :index="item.children[0].name"> <SvgIcon :icon-class="item.meta.title" /> {{ item.children[0].meta.title }} </el-menu-item>
         </el-tooltip>
       </router-link>
-      <el-submenu v-else-if="!item.meta.hidden && item.children"
-                  :index="item.name"
-                  :key="item.name">
-        <template slot="title">
-          <SvgIcon :icon-class="item.meta.title" /> {{ item.meta.title }}
-        </template>
-              <template v-for="child in item.children.filter(s=> !s.meta.hidden)">
-
-       <menu-item v-if="child.children && child.children.length>0"
-                        :key="child.name"
-                        :routes="[child]"
-                        class="menu-indent" />
-          <router-link v-else
-                       :key="child.name"
-                       :to="item.path+'/'+child.path"
-                       class="menu-indent">
-            <el-menu-item :index="item.path+'/'+child.path">
+      <el-submenu v-else-if="!item.meta.hidden && item.children" :index="item.name" :key="item.name">
+        <template slot="title"> <SvgIcon :icon-class="item.meta.title" /> {{ item.meta.title }} </template>
+        <template v-for="child in item.children.filter((s) => !s.meta.hidden)">
+          <menu-item v-if="child.children && child.children.length > 0" :key="child.name" :routes="[child]" class="menu-indent" />
+          <router-link v-else :key="child.name" :to="item.path + '/' + child.path" class="menu-indent">
+            <el-menu-item :index="item.path + '/' + child.path">
               {{ child.meta.title }}
             </el-menu-item>
           </router-link>
@@ -44,7 +27,6 @@
     </template>
   </div>
 </template>
-
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';

@@ -42,7 +42,9 @@ const app = {
     },
     // 初始化系统配置
     initSystemConfig: async ({ commit }) => {
-      const { data: { list } } = await getSystemConfig();
+      const {
+        data: { list },
+      } = await getSystemConfig();
       const config = {
         systemName: '',
       };

@@ -10,10 +10,12 @@
     <Header />
     <!-- 左侧菜单 -->
     <Menu />
-    <div class="main-container"
-         :class="{
-       'hideSidebar':!sidebar
-    }">
+    <div
+      class="main-container"
+      :class="{
+        hideSidebar: !sidebar,
+      }"
+    >
       <!-- TAB标签页 -->
       <!-- <TagsView /> -->
       <!-- 二级路由 -->
@@ -56,7 +58,7 @@ export default class Layout extends Vue {
     background: #f0f3f7;
     margin-left: 220px;
     padding: 20px;
-      overflow: auto;
+    overflow: auto;
     box-sizing: border-box;
     height: calc(100% - 40px);
     margin-top: 60px;

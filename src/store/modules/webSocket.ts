@@ -26,7 +26,7 @@ const webSocket = {
   actions: {
     // 连接
     initWebSocket({ commit }, userName) {
-      const wsuri = `${process.env.VUE_APP_WS_URL}/${userName}`;// ws地址
+      const wsuri = `${process.env.VUE_APP_WS_URL}/${userName}`; // ws地址
       let ws = new WebSocket(wsuri);
       commit('SET_WEBSOCKET', ws);
       ws.onopen = () => {
@@ -49,7 +49,6 @@ const webSocket = {
         commit('SET_WEBSOCKET', ws);
       };
     },
-
   },
 };
 

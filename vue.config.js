@@ -56,12 +56,7 @@ module.exports = {
       .end();
     // ============压缩图片 start============
     if (!isDev) {
-      config.module
-        .rule('images')
-        .use('image-webpack-loader')
-        .loader('image-webpack-loader')
-        .options({ bypassOnDebug: true })
-        .end();
+      config.module.rule('images').use('image-webpack-loader').loader('image-webpack-loader').options({ bypassOnDebug: true }).end();
     }
     // ============压缩图片 end============
     // 移除prefecth 提高首屏速度
@@ -130,12 +125,14 @@ module.exports = {
   configureWebpack: (config) => {
     if (!isDev) {
       // 开启gzip压缩
-      config.plugins.push(new CompressionWebpackPlugin({
-        algorithm: 'gzip',
-        test: new RegExp(`\\.(${productionGzipExtensions.join('|')})$`),
-        threshold: 10240,
-        minRatio: 0.8,
-      }));
+      config.plugins.push(
+        new CompressionWebpackPlugin({
+          algorithm: 'gzip',
+          test: new RegExp(`\\.(${productionGzipExtensions.join('|')})$`),
+          threshold: 10240,
+          minRatio: 0.8,
+        })
+      );
     }
   },
   css: {

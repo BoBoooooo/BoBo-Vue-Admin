@@ -50,7 +50,7 @@ export default {
   display: inline-block;
   cursor: pointer;
   width: 16px;
-  fill:currentColor;
+  fill: currentColor;
   height: 16px;
   transform: rotate(90deg);
   transition: 0.38s;
