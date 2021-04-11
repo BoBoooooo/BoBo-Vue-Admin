@@ -26,6 +26,7 @@
       <FormDesigner ref="formDesigner" :dictType="dictType" :getFormKey="getFormKey" :allTables="allTables">
         <template #custom-btn>
           <el-button class="button" type="normal" size="small" @click="btnSaveOnClick" :loading="btnSaveIsLoading" icon="el-icon-check">保存</el-button>
+          <el-button class="button" type="normal" size="small" @click="closeDialog" icon="el-icon-close">关闭</el-button>
         </template>
       </FormDesigner>
     </el-dialog>
@@ -88,6 +89,10 @@ export default class FormDesignerModule extends Vue {
     this.$nextTick(() => {
       this.$refs.formDesigner.setJSON(JSON.parse(row.formJson));
     });
+  }
+
+  closeDialog() {
+    this.visible = false;
   }
 
   // 复制表单设计json
@@ -157,14 +162,6 @@ export default class FormDesignerModule extends Vue {
     }
     .el-dialog__header {
       padding: 0;
-    }
-    .el-dialog__headerbtn {
-      top: 13px;
-      right: 10px;
-      border: 1px solid gray;
-      background: #fffbd7;
-      color: black;
-      z-index: 100;
     }
   }
 }
