@@ -5,10 +5,9 @@
  * @Date: 2020-12-08 14:31:55
  */
 import Vue from 'vue';
-import ElementProCrud from 'element-pro-crud';
-import 'element-pro-crud/lib/ProCrud.css'; // 此处css引入需要放到element-ui css引入之前,避免样式覆盖问题
 import { crud } from '@/api/public/crud';
 import * as pluginsApi from '@/api/system/form';
+import { ProForm, ProTable, CrudTable, TableDesigner, FormDesigner } from 'element-pro-crud';
 
 const $PROCRUD_OPTION = {
   ...pluginsApi,
@@ -18,7 +17,11 @@ const $PROCRUD_OPTION = {
 if (process.env.VUE_APP_CDN === 'true') {
   Vue.prototype.$PROCRUD = $PROCRUD_OPTION;
 } else {
-  Vue.use(ElementProCrud, $PROCRUD_OPTION);
+  Vue.use(FormDesigner, $PROCRUD_OPTION);
+  Vue.use(ProForm, $PROCRUD_OPTION);
+  Vue.use(ProTable, $PROCRUD_OPTION);
+  Vue.use(CrudTable, $PROCRUD_OPTION);
+  Vue.use(TableDesigner, $PROCRUD_OPTION);
 }
 
 // VueTreeselect为cdn引入 需要注册成全局组件
