@@ -7,7 +7,9 @@
 import Vue from 'vue';
 import { crud } from '@/api/public/crud';
 import * as pluginsApi from '@/api/system/form';
-import { ProForm, ProTable, CrudTable, TableDesigner, FormDesigner } from 'element-pro-crud';
+// 按需引入
+// import { ProForm, ProTable, CrudTable, TableDesigner, FormDesigner } from 'element-pro-crud';
+import ElementProCrud from 'element-pro-crud';
 
 const $PROCRUD_OPTION = {
   ...pluginsApi,
@@ -17,11 +19,13 @@ const $PROCRUD_OPTION = {
 if (process.env.VUE_APP_CDN === 'true') {
   Vue.prototype.$PROCRUD = $PROCRUD_OPTION;
 } else {
-  Vue.use(FormDesigner, $PROCRUD_OPTION);
-  Vue.use(ProForm, $PROCRUD_OPTION);
-  Vue.use(ProTable, $PROCRUD_OPTION);
-  Vue.use(CrudTable, $PROCRUD_OPTION);
-  Vue.use(TableDesigner, $PROCRUD_OPTION);
+  Vue.use(ElementProCrud, $PROCRUD_OPTION);
+  // 按需引入
+  // Vue.use(FormDesigner, $PROCRUD_OPTION);
+  // Vue.use(ProForm, $PROCRUD_OPTION);
+  // Vue.use(ProTable, $PROCRUD_OPTION);
+  // Vue.use(CrudTable, $PROCRUD_OPTION);
+  // Vue.use(TableDesigner, $PROCRUD_OPTION);
 }
 
 // VueTreeselect为cdn引入 需要注册成全局组件
