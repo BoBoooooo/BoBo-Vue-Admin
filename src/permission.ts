@@ -23,7 +23,7 @@ router.beforeEach(async (to, from, next) => {
       const userInfo = await store.dispatch('getUserInfoByToken');
       // 根据用户权限过滤路由规则
       await store.dispatch('generateRoutes', {
-        roleRouters: userInfo.roleAuthName.split(','),
+        roleRouters: (userInfo.roleAuthName || '').split(','),
         userName: userInfo.userName,
       });
       router.addRoutes(store.getters.addRouters); // 动态添加可访问路由表
