@@ -24,8 +24,8 @@ if (process.env.VUE_APP_CDN === 'true') {
 } else {
   Vue.use(ElementProCrud, $PROCRUD_OPTION);
   // 按需引入
-  // Vue.use(FormDesigner, $PROCRUD_OPTION);
   // Vue.use(ProForm, $PROCRUD_OPTION);
+  // Vue.use(FormDesigner, $PROCRUD_OPTION);
   // Vue.use(ProTable, $PROCRUD_OPTION);
   // Vue.use(CrudTable, $PROCRUD_OPTION);
   // Vue.use(TableDesigner, $PROCRUD_OPTION);
