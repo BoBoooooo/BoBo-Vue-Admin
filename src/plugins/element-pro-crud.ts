@@ -9,7 +9,10 @@ import { crud } from '@/api/public/crud';
 import * as pluginsApi from '@/api/system/form';
 // 按需引入
 // import { ProForm, ProTable, CrudTable, TableDesigner, FormDesigner } from 'element-pro-crud';
+
+// 全量引入
 import ElementProCrud from 'element-pro-crud';
+import 'element-pro-crud/lib/css/pro-crud.css';
 
 const $PROCRUD_OPTION = {
   ...pluginsApi,
