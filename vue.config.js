@@ -106,8 +106,8 @@ module.exports = {
             '/axios@0.19.2/dist/axios.min.js',
             '/lodash@4.17.14/lodash.min.js',
             '/core-js@2.6.5/client/shim.min.js',
-            '/element-pro-crud@0.9.4-4/lib/pro-crud.js', // 若为按需引入,需要直接打包,不支持cdn引入
-            '/element-pro-crud@0.9.4-4/lib/css/pro-crud.css', // 若为按需引入,需要直接打包,不支持cdn引入
+            '/element-pro-crud@0.9.4-6/lib/pro-crud.js', // 若为按需引入,需要直接打包,不支持cdn引入
+            '/element-pro-crud@0.9.4-6/lib/css/pro-crud.css', // 若为按需引入,需要直接打包,不支持cdn引入
           ],
           append: false,
           // hash: true,
