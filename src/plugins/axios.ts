@@ -52,14 +52,14 @@ service.interceptors.response.use(
     NProgress.done();
     // 600表示token异常需要重新登录
     if (code === 600) {
+      // 清空token
+      store.commit('SET_TOKEN', null);
       Message({
         message: '账号已过期，重新登录。',
         type: 'error',
         duration: 1000,
       });
       setTimeout(() => {
-        // 清空token
-        store.commit('SET_TOKEN', null);
         // 跳转登录页
         window.location.reload(); // 为了重新实例化vue-router对象，避免bug
       }, 1000);
