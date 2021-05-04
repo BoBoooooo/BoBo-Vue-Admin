@@ -9,7 +9,8 @@
     "build": "vue-cli-service build --mode out",
     "report": "vue-cli-service build --mode report",
     "lint": "vue-cli-service lint --mode dev",
-    "inspect": "vue-cli-service inspect --mode out>webpackConfig.txt",
+    "inspect:dev": "vue-cli-service inspect --mode dev>webpack.dev.js",
+    "inspect:prod": "vue-cli-service inspect --mode out>webpack.prod.js",
     "log": "conventional-changelog --config ./node_modules/vue-cli-plugin-commitlint/lib/log -i CHANGELOG.md -s -r 0",
     "cz": "npm run log && git add . && git cz"
   },

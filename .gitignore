@@ -5,7 +5,7 @@ package-lock.json
 /admin
 /tests/e2e/videos/
 /tests/e2e/screenshots/
-
+webpack.*.js
 # local env files
 .env.local
 .env.*.local
