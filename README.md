@@ -4,18 +4,9 @@
 
 本项目基于 [Vue CLI 4.x](https://cli.vuejs.org/config/) 构建。
 
-🍌 [在线演示地址](http://server.boboooooo.top:9998)
+## Demo
 
-🍉 [项目文档](https://github.com/BoBoooooo/BoBo-Vue-Admin/wiki/CrudTable-%E6%96%87%E6%A1%A3/)
-
-🍏 [配套后端项目地址](https://github.com/BoBoooooo/NestJS-API-Server.git)
-
-🍉 [服务端渲染项目地址](https://github.com/BoBoooooo/BoBo-Nuxt-Template.git)
-
-🍌 [服务端渲染在线演示地址](http://server.boboooooo.top:9990/)
-
-🍌 [Vite+Vue3+Element-Plus地址](http://server.boboooooo.top:9995/)
-
+**域名&服务器已过期...暂时没法访问，抱歉**
 
 ## 1. 核心功能
 
